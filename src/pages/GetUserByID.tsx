@@ -10,9 +10,20 @@ export const GetUserByID: React.FC = (props: any) => {
   const { id } = props.match.params
   const history = useHistory()
 
+  const exitHandler = ()=> {        
+    history.push(`/users/all`)
+}
+
   useEffect(() => {
     
-    Service.getUserByID(setUsers, setLoad, id)
+    (async ()=>{
+      const user = await Service.getUserByID(setUsers, setLoad, id)
+      
+        const fieldsUser = Object.entries(user).filter((fild)=> fild[0]==='role'||fild[0]==='name' ||
+        fild[0]==='login' || fild[0]==='phone')        
+        setLoad('loaded')
+        setUsers(fieldsUser)    
+    })()
 
   },[])  
   
@@ -38,7 +49,7 @@ export const GetUserByID: React.FC = (props: any) => {
             </i>     
          <i
          className="material-icons red-text"
-         onClick={event => Service.exitHandler(event, history)} 
+         onClick={event => exitHandler()} 
        >  close     
        </i>
        </>                
