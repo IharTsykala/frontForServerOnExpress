@@ -2,18 +2,18 @@ import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { GetAllUsers } from "./pages/GetAllUsers"
 import { GetUserByID } from "./pages/GetUserByID"
-import { GetLoginPage } from './pages/GetLoginPage'
-import { GetLogUpPage } from './pages/GetLogUpPage'
+import { GetLoginPage } from "./pages/GetLoginPage"
+import { GetLogUpPage } from "./pages/GetLogUpPage"
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>      
+    <BrowserRouter>
       <main className="main">
         <Switch>
-          <Route component={GetLoginPage} path="/" exact /> 
-          <Route component={GetLogUpPage} path="/user/LogUp" exact /> 
+          <Route component={GetLoginPage} path="/" exact />
+          <Route component={GetLogUpPage} path="/user/LogUp" exact />
           <Route component={GetAllUsers} path="/users/all" exact />
-          <Route component={GetUserByID} path="/user/:id" exact />          
+          <Route component={GetUserByID} path="/user/:id" exact />
         </Switch>
       </main>
     </BrowserRouter>
