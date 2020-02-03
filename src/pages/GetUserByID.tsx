@@ -3,7 +3,7 @@ import Service from "../services/service-user"
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../components/FormDataUsers"
 
-export const GetUserByID: React.FC = (props: any) => {  
+export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   const { id } = props.match.params
@@ -20,17 +20,30 @@ export const GetUserByID: React.FC = (props: any) => {
 
   useEffect(() => {
     ;(async () => {
-      const user = await Service.getUserByID(id)
-      setUsers(user)
-      setLoad("loaded")
+      try {
+        const user = await Service.getUserByID(id)
+        setUsers(user || {})
+        setLoad("loaded")
+      } catch (e) {
+        console.log(e)
+      }
     })()
   }, [])
 
   return (
     <>
-      <i className="material-icons red-text" onClick={event => exitHandler()}>{" "}close</i>
+      <i className="material-icons red-text" onClick={event => exitHandler()}>
+        {" "}
+        close
+      </i>
       {load === "loading" && <h1>Ожидайте ответа</h1>}
-      {load === "loaded" && <FormDataUsers user={user} submitHandler={editSubmitHandler} namePage = 'Edit' />}
+      {load === "loaded" && (
+        <FormDataUsers
+          user={user}
+          submitHandler={editSubmitHandler}
+          namePage="Edit"
+        />
+      )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>
   )

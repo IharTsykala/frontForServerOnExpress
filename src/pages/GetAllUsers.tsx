@@ -26,29 +26,29 @@ export const GetAllUsers: React.FC = () => {
     })()
   }, [])
   return (
-    <>      
+    <>
       {load === "loading" && <h1>Ожидайте ответа</h1>}
-      {load === "loaded" && 
-      <ul>
-      {users.map((user: any) => (
-        <li key={user._id}>
-          <p>{user.login}</p>
-          <i
-            className="material-icons blue-text edit"
-            onClick={event => editHandler(user._id)}
-          >
-            edit
-          </i>
-          <i
-            className="material-icons red-text"
-            onClick={event => removeHandler(user._id)}
-          >
-            delete
-          </i>
-        </li>
-      ))}
-    </ul>
-      }
+      {load === "loaded" && (
+        <ul>
+          {users.map((user: any) => (
+            <li key={user._id}>
+              <p>{user.login}</p>
+              <i
+                className="material-icons blue-text edit"
+                onClick={event => editHandler(user._id)}
+              >
+                edit
+              </i>
+              <i
+                className="material-icons red-text"
+                onClick={event => removeHandler(user._id)}
+              >
+                delete
+              </i>
+            </li>
+          ))}
+        </ul>
+      )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>
   )
