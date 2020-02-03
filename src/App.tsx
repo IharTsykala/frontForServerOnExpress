@@ -4,6 +4,7 @@ import { GetAllUsers } from "./pages/GetAllUsers"
 import { GetUserByID } from "./pages/GetUserByID"
 import { GetLoginPage } from "./pages/GetLoginPage"
 import { GetLogUpPage } from "./pages/GetLogUpPage"
+import FormDataUsers from "./components/FormDataUsers"
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
           <Route component={GetLoginPage} path="/" exact />
           <Route component={GetLogUpPage} path="/user/LogUp" exact />
           <Route component={GetAllUsers} path="/users/all" exact />
+          <Route component={FormDataUsers} path="/user/edit" exact />
           <Route component={GetUserByID} path="/user/:id" exact />
         </Switch>
       </main>

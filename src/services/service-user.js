@@ -3,9 +3,21 @@ const axios = require("axios")
 export default class Service {
   constructor() {}
 
-  static getAllUsers = async (setUsers, setLoad) => {
+  static getAllUsers = async () => {
     try {
       const request = await axios.get("http://localhost:8080/users/")
+      return request.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  static editUser = async (id, user) => {
+    try {
+      const request = await axios.put(
+        `http://localhost:8080/users/update/${id}`,
+        user
+      )
       return request.data
     } catch (e) {
       console.log(e)
@@ -20,7 +32,7 @@ export default class Service {
     }
   }
 
-  static getUserByID = async (setUsers, setLoad, id) => {
+  static getUserByID = async id => {
     try {
       const request = await axios.get(`http://localhost:8080/users/${id}`)
       return request.data

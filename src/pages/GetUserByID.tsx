@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Service from "../services/service-user"
 import { useHistory } from "react-router-dom"
+import FormDataUsers from "../components/FormDataUsers"
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
@@ -8,23 +9,20 @@ export const GetUserByID: React.FC = (props: any) => {
   const { id } = props.match.params
   const history = useHistory()
 
+  const editSubmitHandler = async (id: number, user: any) => {
+    await Service.editUser(id, user)
+    history.push(`/users/all`)
+  }
+
   const exitHandler = () => {
     history.push(`/users/all`)
   }
 
   useEffect(() => {
     ;(async () => {
-      const user = await Service.getUserByID(setUsers, setLoad, id)
-
-      const fieldsUser = Object.entries(user).filter(
-        fild =>
-          fild[0] === "role" ||
-          fild[0] === "name" ||
-          fild[0] === "login" ||
-          fild[0] === "phone"
-      )
+      const user = await Service.getUserByID(id)
+      setUsers(user)
       setLoad("loaded")
-      setUsers(fieldsUser)
     })()
   }, [])
 
@@ -38,27 +36,14 @@ export const GetUserByID: React.FC = (props: any) => {
   if (load === "loaded") {
     return (
       <>
-        <ul>
-          {user.map((fild: any, index: any) => (
-            <li key={index}>
-              <p>{`${fild[0]}: ${fild[1]}`}</p>
-            </li>
-          ))}
-        </ul>
-        <i
-          className="material-icons blue-text edit"
-          // onClick={event => editHandler(event, user, history)}
-        >
-          edit
-        </i>
         <i className="material-icons red-text" onClick={event => exitHandler()}>
           {" "}
           close
         </i>
+        <FormDataUsers user={user} submitHandler={editSubmitHandler} />
       </>
     )
   } else {
-    console.log("hi3")
     return (
       <>
         <h1>ошибка</h1>

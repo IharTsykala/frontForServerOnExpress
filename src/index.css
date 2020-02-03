@@ -46,3 +46,11 @@ code {
 .edit {
   margin-left: 60%;
 }
+
+/* FormsDataUsers */
+.form-data-users {
+  /* width: 80%; */
+  display: grid;
+  justify-content: center;
+  margin-top: 10%;
+}
