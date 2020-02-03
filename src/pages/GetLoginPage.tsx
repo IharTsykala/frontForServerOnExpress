@@ -1,54 +1,51 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Service from "../services/service-user"
 import { useHistory } from "react-router-dom"
+import FormDataUsers from "../components/FormDataUsers"
 
 export const GetLoginPage: React.FC = () => {
   const history = useHistory()
-  const [values, setValues] = useState<any>({})
+  const [loginStatus, setLoginStatus] = useState(false)
+  const [user, setUser] = useState(null)
 
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target
-    const value = target.value
-    const name = event.target.name
-    setValues(Object.assign(values, { [name]: value }))
+  useEffect(()=>{    
+    if(localStorage.getItem('token')) {
+      setLoginStatus(true)
+      console.log(user)
+    }
+  },[]) 
+
+  const logInHandler = async (id: any, user: any) => {
+    try {
+      const data = await Service.getTokenForLogin(id, user)        
+      localStorage.setItem('token', data.token);
+      setLoginStatus(true)
+      setUser(user.login)      
+      history.push(`/user/${data.user._id}`)
+    } catch(e) {
+      console.log(e)
+    }    
   }
 
-  const logInHandler = (e: any) => {
+  const logOutHandler = (e: any) => {
     e.preventDefault()
-    Service.getTokenForLogin(values)
-    history.push(`/users/all`)
+    localStorage.removeItem('token')
+    setLoginStatus(false)
+    setUser(null)    
   }
 
-  const logUnHandler = (e: any) => {
-    e.preventDefault()
+  const logUpHandler = (e: any) => {
+    e.preventDefault()    
     history.push(`/user/logUp`)
   }
 
   return (
     <>
-      <h1>Login</h1>
-      <form>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="login"
-            value={values.name}
-            onChange={changeHandler}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="text"
-            name="password"
-            value={values.password}
-            onChange={changeHandler}
-          />
-        </label>
-        <input type="submit" value="log In" onClick={e => logInHandler(e)} />
-      </form>
-      <button onClick={e => logUnHandler(e)}>Log Up</button>
+      <h1>{`Login - ${loginStatus}`}</h1>
+      {!loginStatus && <><FormDataUsers user={{}} submitHandler={logInHandler} namePage = 'LogIn' />
+      <button onClick={e => logUpHandler(e)}>Log Up</button></>}  
+      {loginStatus && <><h1>{`Привет, ${user}`}</h1>
+      <button onClick={e => logOutHandler(e)}>Log Out</button></>}    
     </>
   )
 }

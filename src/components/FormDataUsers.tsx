@@ -6,22 +6,25 @@ import * as Yup from "yup"
 type FormDataUsersProps = {
   user: any
   submitHandler: any
+  namePage: String
 }
 
 const FormDataUsers: React.FC<FormDataUsersProps> = ({
   user,
-  submitHandler
+  submitHandler,
+  namePage
 }) => {
-  console.log(user)
+  console.log(namePage)  
   return (
     <Formik
       initialValues={{
         login: user.login || "",
+        password: "",
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         email: user.email || "",
         phone: user.phone || "",
-        role: user.role || ""
+        role: user.role || "user"
       }}
       validationSchema={Yup.object({
         login: Yup.string()
@@ -33,18 +36,23 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         // .required("Required"),
         email: Yup.string()
           .email("Invalid email address")
-          .required("Required")
+          // .required("Required")
         // phone: Yup.string().phone<any>("Invalid email address")
         // .required("Required")
       })}
       onSubmit={values => {
+        console.log(values)        
         submitHandler(user._id, values)
       }}
-    >
-      <Form className="form-data-users">
+    >  
+      <Form className="form-data-users">        
         <label htmlFor="login">Login</label>
         <Field name="login" type="text" />
         <ErrorMessage name="login" />
+        <label htmlFor="password">Password</label>
+        <Field name="password" type="text"/>
+        <ErrorMessage name="role" />
+        {(namePage==='Edit' || namePage==='Join') && <>
         <label htmlFor="firstName">First Name</label>
         <Field name="firstName" type="text" />
         <ErrorMessage name="firstName" />
@@ -60,12 +68,11 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         <label htmlFor="role">Role</label>
         <Field name="role" type="text" disabled />
         <ErrorMessage name="role" />
-        <button type="submit">Submit edit</button>
+        </>}        
+    <button type="submit">{`${namePage}`}</button>        
       </Form>
     </Formik>
   )
 }
-
-// )
 
 export default FormDataUsers

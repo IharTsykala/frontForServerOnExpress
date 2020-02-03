@@ -1,49 +1,21 @@
 import React, { useState } from "react"
 import Service from "../services/service-user"
 import { useHistory } from "react-router-dom"
+import FormDataUsers from "../components/FormDataUsers"
 
 export const GetLogUpPage: React.FC = () => {
   const history = useHistory()
-  const [values, setValues] = useState<any>({})
+  // const [user]  
 
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target
-    const value = target.value
-    const name = event.target.name
-    setValues(Object.assign(values, { [name]: value }))
-  }
-
-  const logUpHandler = (e: any) => {
-    e.preventDefault()
-    Service.getTokenForRegistration(values)
-    history.push("/users/all")
-    history.go(0)
+  const logUpHandler = async (id: number, user: any) => {     
+    await Service.getTokenForRegistration(id, user)
+    history.push("/users/all")    
   }
 
   return (
     <>
-      <h1>Log Up</h1>
-      <form>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="login"
-            value={values.name}
-            onChange={changeHandler}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="text"
-            name="password"
-            value={values.password}
-            onChange={changeHandler}
-          />
-        </label>
-        <input type="submit" value="Log Up" onClick={e => logUpHandler(e)} />
-      </form>
+      <h1>Join us</h1>      
+      <FormDataUsers user={{}} submitHandler={logUpHandler} namePage = 'Join' />
     </>
   )
 }

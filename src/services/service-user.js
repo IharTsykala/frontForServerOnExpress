@@ -33,20 +33,21 @@ export default class Service {
   }
 
   static getUserByID = async id => {
-    try {
-      const request = await axios.get(`http://localhost:8080/users/${id}`)
+    try {       
+      const request = await axios.get(`http://localhost:8080/users/${id}`, {headers:{'Authorization': 'Bearer ' + localStorage.getItem('token')}})
       return request.data
     } catch (e) {
       console.log(e)
     }
   }
 
-  static getTokenForLogin = async user => {
-    const response = await axios.post(`http://localhost:8080/users/login`, user)
+  static getTokenForLogin = async (id, user) => {        
+    const response = await axios.post(`http://localhost:8080/users/login`, user)    
     return response.data
   }
 
-  static getTokenForRegistration = async user => {
+  static getTokenForRegistration = async (id, user) => {
+    console.log(user)
     const response = await axios.post(`http://localhost:8080/users/add`, user)
     return response.data
   }

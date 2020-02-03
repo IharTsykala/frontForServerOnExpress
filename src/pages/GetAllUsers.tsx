@@ -10,7 +10,7 @@ export const GetAllUsers: React.FC = () => {
   const removeHandler = async (id: number) => {
     setLoad("loading")
     await Service.removeHandler(id)
-    // history.replace(`/users/all`)
+    history.replace(`/users/all`)
     history.go(0)
   }
 
@@ -25,41 +25,31 @@ export const GetAllUsers: React.FC = () => {
       setUsers(users)
     })()
   }, [])
-
-  if (load === "loading") {
-    return (
-      <>
-        <h1>Ожидайте ответа</h1>
-      </>
-    )
-  }
-  if (load === "loaded") {
-    return (
+  return (
+    <>      
+      {load === "loading" && <h1>Ожидайте ответа</h1>}
+      {load === "loaded" && 
       <ul>
-        {users.map((user: any) => (
-          <li key={user._id}>
-            <p>{user.login}</p>
-            <i
-              className="material-icons blue-text edit"
-              onClick={event => editHandler(user._id)}
-            >
-              edit
-            </i>
-            <i
-              className="material-icons red-text"
-              onClick={event => removeHandler(user._id)}
-            >
-              delete
-            </i>
-          </li>
-        ))}
-      </ul>
-    )
-  } else {
-    return (
-      <>
-        <h1>ошибка запроса</h1>
-      </>
-    )
-  }
+      {users.map((user: any) => (
+        <li key={user._id}>
+          <p>{user.login}</p>
+          <i
+            className="material-icons blue-text edit"
+            onClick={event => editHandler(user._id)}
+          >
+            edit
+          </i>
+          <i
+            className="material-icons red-text"
+            onClick={event => removeHandler(user._id)}
+          >
+            delete
+          </i>
+        </li>
+      ))}
+    </ul>
+      }
+      {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
+    </>
+  )
 }
