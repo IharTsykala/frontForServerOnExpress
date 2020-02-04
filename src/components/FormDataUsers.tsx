@@ -13,8 +13,8 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
   user,
   submitHandler,
   namePage
-}) => {
-  console.log(namePage)
+}) => { 
+  
   return (
     <Formik
       initialValues={{
@@ -24,23 +24,19 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         lastName: user.lastName || "",
         email: user.email || "",
         phone: user.phone || "",
-        role: user.role || "user"
+        role: user.role || "user",
+        avatar: user.avatar || "/images/pattern-avatar.jpg"
       }}
       validationSchema={Yup.object({
         login: Yup.string()
           .max(15, "Must be 15 characters or less")
           .required("Required"),
-        firstName: Yup.string().max(15, "Must be 15 characters or less"),
-        // .required("Required"),
-        lastName: Yup.string().max(20, "Must be 20 characters or less"),
-        // .required("Required"),
-        email: Yup.string().email("Invalid email address")
-        // .required("Required")
-        // phone: Yup.string().phone<any>("Invalid email address")
-        // .required("Required")
+        firstName: Yup.string().max(15, "Must be 15 characters or less"),        
+        lastName: Yup.string().max(20, "Must be 20 characters or less"),        
+        email: Yup.string().email("Invalid email address"),        
+        // phone: Yup.string().phone<string>("Invalid email address")        
       })}
-      onSubmit={values => {
-        console.log(values)
+      onSubmit={values => {        
         submitHandler(user._id, values)
       }}
     >
@@ -68,6 +64,9 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
             <label htmlFor="role">Role</label>
             <Field name="role" type="text" disabled />
             <ErrorMessage name="role" />
+            <label htmlFor="avatar">Avatar</label>
+            <Field name="avatar" type="text.txt" />
+            <ErrorMessage name="avatar" />
           </>
         )}
         <button type="submit">{`${namePage}`}</button>

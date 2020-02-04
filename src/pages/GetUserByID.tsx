@@ -8,6 +8,20 @@ export const GetUserByID: React.FC = (props: any) => {
   const [load, setLoad]: any = useState("loading")
   const { id } = props.match.params
   const history = useHistory()
+  const [avatarForFront, setAvatarForFront]: any = useState('')
+  const [avatarForBack, setAvatarForBack]: any = useState('')  
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const user = await Service.getUserByID(id)        
+        setUsers(user || {})
+        setLoad("loaded")
+      } catch (e) {
+        console.log(e)
+      }
+    })()
+  }, [id])
 
   const editSubmitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
@@ -18,17 +32,21 @@ export const GetUserByID: React.FC = (props: any) => {
     history.push(`/users/all`)
   }
 
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const user = await Service.getUserByID(id)
-        setUsers(user || {})
-        setLoad("loaded")
-      } catch (e) {
-        console.log(e)
-      }
-    })()
-  }, [])
+  const handleChangeAvatar = (e:any) => {    
+    const target = e.target.files[0]
+    if(target) {
+    setAvatarForFront(URL.createObjectURL(target));
+    setAvatarForBack(target) 
+    }    
+  }
+
+  const handleSubmit = async(e:any) => {
+    e.preventDefault()     
+      const img = await Service.setImgUser(avatarForBack)
+      const userUpgrade = {...user, ...{avatar: img}}
+      setUsers(userUpgrade)
+      await Service.editUser(id, userUpgrade)              
+  }
 
   return (
     <>
@@ -36,6 +54,12 @@ export const GetUserByID: React.FC = (props: any) => {
         {" "}
         close
       </i>
+      <form action="">
+      {avatarForFront && <img src={`${avatarForFront}`} alt="avatar"/>}      
+      {!avatarForFront && <img src={`http://localhost:8080/images/${user.avatar}`} alt="avatar"/>}      
+      <input type="file" onChange={(e)=>handleChangeAvatar(e)}/>
+      <input type="submit" value="Отправить" onClick={(e)=>handleSubmit(e)}/>
+      </form>      
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (
         <FormDataUsers

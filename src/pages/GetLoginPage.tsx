@@ -16,8 +16,8 @@ export const GetLoginPage: React.FC = () => {
   const logInHandler = async (id: any, user: any) => {
     try {
       const data = await Service.getTokenForLogin(id, user)
-      localStorage.setItem("token", data.token)
-      localStorage.setItem("login", data.login)
+      localStorage.setItem("token", data.token)      
+      localStorage.setItem("login", data.user.login)      
       setLoginStatus(true)
       history.push(`/user/${data.user._id}`)
     } catch (e) {
