@@ -7,23 +7,23 @@ export const GetAllUsers: React.FC = () => {
   const [load, setLoad]: any = useState("loading")
   const history = useHistory()
   const [pets, setPets]: any = useState("")
-  const[userIdForPets, setUserIdForPets]:any = useState("")
+  const [userIdForPets, setUserIdForPets]: any = useState("")
 
-  const getUsers = async() => {
+  const getUsers = async () => {
     const users = await Service.getAllUsers()
     setLoad("loaded")
     setUsers(users)
   }
 
-  const getPetsHandler = async (id: any) => {   
-     const data = await Service.serviceGetPetsHandleler(id)
-      setUserIdForPets(id)
-      setPets(data[0].pets)
+  const getPetsHandler = async (id: any) => {
+    const data = await Service.serviceGetPetsHandleler(id)
+    setUserIdForPets(id)
+    setPets(data[0].pets)
   }
 
   const removeHandler = async (id: number) => {
     setLoad("loading")
-    await Service.removeHandler(id)    
+    await Service.removeHandler(id)
     getUsers()
   }
 
@@ -31,26 +31,25 @@ export const GetAllUsers: React.FC = () => {
     history.push(`/user/${id}`)
   }
 
-  const getCodeforePets = (user:any) => {
+  const getCodeforePets = (user: any) => {
     return (
       <>
-      <ul>
-      {userIdForPets===user._id && pets.map((pet: any)=>(
-        <li key={pet._id}>
-          <p>{`${pet.name} ${pet.species}`}</p>
-        </li>
-      ))
-      }
-    </ul>
-      </> 
+        <ul>
+          {userIdForPets === user._id &&
+            pets.map((pet: any) => (
+              <li key={pet._id}>
+                <p>{`${pet.name} ${pet.species}`}</p>
+              </li>
+            ))}
+        </ul>
+      </>
     )
   }
 
   useEffect(() => {
-  
-  getUsers()
+    getUsers()
   }, [])
- 
+
   return (
     <>
       {load === "loading" && <h1>Ожидайте ответа</h1>}

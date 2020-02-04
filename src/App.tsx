@@ -5,12 +5,12 @@ import { GetUserByID } from "./pages/GetUserByID"
 import { GetLoginPage } from "./pages/GetLoginPage"
 import { GetLogUpPage } from "./pages/GetLogUpPage"
 import FormDataUsers from "./components/FormDataUsers"
-import { Navbar } from './components/Navbar'
+import { Navbar } from "./components/Navbar"
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-        <Navbar />
+      <Navbar />
       <main className="main">
         <Switch>
           <Route component={GetLoginPage} path="/" exact />

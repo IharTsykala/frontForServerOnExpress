@@ -34,10 +34,10 @@ export default class Service {
   }
 
   static getUserByID = async id => {
-    try {      
+    try {
       const request = await axios.get(`http://localhost:8080/users/${id}`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      })     
+      })
       return request.data
     } catch (e) {
       console.log(e)
@@ -55,16 +55,21 @@ export default class Service {
     return response.data
   }
 
-  static serviceGetPetsHandleler = async (id) => {   
-    const response = await axios.get(`http://localhost:8080/users/withPets/${id}`)
+  static serviceGetPetsHandleler = async id => {
+    const response = await axios.get(
+      `http://localhost:8080/users/withPets/${id}`
+    )
     return response.data
-}
+  }
 
-  static setImgUser = async (avatar) => {
+  static setImgUser = async avatar => {
     const formData = new FormData()
-    formData.append("test", avatar);
-    const responce = await axios.post(`http://localhost:8080/public/safeFileIntoImages`, formData)
-    console.log(responce.data.fileName)    
+    formData.append("test", avatar)
+    const responce = await axios.post(
+      `http://localhost:8080/public/safeFileIntoImages`,
+      formData
+    )
+    console.log(responce.data.fileName)
     return responce.data.fileName
   }
 }
