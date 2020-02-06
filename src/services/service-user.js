@@ -1,7 +1,6 @@
 const axios = require("axios")
 
 export default class Service {
-  
   static getAllUsers = async () => {
     try {
       const request = await axios.get("http://localhost:8080/users/", {
@@ -14,10 +13,11 @@ export default class Service {
   }
 
   static editUser = async (id, user) => {
-    try {      
+    try {
       const request = await axios.put(
         `http://localhost:8080/users/update/${id}`,
-        user, {
+        user,
+        {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") }
         }
       )
@@ -48,12 +48,12 @@ export default class Service {
     }
   }
 
-  static getTokenForLogin = async (id, user) => {    
+  static getTokenForLogin = async (id, user) => {
     const response = await axios.post(`http://localhost:8080/users/login`, user)
     return response.data
   }
 
-  static getTokenForRegistration = async (id, user) => {       
+  static getTokenForRegistration = async (id, user) => {
     const response = await axios.post(`http://localhost:8080/users/add`, user)
     return response.data
   }
@@ -64,7 +64,7 @@ export default class Service {
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       }
-    )    
+    )
     return response.data
   }
 
@@ -73,10 +73,11 @@ export default class Service {
     formData.append("test", avatar)
     const response = await axios.post(
       `http://localhost:8080/public/safeFileIntoImages`,
-      formData, {
+      formData,
+      {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       }
-    )    
+    )
     return response.data.fileName
-  }  
+  }
 }

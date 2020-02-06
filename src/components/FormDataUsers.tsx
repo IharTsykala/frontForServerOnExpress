@@ -1,7 +1,10 @@
 import React from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import { UserFormViewModes, UserFormViewButtons } from "../shared/constants/user-from-view-mode.enum"
+import {
+  UserFormViewModes,
+  UserFormViewButtons
+} from "../shared/constants/user-from-view-mode.enum"
 // import "../styles/FormDataUsers"
 
 type FormDataUsersProps = {
@@ -16,7 +19,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
   submitHandler,
   namePage,
   nameButton
-}) => {  
+}) => {
   return (
     <Formik
       initialValues={{
@@ -26,18 +29,18 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         lastName: user ? user.lastName : "",
         email: user ? user.email : "",
         phone: user ? user.phone : "",
-        role: user ? user.role : "user"        
+        role: user ? user.role : "user"
       }}
       validationSchema={Yup.object({
         login: Yup.string()
           .max(15, "Must be 15 characters or less")
           .required("Required"),
-        firstName: Yup.string().max(15, "Must be 15 characters or less"),        
-        lastName: Yup.string().max(20, "Must be 20 characters or less"),        
-        email: Yup.string().email("Invalid email address"),        
-        // phone: Yup.string().phone<string>("Invalid email address")        
+        firstName: Yup.string().max(15, "Must be 15 characters or less"),
+        lastName: Yup.string().max(20, "Must be 20 characters or less"),
+        email: Yup.string().email("Invalid email address")
+        // phone: Yup.string().phone<string>("Invalid email address")
       })}
-      onSubmit={values => {     
+      onSubmit={values => {
         console.log(values)
         submitHandler(user ? user._id : undefined, values)
       }}
@@ -49,7 +52,8 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         <label htmlFor="password">Password</label>
         <Field name="password" type="text" />
         <ErrorMessage name="role" />
-        {(namePage === UserFormViewModes.Edit || namePage === UserFormViewModes.SingUp) && (
+        {(namePage === UserFormViewModes.Edit ||
+          namePage === UserFormViewModes.SingUp) && (
           <>
             <label htmlFor="firstName">First Name</label>
             <Field name="firstName" type="text" />
@@ -65,7 +69,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
             <ErrorMessage name="phone" />
             <label htmlFor="role">Role</label>
             <Field name="role" type="text" disabled />
-            <ErrorMessage name="role" />            
+            <ErrorMessage name="role" />
           </>
         )}
         <button type="submit">{`${nameButton}`}</button>
