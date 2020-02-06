@@ -6,10 +6,12 @@ import { GetLoginPage } from "./pages/GetLoginPage"
 import { GetLogUpPage } from "./pages/GetLogUpPage"
 import FormDataUsers from "./components/FormDataUsers"
 import { Navbar } from "./components/Navbar"
+import {ContextProvider} from "./components/Context"
 
-const App: React.FC = () => {
+const App: React.FC = () => {   
   return (
     <BrowserRouter>
+    <ContextProvider>
       <Navbar />
       <main className="main">
         <Switch>
@@ -20,6 +22,7 @@ const App: React.FC = () => {
           <Route component={GetUserByID} path="/user/:id" exact />
         </Switch>
       </main>
+    </ContextProvider>
     </BrowserRouter>
   )
 }

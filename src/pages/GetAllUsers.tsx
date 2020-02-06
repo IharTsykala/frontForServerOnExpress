@@ -16,7 +16,7 @@ export const GetAllUsers: React.FC = () => {
   }
 
   const getPetsHandler = async (id: any) => {
-    const data = await Service.serviceGetPetsHandleler(id)
+    const data = await Service.getListPetsByUserID(id)
     setUserIdForPets(id)
     setPets(data[0].pets)
   }
@@ -31,7 +31,7 @@ export const GetAllUsers: React.FC = () => {
     history.push(`/user/${id}`)
   }
 
-  const getCodeforePets = (user: any) => {
+  const getCodeForPets = (user: any) => {
     return (
       <>
         <ul>
@@ -58,7 +58,7 @@ export const GetAllUsers: React.FC = () => {
           {users.map((user: any) => (
             <li key={user._id}>
               <p>{user.login}</p>
-              {<> {pets.length && getCodeforePets(user)} </>}
+              {<> {pets.length && getCodeForPets(user)} </>}
               <i
                 className="material-icons blue-text edit"
                 onClick={event => getPetsHandler(user._id)}

@@ -1,11 +1,12 @@
 const axios = require("axios")
 
 export default class Service {
-  constructor() {}
-
+  
   static getAllUsers = async () => {
     try {
-      const request = await axios.get("http://localhost:8080/users/")
+      const request = await axios.get("http://localhost:8080/users/", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      })
       return request.data
     } catch (e) {
       console.log(e)
@@ -13,11 +14,12 @@ export default class Service {
   }
 
   static editUser = async (id, user) => {
-    try {
-      console.log(user)
+    try {      
       const request = await axios.put(
         `http://localhost:8080/users/update/${id}`,
-        user
+        user, {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+        }
       )
       return request.data
     } catch (e) {
@@ -27,7 +29,9 @@ export default class Service {
 
   static removeHandler = async id => {
     try {
-      return await axios.delete(`http://localhost:8080/users/delete/${id}`)
+      return await axios.delete(`http://localhost:8080/users/delete/${id}`, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      })
     } catch (e) {
       console.log(e)
     }
@@ -44,32 +48,35 @@ export default class Service {
     }
   }
 
-  static getTokenForLogin = async (id, user) => {
+  static getTokenForLogin = async (id, user) => {    
     const response = await axios.post(`http://localhost:8080/users/login`, user)
     return response.data
   }
 
-  static getTokenForRegistration = async (id, user) => {
-    console.log(user)
+  static getTokenForRegistration = async (id, user) => {       
     const response = await axios.post(`http://localhost:8080/users/add`, user)
     return response.data
   }
 
-  static serviceGetPetsHandleler = async id => {
+  static getListPetsByUserID = async id => {
     const response = await axios.get(
-      `http://localhost:8080/users/withPets/${id}`
-    )
+      `http://localhost:8080/users/withPets/${id}`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      }
+    )    
     return response.data
   }
 
   static setImgUser = async avatar => {
     const formData = new FormData()
     formData.append("test", avatar)
-    const responce = await axios.post(
+    const response = await axios.post(
       `http://localhost:8080/public/safeFileIntoImages`,
-      formData
-    )
-    console.log(responce.data.fileName)
-    return responce.data.fileName
-  }
+      formData, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      }
+    )    
+    return response.data.fileName
+  }  
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import Service from "../services/service-user"
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../components/FormDataUsers"
+import { UserFormViewModes, UserFormViewButtons } from "../shared/constants/user-from-view-mode.enum"
+import ListPets from "../components/ListPets"
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
@@ -9,7 +11,7 @@ export const GetUserByID: React.FC = (props: any) => {
   const { id } = props.match.params
   const history = useHistory()
   const [avatarForFront, setAvatarForFront]: any = useState("")
-  const [avatarForBack, setAvatarForBack]: any = useState("")
+  const [avatarForBack, setAvatarForBack]: any = useState("")  
 
   useEffect(() => {
     ;(async () => {
@@ -23,7 +25,7 @@ export const GetUserByID: React.FC = (props: any) => {
     })()
   }, [id])
 
-  const editSubmitHandler = async (id: number, user: any) => {
+  const editSubmitHandler = async (id: number, user: any) => {   
     await Service.editUser(id, user)
     history.push(`/users/all`)
   }
@@ -42,10 +44,8 @@ export const GetUserByID: React.FC = (props: any) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const img = await Service.setImgUser(avatarForBack)
-    const userUpgrade = { ...user, ...{ avatar: img } }
-    setUsers(userUpgrade)
-    await Service.editUser(id, userUpgrade)
+    const img = await Service.setImgUser(avatarForBack)      
+    await Service.editUser(id, { avatar: img, password:'' })
   }
 
   return (
@@ -54,24 +54,24 @@ export const GetUserByID: React.FC = (props: any) => {
         {" "}
         close
       </i>
-      <form action="">
-        {avatarForFront && <img src={`${avatarForFront}`} alt="avatar" />}
-        {!avatarForFront && (
-          <img
-            src={`http://localhost:8080/images/${user.avatar}`}
-            alt="avatar"
-          />
-        )}
+      <form action="submit">
+       {avatarForFront && <img className = 'chelik' src={`${avatarForFront}`} alt="avatar" />} 
+       {!avatarForFront && user._id && user.avatar && <img className = 'chelik' src={`http://localhost:8080/images/users/${user._id}/${user.avatar}`} alt="avatar" />} 
+       {!avatarForFront && user._id && !user.avatar && <img className = 'chelik' src={`http://localhost:8080/images/users/pattern-avatar.jpg`} alt="avatar" />}       
         <input type="file" onChange={e => handleChangeAvatar(e)} />
         <input type="submit" value="Отправить" onClick={e => handleSubmit(e)} />
       </form>
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (
+        <>
         <FormDataUsers
           user={user}
           submitHandler={editSubmitHandler}
-          namePage="Edit"
+          namePage={UserFormViewModes.Edit}
+          nameButton={UserFormViewButtons.Edit}
         />
+        <ListPets id={id}/>
+        </>
       )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>

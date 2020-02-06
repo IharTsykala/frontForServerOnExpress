@@ -1,31 +1,32 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
+import { UserFormViewModes, UserFormViewButtons } from "../shared/constants/user-from-view-mode.enum"
 // import "../styles/FormDataUsers"
 
 type FormDataUsersProps = {
-  user: any
+  user?: any
   submitHandler: any
-  namePage: String
+  namePage: UserFormViewModes
+  nameButton: UserFormViewButtons
 }
 
 const FormDataUsers: React.FC<FormDataUsersProps> = ({
   user,
   submitHandler,
-  namePage
-}) => { 
-  
+  namePage,
+  nameButton
+}) => {  
   return (
     <Formik
       initialValues={{
-        login: user.login || "",
+        login: user ? user.login : "",
         password: "",
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        phone: user.phone || "",
-        role: user.role || "user",
-        avatar: user.avatar || "/images/pattern-avatar.jpg"
+        firstName: user ? user.firstName : "",
+        lastName: user ? user.lastName : "",
+        email: user ? user.email : "",
+        phone: user ? user.phone : "",
+        role: user ? user.role : "user"        
       }}
       validationSchema={Yup.object({
         login: Yup.string()
@@ -36,8 +37,9 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         email: Yup.string().email("Invalid email address"),        
         // phone: Yup.string().phone<string>("Invalid email address")        
       })}
-      onSubmit={values => {        
-        submitHandler(user._id, values)
+      onSubmit={values => {     
+        console.log(values)
+        submitHandler(user ? user._id : undefined, values)
       }}
     >
       <Form className="form-data-users">
@@ -47,7 +49,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         <label htmlFor="password">Password</label>
         <Field name="password" type="text" />
         <ErrorMessage name="role" />
-        {(namePage === "Edit" || namePage === "Join") && (
+        {(namePage === UserFormViewModes.Edit || namePage === UserFormViewModes.SingUp) && (
           <>
             <label htmlFor="firstName">First Name</label>
             <Field name="firstName" type="text" />
@@ -63,13 +65,10 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
             <ErrorMessage name="phone" />
             <label htmlFor="role">Role</label>
             <Field name="role" type="text" disabled />
-            <ErrorMessage name="role" />
-            <label htmlFor="avatar">Avatar</label>
-            <Field name="avatar" type="text.txt" />
-            <ErrorMessage name="avatar" />
+            <ErrorMessage name="role" />            
           </>
         )}
-        <button type="submit">{`${namePage}`}</button>
+        <button type="submit">{`${nameButton}`}</button>
       </Form>
     </Formik>
   )
