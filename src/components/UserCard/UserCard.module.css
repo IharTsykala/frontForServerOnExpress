@@ -1,0 +1,32 @@
+.container__all_users__card_user {    
+    background-color: rgb(204, 204, 243);
+    width: 90%;
+    height: 100%;    
+    text-align: center; 
+    display: grid;
+    grid-template-rows: 60% 20% 10% 10%;   
+}
+
+.container__all_users__card_user:hover {    
+   opacity: 0.8;
+   background-color: rgb(223, 209, 228);
+}
+
+.container__all_users__card_user img {    
+    width: 100%;
+    height: 200px;        
+}
+
+.all_users__card_user__login {
+    height: 100%;    
+}
+
+.all_users__card_user__friends {
+    height: 100%;
+}
+
+.all_users__card_user__role {
+    height: 100%;
+}
+
+

@@ -1,6 +1,6 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import { GetAllUsers } from "./pages/GetAllUsers"
+import { GetAllUsers } from "./pages/GetAllUsers/GetAllUsers"
 import { GetUserByID } from "./pages/GetUserByID"
 import { GetLoginPage } from "./pages/GetLoginPage"
 import { GetLogUpPage } from "./pages/GetLogUpPage"

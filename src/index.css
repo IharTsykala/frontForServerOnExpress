@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 code {
@@ -43,6 +44,20 @@ code {
   z-index: 2;
 }
 
+.navbar_container {
+  position: fixed;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+}
+
+.main {
+  margin: 0;
+  position: absolute;
+  top: 60px
+}
+
 .edit {
   margin-left: 60%;
 }
@@ -58,3 +73,12 @@ code {
 .chelik {
   width: 200px;
 }
+
+/* GetAllUsers */
+/* .container__all_users { 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 90%;
+    height: 50%;
+    margin: 5% auto;   
+} */

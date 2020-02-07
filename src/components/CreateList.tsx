@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Service from "../services/service-user"
 
-const ListPets = (id: any) => {
+const ListPets = (id?: any) => {
   const [pets, setPets]: any = useState("")
 
   useEffect(() => {

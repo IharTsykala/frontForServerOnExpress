@@ -8,16 +8,16 @@ import {
 } from "../shared/constants/user-from-view-mode.enum"
 import { Context } from "../components/Context"
 
-export const GetLoginPage: React.FC = () => {
-  const history = useHistory()
-  const { userLogin, setUserLogin } = useContext(Context)
-
+export const GetLoginPage: React.FC = () => {  const history = useHistory()
+  const { userLogin, setUserLogin, setUserID } = useContext(Context)
+  
   const logInHandler = async (id: any, user: any) => {
     try {
       const data = await Service.getTokenForLogin(id, user)
-      localStorage.setItem("token", data.token)
+      localStorage.setItem("token", data.token)      
       setUserLogin(user.login)
-      history.push(`/user/${data.user._id}`)
+      setUserID(data.user._id)      
+      history.push(`/users/all`)
     } catch (e) {
       console.log(e)
     }

@@ -29,7 +29,10 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         lastName: user ? user.lastName : "",
         email: user ? user.email : "",
         phone: user ? user.phone : "",
-        role: user ? user.role : "user"
+        role: user ? user.role : "user",
+        // subscribe: [],
+        // subscribers: [],
+        // friends: []
       }}
       validationSchema={Yup.object({
         login: Yup.string()
@@ -40,8 +43,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         email: Yup.string().email("Invalid email address")
         // phone: Yup.string().phone<string>("Invalid email address")
       })}
-      onSubmit={values => {
-        console.log(values)
+      onSubmit={values => {        
         submitHandler(user ? user._id : undefined, values)
       }}
     >

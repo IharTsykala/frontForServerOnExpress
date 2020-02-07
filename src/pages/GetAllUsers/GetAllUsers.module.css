@@ -1,0 +1,25 @@
+.container__all_users__header {
+    display: grid;    
+    position: fixed;    
+    font-size: 40px;
+    margin: 0 auto;
+    background-color: white;    
+    width: 100%;
+    z-index: 10;
+    height: 100px;
+    padding-left: 25%;
+    padding-right: 25%;    
+    justify-content: center;
+    align-content: center;
+}
+
+.container__all_users__cards { 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    width: 95%;    
+    margin: 0 auto;   
+    justify-items: center;
+    row-gap: 1%; 
+    margin-top: 80px;    
+}

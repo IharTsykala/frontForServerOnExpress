@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import Service from "../services/service-user"
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../components/FormDataUsers"
@@ -6,7 +6,8 @@ import {
   UserFormViewModes,
   UserFormViewButtons
 } from "../shared/constants/user-from-view-mode.enum"
-import ListPets from "../components/ListPets"
+import ListPets from "../components/CreateList"
+import { Context } from "../components/Context"
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
@@ -15,6 +16,7 @@ export const GetUserByID: React.FC = (props: any) => {
   const history = useHistory()
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
+  const { setUserLogin } = useContext(Context)
 
   useEffect(() => {
     ;(async () => {
@@ -30,6 +32,7 @@ export const GetUserByID: React.FC = (props: any) => {
 
   const editSubmitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
+    setUserLogin(user.login)    
     history.push(`/users/all`)
   }
 
@@ -71,7 +74,7 @@ export const GetUserByID: React.FC = (props: any) => {
         {!avatarForFront && user._id && !user.avatar && (
           <img
             className="chelik"
-            src={`http://localhost:8080/images/users/pattern-avatar.jpg`}
+            src={`http://localhost:8080/images/pattern-avatar.jpg`}
             alt="avatar"
           />
         )}
