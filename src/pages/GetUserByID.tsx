@@ -32,7 +32,7 @@ export const GetUserByID: React.FC = (props: any) => {
 
   const editSubmitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
-    setUserLogin(user.login)    
+    setUserLogin(user.login)
     history.push(`/users/all`)
   }
 

@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom"
 import { Context } from "./Context"
 import { useHistory } from "react-router-dom"
 
-export const Navbar: React.FunctionComponent = (props) => {
-  const { userLogin, setUserLogin, userID, setUserID} = useContext(Context)
+export const Navbar: React.FunctionComponent = props => {
+  const { userLogin, setUserLogin, userID, setUserID } = useContext(Context)
   console.log(userLogin)
   const history = useHistory()
   // console.log(userID)
@@ -33,19 +33,19 @@ export const Navbar: React.FunctionComponent = (props) => {
         )}
         <ul className="right hide-on-med-and-down">
           {userLogin && (
-            <>  
+            <>
+              {history.location.pathname === "/users/all" && (
+                <li>
+                  <NavLink to={`/user/${userID}`}>Your Page</NavLink>
+                </li>
+              )}
 
-            
-              {history.location.pathname === '/users/all'&& <li>
-                <NavLink to={`/user/${userID}`}>Your Page</NavLink>
-              </li>}
-              
+              {history.location.pathname !== "/users/all" && (
+                <li>
+                  <NavLink to="/users/all">All User</NavLink>
+                </li>
+              )}
 
-              {history.location.pathname !== '/users/all'&& <li>
-                <NavLink to="/users/all">All User</NavLink>
-              </li>}
-
-              
               <li onClick={() => handlerLogOut()}>
                 <NavLink to="/">Log Out</NavLink>
               </li>
@@ -62,7 +62,7 @@ export const Navbar: React.FunctionComponent = (props) => {
             </>
           )}
         </ul>
-      </div>      
+      </div>
     </nav>
   )
 }
