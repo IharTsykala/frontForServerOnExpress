@@ -23,7 +23,7 @@ export const GetAllUsers: React.FC = () => {
 
   const defineRoleUser = async () => {
     const user = await Service.getUserByID(userID)
-    if(user.role==='admin') setAdmin(true)
+    if (user.role === "admin") setAdmin(true)
   }
 
   const removeHandler = async (e: any, id: number) => {

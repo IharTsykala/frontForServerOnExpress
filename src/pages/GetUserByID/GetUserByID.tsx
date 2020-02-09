@@ -74,18 +74,14 @@ export const GetUserByID: React.FC = (props: any) => {
 
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (
-        
-          (
-            <FormDataUsers
-              user={user}
-              submitHandler={editSubmitHandler}
-              namePage={UserFormViewModes.Edit}
-              nameButton={UserFormViewButtons.Edit}
-              adminStatus={adminStatus}
-              homePageStatus={homePageStatus}
-            />
-          )
-       
+        <FormDataUsers
+          user={user}
+          submitHandler={editSubmitHandler}
+          namePage={UserFormViewModes.Edit}
+          nameButton={UserFormViewButtons.Edit}
+          adminStatus={adminStatus}
+          homePageStatus={homePageStatus}
+        />
       )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>

@@ -14,7 +14,7 @@ export const ContextProvider: React.FC = (props: any) => {
   const [userLogin, setUserLogin]: any = useState("")
   const [userID, setUserID]: any = useState("")
   const [userAvatar, setUserAvatar]: any = useState("")
-  // console.log(userLogin)
+
   //in case refresh application
   if (userLogin) localStorage.setItem("userLogin", userLogin)
   if (!userLogin && localStorage.getItem("userLogin"))
