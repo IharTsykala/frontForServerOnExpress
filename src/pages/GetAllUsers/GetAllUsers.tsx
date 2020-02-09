@@ -7,22 +7,29 @@ import { Context } from "../../Context"
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
+  const [admin, setAdmin]: any = useState(false)
   const { userID } = useContext(Context)
 
   useEffect(() => {
     getUsers()
+    defineRoleUser()
   }, [])
-
-  const removeHandler = async (e: any, id: number) => {
-    setLoad("loading")
-    await Service.removeHandler(id)
-    getUsers()
-  }
 
   const getUsers = async () => {
     const users = await Service.getAllUsers()
     setLoad("loaded")
     setUsers(users)
+  }
+
+  const defineRoleUser = async () => {
+    const user = await Service.getUserByID(userID)
+    if(user.role==='admin') setAdmin(true)
+  }
+
+  const removeHandler = async (e: any, id: number) => {
+    setLoad("loading")
+    await Service.removeHandler(id)
+    getUsers()
   }
 
   return (
@@ -31,7 +38,7 @@ export const GetAllUsers: React.FC = () => {
       {load === "loaded" && (
         <>
           <h2 className={GetAllUsersCSS.container__all_users__header}>
-            Find friends for youself
+            Make friends
           </h2>
           <ul className={GetAllUsersCSS.container__all_users__cards}>
             {users.map((user: any) => {
@@ -41,6 +48,7 @@ export const GetAllUsers: React.FC = () => {
                     key={user._id}
                     user={user}
                     removeHandler={removeHandler}
+                    admin={admin}
                   />
                 )
               )

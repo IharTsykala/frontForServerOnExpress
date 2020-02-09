@@ -12,13 +12,17 @@ type FormDataUsersProps = {
   submitHandler: any
   namePage: UserFormViewModes
   nameButton: UserFormViewButtons
+  adminStatus?: any
+  homePageStatus?: any
 }
 
 const FormDataUsers: React.FC<FormDataUsersProps> = ({
   user,
   submitHandler,
   namePage,
-  nameButton
+  nameButton,
+  adminStatus,
+  homePageStatus
 }) => {
   return (
     <Formik
@@ -74,7 +78,13 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
             <ErrorMessage name="role" />
           </>
         )}
-        <button type="submit">{`${nameButton}`}</button>
+        {namePage !== UserFormViewModes.Edit && (
+          <button type="submit">{`${nameButton}`}</button>
+        )}
+        {namePage === UserFormViewModes.Edit &&
+          (adminStatus || homePageStatus) && (
+            <button type="submit">{`${nameButton}`}</button>
+          )}
       </Form>
     </Formik>
   )

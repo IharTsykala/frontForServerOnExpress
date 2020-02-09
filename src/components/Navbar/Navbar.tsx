@@ -13,9 +13,7 @@ export const Navbar: React.FunctionComponent = props => {
     userAvatar,
     setUserAvatar
   } = useContext(Context)
-  // console.log(userLogin)
   const history = useHistory()
-  console.log(userAvatar)
 
   const handlerLogOut = () => {
     localStorage.removeItem("token")

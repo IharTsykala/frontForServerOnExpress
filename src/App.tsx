@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { GetAllUsers } from "./pages/GetAllUsers/GetAllUsers"
-import { GetUserByID } from "./pages/GetUserByID"
+import { GetUserByID } from "./pages/GetUserByID/GetUserByID"
 import { GetLoginPage } from "./pages/GetLoginPage/GetLoginPage"
 import { GetLogUpPage } from "./pages/GetLogUpPage/GetLogUpPage"
 import { GetStartPage } from "./pages/GetStartPage/GetStartPage"

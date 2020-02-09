@@ -9,7 +9,7 @@ const ListPets = (id?: any) => {
       try {
         const listPets = await Service.getListPetsByUserID(id)
         setPets(listPets)
-        console.log(listPets)
+        // console.log(listPets)
       } catch (e) {
         console.log(e)
       }
