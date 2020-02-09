@@ -11,6 +11,8 @@
   padding-right: 25%;
   justify-content: center;
   align-content: center;
+  color: rgb(65, 21, 65);
+  top: 64px;
 }
 
 .container__all_users__cards {
@@ -21,5 +23,5 @@
   margin: 0 auto;
   justify-items: center;
   row-gap: 1%;
-  margin-top: 80px;
+  padding-top: 100px;
 }

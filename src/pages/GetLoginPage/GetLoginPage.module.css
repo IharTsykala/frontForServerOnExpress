@@ -1,0 +1,6 @@
+.main__log_in__header {
+  display: grid;
+  justify-content: center;
+  margin-top: 20vh;
+  color: rgb(65, 21, 65);
+}

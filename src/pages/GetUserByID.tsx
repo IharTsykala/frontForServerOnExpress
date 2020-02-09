@@ -7,7 +7,7 @@ import {
   UserFormViewButtons
 } from "../shared/constants/user-from-view-mode.enum"
 import ListPets from "../components/CreateList"
-import { Context } from "../components/Context"
+import { Context } from "../Context"
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
@@ -16,7 +16,7 @@ export const GetUserByID: React.FC = (props: any) => {
   const history = useHistory()
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
-  const { setUserLogin } = useContext(Context)
+  const { setUserLogin, setUserAvatar } = useContext(Context)
 
   useEffect(() => {
     ;(async () => {
@@ -52,6 +52,7 @@ export const GetUserByID: React.FC = (props: any) => {
     e.preventDefault()
     const img = await Service.setImgUser(avatarForBack)
     await Service.editUser(id, { avatar: img, password: "" })
+    setUserAvatar(img)
   }
 
   return (

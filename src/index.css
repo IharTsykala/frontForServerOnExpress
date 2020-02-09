@@ -52,10 +52,13 @@ code {
   z-index: 10;
 }
 
+.nav-wrapper {
+  /* display: grid; */
+  /* grid-template-columns:  */
+}
+
 .main {
-  margin: 0;
-  position: absolute;
-  top: 60px;
+  margin-top: 64px;
 }
 
 .edit {
@@ -64,7 +67,6 @@ code {
 
 /* FormsDataUsers */
 .form-data-users {
-  /* width: 80%; */
   display: grid;
   justify-content: center;
   margin-top: 10%;
@@ -73,12 +75,3 @@ code {
 .chelik {
   width: 200px;
 }
-
-/* GetAllUsers */
-/* .container__all_users { 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: 90%;
-    height: 50%;
-    margin: 5% auto;   
-} */

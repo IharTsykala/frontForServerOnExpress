@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import Service from "../../services/service-user"
 import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
+import { Context } from "../../Context"
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
-  const [cardClick, setCardClick]: any = useState("")
-  console.log(cardClick)
+  const { userID } = useContext(Context)
 
   useEffect(() => {
     getUsers()
   }, [])
+
+  const removeHandler = async (e: any, id: number) => {
+    setLoad("loading")
+    await Service.removeHandler(id)
+    getUsers()
+  }
 
   const getUsers = async () => {
     const users = await Service.getAllUsers()
@@ -28,9 +34,17 @@ export const GetAllUsers: React.FC = () => {
             Find friends for youself
           </h2>
           <ul className={GetAllUsersCSS.container__all_users__cards}>
-            {users.map((user: any) => (
-              <UserCard key={user._id} user={user} />
-            ))}
+            {users.map((user: any) => {
+              return (
+                user._id !== userID && (
+                  <UserCard
+                    key={user._id}
+                    user={user}
+                    removeHandler={removeHandler}
+                  />
+                )
+              )
+            })}
           </ul>
         </>
       )}
@@ -38,6 +52,12 @@ export const GetAllUsers: React.FC = () => {
     </>
   )
 }
+
+// const removeHandler = async (id: number)=> {    	  const removeHandler = async (id: number) => {
+//   setLoad('loading')      	    setLoad("loading")
+//   await Service.removeHandler(id)	    await Service.removeHandler(id)
+//   // history.replace(`/users/all`)	    // history.replace(`/users/all`)
+//   history.go(0)
 
 // import UserInfo from '../../components/UserInfo/UserInfo'
 

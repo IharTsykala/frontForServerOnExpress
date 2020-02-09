@@ -1,16 +1,19 @@
 import React, { useContext } from "react"
-import Service from "../services/service-user"
+import Service from "../../services/service-user"
 import { useHistory } from "react-router-dom"
-import FormDataUsers from "../components/FormDataUsers"
+import FormDataUsers from "../../components/FormDataUsers"
 import {
   UserFormViewModes,
   UserFormViewButtons
-} from "../shared/constants/user-from-view-mode.enum"
-import { Context } from "../components/Context"
+} from "../../shared/constants/user-from-view-mode.enum"
+import { Context } from "../../Context"
+import GetLoginPageCSS from "./GetLoginPage.module.css"
 
 export const GetLoginPage: React.FC = () => {
   const history = useHistory()
-  const { userLogin, setUserLogin, setUserID } = useContext(Context)
+  const { userLogin, setUserLogin, setUserID, setUserAvatar } = useContext(
+    Context
+  )
 
   const logInHandler = async (id: any, user: any) => {
     try {
@@ -18,6 +21,7 @@ export const GetLoginPage: React.FC = () => {
       localStorage.setItem("token", data.token)
       setUserLogin(user.login)
       setUserID(data.user._id)
+      setUserAvatar(data.user.avatar)
       history.push(`/users/all`)
     } catch (e) {
       console.log(e)
@@ -26,6 +30,7 @@ export const GetLoginPage: React.FC = () => {
 
   return (
     <>
+      <h3 className={GetLoginPageCSS.main__log_in__header}>Welcome Back</h3>
       {!userLogin && (
         <>
           <FormDataUsers

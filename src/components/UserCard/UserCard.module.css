@@ -1,3 +1,7 @@
+.container__all_users__card_user__delete {
+  position: absolute;
+}
+
 .container__all_users__card_user {
   background-color: rgb(204, 204, 243);
   width: 90%;

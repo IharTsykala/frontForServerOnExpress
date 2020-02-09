@@ -1,15 +1,16 @@
 import React, { useContext } from "react"
-import Service from "../services/service-user"
+import Service from "../../services/service-user"
 import { useHistory } from "react-router-dom"
-import FormDataUsers from "../components/FormDataUsers"
+import FormDataUsers from "../../components/FormDataUsers"
 import {
   UserFormViewModes,
   UserFormViewButtons
-} from "../shared/constants/user-from-view-mode.enum"
-import { Context } from "../components/Context"
+} from "../../shared/constants/user-from-view-mode.enum"
+import { Context } from "../../Context"
+import GetLogUpPageCSS from "./GetLogUpPage.module.css"
 
 export const GetLogUpPage: React.FC = () => {
-  const { setUserLogin, setUserID } = useContext(Context)
+  const { setUserLogin, setUserID, setUserAvatar } = useContext(Context)
   const history = useHistory()
 
   const logUpHandler = async (id: number, user: any) => {
@@ -17,12 +18,15 @@ export const GetLogUpPage: React.FC = () => {
     localStorage.setItem("token", data.token)
     setUserLogin(user.login)
     setUserID(data.user._id)
+    setUserAvatar(data.user.avatar)
     history.push(`/users/all`)
   }
 
   return (
     <>
-      <h1>Sign Up</h1>
+      <h3 className={GetLogUpPageCSS.main__sign_up__header}>
+        Make the best decision in your life
+      </h3>
       <FormDataUsers
         submitHandler={logUpHandler}
         namePage={UserFormViewModes.SingUp}

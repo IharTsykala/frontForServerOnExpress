@@ -5,12 +5,15 @@ interface AppContextInterface {
   setUserLogin: () => {}
   userID: any
   setUserID: () => {}
+  userAvatar: any
+  setUserAvatar: () => {}
 }
 
 export const Context = createContext<AppContextInterface | any>("")
 export const ContextProvider: React.FC = (props: any) => {
   const [userLogin, setUserLogin]: any = useState("")
   const [userID, setUserID]: any = useState("")
+  const [userAvatar, setUserAvatar]: any = useState("")
   console.log(userLogin)
   //in case refresh application
   if (userLogin) localStorage.setItem("userLogin", userLogin)
@@ -19,6 +22,9 @@ export const ContextProvider: React.FC = (props: any) => {
   if (userID) localStorage.setItem("userID", userID)
   if (!userID && localStorage.getItem("userID"))
     setUserID(localStorage.getItem("userID"))
+  if (userAvatar) localStorage.setItem("userAvatar", userAvatar)
+  if (!userAvatar && localStorage.getItem("userAvatar"))
+    setUserAvatar(localStorage.getItem("userAvatar"))
 
   return (
     <Context.Provider
@@ -26,7 +32,9 @@ export const ContextProvider: React.FC = (props: any) => {
         userLogin,
         setUserLogin,
         userID,
-        setUserID
+        setUserID,
+        userAvatar,
+        setUserAvatar
       }}
     >
       {props.children}

@@ -1,30 +1,55 @@
 import React, { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { Context } from "./Context"
+import { Context } from "../../Context"
 import { useHistory } from "react-router-dom"
+import NavbarCSS from "./Navbar.module.css"
 
 export const Navbar: React.FunctionComponent = props => {
-  const { userLogin, setUserLogin, userID, setUserID } = useContext(Context)
-  console.log(userLogin)
+  const {
+    userLogin,
+    setUserLogin,
+    userID,
+    setUserID,
+    userAvatar,
+    setUserAvatar
+  } = useContext(Context)
+  // console.log(userLogin)
   const history = useHistory()
-  // console.log(userID)
+  console.log(userAvatar)
 
   const handlerLogOut = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("userID")
     localStorage.removeItem("userLogin")
-    localStorage.removeItem("userID")
+    localStorage.removeItem("userAvatar")
     setUserLogin("")
     setUserID("")
+    setUserAvatar("")
   }
 
   return (
     <nav className="navbar_container">
       <div className="nav-wrapper purple darken-2 px1">
         {userLogin && (
-          <a href="/" className="brand-logo">
-            {`Hello, ${userLogin}`}
-          </a>
+          <>
+            <a href="/" className="brand-logo">
+              {`Hello, ${userLogin}`}
+            </a>
+            {userAvatar && (
+              <img
+                className={NavbarCSS.navbar__avatar}
+                src={`http://localhost:8080/images/users/${userID}/${userAvatar}`}
+                alt="avatar"
+              />
+            )}
+            {!userAvatar && (
+              <img
+                className={NavbarCSS.navbar__avatar}
+                src={`http://localhost:8080/images/pattern-avatar.jpg`}
+                alt="avatar"
+              />
+            )}
+          </>
         )}
         {!userLogin && (
           <a href="/" className="brand-logo">
@@ -54,10 +79,10 @@ export const Navbar: React.FunctionComponent = props => {
           {!userLogin && (
             <>
               <li>
-                <NavLink to="/">Log In</NavLink>
+                <NavLink to="/user/LogIn">Log In</NavLink>
               </li>
               <li>
-                <NavLink to="/user/LogUp">Sign Up</NavLink>
+                <NavLink to="/user/SignUp">Sign Up</NavLink>
               </li>
             </>
           )}
