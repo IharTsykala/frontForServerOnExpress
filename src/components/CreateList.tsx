@@ -1,31 +1,20 @@
 import React, { useState, useEffect } from "react"
-import Service from "../services/service-user"
 
-const ListPets = (id?: any) => {
-  const [pets, setPets]: any = useState("")
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const listPets = await Service.getListPetsByUserID(id)
-        setPets(listPets)
-      } catch (e) {
-        console.log(e)
-      }
-    })()
-  }, [id])
-
+const CreateList = ({arr}: any) => {  
+  // console.log(arr)
+  // useEffect(()=>{console.log(props)},[1])  
+  
   return (
     <ul>
-      {pets.length > 0 &&
-        pets.map((pet: any) => (
-          <li key={pet._id}>
-            <p>{`${pet.name} ${pet.species}`}</p>
+      {arr.length > 0 &&
+        arr.map((arr: any) => (
+          <li key={arr._id}>
+            <p>{`${arr.name} ${arr.description}`}</p>
           </li>
         ))}
-      {!pets.length && <p>Your list pets is empty</p>}
+      {!arr.length && <p>Your list is empty</p>}
     </ul>
   )
 }
 
-export default ListPets
+export default CreateList

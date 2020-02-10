@@ -5,7 +5,7 @@ type UserAvatarProps = {
   avatarForFront: any
   handleChangeAvatar: any
   handleSubmit: any
-  adminStatus: any
+  userRole: string
   homePageStatus: any
 }
 
@@ -14,7 +14,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
   avatarForFront,
   handleChangeAvatar,
   handleSubmit,
-  adminStatus,
+  userRole,
   homePageStatus
 }) => {
   return (
@@ -36,7 +36,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
           alt="avatar"
         />
       )}
-      {(adminStatus || homePageStatus) && (
+      {(userRole==='admin' || homePageStatus) && (
         <>
           <input type="file" onChange={e => handleChangeAvatar(e)} />
           <input

@@ -68,16 +68,35 @@ export default class Service {
     return response.data
   }
 
-  static setImgUser = async avatar => {
+  static setImgUser = async (avatar, id, userRole) => {
+    let url;
     const formData = new FormData()
-    formData.append("test", avatar)
+    formData.append("user", avatar)
+    if(userRole==='admin')  url =  `http://localhost:8080/public/adminSafeFileIntoImages/${id}` 
+    else url= `http://localhost:8080/public/userSafeFileIntoImages`
+    
     const response = await axios.post(
-      `http://localhost:8080/public/safeFileIntoImages`,
+      url,
       formData,
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") }
       }
     )
     return response.data.fileName
+  }
+  
+  static getListAlbumsByUserID = async(id)=> {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/albums/all`,
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+        }
+      )
+      console.log(response)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

@@ -11,7 +11,8 @@ export const Navbar: React.FunctionComponent = props => {
     userID,
     setUserID,
     userAvatar,
-    setUserAvatar
+    setUserAvatar,
+    setUserRole
   } = useContext(Context)
   const history = useHistory()
 
@@ -20,9 +21,11 @@ export const Navbar: React.FunctionComponent = props => {
     localStorage.removeItem("userID")
     localStorage.removeItem("userLogin")
     localStorage.removeItem("userAvatar")
+    localStorage.removeItem("userRole")
     setUserLogin("")
     setUserID("")
     setUserAvatar("")
+    setUserRole("")
   }
 
   return (

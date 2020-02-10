@@ -11,7 +11,7 @@ import GetLoginPageCSS from "./GetLoginPage.module.css"
 
 export const GetLoginPage: React.FC = () => {
   const history = useHistory()
-  const { userLogin, setUserLogin, setUserID, setUserAvatar } = useContext(
+  const { userLogin, setUserLogin, setUserID, setUserAvatar, setUserRole } = useContext(
     Context
   )
 
@@ -22,6 +22,7 @@ export const GetLoginPage: React.FC = () => {
       setUserLogin(user.login)
       setUserID(data.user._id)
       setUserAvatar(data.user.avatar)
+      setUserRole(data.user.role)
       history.push(`/users/all`)
     } catch (e) {
       console.log(e)

@@ -6,13 +6,12 @@ import { Context } from "../../Context"
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
-  const [load, setLoad]: any = useState("loading")
-  const [admin, setAdmin]: any = useState(false)
-  const { userID } = useContext(Context)
+  const [load, setLoad]: any = useState("loading")  
+  const { userID, userRole } = useContext(Context)
 
   useEffect(() => {
     getUsers()
-    defineRoleUser()
+    // defineRoleUser()
   }, [])
 
   const getUsers = async () => {
@@ -21,10 +20,10 @@ export const GetAllUsers: React.FC = () => {
     setUsers(users)
   }
 
-  const defineRoleUser = async () => {
-    const user = await Service.getUserByID(userID)
-    if (user.role === "admin") setAdmin(true)
-  }
+  // const defineRoleUser = async () => {
+  //   const user = await Service.getUserByID(userID)
+  //   if (user.role === "admin") setAdmin(true)
+  // }
 
   const removeHandler = async (e: any, id: number) => {
     setLoad("loading")
@@ -48,7 +47,7 @@ export const GetAllUsers: React.FC = () => {
                     key={user._id}
                     user={user}
                     removeHandler={removeHandler}
-                    admin={admin}
+                    admin={userRole}
                   />
                 )
               )

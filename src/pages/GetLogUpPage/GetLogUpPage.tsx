@@ -10,7 +10,7 @@ import { Context } from "../../Context"
 import GetLogUpPageCSS from "./GetLogUpPage.module.css"
 
 export const GetLogUpPage: React.FC = () => {
-  const { setUserLogin, setUserID, setUserAvatar } = useContext(Context)
+  const { setUserLogin, setUserID, setUserAvatar, setUserRole } = useContext(Context)
   const history = useHistory()
 
   const logUpHandler = async (id: number, user: any) => {
@@ -19,6 +19,7 @@ export const GetLogUpPage: React.FC = () => {
     setUserLogin(user.login)
     setUserID(data.user._id)
     setUserAvatar(data.user.avatar)
+    setUserRole(data.user.role)
     history.push(`/users/all`)
   }
 
