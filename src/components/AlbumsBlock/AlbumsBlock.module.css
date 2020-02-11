@@ -4,5 +4,6 @@
     background-color: brown;
     position: absolute;
     top: 20%;
-    left: 15%
+    left: 15%;
+    opacity: 0.9;
 }

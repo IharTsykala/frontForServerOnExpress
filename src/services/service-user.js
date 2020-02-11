@@ -85,15 +85,16 @@ export default class Service {
     return response.data.fileName
   }
   
-  static getListAlbumsByUserID = async(id)=> {
+  static getListAlbumsByUserID = async id=> {
     try {
+      // console.log(id)
       const response = await axios.get(
-        `http://localhost:8080/albums/all`,
+        `http://localhost:8080/users/withAlbum/${id}`,
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") }
         }
       )
-      console.log(response)
+      // console.log(response)
       return response.data
     } catch (e) {
       console.log(e)

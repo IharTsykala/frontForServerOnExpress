@@ -24,7 +24,7 @@ export const GetUserByID: React.FC = (props: any) => {
 
   useEffect(() => {
     getUserByID()
-  })
+  },[])
 
   const getUserByID = async () => {
     try {
