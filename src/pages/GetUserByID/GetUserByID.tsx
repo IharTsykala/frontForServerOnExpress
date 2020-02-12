@@ -9,16 +9,16 @@ import {
 // import ListPets from "../../components/CreateList"
 import { Context } from "../../Context"
 import { UserAvatar } from "../../components/UserAvatar/UserAvatar"
-import {AlbumsBlock} from "../../components/AlbumsBlock/AlbumsBlock"
+import { AlbumsBlock } from "../../components/AlbumsBlock/AlbumsBlock"
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
-  const [homePageStatus, setHomePageStatus]: any = useState(false) 
-  const [ albumState, setAlbumState ]:any  = useState(false) 
-  const { userID, userRole, setUserLogin, setUserAvatar } = useContext(Context)  
+  const [homePageStatus, setHomePageStatus]: any = useState(false)
+  const [albumState, setAlbumState]: any = useState(false)
+  const { userID, userRole, setUserLogin, setUserAvatar } = useContext(Context)
   const { id } = props.match.params
   const history = useHistory()
 
@@ -27,16 +27,16 @@ export const GetUserByID: React.FC = (props: any) => {
       const user = await Service.getUserByID(id)
       setUsers(user)
       setLoad("loaded")
-      if (user._id === userID) setHomePageStatus(true)      
+      if (user._id === userID) setHomePageStatus(true)
     } catch (e) {
       console.log(e)
     }
-  },[id, userID])
-  
-  useEffect(() => {    
+  }, [id, userID])
+
+  useEffect(() => {
     render()
-  },[render])
-  
+  }, [render])
+
   const editSubmitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
     setUserLogin(user.login)
@@ -53,9 +53,9 @@ export const GetUserByID: React.FC = (props: any) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const imgName = await Service.setImgUser(avatarForBack, id, userRole)    
+    const imgName = await Service.setImgUser(avatarForBack, id, userRole)
     await Service.editUser(id, { avatar: imgName, password: "" })
-    if(id === userID)setUserAvatar(imgName)
+    if (id === userID) setUserAvatar(imgName)
   }
 
   const choseAlbum = () => {
@@ -73,8 +73,8 @@ export const GetUserByID: React.FC = (props: any) => {
         homePageStatus={homePageStatus}
       />
 
-      {albumState && <AlbumsBlock id={id}/>}
-      <button onClick={()=>choseAlbum()} >фотофльбомы</button>
+      {albumState && <AlbumsBlock id={id} />}
+      <button onClick={() => choseAlbum()}>фотофльбомы</button>
 
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (

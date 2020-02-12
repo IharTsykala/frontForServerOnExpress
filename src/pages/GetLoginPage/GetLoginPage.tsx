@@ -11,9 +11,13 @@ import GetLoginPageCSS from "./GetLoginPage.module.css"
 
 export const GetLoginPage: React.FC = () => {
   const history = useHistory()
-  const { userLogin, setUserLogin, setUserID, setUserAvatar, setUserRole } = useContext(
-    Context
-  )
+  const {
+    userLogin,
+    setUserLogin,
+    setUserID,
+    setUserAvatar,
+    setUserRole
+  } = useContext(Context)
 
   const logInHandler = async (id: any, user: any) => {
     try {

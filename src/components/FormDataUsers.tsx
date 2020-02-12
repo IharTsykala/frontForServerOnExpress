@@ -82,7 +82,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
           <button type="submit">{`${nameButton}`}</button>
         )}
         {namePage === UserFormViewModes.Edit &&
-          (userRole==='admin' || homePageStatus) && (
+          (userRole === "admin" || homePageStatus) && (
             <button type="submit">{`${nameButton}`}</button>
           )}
       </Form>

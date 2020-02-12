@@ -30,7 +30,7 @@ export const ContextProvider: React.FC = (props: any) => {
     setUserAvatar(localStorage.getItem("userAvatar"))
   if (userRole) localStorage.setItem("userRole", userRole)
   if (!userRole && localStorage.getItem("userRole"))
-  setUserRole(localStorage.getItem("userRole"))    
+    setUserRole(localStorage.getItem("userRole"))
 
   return (
     <Context.Provider

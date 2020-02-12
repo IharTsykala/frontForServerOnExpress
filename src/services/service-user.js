@@ -1,16 +1,18 @@
 const axios = require("axios")
 
 export default class Service {
-
-  static interceptor = axios.interceptors.request.use(function (config) {
-    const token = localStorage.getItem('token');
-  if ( token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-    return config;
-  }, function (error) {   
-    return Promise.reject(error);
-  });
+  static interceptor = axios.interceptors.request.use(
+    function(config) {
+      const token = localStorage.getItem("token")
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+      return config
+    },
+    function(error) {
+      return Promise.reject(error)
+    }
+  )
 
   static getAllUsers = async () => {
     try {
@@ -22,9 +24,11 @@ export default class Service {
   }
 
   static editUser = async (id, user) => {
-    try {      
+    try {
       const request = await axios.put(
-        `http://localhost:8080/users/update/${id}`,user)
+        `http://localhost:8080/users/update/${id}`,
+        user
+      )
       return request.data
     } catch (e) {
       console.log(e)
@@ -60,29 +64,29 @@ export default class Service {
 
   static getListPetsByUserID = async id => {
     const response = await axios.get(
-      `http://localhost:8080/users/withPets/${id}`)
+      `http://localhost:8080/users/withPets/${id}`
+    )
     return response.data
   }
 
   static setImgUser = async (avatar, id, userRole) => {
-    let url;
+    let url
     const formData = new FormData()
     formData.append("user", avatar)
-    if(userRole==='admin')  url =  `http://localhost:8080/public/adminSafeFileIntoImages/${id}` 
-    else url= `http://localhost:8080/public/userSafeFileIntoImages`
-    
-    const response = await axios.post(
-      url,
-      formData
-    )
+    if (userRole === "admin")
+      url = `http://localhost:8080/public/adminSafeFileIntoImages/${id}`
+    else url = `http://localhost:8080/public/userSafeFileIntoImages`
+
+    const response = await axios.post(url, formData)
     return response.data.fileName
   }
-  
-  static getListAlbumsByUserID = async id=> {
+
+  static getListAlbumsByUserID = async id => {
     try {
       // console.log(id)
       const response = await axios.get(
-        `http://localhost:8080/users/withAlbums/${id}`)
+        `http://localhost:8080/users/withAlbums/${id}`
+      )
       // console.log( `http://localhost:8080/users/withAlbum/${id}`)
       return response.data
     } catch (e) {
@@ -90,11 +94,12 @@ export default class Service {
     }
   }
 
-  static getListPhotosByUserID = async id=> {
+  static getListPhotosByUserID = async id => {
     try {
       console.log(id)
       const response = await axios.get(
-        `http://localhost:8080/users/withPhotos/${id}`)
+        `http://localhost:8080/users/withPhotos/${id}`
+      )
       // console.log( `http://localhost:8080/users/withAlbum/${id}`)
       return response.data
     } catch (e) {

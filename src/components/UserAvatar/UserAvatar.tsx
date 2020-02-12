@@ -36,7 +36,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
           alt="avatar"
         />
       )}
-      {(userRole==='admin' || homePageStatus) && (
+      {(userRole === "admin" || homePageStatus) && (
         <>
           <input type="file" onChange={e => handleChangeAvatar(e)} />
           <input

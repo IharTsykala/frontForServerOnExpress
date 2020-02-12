@@ -1,9 +1,9 @@
 .main__user_profile__albums_block {
-    width: 60vw;
-    height: 60vh;
-    background-color: brown;
-    position: absolute;
-    top: 20%;
-    left: 15%;
-    opacity: 0.9;
+  width: 60vw;
+  height: 60vh;
+  background-color: brown;
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  opacity: 0.9;
 }

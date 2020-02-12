@@ -12,7 +12,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, removeHandler, admin }) => {
   const history = useHistory()
   return (
     <div className={UserCardCSS.container__all_users__card_user}>
-      {admin==='admin' && (
+      {admin === "admin" && (
         <i
           className={`material-icons ${UserCardCSS.container__all_users__card_user__delete}`}
           onClick={e => removeHandler(e, user._id)}

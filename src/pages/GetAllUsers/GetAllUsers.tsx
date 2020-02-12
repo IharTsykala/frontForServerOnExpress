@@ -6,28 +6,27 @@ import { Context } from "../../Context"
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
-  const [load, setLoad]: any = useState("loading")  
+  const [load, setLoad]: any = useState("loading")
   const { userID, userRole } = useContext(Context)
 
   const render = useCallback(() => {
     try {
-      getUsers()    
+      getUsers()
     } catch (e) {
       console.log(e)
     }
-  },[])
-  
-  useEffect(() => {    
-    render()
-  },[render])
+  }, [])
 
-  async function getUsers ()  {
+  useEffect(() => {
+    render()
+  }, [render])
+
+  async function getUsers() {
     const users = await Service.getAllUsers()
     setLoad("loaded")
     setUsers(users)
   }
 
-  
   // const defineRoleUser = async () => {
   //   const user = await Service.getUserByID(userID)
   //   if (user.role === "admin") setAdmin(true)
