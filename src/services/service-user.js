@@ -1,11 +1,20 @@
 const axios = require("axios")
 
 export default class Service {
+
+  static interceptor = axios.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('token');
+  if ( token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+    return config;
+  }, function (error) {   
+    return Promise.reject(error);
+  });
+
   static getAllUsers = async () => {
     try {
-      const request = await axios.get("http://localhost:8080/users/", {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      })
+      const request = await axios.get("http://localhost:8080/users/")
       return request.data
     } catch (e) {
       console.log(e)
@@ -13,14 +22,9 @@ export default class Service {
   }
 
   static editUser = async (id, user) => {
-    try {
+    try {      
       const request = await axios.put(
-        `http://localhost:8080/users/update/${id}`,
-        user,
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-        }
-      )
+        `http://localhost:8080/users/update/${id}`,user)
       return request.data
     } catch (e) {
       console.log(e)
@@ -29,9 +33,7 @@ export default class Service {
 
   static removeHandler = async id => {
     try {
-      return await axios.delete(`http://localhost:8080/users/delete/${id}`, {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      })
+      return await axios.delete(`http://localhost:8080/users/delete/${id}`)
     } catch (e) {
       console.log(e)
     }
@@ -39,9 +41,7 @@ export default class Service {
 
   static getUserByID = async id => {
     try {
-      const request = await axios.get(`http://localhost:8080/users/${id}`, {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      })
+      const request = await axios.get(`http://localhost:8080/users/${id}`)
       return request.data
     } catch (e) {
       console.log(e)
@@ -60,11 +60,7 @@ export default class Service {
 
   static getListPetsByUserID = async id => {
     const response = await axios.get(
-      `http://localhost:8080/users/withPets/${id}`,
-      {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      }
-    )
+      `http://localhost:8080/users/withPets/${id}`)
     return response.data
   }
 
@@ -77,10 +73,7 @@ export default class Service {
     
     const response = await axios.post(
       url,
-      formData,
-      {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      }
+      formData
     )
     return response.data.fileName
   }
@@ -89,12 +82,20 @@ export default class Service {
     try {
       // console.log(id)
       const response = await axios.get(
-        `http://localhost:8080/users/withAlbum/${id}`,
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-        }
-      )
-      // console.log(response)
+        `http://localhost:8080/users/withAlbums/${id}`)
+      // console.log( `http://localhost:8080/users/withAlbum/${id}`)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  static getListPhotosByUserID = async id=> {
+    try {
+      console.log(id)
+      const response = await axios.get(
+        `http://localhost:8080/users/withPhotos/${id}`)
+      // console.log( `http://localhost:8080/users/withAlbum/${id}`)
       return response.data
     } catch (e) {
       console.log(e)

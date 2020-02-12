@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useCallback} from "react"
 import AlbumsBlockCSS from './AlbumsBlock.module.css'
 import CreateList from '../CreateList/CreateList'
 import Service from "../../services/service-user"
@@ -17,16 +17,19 @@ id: any
 
 export const AlbumsBlock: React.FC<AlbumsBlock> = ({id}:any) => {
     const [albums, setAlbums]:any = useState('')
-    const [load, setLoad]: any = useState("loading")    
+    const [load, setLoad]: any = useState("loading")
+    
+    // useCallback(getList,[])
 
-    useEffect(() => {
-        getList()                
+    useEffect(() => {    
+      getList()
     },[])
 
-      const getList = async () => {
-        try {
-          const user = await Service.getListAlbumsByUserID(id)          
-          setAlbums(user[0].albums)
+     async function getList() {
+        try {          
+          const user = await Service.getListPhotosByUserID(id)
+          console.log(user)        
+          setAlbums(user[0].photos)
           setLoad("loaded")        
           console.log(user[0].albums)
         } catch (e) {
@@ -52,11 +55,28 @@ export const AlbumsBlock: React.FC<AlbumsBlock> = ({id}:any) => {
         getList()
       }
 
+      const addPhotoHandler =  async (e: any) => {
+        e.preventDefault()
+        const target = e.target.files[0]
+        console.log(target)
+    if (target) {
+        
+      const imgName = await ServiceAlbums.setImgUser(target)
+      
+      await ServiceAlbums.addPhoto(id, imgName)    
+      // await Service.editUser(id, { avatar: imgName, password: "" })
+      // setUserAvatar(imgName)    
+      
+    }
+       
+      }
+
   return (
     <div className={AlbumsBlockCSS.main__user_profile__albums_block}>
         {load === "loading" && <h1>Ожидайте ответа</h1>}                
-        {load === "loaded" &&<><CreateList arr={albums} removeHandler={removeHandler} editHandler={editHandler}/><i className="material-icons" onClick={addHandler}>add</i></>}
+        {load === "loaded" &&<><CreateList arr={albums} removeHandler={removeHandler} editHandler={editHandler} idUser={id}/><i className="material-icons" onClick={addHandler}>add</i></>}
         {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
+        <input type="file" onChange={(e)=>addPhotoHandler(e)}/>
     </div>
     
   )

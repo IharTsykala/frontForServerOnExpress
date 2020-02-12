@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
 import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
@@ -9,17 +9,25 @@ export const GetAllUsers: React.FC = () => {
   const [load, setLoad]: any = useState("loading")  
   const { userID, userRole } = useContext(Context)
 
-  useEffect(() => {
-    getUsers()
-    // defineRoleUser()
-  }, [])
+  const render = useCallback(() => {
+    try {
+      getUsers()    
+    } catch (e) {
+      console.log(e)
+    }
+  },[])
+  
+  useEffect(() => {    
+    render()
+  },[render])
 
-  const getUsers = async () => {
+  async function getUsers ()  {
     const users = await Service.getAllUsers()
     setLoad("loaded")
     setUsers(users)
   }
 
+  
   // const defineRoleUser = async () => {
   //   const user = await Service.getUserByID(userID)
   //   if (user.role === "admin") setAdmin(true)

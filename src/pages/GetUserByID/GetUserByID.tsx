@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../../components/FormDataUsers"
@@ -22,11 +22,7 @@ export const GetUserByID: React.FC = (props: any) => {
   const { id } = props.match.params
   const history = useHistory()
 
-  useEffect(() => {
-    getUserByID()
-  },[])
-
-  const getUserByID = async () => {
+  const render = useCallback(async () => {
     try {
       const user = await Service.getUserByID(id)
       setUsers(user)
@@ -35,8 +31,12 @@ export const GetUserByID: React.FC = (props: any) => {
     } catch (e) {
       console.log(e)
     }
-  }
-
+  },[id, userID])
+  
+  useEffect(() => {    
+    render()
+  },[render])
+  
   const editSubmitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
     setUserLogin(user.login)
