@@ -1,4 +1,19 @@
-.user_profile__card_container__img {
+/* .user_profile__card_container__img {
   width: 150px;
   height: 100px;
+} */
+
+.photoAlbum__photoCard {
+  width: 220px;
 }
+
+.photoAlbum__photoCard_photo {
+  /* width: 160px; */
+  height: 110px;
+  margin: 0 auto;
+  background-color: 
+}
+/* 
+button[type="button"] {
+  margin-left: 0;
+} */

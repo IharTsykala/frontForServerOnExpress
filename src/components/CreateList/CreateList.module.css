@@ -1,12 +1,11 @@
-.user_profile__card_container {
+/* .user_profile__card_container {
   width: 200px;
   height: 200px;
-  background-color: chartreuse;
-  /* display: grid;
-    grid-template-columns: repeat(3, 1fr); */
-}
+} */
 
 .user_profile__create_list__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  row-gap: 15px;
+  /* justify-content: center; */
 }

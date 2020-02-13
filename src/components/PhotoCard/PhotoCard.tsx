@@ -1,4 +1,10 @@
 import React from "react"
+import Button from "@material-ui/core/Button"
+import Card from "@material-ui/core/Card"
+import CardActions from "@material-ui/core/CardActions"
+import CardContent from "@material-ui/core/CardContent"
+import CardMedia from "@material-ui/core/CardMedia"
+import Typography from "@material-ui/core/Typography"
 import PhotoCardCSS from "./PhotoCard.module.css"
 
 type UserPhotoCard = {
@@ -24,10 +30,26 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
 
   return (
     <>
+      <Card className={PhotoCardCSS.photoAlbum__photoCard}>
+        <CardMedia
+          image={`http://localhost:8080/images/users/${idUser}/${url}`}
+          title="Image title"
+          className={PhotoCardCSS.photoAlbum__photoCard_photo}
+        />
+        <CardActions>          
+          <Button size="small" color="primary">
+            Edit
+          </Button>
+          <Button size="small" color="primary">
+            Delete
+          </Button>
+        </CardActions>
+      </Card>
+
       {/* <p>{name}</p>
             <p>{description}</p>
             <i  className="material-icons" onClick={()=>editHandler(id)} > edit </i> */}
-      <i className="material-icons" onClick={() => removeHandler(id)}>
+      {/* <i className="material-icons" onClick={() => removeHandler(id)}>
         {" "}
         delete{" "}
       </i>
@@ -35,7 +57,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
         className={PhotoCardCSS.user_profile__card_container__img}
         src={`http://localhost:8080/images/users/${idUser}/${url}`}
         alt="photo"
-      />
+      /> */}
     </>
   )
 }

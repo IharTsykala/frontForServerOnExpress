@@ -6,14 +6,14 @@ import ServiceAlbums from "../../services/service-album"
 import ServicePhoto from "../../services/service-photo"
 // import PhotoCard from "../PhotoCard/PhotoCard"
 
-type AlbumsBlock = {  
+type AlbumsBlock = {
   id: any
+  roleComponent: any
 }
 
-export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id }: any) => {
+export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id, roleComponent }) => {
   const [albums, setAlbums]: any = useState("")
   const [load, setLoad]: any = useState("loading")
-  
 
   useEffect(() => {
     getList()
@@ -21,34 +21,33 @@ export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id }: any) => {
 
   async function getList() {
     try {
-      const user = await Service.getListPhotosByUserID(id)      
+      const user = await Service.getListPhotosByUserID(id)
       setAlbums(user[0].photos)
-      setLoad("loaded")      
+      setLoad("loaded")
     } catch (e) {
       console.log(e)
     }
   }
 
-  // const addHandler = async () => {    
+  // const addHandler = async () => {
   //   await ServiceAlbums.addAlbum(id)
-  //   getList()    
+  //   getList()
   // }
 
-  const editHandler = async (id: number) => {    
-  }
+  const editHandler = async (id: number) => {}
 
   const removeHandler = async (id: number) => {
-    setLoad("loading")    
+    setLoad("loading")
     await ServiceAlbums.removeHandler(id)
     getList()
   }
 
   const addHandler = async (e: any) => {
     e.preventDefault()
-    const target = e.target.files        
+    const target = e.target.files
     if (target) {
-      const imgNames = await ServicePhoto.setImgUser(target)        
-      await ServiceAlbums.addPhoto(id, imgNames)      
+      const imgNames = await ServicePhoto.setImgUser(target)
+      await ServiceAlbums.addPhoto(id, imgNames)
     }
     getList()
   }
@@ -63,15 +62,27 @@ export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id }: any) => {
             removeHandler={removeHandler}
             editHandler={editHandler}
             idUser={id}
-          />          
+          />
         </>
       )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
-      
-      <label className={AlbumsBlockCSS.photos__container_drag_and_drop__label} htmlFor="addFiles" >Add Images</label>
-     <input className={AlbumsBlockCSS.label__input} id="addFiles" type="file" multiple onChange={e => {addHandler(e)}}/> 
-     
-       
+
+      <div className={AlbumsBlockCSS.photos__container_drag_and_drop}></div>
+      <label
+        className={AlbumsBlockCSS.photos__container_drag_and_drop__label}
+        htmlFor="addFiles"
+      >
+        Add Images
+      </label>
+      <input
+        className={AlbumsBlockCSS.label__input}
+        id="addFiles"
+        type="file"
+        multiple
+        onChange={e => {
+          addHandler(e)
+        }}
+      />
     </div>
   )
 }

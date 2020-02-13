@@ -10,6 +10,7 @@ import {
 import { Context } from "../../Context"
 import { UserAvatar } from "../../components/UserAvatar/UserAvatar"
 import { AlbumsBlock } from "../../components/AlbumsBlock/AlbumsBlock"
+// import Album from '../../components/AlbumLayout/AlbumLayout'
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
@@ -64,28 +65,33 @@ export const GetUserByID: React.FC = (props: any) => {
 
   return (
     <>
-      <UserAvatar
-        user={user}
-        avatarForFront={avatarForFront}
-        handleChangeAvatar={handleChangeAvatar}
-        handleSubmit={handleSubmit}
-        userRole={userRole}
-        homePageStatus={homePageStatus}
-      />
-
-      {albumState && <AlbumsBlock id={id} />}
-      <button onClick={() => choseAlbum()}>фотофльбомы</button>
+      {/* {albumState && <AlbumsBlock id={id} />}
+      <button onClick={() => choseAlbum()}>фотофльбомы</button> */}
 
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (
-        <FormDataUsers
+        <>
+          <UserAvatar
+            user={user}
+            avatarForFront={avatarForFront}
+            handleChangeAvatar={handleChangeAvatar}
+            handleSubmit={handleSubmit}
+            userRole={userRole}
+            homePageStatus={homePageStatus}
+          />
+
+          {/* <Album/> */}
+
+          <AlbumsBlock id={id} roleComponent={"albumsBlock"} />
+          {/* <FormDataUsers
           user={user}
           submitHandler={editSubmitHandler}
           namePage={UserFormViewModes.Edit}
           nameButton={UserFormViewButtons.Edit}
           userRole={userRole}
           homePageStatus={homePageStatus}
-        />
+        /> */}
+        </>
       )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>
