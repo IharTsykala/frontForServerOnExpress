@@ -96,7 +96,7 @@ export default class Service {
 
   static getListPhotosByUserID = async id => {
     try {
-      console.log(id)
+      // console.log(id)
       const response = await axios.get(
         `http://localhost:8080/users/withPhotos/${id}`
       )

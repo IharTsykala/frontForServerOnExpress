@@ -1,19 +1,20 @@
 const axios = require("axios")
 
 export default class ServiceAlbums {
-  // static removeHandler = async id => {
-  //   try {
-  //     console.log(id)
-  //     return await axios.delete(`http://localhost:8080/albums/delete/${id}`, {
-  //       headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-  //     })
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
-
-  static addAlbum = async id => {
-    console.log(id)
+  static interceptor = axios.interceptors.request.use(
+    function(config) {
+      const token = localStorage.getItem("token")
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+      return config
+    },
+    function(error) {
+      return Promise.reject(error)
+    }
+  )
+  
+  static addAlbum = async id => {    
     const album = {
       name: "new album",
       owner: id
@@ -23,40 +24,33 @@ export default class ServiceAlbums {
   }
 
   static removeHandler = async id => {
-    try {
-      console.log(id)
-      return await axios.delete(`http://localhost:8080/photos/delete/${id}`, {
-        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
-      })
+    try {      
+      return await axios.delete(`http://localhost:8080/photos/delete/${id}`)
     } catch (e) {
       console.log(e)
     }
   }
 
   static setImgUser = async avatar => {
-    console.log(avatar)
-    // let url;
-    const formData = new FormData()
-    formData.append("user", avatar)
-    // if(userRole==='admin')  url =  `http://localhost:8080/public/adminSafeFileIntoImages/${id}`
-    // else url= `http://localhost:8080/public/userSafeFileIntoImages`
-
+    const formData = new FormData()    
+    for(let i = 0; i<avatar.length; i++) {      
+      formData.append("multipleUser", avatar[i])      
+    }    
     const response = await axios.post(
-      `http://localhost:8080/public/userSafeFileIntoImages`,
-      formData
-    )
-    console.log(response)
-    return response.data.fileName
+      `http://localhost:8080/public/multipleUserSafeFileIntoImages`,
+      formData      
+    )    
+    return response.data.fileNames
   }
 
-  static addPhoto = async (id, url) => {
-    // console.log(url)
-    const photo = {
-      name: "new photo",
-      url,
-      ownerUser: id
+  static addPhoto = async (id, arrayUrl) => {    
+    for(let i = 0; i<arrayUrl.length; i++) {
+      const photo = {
+        name: `${arrayUrl[i]}`,
+        url: arrayUrl[i],
+        ownerUser: id
+      }
+      await axios.post(`http://localhost:8080/photos/add`, photo)
     }
-    const response = await axios.post(`http://localhost:8080/photos/add`, photo)
-    return response.data
   }
 }

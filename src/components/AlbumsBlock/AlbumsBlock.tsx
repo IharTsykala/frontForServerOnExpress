@@ -3,23 +3,17 @@ import AlbumsBlockCSS from "./AlbumsBlock.module.css"
 import CreateList from "../CreateList/CreateList"
 import Service from "../../services/service-user"
 import ServiceAlbums from "../../services/service-album"
+import ServicePhoto from "../../services/service-photo"
 // import PhotoCard from "../PhotoCard/PhotoCard"
 
-type AlbumsBlock = {
-  //   user: any
-  //   avatarForFront: any
-  //   handleChangeAvatar: any
-  //   handleSubmit: any
-  //   userRole: string
-  //   homePageStatus: any
+type AlbumsBlock = {  
   id: any
 }
 
 export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id }: any) => {
   const [albums, setAlbums]: any = useState("")
   const [load, setLoad]: any = useState("loading")
-
-  // useCallback(getList,[])
+  
 
   useEffect(() => {
     getList()
@@ -27,45 +21,36 @@ export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id }: any) => {
 
   async function getList() {
     try {
-      const user = await Service.getListPhotosByUserID(id)
-      console.log(user)
+      const user = await Service.getListPhotosByUserID(id)      
       setAlbums(user[0].photos)
-      setLoad("loaded")
-      console.log(user[0].albums)
+      setLoad("loaded")      
     } catch (e) {
       console.log(e)
     }
   }
 
-  const addHandler = async () => {
-    console.log(id)
-    await ServiceAlbums.addAlbum(id)
-    getList()
-    // history.push(`/users/all`)
-  }
+  // const addHandler = async () => {    
+  //   await ServiceAlbums.addAlbum(id)
+  //   getList()    
+  // }
 
-  const editHandler = async (id: number) => {
-    console.log(id)
+  const editHandler = async (id: number) => {    
   }
 
   const removeHandler = async (id: number) => {
-    setLoad("loading")
-    console.log(id)
+    setLoad("loading")    
     await ServiceAlbums.removeHandler(id)
     getList()
   }
 
-  const addPhotoHandler = async (e: any) => {
+  const addHandler = async (e: any) => {
     e.preventDefault()
-    const target = e.target.files[0]
-    console.log(target)
+    const target = e.target.files        
     if (target) {
-      const imgName = await ServiceAlbums.setImgUser(target)
-
-      await ServiceAlbums.addPhoto(id, imgName)
-      // await Service.editUser(id, { avatar: imgName, password: "" })
-      // setUserAvatar(imgName)
+      const imgNames = await ServicePhoto.setImgUser(target)        
+      await ServiceAlbums.addPhoto(id, imgNames)      
     }
+    getList()
   }
 
   return (
@@ -78,14 +63,15 @@ export const AlbumsBlock: React.FC<AlbumsBlock> = ({ id }: any) => {
             removeHandler={removeHandler}
             editHandler={editHandler}
             idUser={id}
-          />
-          <i className="material-icons" onClick={addHandler}>
-            add
-          </i>
+          />          
         </>
       )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
-      <input type="file" onChange={e => addPhotoHandler(e)} />
+      
+      <label className={AlbumsBlockCSS.photos__container_drag_and_drop__label} htmlFor="addFiles" >Add Images</label>
+     <input className={AlbumsBlockCSS.label__input} id="addFiles" type="file" multiple onChange={e => {addHandler(e)}}/> 
+     
+       
     </div>
   )
 }

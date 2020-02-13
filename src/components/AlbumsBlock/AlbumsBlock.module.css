@@ -1,9 +1,25 @@
 .main__user_profile__albums_block {
   width: 60vw;
   height: 60vh;
-  background-color: brown;
+  background-color: rgb(204, 204, 243);
   position: absolute;
   top: 20%;
   left: 15%;
-  opacity: 0.9;
+  /* opacity: 0.9; */
+}
+
+.container_drag_and_drop {
+  width: 500px;
+  height: 60px;
+  background-color: cornsilk;
+}
+
+.photos__container_drag_and_drop__label {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(245, 226, 149);
+}
+
+input[type="file"] {
+  opacity: 0; 
 }
