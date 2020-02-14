@@ -2,9 +2,7 @@ import React from "react"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CardActions from "@material-ui/core/CardActions"
-import CardContent from "@material-ui/core/CardContent"
 import CardMedia from "@material-ui/core/CardMedia"
-import Typography from "@material-ui/core/Typography"
 import PhotoCardCSS from "./PhotoCard.module.css"
 
 type UserPhotoCard = {
@@ -13,8 +11,9 @@ type UserPhotoCard = {
   id?: any
   removeHandler?: any
   editHandler?: any
-  url: any
+  avatar: any
   idUser: any
+  urlForNewAlbum?: any
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
@@ -23,8 +22,9 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   id,
   removeHandler,
   editHandler,
-  url,
-  idUser
+  avatar,
+  idUser,
+  urlForNewAlbum
 }) => {
   // useEffect(()=>{console.log(name)},[])
 
@@ -32,16 +32,20 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
     <>
       <Card className={PhotoCardCSS.photoAlbum__photoCard}>
         <CardMedia
-          image={`http://localhost:8080/images/users/${idUser}/${url}`}
+          image={`http://localhost:8080/images/users/${idUser}/${avatar}`}
           title="Image title"
           className={PhotoCardCSS.photoAlbum__photoCard_photo}
         />
-        <CardActions>          
-          <Button size="small" color="primary">
+        <CardActions>
+          <Button size="small" color="primary" onClick={() => editHandler(id)}>
             Edit
           </Button>
-          <Button size="small" color="primary">
-            Delete
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => removeHandler(id)}
+          >
+            Remove
           </Button>
         </CardActions>
       </Card>

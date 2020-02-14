@@ -13,8 +13,17 @@ export default class ServiceAlbums {
       return Promise.reject(error)
     }
   )
-  
-  static addAlbum = async id => {    
+
+  static getAllAlbums = async () => {
+    try {
+      const request = await axios.get("http://localhost:8080/Albums/")
+      return request.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  static addAlbum = async id => {
     const album = {
       name: "new album",
       owner: id
@@ -23,34 +32,36 @@ export default class ServiceAlbums {
     return response.data
   }
 
-  static removeHandler = async id => {
-    try {      
-      return await axios.delete(`http://localhost:8080/photos/delete/${id}`)
+  static editAlbum = async (id, user) => {
+    try {
+      const request = await axios.put(
+        `http://localhost:8080/albums/update/${id}`,
+        user
+      )
+      return request.data
     } catch (e) {
       console.log(e)
     }
   }
 
-  static setImgUser = async avatar => {
-    const formData = new FormData()    
-    for(let i = 0; i<avatar.length; i++) {      
-      formData.append("multipleUser", avatar[i])      
-    }    
-    const response = await axios.post(
-      `http://localhost:8080/public/multipleUserSafeFileIntoImages`,
-      formData      
-    )    
-    return response.data.fileNames
+  static removeHandler = async id => {
+    try {
+      return await axios.delete(`http://localhost:8080/albums/delete/${id}`)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  static addPhoto = async (id, arrayUrl) => {    
-    for(let i = 0; i<arrayUrl.length; i++) {
-      const photo = {
-        name: `${arrayUrl[i]}`,
-        url: arrayUrl[i],
-        ownerUser: id
-      }
-      await axios.post(`http://localhost:8080/photos/add`, photo)
+  static getListAlbumsByUserID = async id => {
+    try {
+      // console.log(id)
+      const response = await axios.get(
+        `http://localhost:8080/users/withAlbums/${id}`
+      )
+      // console.log( `http://localhost:8080/users/withAlbum/${id}`)
+      return response.data
+    } catch (e) {
+      console.log(e)
     }
   }
 }

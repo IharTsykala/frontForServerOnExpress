@@ -10,7 +10,9 @@ import {
 import { Context } from "../../Context"
 import { UserAvatar } from "../../components/UserAvatar/UserAvatar"
 import { AlbumsBlock } from "../../components/AlbumsBlock/AlbumsBlock"
-// import Album from '../../components/AlbumLayout/AlbumLayout'
+import UserInformation from "../../components/UserInformation/UserInformation"
+import GetUserByIDCSS from "./GetUserByID.module.css"
+import UserNavigation from "../../components/UserNavigation/UserNavigation"
 
 export const GetUserByID: React.FC = (props: any) => {
   const [user, setUsers]: any = useState([])
@@ -18,7 +20,6 @@ export const GetUserByID: React.FC = (props: any) => {
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
   const [homePageStatus, setHomePageStatus]: any = useState(false)
-  const [albumState, setAlbumState]: any = useState(false)
   const { userID, userRole, setUserLogin, setUserAvatar } = useContext(Context)
   const { id } = props.match.params
   const history = useHistory()
@@ -59,18 +60,11 @@ export const GetUserByID: React.FC = (props: any) => {
     if (id === userID) setUserAvatar(imgName)
   }
 
-  const choseAlbum = () => {
-    setAlbumState(true)
-  }
-
   return (
     <>
-      {/* {albumState && <AlbumsBlock id={id} />}
-      <button onClick={() => choseAlbum()}>фотофльбомы</button> */}
-
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (
-        <>
+        <div className={GetUserByIDCSS.main__user_profile__container}>
           <UserAvatar
             user={user}
             avatarForFront={avatarForFront}
@@ -79,9 +73,8 @@ export const GetUserByID: React.FC = (props: any) => {
             userRole={userRole}
             homePageStatus={homePageStatus}
           />
-
-          {/* <Album/> */}
-
+          <UserInformation />
+          <UserNavigation />
           <AlbumsBlock id={id} roleComponent={"albumsBlock"} />
           {/* <FormDataUsers
           user={user}
@@ -91,7 +84,7 @@ export const GetUserByID: React.FC = (props: any) => {
           userRole={userRole}
           homePageStatus={homePageStatus}
         /> */}
-        </>
+        </div>
       )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>

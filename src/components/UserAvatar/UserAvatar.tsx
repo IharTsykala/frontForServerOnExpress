@@ -1,4 +1,6 @@
 import React from "react"
+import Button from "@material-ui/core/Button"
+import UserAvatarCSS from "./UserAvatar.module.css"
 
 type UserAvatarProps = {
   user: any
@@ -18,7 +20,10 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
   homePageStatus
 }) => {
   return (
-    <form action="submit">
+    <form
+      action="submit"
+      className={UserAvatarCSS.profile__change_avatar__form}
+    >
       {avatarForFront && (
         <img className="chelik" src={`${avatarForFront}`} alt="avatar" />
       )}
@@ -38,12 +43,27 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       )}
       {(userRole === "admin" || homePageStatus) && (
         <>
-          <input type="file" onChange={e => handleChangeAvatar(e)} />
-          <input
+          <label
+            htmlFor="avatarChange"
+            className={UserAvatarCSS.profile__change_avatar__form__label}
+          >
+            {" "}
+            Choose avatar
+            <input
+              id="avatarChange"
+              type="file"
+              onChange={e => handleChangeAvatar(e)}
+            />
+          </label>
+          <Button size="small" color="primary" onClick={e => handleSubmit(e)}>
+            Change Avatar
+          </Button>
+
+          {/* <input
             type="submit"
-            value="Отправить"
+            value="Change avatar"
             onClick={e => handleSubmit(e)}
-          />
+          /> */}
         </>
       )}
     </form>
