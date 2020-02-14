@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { BrowserRouter, Switch, Route, Router } from "react-router-dom"
 import { GetAllUsers } from "./pages/GetAllUsers/GetAllUsers"
 import { GetUserByID } from "./pages/GetUserByID/GetUserByID"
 import { GetLoginPage } from "./pages/GetLoginPage/GetLoginPage"
@@ -9,6 +9,8 @@ import FormDataUsers from "./components/FormDataUsers"
 import { Navbar } from "./components/Navbar/Navbar"
 import { ContextProvider } from "./Context"
 import { PrivateRoute, defaultProtectedRouteProps } from "./PrivateRoute"
+import { GetAlbumByID } from "./pages/GetAlbumByID/GetAlbumByID"
+import NotFound from './pages/NotFoundPage/NotFound';
 
 export const App: React.FC = () => {
   return (
@@ -17,6 +19,7 @@ export const App: React.FC = () => {
         <Navbar />
         <main className="main">
           <Switch>
+            <Route component={GetAlbumByID} path="/album/:id" exact />
             <Route component={GetStartPage} path="/" exact />
             <Route component={GetLoginPage} path="/user/LogIn" exact />
             <Route component={GetLogUpPage} path="/user/SignUp" exact />
@@ -39,6 +42,7 @@ export const App: React.FC = () => {
               path="/user/:id"
               exact
             />
+            <Route path ="*" component={NotFound}/>
           </Switch>
         </main>
       </ContextProvider>

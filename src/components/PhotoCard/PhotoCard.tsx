@@ -4,64 +4,55 @@ import Card from "@material-ui/core/Card"
 import CardActions from "@material-ui/core/CardActions"
 import CardMedia from "@material-ui/core/CardMedia"
 import PhotoCardCSS from "./PhotoCard.module.css"
+import { Link } from "react-router-dom"
 
 type UserPhotoCard = {
   name?: any
   description?: any
-  id?: any
-  removeHandler?: any
-  editHandler?: any
-  avatar: any
-  idUser: any
-  urlForNewAlbum?: any
+  urlItem: any
+  idItem: any
+  removeHandler: any
+  editHandler: any  
+  idUserOwnerPage?: any
+  idChosenAlbum?: any  
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
   name,
   description,
-  id,
+  urlItem,
+  idItem,
   removeHandler,
-  editHandler,
-  avatar,
-  idUser,
-  urlForNewAlbum
-}) => {
-  // useEffect(()=>{console.log(name)},[])
+  editHandler,  
+  idUserOwnerPage,
+  idChosenAlbum   
+}) => { 
+
+  console.log(idUserOwnerPage || idChosenAlbum)
 
   return (
     <>
       <Card className={PhotoCardCSS.photoAlbum__photoCard}>
+        <Link to={(idUserOwnerPage && `/album/${idItem}`) || (idChosenAlbum && `/album/${idItem}`)}>
         <CardMedia
-          image={`http://localhost:8080/images/users/${idUser}/${avatar}`}
+          image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
           title="Image title"
-          className={PhotoCardCSS.photoAlbum__photoCard_photo}
+          className={PhotoCardCSS.photoAlbum__photoCard_photo}          
         />
+        </Link>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => editHandler(id)}>
+          <Button size="small" color="primary" onClick={() => editHandler(idItem)}>
             Edit
           </Button>
           <Button
             size="small"
             color="primary"
-            onClick={() => removeHandler(id)}
+            onClick={() => removeHandler(idItem)}
           >
             Remove
           </Button>
         </CardActions>
       </Card>
-
-      {/* <p>{name}</p>
-            <p>{description}</p>
-            <i  className="material-icons" onClick={()=>editHandler(id)} > edit </i> */}
-      {/* <i className="material-icons" onClick={() => removeHandler(id)}>
-        {" "}
-        delete{" "}
-      </i>
-      <img
-        className={PhotoCardCSS.user_profile__card_container__img}
-        src={`http://localhost:8080/images/users/${idUser}/${url}`}
-        alt="photo"
-      /> */}
     </>
   )
 }

@@ -90,7 +90,7 @@ export default class Service {
       const response = await axios.get(
         `http://localhost:8080/users/withAlbums/${id}`
       )
-      // console.log( `http://localhost:8080/users/withAlbum/${id}`)
+      // console.log(response)
       return response.data
     } catch (e) {
       console.log(e)
@@ -99,11 +99,24 @@ export default class Service {
 
   static getListPhotosByUserID = async id => {
     try {
-      // console.log(id)
+      console.log(id)
       const response = await axios.get(
         `http://localhost:8080/users/withPhotos/${id}`
       )
       // console.log( `http://localhost:8080/users/withAlbum/${id}`)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  static getListAlbumsWithPhotosByUserID = async id => {
+    try {
+      // console.log(id)s
+      const response = await axios.get(
+        `http://localhost:8080/users/AlbumsWithPhotos/${id}`
+      )
+      // console.log(response.data)
       return response.data
     } catch (e) {
       console.log(e)

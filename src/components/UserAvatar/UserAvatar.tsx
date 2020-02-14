@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button"
 import UserAvatarCSS from "./UserAvatar.module.css"
 
 type UserAvatarProps = {
-  user: any
+  userOwnerPage: any
   avatarForFront: any
   handleChangeAvatar: any
   handleSubmit: any
@@ -12,7 +12,7 @@ type UserAvatarProps = {
 }
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
-  user,
+  userOwnerPage,
   avatarForFront,
   handleChangeAvatar,
   handleSubmit,
@@ -27,14 +27,14 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       {avatarForFront && (
         <img className="chelik" src={`${avatarForFront}`} alt="avatar" />
       )}
-      {!avatarForFront && user._id && user.avatar && (
+      {!avatarForFront && userOwnerPage._id && userOwnerPage.avatar && (
         <img
           className="chelik"
-          src={`http://localhost:8080/images/users/${user._id}/${user.avatar}`}
+          src={`http://localhost:8080/images/users/${userOwnerPage._id}/${userOwnerPage.avatar}`}
           alt="avatar"
         />
       )}
-      {!avatarForFront && user._id && !user.avatar && (
+      {!avatarForFront && userOwnerPage._id && !userOwnerPage.avatar && (
         <img
           className="chelik"
           src={`http://localhost:8080/images/pattern-avatar.jpg`}
@@ -58,12 +58,6 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
           <Button size="small" color="primary" onClick={e => handleSubmit(e)}>
             Change Avatar
           </Button>
-
-          {/* <input
-            type="submit"
-            value="Change avatar"
-            onClick={e => handleSubmit(e)}
-          /> */}
         </>
       )}
     </form>

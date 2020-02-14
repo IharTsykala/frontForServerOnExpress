@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
-import { useHistory } from "react-router-dom"
 import FormDataUsers from "../../components/FormDataUsers"
 import {
   UserFormViewModes,
   UserFormViewButtons
 } from "../../shared/constants/user-from-view-mode.enum"
-// import ListPets from "../../components/CreateList"
 import { Context } from "../../Context"
 import { UserAvatar } from "../../components/UserAvatar/UserAvatar"
 import { AlbumsBlock } from "../../components/AlbumsBlock/AlbumsBlock"
@@ -15,35 +13,34 @@ import GetUserByIDCSS from "./GetUserByID.module.css"
 import UserNavigation from "../../components/UserNavigation/UserNavigation"
 
 export const GetUserByID: React.FC = (props: any) => {
-  const [user, setUsers]: any = useState([])
-  const [load, setLoad]: any = useState("loading")
+  const [userOwnerPage, setUserOwnerPage]: any = useState([])
+  const [stateLoading, setStateLoading]: any = useState("loading")
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
   const [homePageStatus, setHomePageStatus]: any = useState(false)
   const { userID, userRole, setUserLogin, setUserAvatar } = useContext(Context)
-  const { id } = props.match.params
-  const history = useHistory()
+  const idUserOwnerPage  = props.match.params.id  
 
   const render = useCallback(async () => {
     try {
-      const user = await Service.getUserByID(id)
-      setUsers(user)
-      setLoad("loaded")
-      if (user._id === userID) setHomePageStatus(true)
+      const userOwnerPage = await Service.getUserByID(idUserOwnerPage)
+      setUserOwnerPage(userOwnerPage)
+      setStateLoading("loaded")
+      if (userOwnerPage._id === userID) setHomePageStatus(true)
     } catch (e) {
       console.log(e)
     }
-  }, [id, userID])
+  }, [idUserOwnerPage, userID])
 
   useEffect(() => {
     render()
   }, [render])
 
-  const editSubmitHandler = async (id: number, user: any) => {
-    await Service.editUser(id, user)
-    setUserLogin(user.login)
-    history.push(`/users/all`)
-  }
+  // const editSubmitHandler = async (id: number, user: any) => {
+  //   await Service.editUser(id, user)
+  //   setUserLogin(user.login)
+  //   history.push(`/users/all`)
+  // }
 
   const handleChangeAvatar = (e: any) => {
     const target = e.target.files[0]
@@ -55,18 +52,18 @@ export const GetUserByID: React.FC = (props: any) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const imgName = await Service.setImgUser(avatarForBack, id, userRole)
-    await Service.editUser(id, { avatar: imgName, password: "" })
-    if (id === userID) setUserAvatar(imgName)
+    const imgName = await Service.setImgUser(avatarForBack, idUserOwnerPage, userRole)
+    await Service.editUser(idUserOwnerPage, { avatar: imgName, password: "" })
+    if (idUserOwnerPage === userID) setUserAvatar(imgName)
   }
 
   return (
     <>
-      {load === "loading" && <h1>Ожидайте ответа</h1>}
-      {load === "loaded" && (
+      {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
+      {stateLoading === "loaded" && (
         <div className={GetUserByIDCSS.main__user_profile__container}>
           <UserAvatar
-            user={user}
+            userOwnerPage={userOwnerPage}
             avatarForFront={avatarForFront}
             handleChangeAvatar={handleChangeAvatar}
             handleSubmit={handleSubmit}
@@ -75,7 +72,7 @@ export const GetUserByID: React.FC = (props: any) => {
           />
           <UserInformation />
           <UserNavigation />
-          <AlbumsBlock id={id} roleComponent={"albumsBlock"} />
+          <AlbumsBlock idUserOwnerPage={idUserOwnerPage}/>
           {/* <FormDataUsers
           user={user}
           submitHandler={editSubmitHandler}
@@ -86,7 +83,7 @@ export const GetUserByID: React.FC = (props: any) => {
         /> */}
         </div>
       )}
-      {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
+      {stateLoading !== "loading" && stateLoading !== "loaded" && <h1>ошибка</h1>}
     </>
   )
 }

@@ -5,20 +5,22 @@ import CreateListCSS from "./CreateList.module.css"
 type CreateListProps = {
   arr: any
   removeHandler: any
-  editHandler?: any
-  idUser: any
+  editHandler: any
+  idUserOwnerPage?: any
+  idChosenAlbum?:any
   // arrUrlForNewAlbum?: any
+  createListFunction: any
 }
 
 const CreateList: React.FC<CreateListProps> = ({
   arr,
   removeHandler,
   editHandler,
-  idUser
-  // arrUrlForNewAlbum
-}) => {
-  // console.log(arr)
-  // useEffect(()=>{})
+  idUserOwnerPage,
+  idChosenAlbum,
+  createListFunction
+  
+}) => {  
 
   return (
     <ul className={CreateListCSS.user_profile__create_list__container}>
@@ -27,19 +29,22 @@ const CreateList: React.FC<CreateListProps> = ({
           <li
             className={CreateListCSS.user_profile__card_container}
             key={item._id}
-          >
-            {/* <PhotoCard name={arr.name} description={arr.description} id={arr._id} removeHandler={removeHandler} editHandler={editHandler} /> */}
-            <PhotoCard
-              // url={arr.url}
-              id={item._id}
+          >           
+            <PhotoCard          
+              urlItem={createListFunction==='CreateListAlbums' && item.photos.length
+              ?item.photos[0].url           
+              :item.url}              
+              idItem={item._id}
               removeHandler={removeHandler}
-              idUser={idUser}
-              avatar={item.avatar}
-              // arrUrlForNewAlbum={arrUrlForNewAlbum}
+              editHandler={editHandler}              
+              idUserOwnerPage={idUserOwnerPage}
+              idChosenAlbum={idChosenAlbum}
+              // createListFunction={createListFunction}
+              // description={description}              
             />
           </li>
         ))}
-      {!arr.length && <p>Your list is empty</p>}
+      {!arr.length && <p>Your {createListFunction} is empty</p>}
     </ul>
   )
 }

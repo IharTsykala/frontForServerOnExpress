@@ -26,7 +26,7 @@ export default class ServiceAlbums {
   static addAlbum = async id => {
     const album = {
       name: "new album",
-      owner: id
+      ownerUser: id
     }
     const response = await axios.post(`http://localhost:8080/albums/add`, album)
     return response.data
@@ -52,11 +52,11 @@ export default class ServiceAlbums {
     }
   }
 
-  static getListAlbumsByUserID = async id => {
+  static getListPhotosByAlbumID = async id => {
     try {
-      // console.log(id)
+      console.log(id)
       const response = await axios.get(
-        `http://localhost:8080/users/withAlbums/${id}`
+        `http://localhost:8080/albums/withPhotos/${id}`
       )
       // console.log( `http://localhost:8080/users/withAlbum/${id}`)
       return response.data
@@ -64,4 +64,5 @@ export default class ServiceAlbums {
       console.log(e)
     }
   }
+ 
 }
