@@ -12,36 +12,45 @@ type UserPhotoCard = {
   urlItem: any
   idItem: any
   removeHandler: any
-  editHandler: any  
+  editHandler: any
   idUserOwnerPage?: any
-  idChosenAlbum?: any  
+  idChosenAlbum?: any
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
   name,
   description,
+  // idItem may be idCreateAlbum or idCreatePhoto
   urlItem,
   idItem,
   removeHandler,
-  editHandler,  
+  editHandler,
   idUserOwnerPage,
-  idChosenAlbum   
-}) => { 
-
+  idChosenAlbum
+}) => {
   console.log(idUserOwnerPage || idChosenAlbum)
 
   return (
     <>
       <Card className={PhotoCardCSS.photoAlbum__photoCard}>
-        <Link to={(idUserOwnerPage && `/album/${idItem}`) || (idChosenAlbum && `/album/${idItem}`)}>
-        <CardMedia
-          image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
-          title="Image title"
-          className={PhotoCardCSS.photoAlbum__photoCard_photo}          
-        />
+        <Link
+          to={
+            (idUserOwnerPage && `/album/${idItem}`) ||
+            (idChosenAlbum && `/album/${idItem}`)
+          }
+        >
+          <CardMedia
+            image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
+            title="Image title"
+            className={PhotoCardCSS.photoAlbum__photoCard_photo}
+          />
         </Link>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => editHandler(idItem)}>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => editHandler(idItem)}
+          >
             Edit
           </Button>
           <Button

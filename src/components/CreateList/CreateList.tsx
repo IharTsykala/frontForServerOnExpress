@@ -7,7 +7,7 @@ type CreateListProps = {
   removeHandler: any
   editHandler: any
   idUserOwnerPage?: any
-  idChosenAlbum?:any
+  idChosenAlbum?: any
   // arrUrlForNewAlbum?: any
   createListFunction: any
 }
@@ -19,9 +19,7 @@ const CreateList: React.FC<CreateListProps> = ({
   idUserOwnerPage,
   idChosenAlbum,
   createListFunction
-  
-}) => {  
-
+}) => {
   return (
     <ul className={CreateListCSS.user_profile__create_list__container}>
       {arr.length > 0 &&
@@ -29,18 +27,21 @@ const CreateList: React.FC<CreateListProps> = ({
           <li
             className={CreateListCSS.user_profile__card_container}
             key={item._id}
-          >           
-            <PhotoCard          
-              urlItem={createListFunction==='CreateListAlbums' && item.photos.length
-              ?item.photos[0].url           
-              :item.url}              
+          >
+            <PhotoCard
+              urlItem={
+                createListFunction === "CreateListAlbums" && item.photos.length
+                  ? item.photos[0].url
+                  : item.url
+              }
+              // idItem may be idCreateAlbum or idCreatePhoto
               idItem={item._id}
               removeHandler={removeHandler}
-              editHandler={editHandler}              
+              editHandler={editHandler}
               idUserOwnerPage={idUserOwnerPage}
               idChosenAlbum={idChosenAlbum}
               // createListFunction={createListFunction}
-              // description={description}              
+              // description={description}
             />
           </li>
         ))}
