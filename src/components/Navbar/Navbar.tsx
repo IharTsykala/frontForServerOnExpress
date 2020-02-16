@@ -60,15 +60,15 @@ export const Navbar: React.FunctionComponent = props => {
         <ul className="right hide-on-med-and-down">
           {userLogin && (
             <>
-              {history.location.pathname === "/users/all" && (
+              {history.location.pathname === "/user/all" && (
                 <li>
                   <NavLink to={`/user/${userID}`}>Your Page</NavLink>
                 </li>
               )}
 
-              {history.location.pathname !== "/users/all" && (
+              {history.location.pathname !== "/user/all" && (
                 <li>
-                  <NavLink to="/users/all">All User</NavLink>
+                  <NavLink to="/user/all">All User</NavLink>
                 </li>
               )}
 

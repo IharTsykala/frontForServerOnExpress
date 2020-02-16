@@ -22,7 +22,7 @@ export const GetLogUpPage: React.FC = () => {
     setUserID(data.user._id)
     setUserAvatar(data.user.avatar)
     setUserRole(data.user.role)
-    history.push(`/users/all`)
+    history.push(`/user/all`)
   }
 
   return (

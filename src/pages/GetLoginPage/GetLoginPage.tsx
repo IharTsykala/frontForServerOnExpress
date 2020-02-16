@@ -27,7 +27,8 @@ export const GetLoginPage: React.FC = () => {
       setUserID(data.user._id)
       setUserAvatar(data.user.avatar)
       setUserRole(data.user.role)
-      history.push(`/users/all`)
+      if(data.user.role==='admin') history.push(`/admin/all`)
+      else history.push(`/user/all`)
     } catch (e) {
       console.log(e)
     }

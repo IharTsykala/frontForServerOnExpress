@@ -6,10 +6,12 @@ import ServiceAlbum from "../../services/service-album"
 import ServicePhoto from "../../services/service-photo"
 
 type AlbumsBlockProps = {
-  idUserOwnerPage: any  
+  idUserOwnerPage: any
 }
 
-export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({idUserOwnerPage}) => {
+export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
+  idUserOwnerPage
+}) => {
   const [albumsUserOwnerPage, setAlbumsUserOwnerPage]: any = useState("")
   const [stateLoading, setStateLoading]: any = useState("loading")
 
@@ -18,10 +20,12 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({idUserOwnerPage}) => {
   }, [])
 
   async function getList() {
-    try {      
-        const albums = await Service.getListAlbumsWithPhotosByUserID(idUserOwnerPage)        
-        setAlbumsUserOwnerPage(albums)      
-        setStateLoading("loaded")
+    try {
+      const albums = await Service.getListAlbumsWithPhotosByUserID(
+        idUserOwnerPage
+      )
+      setAlbumsUserOwnerPage(albums)
+      setStateLoading("loaded")
     } catch (e) {
       console.log(e)
     }
@@ -33,15 +37,15 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({idUserOwnerPage}) => {
     setStateLoading("loading")
     await ServiceAlbum.removeHandler(id)
     getList()
-  } 
+  }
 
-  const addChangeHandler = async (e: any) => {    
-      const target = e.target.files    
-      const data = await ServiceAlbum.addAlbum(idUserOwnerPage)
-      const idAlbum = data.album._id  
-      const imgNames = await ServicePhoto.setImgUser(target)     
-      await ServicePhoto.addPhotoIntoAlbum(idUserOwnerPage, idAlbum, imgNames)      
-      getList()
+  const addChangeHandler = async (e: any) => {
+    const target = e.target.files
+    const data = await ServiceAlbum.addAlbum(idUserOwnerPage)
+    const idAlbum = data.album._id
+    const imgNames = await ServicePhoto.setImgUser(target)
+    await ServicePhoto.addPhotoIntoAlbum(idUserOwnerPage, idAlbum, imgNames)
+    getList()
   }
 
   return (
@@ -54,28 +58,32 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({idUserOwnerPage}) => {
             removeHandler={removeHandler}
             editHandler={editHandler}
             idUserOwnerPage={idUserOwnerPage}
-            createListFunction={'CreateListAlbums'}                      
+            createListFunction={"CreateListAlbums"}
           />
         </>
       )}
-      {stateLoading !== "loading" && stateLoading !== "loaded" && <h1>ошибка</h1>}
+      {stateLoading !== "loading" && stateLoading !== "loaded" && (
+        <h1>ошибка</h1>
+      )}
 
       <div className={AlbumsBlockCSS.photos__container_drag_and_drop}></div>
-      <label
-        className={AlbumsBlockCSS.photos__container_drag_and_drop__label}
-        htmlFor="addFiles"
-      >
-        Add Album
-      </label>
-      <input
-        className={AlbumsBlockCSS.label__input}
-        id="addFiles"        
-        type="file"
-        multiple        
-        onChange={e => {
-          addChangeHandler(e)
-        }}
-      />
+      {idUserOwnerPage === localStorage.getItem("userID") && (
+        <label
+          className={AlbumsBlockCSS.photos__container_drag_and_drop__label}
+          htmlFor="addFiles"
+        >
+          Add Album
+          <input
+            className={AlbumsBlockCSS.label__input}
+            id="addFiles"
+            type="file"
+            multiple
+            onChange={e => {
+              addChangeHandler(e)
+            }}
+          />
+        </label>
+      )}
     </div>
   )
 }

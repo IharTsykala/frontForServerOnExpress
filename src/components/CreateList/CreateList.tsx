@@ -9,7 +9,7 @@ type CreateListProps = {
   idUserOwnerPage?: any
   idChosenAlbum?: any
   // arrUrlForNewAlbum?: any
-  createListFunction: any
+  createListFunction?: any
 }
 
 const CreateList: React.FC<CreateListProps> = ({
@@ -40,7 +40,7 @@ const CreateList: React.FC<CreateListProps> = ({
               editHandler={editHandler}
               idUserOwnerPage={idUserOwnerPage}
               idChosenAlbum={idChosenAlbum}
-              // createListFunction={createListFunction}
+              arrForLoop={arr}              
               // description={description}
             />
           </li>

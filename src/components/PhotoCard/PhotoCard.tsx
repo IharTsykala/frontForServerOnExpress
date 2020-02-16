@@ -15,6 +15,7 @@ type UserPhotoCard = {
   editHandler: any
   idUserOwnerPage?: any
   idChosenAlbum?: any
+  arrForLoop: []
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
@@ -26,25 +27,31 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   removeHandler,
   editHandler,
   idUserOwnerPage,
-  idChosenAlbum
+  idChosenAlbum,
+  arrForLoop
 }) => {
   console.log(idUserOwnerPage || idChosenAlbum)
 
   return (
     <>
       <Card className={PhotoCardCSS.photoAlbum__photoCard}>
-        <Link
-          to={
-            (idUserOwnerPage && `/album/${idItem}`) ||
-            (idChosenAlbum && `/album/${idItem}`)
-          }
-        >
-          <CardMedia
-            image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
-            title="Image title"
-            className={PhotoCardCSS.photoAlbum__photoCard_photo}
-          />
-        </Link>
+        {!idChosenAlbum && (
+          <Link to={`${idItem}/album`}>
+            <CardMedia
+              image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
+              title="Image title"
+              className={PhotoCardCSS.photoAlbum__photoCard_photo}
+            />
+          </Link>
+        )}
+        {idChosenAlbum && 
+            <CardMedia
+              image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
+              title="Image title"
+              className={PhotoCardCSS.photoAlbum__photoCard_photo}
+            />       
+        }
+
         <CardActions>
           <Button
             size="small"
