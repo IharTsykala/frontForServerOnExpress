@@ -32,8 +32,8 @@ export const GetAlbumByID: React.FC = (props: any) => {
   }
 
   const launchTogglePhotoModalWindow = (e: any) => {
-    if (!statusPhotoModalWindow)  setCurrentUrlPhotoForLoop(e.target.title)    
-    setStatusPhotoModalWindow(!statusPhotoModalWindow)     
+    if (!statusPhotoModalWindow) setCurrentUrlPhotoForLoop(e.target.title)
+    setStatusPhotoModalWindow(!statusPhotoModalWindow)
   }
 
   const editHandler = async (id: number) => {}
@@ -98,7 +98,7 @@ export const GetAlbumByID: React.FC = (props: any) => {
       {statusPhotoModalWindow && (
         <PhotoModalWindow
           arrayPhotosChosenAlbum={arrayPhotosChosenAlbum}
-          launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}          
+          launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
           currentUrlPhotoForLoop={currentUrlPhotoForLoop}
         />
       )}
