@@ -3,6 +3,7 @@ import Service from "../../services/service-user"
 import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
 import { Context } from "../../Context"
+import Search from '../../components/Search/Search'
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
@@ -27,11 +28,6 @@ export const GetAllUsers: React.FC = () => {
     setUsers(users)
   }
 
-  // const defineRoleUser = async () => {
-  //   const user = await Service.getUserByID(userID)
-  //   if (user.role === "admin") setAdmin(true)
-  // }
-
   const removeHandler = async (e: any, id: number) => {
     setLoad("loading")
     await Service.removeHandler(id)
@@ -43,9 +39,13 @@ export const GetAllUsers: React.FC = () => {
       {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && (
         <>
-          <h2 className={GetAllUsersCSS.container__all_users__header}>
-            Make friends
+        <div className={GetAllUsersCSS.container__all_users__header}>
+          < Search/>
+        <h2 >
+            Make friends            
           </h2>
+        </div> 
+         
           <ul className={GetAllUsersCSS.container__all_users__cards}>
             {users.map((user: any) => {
               return (
@@ -66,58 +66,3 @@ export const GetAllUsers: React.FC = () => {
     </>
   )
 }
-
-// const removeHandler = async (id: number)=> {    	  const removeHandler = async (id: number) => {
-//   setLoad('loading')      	    setLoad("loading")
-//   await Service.removeHandler(id)	    await Service.removeHandler(id)
-//   // history.replace(`/users/all`)	    // history.replace(`/users/all`)
-//   history.go(0)
-
-// import UserInfo from '../../components/UserInfo/UserInfo'
-
-// import { useHistory } from "react-router-dom"
-
-// const history = useHistory()
-// const [pets, setPets]: any = useState("")
-// const [userIdForPets, setUserIdForPets]: any = useState("")
-// console.log(GetAllUsersCSS)
-
-// <li key={user._id}>
-//   <p>{user.login}</p>
-//   {<> {pets.length && getCodeForPets(user)} </>}
-//   <i
-//     className="material-icons blue-text edit"
-//     onClick={event => getPetsHandler(user._id)}
-//   >
-//     pets
-//   </i>
-//   <i
-//     className="material-icons blue-text edit"
-//     onClick={event => editHandler(user._id)}
-//   >
-//     edit
-//   </i>
-//   <i
-//     className="material-icons red-text"
-//     onClick={event => removeHandler(user._id)}
-//   >
-//     delete
-//   </i>
-// </li>
-
-// const getCodeForPets = (user: any) => {
-//   return (
-//     <>
-//       <ul>
-//         {userIdForPets === user._id &&
-//           pets.map((pet: any) => (
-//             <li key={pet._id}>
-//               <p>{`${pet.name} ${pet.species}`}</p>
-//             </li>
-//           ))}
-//       </ul>
-//     </>
-//   )
-// }
-
-// {cardClick?<UserInfo user={cardClick}/>:<h2>Find friends for youself</h2>}

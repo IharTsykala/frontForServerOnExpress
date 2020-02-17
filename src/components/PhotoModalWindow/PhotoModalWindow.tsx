@@ -1,19 +1,17 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import PhotoModalWindowCSS from "./PhotoModalWindow.module.css"
 import AliceCarousel from "react-alice-carousel"
 import "react-alice-carousel/lib/alice-carousel.css"
 
 type PhotoModalWindowProps = {
   arrayPhotosChosenAlbum: any
-  launchTogglePhotoModalWindow: any
-  idUserOwnerPage: string
+  launchTogglePhotoModalWindow: any 
   currentUrlPhotoForLoop: string
 }
 
 const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
   arrayPhotosChosenAlbum,
-  launchTogglePhotoModalWindow,
-  idUserOwnerPage,
+  launchTogglePhotoModalWindow,  
   currentUrlPhotoForLoop
 }) => {
   const currentIndex = arrayPhotosChosenAlbum.findIndex(
@@ -29,8 +27,10 @@ const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
       </p>
 
       <div>
-        <AliceCarousel mouseTrackingEnabled>
-          {arrayPhotosChosenAlbum.length > 0 &&
+        <AliceCarousel
+        startIndex={currentIndex}
+        mouseTrackingEnabled>
+          {arrayPhotosChosenAlbum.length &&
             arrayPhotosChosenAlbum.map((item: any) => (
               <img                
                 onDragStart={handleOnDragStart}
@@ -39,15 +39,11 @@ const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
                 className={
                   PhotoModalWindowCSS.user_profile__chosen_album__photo_loop__img
                 }
-                alt="title"
+                alt="title"                
               />
             ))}
         </AliceCarousel>
-      </div>
-      {/* <img
-        src={`http://localhost:8080/images/users/${idUserOwnerPage}/${currentUrlPhotoForLoop}`}
-        alt="Photo Title"
-      /> */}
+      </div>      
     </div>
   )
 }

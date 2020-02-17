@@ -1,0 +1,30 @@
+/* .user_information__edit {
+    display: grid;
+    justify-content: center;    
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 5px;
+    row-gap: 5px;
+    margin: 10% 0;        
+  } */
+
+  /* .user_information__edit label{
+    border: 1px solid black;
+    border-radius: 25%; 
+    margin: 0 5px;
+    padding: 0 20px;   
+    display: grid;
+    justify-items: center;
+  } */
+
+  /* .user_information__edit__label__input {
+    border-bottom: none;   
+    color: red;
+    width: 80%; 
+    display: grid;
+    text-align: center;
+  } */
+
+  .user_profile__user_information__block_information div {
+     
+      background-color: rgb(255, 0, 51);
+  }

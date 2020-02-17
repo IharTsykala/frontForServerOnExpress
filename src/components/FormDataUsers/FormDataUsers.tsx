@@ -4,11 +4,11 @@ import * as Yup from "yup"
 import {
   UserFormViewModes,
   UserFormViewButtons
-} from "../shared/constants/user-from-view-mode.enum"
-// import "../styles/FormDataUsers"
+} from "../../shared/constants/user-from-view-mode.enum"
+import FormDataUsersCSS from './FormDataUsers.module.css'
 
 type FormDataUsersProps = {
-  user?: any
+  userOwnerPage?: any
   submitHandler: any
   namePage: UserFormViewModes
   nameButton: UserFormViewButtons
@@ -17,23 +17,23 @@ type FormDataUsersProps = {
 }
 
 const FormDataUsers: React.FC<FormDataUsersProps> = ({
-  user,
+  userOwnerPage,
   submitHandler,
   namePage,
   nameButton,
   userRole,
   homePageStatus
-}) => {
+}) => {  
   return (
     <Formik
       initialValues={{
-        login: user ? user.login : "",
+        login: userOwnerPage ? userOwnerPage.login : "",
         password: "",
-        firstName: user ? user.firstName : "",
-        lastName: user ? user.lastName : "",
-        email: user ? user.email : "",
-        phone: user ? user.phone : "",
-        role: user ? user.role : "user"
+        firstName: userOwnerPage ? userOwnerPage.firstName : "",
+        lastName: userOwnerPage ? userOwnerPage.lastName : "",
+        email: userOwnerPage ? userOwnerPage.email : "",
+        phone: userOwnerPage ? userOwnerPage.phone : "",
+        role: userOwnerPage ? userOwnerPage.role : "user"
         // subscribe: [],
         // subscribers: [],
         // friends: []
@@ -48,33 +48,47 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         // phone: Yup.string().phone<string>("Invalid email address")
       })}
       onSubmit={values => {
-        submitHandler(user ? user._id : undefined, values)
+        submitHandler(userOwnerPage ? userOwnerPage._id : undefined, values)
       }}
     >
-      <Form className="form-data-users">
-        <label htmlFor="login">Login</label>
-        <Field name="login" type="text" />
+      <Form className={homePageStatus && FormDataUsersCSS.user_information__edit || "form-data-users"}>
+        <label htmlFor="login">Login
+        <Field className={FormDataUsersCSS.user_information__edit__label__input} id="login" name="login" type="text" />
+        </label>
+        {/* <Field id="login" name="login" type="text" /> */}
         <ErrorMessage name="login" />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password
         <Field name="password" type="text" />
+        </label>
+        {/* <Field name="password" type="text" /> */}
         <ErrorMessage name="role" />
         {(namePage === UserFormViewModes.Edit ||
           namePage === UserFormViewModes.SingUp) && (
           <>
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName">First Name
             <Field name="firstName" type="text" />
+            </label>
+            {/* <Field name="firstName" type="text" /> */}
             <ErrorMessage name="firstName" />
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName">Last Name
             <Field name="lastName" type="text" />
+            </label>
+            {/* <Field name="lastName" type="text" /> */}
             <ErrorMessage name="lastName" />
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Email Address
             <Field name="email" type="email" />
+            </label>
+            {/* <Field name="email" type="email" /> */}
             <ErrorMessage name="email" />
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone">Phone
             <Field name="phone" type="text" />
+            </label>
+            {/* <Field name="phone" type="text" /> */}
             <ErrorMessage name="phone" />
-            <label htmlFor="role">Role</label>
+            {/* <label htmlFor="role">Role
             <Field name="role" type="text" disabled />
+            </label> */}
+            {/* <Field name="role" type="text" disabled /> */}
             <ErrorMessage name="role" />
           </>
         )}

@@ -80,10 +80,10 @@ export const Navbar: React.FunctionComponent = props => {
           {!userLogin && (
             <>
               <li>
-                <NavLink to="/user/LogIn">Log In</NavLink>
+                <NavLink to="/LogIn">Log In</NavLink>
               </li>
               <li>
-                <NavLink to="/user/SignUp">Sign Up</NavLink>
+                <NavLink to="/SignUp">Sign Up</NavLink>
               </li>
             </>
           )}

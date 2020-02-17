@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import Service from "../../services/service-user"
 import { useHistory } from "react-router-dom"
-import FormDataUsers from "../../components/FormDataUsers"
+import FormDataUsers from "../../components/FormDataUsers/FormDataUsers"
 import {
   UserFormViewModes,
   UserFormViewButtons
