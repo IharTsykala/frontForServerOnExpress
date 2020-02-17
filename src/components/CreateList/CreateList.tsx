@@ -7,9 +7,9 @@ type CreateListProps = {
   removeHandler: any
   editHandler: any
   idUserOwnerPage?: any
-  idChosenAlbum?: any
-  // arrUrlForNewAlbum?: any
+  idChosenAlbum?: any  
   createListFunction?: any
+  launchTogglePhotoModalWindow?: any
 }
 
 const CreateList: React.FC<CreateListProps> = ({
@@ -18,7 +18,8 @@ const CreateList: React.FC<CreateListProps> = ({
   editHandler,
   idUserOwnerPage,
   idChosenAlbum,
-  createListFunction
+  createListFunction,
+  launchTogglePhotoModalWindow
 }) => {
   return (
     <ul className={CreateListCSS.user_profile__create_list__container}>
@@ -40,7 +41,7 @@ const CreateList: React.FC<CreateListProps> = ({
               editHandler={editHandler}
               idUserOwnerPage={idUserOwnerPage}
               idChosenAlbum={idChosenAlbum}
-              arrForLoop={arr}              
+              launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}                           
               // description={description}
             />
           </li>

@@ -4,11 +4,16 @@ import CreateList from "../../components/CreateList/CreateList"
 import ServiceAlbums from "../../services/service-album"
 import ServicePhotos from "../../services/service-photo"
 import { Link } from "react-router-dom"
+import PhotoModalWindow from "../../components/PhotoModalWindow/PhotoModalWindow"
 
 export const GetAlbumByID: React.FC = (props: any) => {
   const [arrayPhotosChosenAlbum, setArrayPhotosChosenAlbum]: any = useState("")
   const [idUserOwnerPage, setIdUserOwnerPage]: any = useState("")
   const [load, setLoad]: any = useState("loading")
+  const [statusPhotoModalWindow, setStatusPhotoModalWindow]: any = useState(
+    false
+  )
+  const [currentUrlPhotoForLoop, setCurrentUrlPhotoForLoop]: any = useState("")
   const idChosenAlbum = props.match.params.id
 
   useEffect(() => {
@@ -24,6 +29,11 @@ export const GetAlbumByID: React.FC = (props: any) => {
     } catch (e) {
       console.log(e)
     }
+  }
+
+  const launchTogglePhotoModalWindow = (e: any) => {
+    if (!statusPhotoModalWindow) setCurrentUrlPhotoForLoop(e.target.title)
+    setStatusPhotoModalWindow(!statusPhotoModalWindow)
   }
 
   const editHandler = async (id: number) => {}
@@ -46,42 +56,53 @@ export const GetAlbumByID: React.FC = (props: any) => {
   }
 
   return (
-    <div className={GetAlbumByIDCSS.main__user_profile__albums_block}>
-      {load === "loading" && <h1>Ожидайте ответа</h1>}
-      {load === "loaded" && (
-        <>
-          <Link to={`/user/${idUserOwnerPage}`}>
-            <p>BACK TO ALBUM LIST</p>
-          </Link>
-          <CreateList
-            arr={arrayPhotosChosenAlbum}
-            removeHandler={removeHandler}
-            editHandler={editHandler}
-            idUserOwnerPage={idUserOwnerPage}
-            idChosenAlbum={idChosenAlbum}
-            createListFunction={"CreateListPhotos"}
-          />
-        </>
+    <>
+      <div className={GetAlbumByIDCSS.main__user_profile__albums_block}>
+        {load === "loading" && <h1>Ожидайте ответа</h1>}
+        {load === "loaded" && (
+          <>
+            <Link to={`/user/${idUserOwnerPage}`}>
+              <p>BACK TO ALBUM LIST</p>
+            </Link>
+            <CreateList
+              arr={arrayPhotosChosenAlbum}
+              removeHandler={removeHandler}
+              editHandler={editHandler}
+              idUserOwnerPage={idUserOwnerPage}
+              idChosenAlbum={idChosenAlbum}
+              createListFunction={"CreateListPhotos"}
+              launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
+            />
+          </>
+        )}
+        {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
+        <div className={GetAlbumByIDCSS.photos__container_drag_and_drop}></div>
+        {idUserOwnerPage === localStorage.getItem("userID") && (
+          <label
+            className={GetAlbumByIDCSS.photos__container_drag_and_drop__label}
+            htmlFor="addFiles"
+          >
+            Add photos
+            <input
+              className={GetAlbumByIDCSS.label__input}
+              id="addFiles"
+              type="file"
+              multiple
+              onChange={e => {
+                addChangeHandler(e)
+              }}
+            />
+          </label>
+        )}
+      </div>
+      {statusPhotoModalWindow && (
+        <PhotoModalWindow
+          arrayPhotosChosenAlbum={arrayPhotosChosenAlbum}
+          launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
+          idUserOwnerPage={idUserOwnerPage}
+          currentUrlPhotoForLoop={currentUrlPhotoForLoop}
+        />
       )}
-      {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
-      <div className={GetAlbumByIDCSS.photos__container_drag_and_drop}></div>
-      {idUserOwnerPage === localStorage.getItem("userID") && (
-        <label
-          className={GetAlbumByIDCSS.photos__container_drag_and_drop__label}
-          htmlFor="addFiles"
-        >
-          Add photos
-          <input
-            className={GetAlbumByIDCSS.label__input}
-            id="addFiles"
-            type="file"
-            multiple
-            onChange={e => {
-              addChangeHandler(e)
-            }}
-          />
-        </label>
-      )}
-    </div>
+    </>
   )
 }

@@ -15,7 +15,7 @@ type UserPhotoCard = {
   editHandler: any
   idUserOwnerPage?: any
   idChosenAlbum?: any
-  arrForLoop: []
+  launchTogglePhotoModalWindow: any
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
@@ -28,10 +28,8 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   editHandler,
   idUserOwnerPage,
   idChosenAlbum,
-  arrForLoop
+  launchTogglePhotoModalWindow
 }) => {
-  console.log(idUserOwnerPage || idChosenAlbum)
-
   return (
     <>
       <Card className={PhotoCardCSS.photoAlbum__photoCard}>
@@ -44,13 +42,14 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
             />
           </Link>
         )}
-        {idChosenAlbum && 
-            <CardMedia
-              image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
-              title="Image title"
-              className={PhotoCardCSS.photoAlbum__photoCard_photo}
-            />       
-        }
+        {idChosenAlbum && (
+          <CardMedia
+            image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
+            title={urlItem}
+            className={PhotoCardCSS.photoAlbum__photoCard_photo}
+            onClick={e => launchTogglePhotoModalWindow(e)}
+          />
+        )}
 
         <CardActions>
           <Button
