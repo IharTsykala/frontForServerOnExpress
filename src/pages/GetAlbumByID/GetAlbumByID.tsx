@@ -45,12 +45,17 @@ export const GetAlbumByID: React.FC = (props: any) => {
   }
 
   const addChangeHandler = async (e: any) => {
-    const target = e.target.files
-    const fileNames = await ServicePhotos.setImgUser(target)
-    await ServicePhotos.addPhotoIntoAlbum(
+    const arrayFiles = e.target.files
+    // const fileNames = await ServicePhotos.setImgUser(arrayFiles)
+    // await ServicePhotos.addPhotoIntoAlbum(
+    //   idUserOwnerPage,
+    //   idChosenAlbum,
+    //   fileNames
+    // )
+    await ServicePhotos.addPhotosIntoFsAndAlbum(
       idUserOwnerPage,
       idChosenAlbum,
-      fileNames
+      arrayFiles
     )
     getList()
   }

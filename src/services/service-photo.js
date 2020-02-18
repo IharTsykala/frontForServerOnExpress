@@ -72,4 +72,24 @@ export default class ServicePhotos {
     // console.log(arrPhotoUrl)
     return arrPhotoUrl
   }
+
+  static addPhotosIntoFsAndAlbum = async (idUser, idAlbum, arrayFiles) => {
+    console.log(idUser, idAlbum, arrayFiles)
+    const formData = new FormData()
+    const photo = {
+      name: `new photo`,
+      url: '',
+      ownerUser: idUser,
+      ownerAlbum: idAlbum
+    }
+    for (let i = 0; i < arrayFiles.length; i++) {      
+      formData.append("multipleUser", arrayFiles[i])
+    }
+    console.log(formData)
+    const response = await axios.post(
+      `http://localhost:8080/public/multipleUserSafeFileIntoImages`, 
+           formData, photo
+    )    
+    return response.data.fileNames
+  }
 }

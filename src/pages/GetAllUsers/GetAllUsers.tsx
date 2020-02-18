@@ -9,6 +9,7 @@ export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   const { userID, userRole } = useContext(Context)
+  const [valueSearchBox, setValueSearchBox]: any = useState('')
 
   const render = useCallback(() => {
     try {
@@ -19,8 +20,33 @@ export const GetAllUsers: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    render()
+    render()    
   }, [render])
+
+  const handlerInputSearchBox = (e:any) => {        
+    setValueSearchBox(e.target.value)        
+  }
+
+  const getFlirtedArrayUsers = useCallback(async (valueSearchBox:any) => {
+    try {
+      if(valueSearchBox.length>2) {
+        setTimeout(async()=>{           
+          const arrayFilteredUsers = await Service.getFilteredUsers(valueSearchBox)          
+          setUsers(arrayFilteredUsers)
+        },1000)
+      } else if(valueSearchBox.length<3 && valueSearchBox) {
+        setTimeout(()=>{ 
+        getUsers()
+      },1000)
+      }    
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+
+  useEffect(()=>{
+    getFlirtedArrayUsers(valueSearchBox)
+  },[getFlirtedArrayUsers, valueSearchBox])
 
   async function getUsers() {
     const users = await Service.getAllUsers()
@@ -40,14 +66,15 @@ export const GetAllUsers: React.FC = () => {
       {load === "loaded" && (
         <>
         <div className={GetAllUsersCSS.container__all_users__header}>
-          < Search/>
+          < Search handlerInputSearchBox={handlerInputSearchBox} valueSearchBox={valueSearchBox}/>
         <h2 >
             Make friends            
           </h2>
+          
         </div> 
          
           <ul className={GetAllUsersCSS.container__all_users__cards}>
-            {users.map((user: any) => {
+            {users.length>0 && users.map((user: any) => {
               return (
                 user._id !== userID && (
                   <UserCard

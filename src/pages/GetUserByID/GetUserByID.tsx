@@ -14,7 +14,7 @@ export const GetUserByID: React.FC = (props: any) => {
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
   const [homePageStatus, setHomePageStatus]: any = useState(false)
-  const { userID, userRole, setUserLogin, setUserAvatar } = useContext(Context)
+  const { userID, userRole, setUserAvatar } = useContext(Context)
   const idUserOwnerPage  = props.match.params.id    
 
   const render = useCallback(async () => {
@@ -45,7 +45,7 @@ export const GetUserByID: React.FC = (props: any) => {
     const imgName = await Service.setImgUser(avatarForBack, idUserOwnerPage, userRole)
     await Service.editUser(idUserOwnerPage, { avatar: imgName, password: "" })
     if (idUserOwnerPage === userID) setUserAvatar(imgName)
-  }
+  }  
 
   return (
     <>
