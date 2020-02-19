@@ -23,9 +23,11 @@ export default class Service {
     }
   }
 
-  static getFilteredUsers = async (valueSearchBox) => {
-    try {      
-      const request = await axios.get(`http://localhost:8080/users/filter/${valueSearchBox}`)      
+  static getFilteredUsers = async valueSearchBox => {
+    try {
+      const request = await axios.get(
+        `http://localhost:8080/users/filter/${valueSearchBox}`
+      )
       return request.data
     } catch (e) {
       console.log(e)
