@@ -62,7 +62,11 @@
 
 .all_users__card_user__button {
   border-radius: 0 0 15px 15px;
-  background-color: rgb(105, 94, 109);
+  background-color: rgb(105, 94, 109);  
+}
+
+.all_users__card_user__button p {
+  margin: 0;
 }
 
 .all_users__card_user__button:hover {

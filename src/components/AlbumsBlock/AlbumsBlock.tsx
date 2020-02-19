@@ -40,11 +40,10 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   }
 
   const addChangeHandler = async (e: any) => {
-    const target = e.target.files
+    const arrayFiles = e.target.files
     const data = await ServiceAlbum.addAlbum(idUserOwnerPage)
-    const idAlbum = data.album._id
-    const imgNames = await ServicePhoto.setImgUser(target)
-    await ServicePhoto.addPhotoIntoAlbum(idUserOwnerPage, idAlbum, imgNames)
+    const idAlbum = data.album._id    
+    await ServicePhoto.addPhotosIntoFsAndAlbum(idUserOwnerPage, idAlbum, arrayFiles)
     getList()
   }
 

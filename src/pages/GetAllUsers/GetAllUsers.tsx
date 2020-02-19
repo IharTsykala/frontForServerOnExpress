@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
+import ServiceSubscriptions from "../../services/service-subscribe"
 import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
 import { Context } from "../../Context"
@@ -10,18 +11,57 @@ export const GetAllUsers: React.FC = () => {
   const [load, setLoad]: any = useState("loading")
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState('')
+  const [arrayLogInUserSubscribes, setArrayLogInUserSubscribes]: any = useState([])
+  const [arrayLogInUserObservables, setArrayLogInUserObservables]: any = useState([])
 
   const render = useCallback(() => {
     try {
-      getUsers()
+      getUsers()      
+      getLogInUserSubscribes()
+      // getLogInUserObservables()        
     } catch (e) {
       console.log(e)
     }
   }, [])
 
+
   useEffect(() => {
-    render()    
+    render()
+    
   }, [render])
+
+  const render2 = useCallback(() => {
+    try {
+      
+      getLogInUserObservables()        
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+
+
+  useEffect(() => {
+    render2()
+    
+  }, [render2])
+
+  async function getUsers() {
+    const users = await Service.getAllUsers()
+    setLoad("loaded")
+    setUsers(users)
+  }
+
+  async function  getLogInUserSubscribes() {
+    const arrayLogInUserSubscribes = await ServiceSubscriptions.getAllSubscribes(userID)    
+    setArrayLogInUserSubscribes(arrayLogInUserSubscribes)
+  }
+
+  async function getLogInUserObservables() {
+    console.log('arrayLogInUserObservables')   
+    const arrayLogInUserObservables = await ServiceSubscriptions.getAllObservables(userID) 
+      
+    setArrayLogInUserObservables(arrayLogInUserObservables)
+  }  
 
   const handlerInputSearchBox = (e:any) => {        
     setValueSearchBox(e.target.value)        
@@ -48,16 +88,16 @@ export const GetAllUsers: React.FC = () => {
     getFlirtedArrayUsers(valueSearchBox)
   },[getFlirtedArrayUsers, valueSearchBox])
 
-  async function getUsers() {
-    const users = await Service.getAllUsers()
-    setLoad("loaded")
-    setUsers(users)
-  }
-
   const removeHandler = async (e: any, id: number) => {
     setLoad("loading")
     await Service.removeHandler(id)
     getUsers()
+  }
+
+  const handlerClickSubscribe = async(IdObserversUser:any) => {
+    await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
+    getLogInUserSubscribes()
+    getLogInUserObservables()
   }
 
   return (
@@ -82,6 +122,10 @@ export const GetAllUsers: React.FC = () => {
                     user={user}
                     removeHandler={removeHandler}
                     admin={userRole}
+                    handlerClickSubscribe={handlerClickSubscribe}
+                    idUserOwnerCard ={user._id}
+                    arrayLogInUserSubscribes={arrayLogInUserSubscribes}
+                    arrayLogInUserObservables={arrayLogInUserObservables}
                   />
                 )
               )

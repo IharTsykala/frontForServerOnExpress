@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import UserCardCSS from "./UserCard.module.css"
 import { useHistory } from "react-router-dom"
 
@@ -6,10 +6,24 @@ type UserCardProps = {
   user: any
   removeHandler: any
   admin: string
+  handlerClickSubscribe: any
+  idUserOwnerCard:any
+  arrayLogInUserSubscribes: any
+  arrayLogInUserObservables:any
 }
 
-const UserCard: React.FC<UserCardProps> = ({ user, removeHandler, admin }) => {
+const UserCard: React.FC<UserCardProps> = ({ user, removeHandler, admin, handlerClickSubscribe, idUserOwnerCard, arrayLogInUserSubscribes, arrayLogInUserObservables }) => {
   const history = useHistory()
+  console.log(arrayLogInUserSubscribes)
+  console.log(arrayLogInUserObservables)
+  const isSubscribe = arrayLogInUserSubscribes.find((subscribe:any)=>subscribe.observableId===idUserOwnerCard)
+  const isObservable =arrayLogInUserObservables.find((observable:any)=>observable.subscriberId===idUserOwnerCard)
+  if(isObservable&&isObservable) console.log(isSubscribe.observableId===isObservable.subscriberId)
+  const isFriend = true
+
+  useEffect(() => {
+    if(isObservable&&isObservable) console.log(isSubscribe.observableId,isObservable.subscriberId)   
+  }, [])
   return (
     <div className={UserCardCSS.container__all_users__card_user}>
       {admin === "admin" && (
@@ -53,8 +67,13 @@ const UserCard: React.FC<UserCardProps> = ({ user, removeHandler, admin }) => {
       <p className={UserCardCSS.all_users__card_user__role}>{user.role}</p>
       <button
         className={`waves-effect waves-light btn ${UserCardCSS.all_users__card_user__button}`}
+        onClick={()=>handlerClickSubscribe(idUserOwnerCard)}
       >
-        Subscribe
+       {
+       isSubscribe?<p>UnSubscribe</p>
+       :isObservable?<p>Add in friends</p>
+       :isObservable&&isObservable&&isSubscribe.observableId===isObservable.subscriberId?<p>Remove from friends</p>
+       :<p>Subscribe</p>}
       </button>
     </div>
   )

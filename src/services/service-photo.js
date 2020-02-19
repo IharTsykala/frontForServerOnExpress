@@ -14,18 +14,15 @@ export default class ServicePhotos {
     }
   )
 
-  static setImgUser = async avatar => {
-    // console.log(avatar)
+  static setImgUser = async avatar => {    
     const formData = new FormData()
-    for (let i = 0; i < avatar.length; i++) {
-      // console.log(avatar[i])
+    for (let i = 0; i < avatar.length; i++) {      
       formData.append("multipleUser", avatar[i])
     }
     const response = await axios.post(
       `http://localhost:8080/public/multipleUserSafeFileIntoImages`,
       formData
-    )
-    console.log(response.data.fileNames)
+    )    
     return response.data.fileNames
   }
 
@@ -52,11 +49,9 @@ export default class ServicePhotos {
     }
   }
 
-  static addPhotoIntoAlbum = async (idUser, idAlbum, arrayUrl) => {
-    // console.log(arrayUrl)
+  static addPhotoIntoAlbum = async (idUser, idAlbum, arrayUrl) => {    
     let arrPhotoUrl =[]
-    for (let i = 0; i < arrayUrl.length; i++) {
-      // console.log(arrayUrl[i])
+    for (let i = 0; i < arrayUrl.length; i++) {      
       const photo = {
         name: `${arrayUrl[i]}`,
         url: arrayUrl[i],
@@ -68,27 +63,18 @@ export default class ServicePhotos {
         photo
       )      
       arrPhotoUrl =arrPhotoUrl.concat(response.data.photo.url)
-    }
-    // console.log(arrPhotoUrl)
+    }    
     return arrPhotoUrl
   }
 
-  static addPhotosIntoFsAndAlbum = async (idUser, idAlbum, arrayFiles) => {
-    console.log(idUser, idAlbum, arrayFiles)
-    const formData = new FormData()
-    const photo = {
-      name: `new photo`,
-      url: '',
-      ownerUser: idUser,
-      ownerAlbum: idAlbum
-    }
+  static addPhotosIntoFsAndAlbum = async (idUser, idAlbum, arrayFiles) => {    
+    const formData = new FormData()    
     for (let i = 0; i < arrayFiles.length; i++) {      
       formData.append("multipleUser", arrayFiles[i])
-    }
-    console.log(formData)
+    }    
     const response = await axios.post(
-      `http://localhost:8080/public/multipleUserSafeFileIntoImages`, 
-           formData, photo
+      `http://localhost:8080/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`, 
+           formData
     )    
     return response.data.fileNames
   }
