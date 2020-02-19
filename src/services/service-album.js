@@ -64,5 +64,4 @@ export default class ServiceAlbums {
       console.log(e)
     }
   }
- 
 }

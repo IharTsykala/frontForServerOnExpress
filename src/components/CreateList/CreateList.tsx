@@ -7,7 +7,7 @@ type CreateListProps = {
   removeHandler: any
   editHandler: any
   idUserOwnerPage?: any
-  idChosenAlbum?: any  
+  idChosenAlbum?: any
   createListFunction?: any
   launchTogglePhotoModalWindow?: any
 }
@@ -41,7 +41,7 @@ const CreateList: React.FC<CreateListProps> = ({
               editHandler={editHandler}
               idUserOwnerPage={idUserOwnerPage}
               idChosenAlbum={idChosenAlbum}
-              launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}                           
+              launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
               // description={description}
             />
           </li>

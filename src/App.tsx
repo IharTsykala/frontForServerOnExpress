@@ -27,7 +27,7 @@ export const App: React.FC = () => {
       <ContextProvider>
         <Navbar />
         <main className="main">
-          <Switch>            
+          <Switch>
             <Route component={GetStartPage} path="/" exact />
             <Route component={GetLoginPage} path="/LogIn" exact />
             <Route component={GetLogUpPage} path="/SignUp" exact />
@@ -44,9 +44,17 @@ export const App: React.FC = () => {
               exact
             />
             <PrivateRoute
-              {...defaultPrivateRouteProps} component={GetAlbumByID} path="/user/:id/album" exact />
-           <PrivateRoute
-              {...defaultPrivateRouteProps} component={UserEditInformation} path="/user/:id/edit" exact />
+              {...defaultPrivateRouteProps}
+              component={GetAlbumByID}
+              path="/user/:id/album"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={UserEditInformation}
+              path="/user/:id/edit"
+              exact
+            />
             <PrivateRouteForAdmins
               {...defaultPrivateRouteForAdminsProps}
               component={AdminAllUsers}

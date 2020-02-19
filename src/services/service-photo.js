@@ -14,15 +14,15 @@ export default class ServicePhotos {
     }
   )
 
-  static setImgUser = async avatar => {    
+  static setImgUser = async avatar => {
     const formData = new FormData()
-    for (let i = 0; i < avatar.length; i++) {      
+    for (let i = 0; i < avatar.length; i++) {
       formData.append("multipleUser", avatar[i])
     }
     const response = await axios.post(
       `http://localhost:8080/public/multipleUserSafeFileIntoImages`,
       formData
-    )    
+    )
     return response.data.fileNames
   }
 
@@ -49,9 +49,9 @@ export default class ServicePhotos {
     }
   }
 
-  static addPhotoIntoAlbum = async (idUser, idAlbum, arrayUrl) => {    
-    let arrPhotoUrl =[]
-    for (let i = 0; i < arrayUrl.length; i++) {      
+  static addPhotoIntoAlbum = async (idUser, idAlbum, arrayUrl) => {
+    let arrPhotoUrl = []
+    for (let i = 0; i < arrayUrl.length; i++) {
       const photo = {
         name: `${arrayUrl[i]}`,
         url: arrayUrl[i],
@@ -61,21 +61,21 @@ export default class ServicePhotos {
       const response = await axios.post(
         `http://localhost:8080/photos/addIntoAlbum`,
         photo
-      )      
-      arrPhotoUrl =arrPhotoUrl.concat(response.data.photo.url)
-    }    
+      )
+      arrPhotoUrl = arrPhotoUrl.concat(response.data.photo.url)
+    }
     return arrPhotoUrl
   }
 
-  static addPhotosIntoFsAndAlbum = async (idUser, idAlbum, arrayFiles) => {    
-    const formData = new FormData()    
-    for (let i = 0; i < arrayFiles.length; i++) {      
+  static addPhotosIntoFsAndAlbum = async (idUser, idAlbum, arrayFiles) => {
+    const formData = new FormData()
+    for (let i = 0; i < arrayFiles.length; i++) {
       formData.append("multipleUser", arrayFiles[i])
-    }    
+    }
     const response = await axios.post(
-      `http://localhost:8080/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`, 
-           formData
-    )    
+      `http://localhost:8080/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
+      formData
+    )
     return response.data.fileNames
   }
 }
