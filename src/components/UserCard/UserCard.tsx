@@ -1,43 +1,95 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import UserCardCSS from "./UserCard.module.css"
 import { useHistory } from "react-router-dom"
+import ServiceSubscriptions from "../../services/service-subscribe"
+import ServiceFriends from "../../services/service-friend"
+import { Context } from "../../Context"
 
 type UserCardProps = {
   user: any
   removeHandler: any
-  admin: string
-  handlerClickSubscribe: any
+  admin: string 
   idUserOwnerCard: any
   arrayLogInUserSubscribes: any
-  arrayLogInUserObservables: any
+  // arrayLogInUserObservables: any
+  // getLogInUserRequestSubscribes: any
+  // getLogInUserResponseSubscribes: any
 }
 
 const UserCard: React.FC<UserCardProps> = ({
   user,
   removeHandler,
-  admin,
-  handlerClickSubscribe,
+  admin,  
   idUserOwnerCard,
   arrayLogInUserSubscribes,
-  arrayLogInUserObservables
+  // arrayLogInUserObservables
+  // getLogInUserRequestSubscribes,
+  // getLogInUserResponseSubscribes
 }) => {
   const history = useHistory()
-  console.log(arrayLogInUserSubscribes)
-  console.log(arrayLogInUserObservables)
-  const isSubscribe = arrayLogInUserSubscribes.find(
-    (subscribe: any) => subscribe.observableId === idUserOwnerCard
-  )
-  const isObservable = arrayLogInUserObservables.find(
-    (observable: any) => observable.subscriberId === idUserOwnerCard
-  )
-  if (isObservable && isObservable)
-    console.log(isSubscribe.observableId === isObservable.subscriberId)
-  const isFriend = true
+  const [isSubscribe, setIsSubscribe] = useState('')
+  const [isObservable, setIsObservable] = useState('')
+  const { userID } = useContext(Context)
+  // console.log(arrayLogInUserSubscribes)
+  // console.log(arrayLogInUserObservables) 
 
+  const getSubscribeStatus = () => {     
+    const isSubscribe = arrayLogInUserSubscribes.find(
+      (subscribe: any) => subscribe.responseSubscriberId === idUserOwnerCard
+    )   
+    setIsSubscribe(isSubscribe)    
+    // console.log(isSubscribe) 
+  // const isObservable = arrayLogInUserObservables.find(
+  //     (observable: any) => observable.requestSubscriberId === idUserOwnerCard
+  //   )    
+    setIsObservable(isObservable)
+    // console.log(isObservable)
+  }
+  
   useEffect(() => {
-    if (isObservable && isObservable)
-      console.log(isSubscribe.observableId, isObservable.subscriberId)
-  }, [])
+    getSubscribeStatus()    
+  }, [arrayLogInUserSubscribes.length])
+  
+
+  // const handlerClickSubscribeOrUnsubscribe = async(IdObserversUser:any) => {
+  //   await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
+  //   getLogInUserSubscribes()
+  //   getLogInUserObservables()
+  // }
+
+  // const handlerClickAddFriendsOrRemove = async(IdObserversUser:any) => {
+  //   await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
+  //   getLogInUserSubscribes()
+  //   getLogInUserObservables()
+  // }
+
+  const handlerClickSubscribe = async () =>{
+    await ServiceSubscriptions.addSubscribe(userID, idUserOwnerCard)
+    // getLogInUserRequestSubscribes()
+    // getLogInUserResponseSubscribes()
+  } 
+
+  const handlerClickUnSubscribe = () =>{
+
+  } 
+
+  const handlerClickAddFriend = async() =>{
+    await ServiceFriends.addFriend(userID, idUserOwnerCard)
+  } 
+
+  const handlerClickRemoveFriend = () =>{
+    //  console.log(userID)
+  } 
+
+  const handlerClickSubscribeButton = () => {
+    if(!isSubscribe&&!isObservable) handlerClickSubscribe()
+    if(isSubscribe&&!isObservable) handlerClickUnSubscribe()
+    if(!isSubscribe&&isObservable) handlerClickAddFriend()
+    if(isSubscribe&&isObservable) handlerClickRemoveFriend()
+  }
+
+
+
   return (
     <div className={UserCardCSS.container__all_users__card_user}>
       {admin === "admin" && (
@@ -72,29 +124,22 @@ const UserCard: React.FC<UserCardProps> = ({
         }}
       >
         {user.login}
-      </h5>
-      {/* {user.friends.length>0?<p>{user.friends.length}</p>:<p>'You dont have friends'</p>} */}
+      </h5>      
       <p className={UserCardCSS.all_users__card_user__friends}>
         {" "}
         It don't have friends
       </p>
       <p className={UserCardCSS.all_users__card_user__role}>{user.role}</p>
-      <button
+     <button
         className={`waves-effect waves-light btn ${UserCardCSS.all_users__card_user__button}`}
-        onClick={() => handlerClickSubscribe(idUserOwnerCard)}
+        onClick={() => handlerClickSubscribeButton()}        
       >
-        {isSubscribe ? (
-          <p>UnSubscribe</p>
-        ) : isObservable ? (
-          <p>Add in friends</p>
-        ) : isObservable &&
-          isObservable &&
-          isSubscribe.observableId === isObservable.subscriberId ? (
-          <p>Remove from friends</p>
-        ) : (
-          <p>Subscribe</p>
-        )}
-      </button>
+        {(!isSubscribe&&!isObservable)? (<p>Subscribe</p>)
+        :(isSubscribe&&!isObservable)? (<p>UnSubscribe</p>)
+        :(!isSubscribe&&isObservable)? (<p>Add friend</p>)
+        :(isSubscribe&&isObservable)? (<p>Remove friend</p>)
+        :null}       
+      </button>    
     </div>
   )
 }

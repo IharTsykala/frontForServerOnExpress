@@ -5,6 +5,7 @@ import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
 import { Context } from "../../Context"
 import Search from '../../components/Search/Search'
+import ServiceFriends from "../../services/service-friend"
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
@@ -12,73 +13,95 @@ export const GetAllUsers: React.FC = () => {
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState('')
   const [arrayLogInUserSubscribes, setArrayLogInUserSubscribes]: any = useState([])
-  const [arrayLogInUserObservables, setArrayLogInUserObservables]: any = useState([])
+  const [arrayLogInUserObservers, setArrayLogInUserObservers]: any = useState([])
+  const [arrayLogInUserAllFriends, setArrayLogInUserAllFriends]: any = useState([])  
+  const [timerId, setTimerId]: any = useState(undefined)
+  const [usersInfo, setUserInfo]: any = useState('')
 
   const render = useCallback(() => {
     try {
       getUsers()      
-      getLogInUserSubscribes()
-      // getLogInUserObservables()        
+      getLogInUserAllSubscriptionsAndObserver()
+      getLogInUserAllFriends()
+      // createArrayUsersInfo()
     } catch (e) {
       console.log(e)
     }
   }, [])
 
-
   useEffect(() => {
-    render()
-    
+    render()           
   }, [render])
-
-  const render2 = useCallback(() => {
-    try {
-      
-      getLogInUserObservables()        
-    } catch (e) {
-      console.log(e)
-    }
-  }, [])
-
-
-  useEffect(() => {
-    render2()
-    
-  }, [render2])
 
   async function getUsers() {
     const users = await Service.getAllUsers()
     setLoad("loaded")
     setUsers(users)
-  }
-
-  async function  getLogInUserSubscribes() {
-    const arrayLogInUserSubscribes = await ServiceSubscriptions.getAllSubscribes(userID)    
-    setArrayLogInUserSubscribes(arrayLogInUserSubscribes)
-  }
-
-  async function getLogInUserObservables() {
-    console.log('arrayLogInUserObservables')   
-    const arrayLogInUserObservables = await ServiceSubscriptions.getAllObservables(userID) 
-      
-    setArrayLogInUserObservables(arrayLogInUserObservables)
   }  
 
-  const handlerInputSearchBox = (e:any) => {        
+  const createArrayUsersInfo = () => {
+    console.log(users)  
+    let usersInfo:any = [] 
+    users.forEach((user:any)=>{ 
+      let count = 0    
+      arrayLogInUserSubscribes.forEach((subscribe:any)=>{              
+        if(user._id === subscribe.responseSubscriberId) {
+          usersInfo= usersInfo.concat(user = Object.assign(user, {subscribe: 'subscribe'})) 
+          count = count + 1          
+        }        
+      }) 
+      if(!count) usersInfo = usersInfo.concat(user)  
+    })
+    // usersInfo = users.map((user:any)=>{      
+    //  return arrayLogInUserObservers.map((subscribe:any)=>{      
+    //      if(user._id === subscribe.requestSubscriberId) {
+    //     return user = Object.assign(user, {subscribe: 'observer'})
+    //      }
+    //    })         
+    //  })
+    //  users.map((user:any)=>{      
+    //   arrayLogInUserSubscribes.map((subscribe:any)=>{      
+    //      if(user._id === subscribe.requestSubscriberId) {
+    //      user = Object.assign(user, {subscribe: 'observer'})
+    //      }
+    //    })      
+    //  })
+    // setUsers(usersInfo)  
+    console.log(usersInfo) 
+    // setUsers(usersInfo)
+  }
+
+  useEffect(() => {    
+    createArrayUsersInfo()   
+  }, [arrayLogInUserSubscribes])
+  
+
+  async function  getLogInUserAllSubscriptionsAndObserver() {
+    const arrayLogInUserSubscribesAndObserver = await ServiceSubscriptions.getAllSubscribes(userID)    
+    setArrayLogInUserSubscribes(arrayLogInUserSubscribesAndObserver[0])
+    setArrayLogInUserObservers(arrayLogInUserSubscribesAndObserver[1])
+    // createArrayUsersInfo()  
+  }  
+  
+  async function getLogInUserAllFriends() {     
+    const arrayLogInUserAllFriends = await ServiceFriends.getLogInUserAllFriends(userID)       
+    setArrayLogInUserAllFriends(arrayLogInUserAllFriends)    
+  }
+
+  const handlerInputSearchBox = (e:any) => {   
+    clearTimeout(timerId)
     setValueSearchBox(e.target.value)        
   }
 
   const getFlirtedArrayUsers = useCallback(async (valueSearchBox:any) => {
     try {
       if(valueSearchBox.length>2) {
-        setTimeout(async()=>{           
+       const clearInterval = setTimeout(async()=>{           
           const arrayFilteredUsers = await Service.getFilteredUsers(valueSearchBox)          
-          setUsers(arrayFilteredUsers)
+          setUsers(arrayFilteredUsers)          
         },1000)
-      } else if(valueSearchBox.length<3 && valueSearchBox) {
-        setTimeout(()=>{ 
-        getUsers()
-      },1000)
-      }    
+        setTimerId(clearInterval)
+      } else if(valueSearchBox.length===2) getUsers()    
     } catch (e) {
       console.log(e)
     }
@@ -94,11 +117,11 @@ export const GetAllUsers: React.FC = () => {
     getUsers()
   }
 
-  const handlerClickSubscribe = async(IdObserversUser:any) => {
-    await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
-    getLogInUserSubscribes()
-    getLogInUserObservables()
-  }
+  // const handlerClickSubscribe = async(IdObserversUser:any) => {
+  //   await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
+  //   getLogInUserSubscribes()
+  //   getLogInUserObservables()
+  // }
 
   return (
     <>
@@ -121,11 +144,12 @@ export const GetAllUsers: React.FC = () => {
                     key={user._id}
                     user={user}
                     removeHandler={removeHandler}
-                    admin={userRole}
-                    handlerClickSubscribe={handlerClickSubscribe}
+                    admin={userRole}                    
                     idUserOwnerCard ={user._id}
                     arrayLogInUserSubscribes={arrayLogInUserSubscribes}
-                    arrayLogInUserObservables={arrayLogInUserObservables}
+                    // arrayLogInUserObservables={arrayLogInUserObservables}
+                    // getLogInUserRequestSubscribes={getLogInUserRequestSubscribes}
+                    // getLogInUserResponseSubscribes={getLogInUserResponseSubscribes}
                   />
                 )
               )

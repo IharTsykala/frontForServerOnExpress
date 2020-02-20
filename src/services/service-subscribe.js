@@ -17,7 +17,8 @@ export default class ServiceSubscriptions {
   static getAllSubscribes = async idLogInUser => {
     const response = await axios.get(
       `http://localhost:8080/subscriptions/withSubscriptions/${idLogInUser}`
-    )
+    ) 
+    console.log(response.data)      
     return response.data
   }
 
@@ -30,8 +31,8 @@ export default class ServiceSubscriptions {
 
   static addSubscribe = async (idLogInUser, IdObserversUser) => {
     const subscribe = {
-      subscriberId: idLogInUser,
-      observableId: IdObserversUser
+      requestSubscriberId: idLogInUser,
+      responseSubscriberId: IdObserversUser
     }
     const response = await axios.post(
       `http://localhost:8080/subscriptions/add`,
