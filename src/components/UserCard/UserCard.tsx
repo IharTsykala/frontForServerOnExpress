@@ -10,7 +10,7 @@ type UserCardProps = {
   removeHandler: any
   admin: string 
   idUserOwnerCard: any
-  arrayLogInUserSubscribes: any
+  arrayLogInUserSubscriptions: any
   // arrayLogInUserObservables: any
   // getLogInUserRequestSubscribes: any
   // getLogInUserResponseSubscribes: any
@@ -21,7 +21,7 @@ const UserCard: React.FC<UserCardProps> = ({
   removeHandler,
   admin,  
   idUserOwnerCard,
-  arrayLogInUserSubscribes,
+  arrayLogInUserSubscriptions,
   // arrayLogInUserObservables
   // getLogInUserRequestSubscribes,
   // getLogInUserResponseSubscribes
@@ -34,7 +34,7 @@ const UserCard: React.FC<UserCardProps> = ({
   // console.log(arrayLogInUserObservables) 
 
   const getSubscribeStatus = () => {     
-    const isSubscribe = arrayLogInUserSubscribes.find(
+    const isSubscribe = arrayLogInUserSubscriptions.find(
       (subscribe: any) => subscribe.responseSubscriberId === idUserOwnerCard
     )   
     setIsSubscribe(isSubscribe)    
@@ -48,7 +48,7 @@ const UserCard: React.FC<UserCardProps> = ({
   
   useEffect(() => {
     getSubscribeStatus()    
-  }, [arrayLogInUserSubscribes.length])
+  }, [arrayLogInUserSubscriptions.length])
   
 
   // const handlerClickSubscribeOrUnsubscribe = async(IdObserversUser:any) => {
