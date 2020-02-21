@@ -122,12 +122,22 @@ export default class Service {
   }
 
   static getListAlbumsWithPhotosByUserID = async id => {
-    try {
-      // console.log(id)s
+    try {      
       const response = await axios.get(
         `http://localhost:8080/users/AlbumsWithPhotos/${id}`
-      )
-      // console.log(response.data)
+      )      
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  static getUserWithSubscriptionsById = async idLogInUser => {
+    try {      
+      const response = await axios.get(
+        `http://localhost:8080/users/getUserWithSubscriptionsById/${idLogInUser}`
+      )    
+      console.log(response.data)  
       return response.data
     } catch (e) {
       console.log(e)

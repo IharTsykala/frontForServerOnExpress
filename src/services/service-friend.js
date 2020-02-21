@@ -18,7 +18,7 @@ export default class ServiceFriends {
     const response = await axios.get(
       `http://localhost:8080/friends/logInUserAllFriends/?id=${idLogInUser}`
     )
-    console.log(response.data)
+    // console.log(response.data)
     return response.data
   }
 
