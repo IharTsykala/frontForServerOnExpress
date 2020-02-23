@@ -76,6 +76,7 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const handlerClickSubscribe = async () => {
     await ServiceSubscriptions.addSubscribe(userID, user._id)
+    // await ServiceFriends.addFriend(userID, user._id)
     turnOffThisState()
     await getLogInUserAllSubscriptionsAndObserver()
     // createArrayUsersInfo()
