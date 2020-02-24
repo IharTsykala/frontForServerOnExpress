@@ -14,9 +14,9 @@ export default class ServiceSubscriptions {
     }
   )
 
-  static getAllSubscribes = async idLogInUser => {
+  static getStatusUsersSubscribeByID = async idLogInUser => {
     const response = await axios.get(
-      `http://localhost:8080/subscriptions/withSubscriptions/${idLogInUser}`
+      `http://localhost:8080/subscriptions/getStatusUsersSubscribeByID/${idLogInUser}`
     )         
     return response.data
   }
@@ -28,6 +28,10 @@ export default class ServiceSubscriptions {
     return response.data
   }
 
+  // getStatusUsersSubscribeByID = () => {
+
+  // }
+
   static addSubscribe = async (idLogInUser, IdObserversUser) => {
     const subscribe = {
       requestSubscriberId: idLogInUser,
@@ -36,6 +40,18 @@ export default class ServiceSubscriptions {
     const response = await axios.post(
       `http://localhost:8080/subscriptions/add`,
       subscribe
-    )
+    )    
   }  
+
+
+static deleteSubscribe = async (idLogInUser, IdObserversUser) => {
+  const subscribe = {
+    requestSubscriberId: idLogInUser,
+    responseSubscriberId: IdObserversUser
+  }
+  await axios.post(
+    `http://localhost:8080/subscriptions/deleteSubscribe/?idLogInUser=${idLogInUser}&IdObserversUser=${IdObserversUser}`
+    
+  )
+}  
 }
