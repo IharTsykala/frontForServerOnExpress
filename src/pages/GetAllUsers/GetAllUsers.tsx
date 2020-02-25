@@ -1,38 +1,27 @@
 import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
-import ServiceSubscriptions from "../../services/service-subscribe"
 import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
 import { Context } from "../../Context"
 import Search from "../../components/Search/Search"
-// import ServiceFriends from "../../services/service-friend"
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState("")
-  // const [arrayLogInUsersAllSubscriptionsAndObserver, setArrayLogInUsersAllSubscriptionsAndObserver]: any = useState(
-  //   []
-  // )  
-  // const [arrayLogInUserAllFriends, setArrayLogInUserAllFriends]: any = useState(
-  //   []
-  // )
   const [timerId, setTimerId]: any = useState(undefined)
-  // const [usersInfo, setUserInfo]: any = useState("")  
-  const render = useCallback(async() => {
+
+  const render = useCallback(async () => {
     try {
-      // await getUsers()
       await getLogInUserAllSubscriptionsAndObserver()
-      // await getLogInUserAllFriends()
-      // await Service.getUserWithSubscriptionsById(userID)      
     } catch (e) {
       console.log(e)
     }
   }, [])
 
   useEffect(() => {
-    render()    
+    render()
   }, [render])
 
   async function getUsers() {
@@ -40,12 +29,14 @@ export const GetAllUsers: React.FC = () => {
     setLoad("loaded")
     setUsers(users)
   }
-  
+
   async function getLogInUserAllSubscriptionsAndObserver() {
-    const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(userID)    
+    const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(
+      userID
+    )
     // setArrayLogInUsersAllSubscriptionsAndObserver(arrayLogInUsersAllSubscriptionsAndObserver)
-    setLoad("loaded") 
-    setUsers(arrayLogInUsersAllSubscriptionsAndObserver)      
+    setLoad("loaded")
+    setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
   }
 
   const handlerInputSearchBox = (e: any) => {
@@ -101,9 +92,10 @@ export const GetAllUsers: React.FC = () => {
                       key={user._id}
                       user={user}
                       removeHandler={removeHandler}
-                      admin={userRole}                      
-                      // arrayLogInUsersAllSubscriptionsAndObserver={arrayLogInUsersAllSubscriptionsAndObserver}                       
-                      getLogInUserAllSubscriptionsAndObserver={getLogInUserAllSubscriptionsAndObserver}                      
+                      admin={userRole}
+                      getLogInUserAllSubscriptionsAndObserver={
+                        getLogInUserAllSubscriptionsAndObserver
+                      }
                     />
                   )
                 )
@@ -116,35 +108,32 @@ export const GetAllUsers: React.FC = () => {
   )
 }
 
+// / const createArrayUsersInfo = () => {
+//   let usersInfo: any = []
+//   users.forEach((user: any) => {
+//     let flagSubscribe = false
+//     let flagObserver = false
+//     arrayLogInUserSubscriptions.forEach((subscribe: any) => {
+//       if (user._id === subscribe.responseSubscriberId) {
+//         usersInfo = usersInfo.concat(
+//           (user = Object.assign(user, { subscribe: "subscribe" }))
+//         )
+//         flagSubscribe = true
+//       }
 
+//       if (user._id === subscribe.requestSubscriberId) {
+//         usersInfo = usersInfo.concat(
+//           (user = Object.assign(user, { subscribe: "observer" }))
+//         )
+//         flagSubscribe = true
+//       }
+//     })
 
+//     if (!flagSubscribe && !flagObserver) usersInfo = usersInfo.concat(user)
+//   })
+//   setUserInfo(usersInfo)
+// }
 
-// / const createArrayUsersInfo = () => {    
-  //   let usersInfo: any = []
-  //   users.forEach((user: any) => {
-  //     let flagSubscribe = false
-  //     let flagObserver = false
-  //     arrayLogInUserSubscriptions.forEach((subscribe: any) => {
-  //       if (user._id === subscribe.responseSubscriberId) {
-  //         usersInfo = usersInfo.concat(
-  //           (user = Object.assign(user, { subscribe: "subscribe" }))
-  //         )
-  //         flagSubscribe = true
-  //       }
-
-  //       if (user._id === subscribe.requestSubscriberId) {
-  //         usersInfo = usersInfo.concat(
-  //           (user = Object.assign(user, { subscribe: "observer" }))
-  //         )
-  //         flagSubscribe = true
-  //       }
-  //     })
-
-  //     if (!flagSubscribe && !flagObserver) usersInfo = usersInfo.concat(user)
-  //   })   
-  //   setUserInfo(usersInfo)    
-  // }
-
-  // useEffect(() => {
-  //   arrayLogInUsersAllSubscriptionsAndObserver()
-  // }, [arrayLogInUsersAllSubscriptionsAndObserver.length])
+// useEffect(() => {
+//   arrayLogInUsersAllSubscriptionsAndObserver()
+// }, [arrayLogInUsersAllSubscriptionsAndObserver.length])

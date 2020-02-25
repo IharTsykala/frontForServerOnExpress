@@ -14,7 +14,7 @@ export default class ServiceFriends {
     }
   )
 
-  static getLogInUserAllFriends = async idLogInUser => {    
+  static getLogInUserAllFriends = async idLogInUser => {
     const response = await axios.get(
       `http://localhost:8080/friends/logInUserAllFriends/?id=${idLogInUser}`
     )
@@ -22,22 +22,14 @@ export default class ServiceFriends {
     return response.data
   }
 
-//   static getAllObservables = async idLogInUser => {
-//     const response = await axios.get(
-//       `http://localhost:8080/subscriptions/withObservables/${idLogInUser}`
-//     )
-//     return response.data
-//   }
-
   static addFriend = async (idLogInUser, IdRequestUser) => {
     const subscribe = {
-        requestFriendId: idLogInUser,
-        responseFriendId: IdRequestUser
+      requestFriendId: idLogInUser,
+      responseFriendId: IdRequestUser
     }
     const response = await axios.post(
       `http://localhost:8080/friends/add`,
       subscribe
     )
   }
-
 }
