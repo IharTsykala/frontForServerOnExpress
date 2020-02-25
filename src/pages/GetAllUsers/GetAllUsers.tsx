@@ -18,7 +18,9 @@ export const GetAllUsers: React.FC = () => {
 
   const render = useCallback(async () => {
     try {
+      // await getUsers()
       await getLogInUserAllSubscriptionsAndObserver()
+
     } catch (e) {
       console.log(e)
     }
@@ -37,8 +39,7 @@ export const GetAllUsers: React.FC = () => {
   async function getLogInUserAllSubscriptionsAndObserver() {
     const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(
       userID
-    )
-    // setArrayLogInUsersAllSubscriptionsAndObserver(arrayLogInUsersAllSubscriptionsAndObserver)
+    )    
     setLoad("loaded")
     setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
   }
@@ -58,7 +59,7 @@ export const GetAllUsers: React.FC = () => {
           setUsers(arrayFilteredUsers)
         }, 1000)
         setTimerId(clearInterval)
-      } else if (valueSearchBox.length === 2) getUsers()
+      } else if (valueSearchBox.length === 2) await getLogInUserAllSubscriptionsAndObserver()
     } catch (e) {
       console.log(e)
     }
@@ -82,8 +83,7 @@ export const GetAllUsers: React.FC = () => {
     } else {
       await getLogInUserAllSubscriptionsAndObserver()
     } 
-    setChecked(!checked);
-    
+    setChecked(!checked);    
   };
   
 

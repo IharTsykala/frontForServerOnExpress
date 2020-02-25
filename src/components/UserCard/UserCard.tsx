@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useContext } from "react"
 import UserCardCSS from "./UserCard.module.css"
 import { useHistory } from "react-router-dom"
 import ServiceSubscriptions from "../../services/service-subscribe"
@@ -19,11 +19,9 @@ const UserCard: React.FC<UserCardProps> = ({
   getLogInUserAllSubscriptionsAndObserver
 }) => {
   const history = useHistory()
-  const { userID } = useContext(Context)
-  const [statusSubscribe, setStatusSubscribe] = useState(false)
+  const { userID } = useContext(Context) 
 
-  useEffect(() => {    
-    console.log(user)
+  useEffect(() => {  
   }, [user.subscriptions])
 
   const handlerClickSubscribe = async () => {

@@ -39,8 +39,7 @@ export default class ServiceFriends {
   )
  }
 
- static getArrayFriendsByIdUser = async (idLogInUser) => {
-  console.log(idLogInUser)
+ static getArrayFriendsByIdUser = async (idLogInUser) => {  
  const response = await axios.get(
    `http://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`    
  )
