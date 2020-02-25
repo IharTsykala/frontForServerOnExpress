@@ -19,10 +19,9 @@ const UserCard: React.FC<UserCardProps> = ({
   getLogInUserAllSubscriptionsAndObserver
 }) => {
   const history = useHistory()
-  const { userID } = useContext(Context) 
+  const { userID } = useContext(Context)
 
-  useEffect(() => {  
-  }, [user.subscriptions])
+  useEffect(() => {}, [user.subscriptions])
 
   const handlerClickSubscribe = async () => {
     await ServiceSubscriptions.addSubscribe(userID, user._id)
@@ -36,11 +35,11 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const handlerClickAddFriend = async () => {
     await ServiceSubscriptions.deleteSubscribeAfterAddFriend(user._id, userID)
-    await ServiceFriends.addFriend(userID, user._id)    
+    await ServiceFriends.addFriend(userID, user._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
-  const handlerClickRemoveFriend = async() => {
+  const handlerClickRemoveFriend = async () => {
     await ServiceFriends.removeFriend(userID, user._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }

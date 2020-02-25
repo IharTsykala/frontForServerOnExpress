@@ -4,7 +4,7 @@ import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
 import { Context } from "../../Context"
 import Search from "../../components/Search/Search"
-import Checkbox from '@material-ui/core/Checkbox'
+import Checkbox from "@material-ui/core/Checkbox"
 import ServiceSubscriptions from "../../services/service-subscribe"
 import ServiceFriends from "../../services/service-friend"
 
@@ -14,13 +14,13 @@ export const GetAllUsers: React.FC = () => {
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
-  const [checked, setChecked]:any = useState(true);
+  const [checked, setChecked]: any = useState(true)
 
   const render = useCallback(async () => {
     try {
       // await getUsers()
       await getLogInUserAllSubscriptionsAndObserver()
-
+      // await Service.getUserWithSubscriptionsById2(userID)
     } catch (e) {
       console.log(e)
     }
@@ -39,7 +39,7 @@ export const GetAllUsers: React.FC = () => {
   async function getLogInUserAllSubscriptionsAndObserver() {
     const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(
       userID
-    )    
+    )
     setLoad("loaded")
     setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
   }
@@ -59,7 +59,8 @@ export const GetAllUsers: React.FC = () => {
           setUsers(arrayFilteredUsers)
         }, 1000)
         setTimerId(clearInterval)
-      } else if (valueSearchBox.length === 2) await getLogInUserAllSubscriptionsAndObserver()
+      } else if (valueSearchBox.length === 2)
+        await getLogInUserAllSubscriptionsAndObserver()
     } catch (e) {
       console.log(e)
     }
@@ -76,16 +77,19 @@ export const GetAllUsers: React.FC = () => {
   }
 
   const handleClickFriendCheckBox = async () => {
-    if(!checked) {
-      let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(userID)
-      arrayFriendsByIdUser = arrayFriendsByIdUser.map((friend:any)=>Object.assign({}, friend, { subscriptions: "friend" }))      
-      setUsers(arrayFriendsByIdUser)      
+    if (!checked) {
+      let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(
+        userID
+      )
+      arrayFriendsByIdUser = arrayFriendsByIdUser.map((friend: any) =>
+        Object.assign({}, friend, { subscriptions: "friend" })
+      )
+      setUsers(arrayFriendsByIdUser)
     } else {
       await getLogInUserAllSubscriptionsAndObserver()
-    } 
-    setChecked(!checked);    
-  };
-  
+    }
+    setChecked(!checked)
+  }
 
   return (
     <>
@@ -97,12 +101,12 @@ export const GetAllUsers: React.FC = () => {
               handlerInputSearchBox={handlerInputSearchBox}
               valueSearchBox={valueSearchBox}
             />
-            <h2>Make friends</h2>            
+            <h2>Make friends</h2>
             <Checkbox
               checked={checked}
-              onClick={()=>handleClickFriendCheckBox()}
+              onClick={() => handleClickFriendCheckBox()}
               value="friends"
-              inputProps={{ 'aria-label': 'friends checkbox' }}
+              inputProps={{ "aria-label": "friends checkbox" }}
             />
           </div>
 
