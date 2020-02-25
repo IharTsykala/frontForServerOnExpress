@@ -32,4 +32,19 @@ export default class ServiceFriends {
       subscribe
     )
   }
+
+ static removeFriend = async (idLogInUser, IdSecondUser) => {  
+  const response = await axios.delete(
+    `http://localhost:8080/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`    
+  )
+ }
+
+ static getArrayFriendsByIdUser = async (idLogInUser) => {
+  console.log(idLogInUser)
+ const response = await axios.get(
+   `http://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`    
+ )
+ return response.data
+}
+
 }

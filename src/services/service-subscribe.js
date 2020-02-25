@@ -39,13 +39,16 @@ export default class ServiceSubscriptions {
     )
   }
 
-  static deleteSubscribe = async (idLogInUser, IdObserversUser) => {
-    const subscribe = {
-      requestSubscriberId: idLogInUser,
-      responseSubscriberId: IdObserversUser
-    }
-    await axios.post(
+  static deleteSubscribe = async (idLogInUser, IdObserversUser) => {    
+    await axios.delete(
       `http://localhost:8080/subscriptions/deleteSubscribe/?idLogInUser=${idLogInUser}&IdObserversUser=${IdObserversUser}`
     )
   }
+
+
+static deleteSubscribeAfterAddFriend = async (IdObserversUser,idLogInUser) => {  
+  await axios.delete(
+    `http://localhost:8080/subscriptions/deleteSubscribeAfterAddFriend/?IdObserversUser=${IdObserversUser}&idLogInUser=${idLogInUser}`
+  )
+}
 }

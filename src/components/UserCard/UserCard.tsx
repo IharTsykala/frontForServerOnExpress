@@ -22,9 +22,8 @@ const UserCard: React.FC<UserCardProps> = ({
   const { userID } = useContext(Context)
   const [statusSubscribe, setStatusSubscribe] = useState(false)
 
-  useEffect(() => {
-    setStatusSubscribe(user.subscriptions)
-    console.log(user.subscriptions)
+  useEffect(() => {    
+    console.log(user)
   }, [user.subscriptions])
 
   const handlerClickSubscribe = async () => {
@@ -38,13 +37,14 @@ const UserCard: React.FC<UserCardProps> = ({
   }
 
   const handlerClickAddFriend = async () => {
-    await ServiceFriends.addFriend(userID, user._id)
-    await ServiceSubscriptions.deleteSubscribe(userID, user._id)
+    await ServiceSubscriptions.deleteSubscribeAfterAddFriend(user._id, userID)
+    await ServiceFriends.addFriend(userID, user._id)    
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
-  const handlerClickRemoveFriend = () => {
-    // turnOffThisState()
+  const handlerClickRemoveFriend = async() => {
+    await ServiceFriends.removeFriend(userID, user._id)
+    await getLogInUserAllSubscriptionsAndObserver()
   }
 
   return (
@@ -84,7 +84,7 @@ const UserCard: React.FC<UserCardProps> = ({
       </h5>
       <p className={UserCardCSS.all_users__card_user__friends}>
         {" "}
-        {user.subscribe || "it's not your friend"}
+        {user.subscriptions || "it's not your friend"}
       </p>
       <p className={UserCardCSS.all_users__card_user__role}>{user.role}</p>
       <button

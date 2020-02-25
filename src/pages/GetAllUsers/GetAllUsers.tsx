@@ -4,6 +4,9 @@ import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
 import { Context } from "../../Context"
 import Search from "../../components/Search/Search"
+import Checkbox from '@material-ui/core/Checkbox'
+import ServiceSubscriptions from "../../services/service-subscribe"
+import ServiceFriends from "../../services/service-friend"
 
 export const GetAllUsers: React.FC = () => {
   const [users, setUsers]: any = useState([])
@@ -11,6 +14,7 @@ export const GetAllUsers: React.FC = () => {
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
+  const [checked, setChecked]:any = useState(true);
 
   const render = useCallback(async () => {
     try {
@@ -70,6 +74,19 @@ export const GetAllUsers: React.FC = () => {
     getUsers()
   }
 
+  const handleClickFriendCheckBox = async () => {
+    if(!checked) {
+      let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(userID)
+      arrayFriendsByIdUser = arrayFriendsByIdUser.map((friend:any)=>Object.assign({}, friend, { subscriptions: "friend" }))      
+      setUsers(arrayFriendsByIdUser)      
+    } else {
+      await getLogInUserAllSubscriptionsAndObserver()
+    } 
+    setChecked(!checked);
+    
+  };
+  
+
   return (
     <>
       {load === "loading" && <h1>Ожидайте ответа</h1>}
@@ -80,7 +97,13 @@ export const GetAllUsers: React.FC = () => {
               handlerInputSearchBox={handlerInputSearchBox}
               valueSearchBox={valueSearchBox}
             />
-            <h2>Make friends</h2>
+            <h2>Make friends</h2>            
+            <Checkbox
+              checked={checked}
+              onClick={()=>handleClickFriendCheckBox()}
+              value="friends"
+              inputProps={{ 'aria-label': 'friends checkbox' }}
+            />
           </div>
 
           <ul className={GetAllUsersCSS.container__all_users__cards}>
