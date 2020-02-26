@@ -17,8 +17,13 @@ export const GetAllUsers: React.FC = () => {
   const [checked, setChecked]: any = useState(false)
 
   const render = useCallback(async () => {
+<<<<<<< HEAD
     try {
       await getLogInUserAllSubscriptionsAndObserver()
+=======
+    try {     
+      await getLogInUserAllSubscriptionsAndObserver()      
+>>>>>>> b724392a9eb62c92213c4bdd96ef78c26bf71c1a
     } catch (e) {
       console.log(e)
     }
