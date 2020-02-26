@@ -14,13 +14,11 @@ export const GetAllUsers: React.FC = () => {
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
-  const [checked, setChecked]: any = useState(true)
+  const [checked, setChecked]: any = useState(false)
 
   const render = useCallback(async () => {
     try {
-      // await getUsers()
       await getLogInUserAllSubscriptionsAndObserver()
-      // await Service.getUserWithSubscriptionsById2(userID)
     } catch (e) {
       console.log(e)
     }
@@ -81,9 +79,9 @@ export const GetAllUsers: React.FC = () => {
       let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(
         userID
       )
-      arrayFriendsByIdUser = arrayFriendsByIdUser.map((friend: any) =>
-        Object.assign({}, friend, { subscriptions: "friend" })
-      )
+      // arrayFriendsByIdUser = arrayFriendsByIdUser.map((friend: any) =>
+      //   Object.assign({}, friend, { subscriptions: "friend" })
+      // )
       setUsers(arrayFriendsByIdUser)
     } else {
       await getLogInUserAllSubscriptionsAndObserver()
@@ -105,8 +103,9 @@ export const GetAllUsers: React.FC = () => {
             <Checkbox
               checked={checked}
               onClick={() => handleClickFriendCheckBox()}
-              value="friends"
-              inputProps={{ "aria-label": "friends checkbox" }}
+              className={
+                GetAllUsersCSS.container__all_users__header__sort_checkbox
+              }
             />
           </div>
 

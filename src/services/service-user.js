@@ -80,7 +80,7 @@ export default class Service {
     return response.data
   }
 
-  static setImgUser = async (avatar, id, userRole) => {    
+  static setImgUser = async (avatar, id, userRole) => {
     const formData = new FormData()
     formData.append("user", avatar)
     // if (userRole === "admin")
@@ -95,10 +95,11 @@ export default class Service {
   }
 
   static getListAlbumsByUserID = async id => {
-    try {      
+    try {
       const response = await axios.get(
-        `http://localhost:8080/users/withAlbums/${id}`      )
-      
+        `http://localhost:8080/users/withAlbums/${id}`
+      )
+
       return response.data
     } catch (e) {
       console.log(e)
@@ -106,10 +107,10 @@ export default class Service {
   }
 
   static getListPhotosByUserID = async id => {
-    try {      
+    try {
       const response = await axios.get(
         `http://localhost:8080/users/withPhotos/${id}`
-      )     
+      )
       return response.data
     } catch (e) {
       console.log(e)
@@ -131,18 +132,6 @@ export default class Service {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
-      )
-      console.log(response.data)
-      return response.data
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  static getUserWithSubscriptionsById2 = async userLogin => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/users/getUserWithSubscriptionsById2/${userLogin}`
       )
       console.log(response.data)
       return response.data
