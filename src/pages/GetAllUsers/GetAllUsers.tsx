@@ -14,13 +14,11 @@ export const GetAllUsers: React.FC = () => {
   const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
-  const [checked, setChecked]: any = useState(true)
+  const [checked, setChecked]: any = useState(false)
 
   const render = useCallback(async () => {
-    try {
-      // await getUsers()
-      await getLogInUserAllSubscriptionsAndObserver()
-      // await Service.getUserWithSubscriptionsById2(userID)
+    try {     
+      await getLogInUserAllSubscriptionsAndObserver()      
     } catch (e) {
       console.log(e)
     }

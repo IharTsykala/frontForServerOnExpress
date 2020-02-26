@@ -138,16 +138,4 @@ export default class Service {
       console.log(e)
     }
   }
-
-  static getUserWithSubscriptionsById2 = async userLogin => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/users/getUserWithSubscriptionsById2/${userLogin}`
-      )
-      console.log(response.data)
-      return response.data
-    } catch (e) {
-      console.log(e)
-    }
-  }
 }

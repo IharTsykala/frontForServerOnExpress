@@ -20,14 +20,22 @@ import { GetAlbumByID } from "./pages/GetAlbumByID/GetAlbumByID"
 import NotFound from "./pages/NotFoundPage/NotFound"
 import { AdminAllUsers } from "./pages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformation/UserEditInformation"
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import rootReducer from "./Redux/store";
+import ReduxPage from "./Redux/ReduxPage"
+
+const store = createStore(rootReducer);
 
 export const App: React.FC = () => {
-  return (
+  return (    
     <BrowserRouter>
+      <Provider store={store}>
       <ContextProvider>
         <Navbar />
         <main className="main">
           <Switch>
+            <Route component={ReduxPage} path="/redux" exact />
             <Route component={GetStartPage} path="/" exact />
             <Route component={GetLoginPage} path="/LogIn" exact />
             <Route component={GetLogUpPage} path="/SignUp" exact />
@@ -71,8 +79,7 @@ export const App: React.FC = () => {
           </Switch>
         </main>
       </ContextProvider>
+      </Provider>
     </BrowserRouter>
   )
 }
-
-// export default App

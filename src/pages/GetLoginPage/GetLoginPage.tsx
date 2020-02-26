@@ -8,6 +8,8 @@ import {
 } from "../../shared/constants/user-from-view-mode.enum"
 import { Context } from "../../Context"
 import GetLoginPageCSS from "./GetLoginPage.module.css"
+import { connect } from 'react-redux'
+// import {userLogIn} from "../../Redux/store/todos/todos.actions";
 
 export const GetLoginPage: React.FC = () => {
   const history = useHistory()
@@ -22,8 +24,9 @@ export const GetLoginPage: React.FC = () => {
   const logInHandler = async (id: any, user: any) => {
     try {
       const data = await Service.getTokenForLogin(id, user)
+      // dispatch(userLogIn(data.user))
       localStorage.setItem("token", data.token)
-      setUserLogin(user.login)
+      setUserLogin(data.user.login)
       setUserID(data.user._id)
       setUserAvatar(data.user.avatar)
       setUserRole(data.user.role)
@@ -33,6 +36,8 @@ export const GetLoginPage: React.FC = () => {
       console.log(e)
     }
   }
+
+  
 
   return (
     <>
