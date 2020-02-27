@@ -1,5 +1,4 @@
-
 export interface Action<T> {
-    type: string;
-    payload: T;
+  type: string
+  payload: T
 }

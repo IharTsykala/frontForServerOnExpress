@@ -8,13 +8,13 @@ import {
 } from "../../shared/constants/user-from-view-mode.enum"
 // import { Context } from "../../Context"
 import GetLoginPageCSS from "./GetLoginPage.module.css"
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
 import { userLogIn } from "../../Redux/store/user/user.actions"
-import { User } from '../../Redux/interfaces/user.interface'
+import { User } from "../../Redux/interfaces/user.interface"
 
 type GetLoginPageProps = {
   user: User
-  dispatch: any  
+  dispatch: any
 }
 
 const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
@@ -35,17 +35,15 @@ const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
       // setUserLogin(data.user.login)
       // setUserID(data.user._id)
       // setUserAvatar(data.user.avatar)
-      // setUserRole(data.user.role)      
+      // setUserRole(data.user.role)
 
-      // if(data.user.role==='admin') history.push(`/admin/all`)      
+      // if(data.user.role==='admin') history.push(`/admin/all`)
       // else
-       history.push(`/user/all`)
+      history.push(`/user/all`)
     } catch (e) {
       console.log(e)
     }
   }
-
-  
 
   return (
     <>
@@ -67,5 +65,4 @@ const mapStateToProps = (state: any) => ({
   user: state.common.user
 })
 
-export default connect(mapStateToProps)(GetLoginPage);
-
+export default connect(mapStateToProps)(GetLoginPage)

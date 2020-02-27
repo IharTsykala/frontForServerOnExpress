@@ -8,17 +8,19 @@ import Checkbox from "@material-ui/core/Checkbox"
 import ServiceSubscriptions from "../../services/service-subscribe"
 import ServiceFriends from "../../services/service-friend"
 import GetLoginPageCSS from "./GetLoginPage.module.css"
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
 import { userLogIn } from "../../Redux/store/user/user.actions"
-import { User } from '../../Redux/interfaces/user.interface'
+import { User } from "../../Redux/interfaces/user.interface"
 
 type GetAllUsersProps = {
   user: User
-  dispatch: any  
+  dispatch: any
 }
 
-
-const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ dispatch, user }) => {
+const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
+  dispatch,
+  user
+}) => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   // const { userID, userRole } = useContext(Context)
@@ -26,9 +28,9 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ dispatch, user
   const [timerId, setTimerId]: any = useState(undefined)
   const [checked, setChecked]: any = useState(false)
 
-  const render = useCallback(async () => {    try {      
+  const render = useCallback(async () => {
+    try {
       await getLogInUserAllSubscriptionsAndObserver()
-
     } catch (e) {
       console.log(e)
     }
@@ -46,13 +48,13 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ dispatch, user
   // }
 
   async function getLogInUserAllSubscriptionsAndObserver() {
-    if(user._id) {
+    if (user._id) {
       const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(
-        user._id        
-      )      
+        user._id
+      )
       setLoad("loaded")
       setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
-    }    
+    }
   }
 
   const handlerInputSearchBox = (e: any) => {
@@ -153,15 +155,7 @@ const mapStateToProps = (state: any) => ({
   user: state.common.user
 })
 
-export default connect(mapStateToProps)(GetAllUsers);
-
-
-
-
-
-
-
-
+export default connect(mapStateToProps)(GetAllUsers)
 
 // / const createArrayUsersInfo = () => {
 //   let usersInfo: any = []

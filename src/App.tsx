@@ -1,12 +1,12 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import  GetAllUsers  from "./pages/GetAllUsers/GetAllUsers"
-import  GetUserByID  from "./pages/GetUserByID/GetUserByID"
-import  GetLoginPage  from "./pages/GetLoginPage/GetLoginPage"
+import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
+import GetUserByID from "./pages/GetUserByID/GetUserByID"
+import GetLoginPage from "./pages/GetLoginPage/GetLoginPage"
 import { GetLogUpPage } from "./pages/GetLogUpPage/GetLogUpPage"
 import { GetStartPage } from "./pages/GetStartPage/GetStartPage"
 // import FormDataUsers from "./components/FormDataUsers/FormDataUsers"
-import  Navbar  from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar/Navbar"
 // import { ContextProvider } from "./Context"
 import {
   PrivateRoute,
@@ -20,20 +20,18 @@ import { GetAlbumByID } from "./pages/GetAlbumByID/GetAlbumByID"
 import NotFound from "./pages/NotFoundPage/NotFound"
 import { AdminAllUsers } from "./pages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformation/UserEditInformation"
-import {Provider} from "react-redux";
-import rootReducer from "./Redux/store";
+import { Provider } from "react-redux"
+import rootReducer from "./Redux/store"
 import ReduxPage from "./Redux/ReduxPage"
-import { createStore, applyMiddleware} from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { connect } from 'react-redux'
+import { createStore, applyMiddleware } from "redux"
+import { composeWithDevTools } from "redux-devtools-extension"
+import { connect } from "react-redux"
 // import { User } from './Redux/interfaces/user.interface'
 // import { userLogIn } from "./Redux/store/user/user.actions"
 // import Service from "./services/service-user"
 // import {Action, Dispatch} from "redux";
 
-const store = createStore(rootReducer, composeWithDevTools(
-  applyMiddleware()  
-));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
 
 // type AppProps = {
 //   user: User,
@@ -44,20 +42,20 @@ const store = createStore(rootReducer, composeWithDevTools(
 
 export const App: React.FC = () => {
   // useEffect(() => {
-  //   getUserForRefresh()    
+  //   getUserForRefresh()
   // }, [])
-  
+
   // const getUserForRefresh = async() => {
   //   if (!user && localStorage.getItem("token")) {
-  //     const userLog = await Service.getUserByToken()          
+  //     const userLog = await Service.getUserByToken()
   //     dispatch(userLogIn(userLog))
   //     console.log(user)
   //   }
-  // }  
-  return (    
+  // }
+  return (
     <BrowserRouter>
       <Provider store={store}>
-      {/* <ContextProvider> */}
+        {/* <ContextProvider> */}
         <Navbar />
         <main className="main">
           <Switch>
@@ -104,7 +102,7 @@ export const App: React.FC = () => {
             <Route path="*" component={NotFound} />
           </Switch>
         </main>
-      {/* </ContextProvider> */}
+        {/* </ContextProvider> */}
       </Provider>
     </BrowserRouter>
   )
