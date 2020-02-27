@@ -8,14 +8,14 @@ import { Context } from "../../Context"
 type UserCardProps = {
   user: any
   removeHandler: any
-  admin: string
+  // admin: string
   getLogInUserAllSubscriptionsAndObserver: any
 }
 
 const UserCard: React.FC<UserCardProps> = ({
   user,
   removeHandler,
-  admin,
+  // admin,
   getLogInUserAllSubscriptionsAndObserver
 }) => {
   const history = useHistory()
@@ -46,7 +46,7 @@ const UserCard: React.FC<UserCardProps> = ({
 
   return (
     <div className={UserCardCSS.container__all_users__card_user}>
-      {admin === "admin" && (
+      {user.role === "admin" && (
         <i
           className={`material-icons ${UserCardCSS.container__all_users__card_user__delete}`}
           onClick={() => removeHandler(user._id)}

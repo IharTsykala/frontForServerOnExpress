@@ -62,6 +62,15 @@ export default class Service {
       console.log(e)
     }
   }
+  
+  static getUserByToken = async id => {
+    try {
+      const request = await axios.get(`http://localhost:8080/users/getUserByToken/`)
+      return request.data
+    } catch (e) {
+      console.log(e)
+    }
+  } 
 
   static getTokenForLogin = async (id, user) => {
     const response = await axios.post(`http://localhost:8080/users/login`, user)

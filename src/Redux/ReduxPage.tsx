@@ -1,12 +1,15 @@
 import React from 'react'
-import AddTodo from "./containers/AddTodo";
-import VisibleTodoList from "./containers/VisibleTodoList";
+import { connect } from 'react-redux'
+import { User } from './interfaces/user.interface';
 
-const ReduxPage = () => (
+const ReduxPage = ({user}: {user: User}) => (
     <div>
-        <AddTodo />
-        <VisibleTodoList/>
+        {`${user.login} ${user.role}`}
     </div>
 )
 
-export default ReduxPage
+const mapStateToProps = (state: any) => ({
+    user: state.common.user
+  })
+
+export default connect(mapStateToProps)(ReduxPage)

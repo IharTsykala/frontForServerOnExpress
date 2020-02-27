@@ -6,32 +6,40 @@ import {
   UserFormViewModes,
   UserFormViewButtons
 } from "../../shared/constants/user-from-view-mode.enum"
-import { Context } from "../../Context"
+// import { Context } from "../../Context"
 import GetLoginPageCSS from "./GetLoginPage.module.css"
 import { connect } from 'react-redux'
-// import {userLogIn} from "../../Redux/store/todos/todos.actions";
+import { userLogIn } from "../../Redux/store/user/user.actions"
+import { User } from '../../Redux/interfaces/user.interface'
 
-export const GetLoginPage: React.FC = () => {
+type GetLoginPageProps = {
+  user: User
+  dispatch: any  
+}
+
+const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
   const history = useHistory()
-  const {
-    userLogin,
-    setUserLogin,
-    setUserID,
-    setUserAvatar,
-    setUserRole
-  } = useContext(Context)
+  // const {
+  //   userLogin,
+  //   setUserLogin,
+  //   setUserID,
+  //   setUserAvatar,
+  //   setUserRole
+  // } = useContext(Context)
 
   const logInHandler = async (id: any, user: any) => {
     try {
       const data = await Service.getTokenForLogin(id, user)
-      // dispatch(userLogIn(data.user))
+      dispatch(userLogIn(data.user))
       localStorage.setItem("token", data.token)
-      setUserLogin(data.user.login)
-      setUserID(data.user._id)
-      setUserAvatar(data.user.avatar)
-      setUserRole(data.user.role)
-      if(data.user.role==='admin') history.push(`/admin/all`)
-      else history.push(`/user/all`)
+      // setUserLogin(data.user.login)
+      // setUserID(data.user._id)
+      // setUserAvatar(data.user.avatar)
+      // setUserRole(data.user.role)      
+
+      // if(data.user.role==='admin') history.push(`/admin/all`)      
+      // else
+       history.push(`/user/all`)
     } catch (e) {
       console.log(e)
     }
@@ -42,7 +50,7 @@ export const GetLoginPage: React.FC = () => {
   return (
     <>
       <h3 className={GetLoginPageCSS.main__log_in__header}>Welcome Back</h3>
-      {!userLogin && (
+      {!user.login && (
         <>
           <FormDataUsers
             submitHandler={logInHandler}
@@ -54,3 +62,10 @@ export const GetLoginPage: React.FC = () => {
     </>
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  user: state.common.user
+})
+
+export default connect(mapStateToProps)(GetLoginPage);
+

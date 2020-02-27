@@ -2,44 +2,57 @@ import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
 import UserCard from "../../components/UserCard/UserCard"
 import GetAllUsersCSS from "./GetAllUsers.module.css"
-import { Context } from "../../Context"
+// import { Context } from "../../Context"
 import Search from "../../components/Search/Search"
 import Checkbox from "@material-ui/core/Checkbox"
 import ServiceSubscriptions from "../../services/service-subscribe"
 import ServiceFriends from "../../services/service-friend"
+import GetLoginPageCSS from "./GetLoginPage.module.css"
+import { connect } from 'react-redux'
+import { userLogIn } from "../../Redux/store/user/user.actions"
+import { User } from '../../Redux/interfaces/user.interface'
 
-export const GetAllUsers: React.FC = () => {
+type GetAllUsersProps = {
+  user: User
+  dispatch: any  
+}
+
+
+const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ dispatch, user }) => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
-  const { userID, userRole } = useContext(Context)
+  // const { userID, userRole } = useContext(Context)
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
   const [checked, setChecked]: any = useState(false)
 
-  const render = useCallback(async () => {
-    try {
+  const render = useCallback(async () => {    try {      
       await getLogInUserAllSubscriptionsAndObserver()
+
     } catch (e) {
       console.log(e)
     }
-  }, [])
+  }, [user])
 
   useEffect(() => {
+    console.log(user)
     render()
   }, [render])
 
-  async function getUsers() {
-    const users = await Service.getAllUsers()
-    setLoad("loaded")
-    setUsers(users)
-  }
+  // async function getUsers() {
+  //   const users = await Service.getAllUsers()
+  //   setLoad("loaded")
+  //   setUsers(users)
+  // }
 
   async function getLogInUserAllSubscriptionsAndObserver() {
-    const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(
-      userID
-    )
-    setLoad("loaded")
-    setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
+    if(user._id) {
+      const arrayLogInUsersAllSubscriptionsAndObserver = await Service.getUserWithSubscriptionsById(
+        user._id        
+      )      
+      setLoad("loaded")
+      setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
+    }    
   }
 
   const handlerInputSearchBox = (e: any) => {
@@ -71,14 +84,15 @@ export const GetAllUsers: React.FC = () => {
   const removeHandler = async (id: number) => {
     setLoad("loading")
     await Service.removeHandler(id)
-    getUsers()
+    await getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handleClickFriendCheckBox = async () => {
     if (!checked) {
       let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(
-        userID
+        user._id
       )
+      console.log(arrayFriendsByIdUser)
       // arrayFriendsByIdUser = arrayFriendsByIdUser.map((friend: any) =>
       //   Object.assign({}, friend, { subscriptions: "friend" })
       // )
@@ -100,6 +114,7 @@ export const GetAllUsers: React.FC = () => {
               valueSearchBox={valueSearchBox}
             />
             <h2>Make friends</h2>
+            {/* <p>{user}</p> */}
             <Checkbox
               checked={checked}
               onClick={() => handleClickFriendCheckBox()}
@@ -111,14 +126,14 @@ export const GetAllUsers: React.FC = () => {
 
           <ul className={GetAllUsersCSS.container__all_users__cards}>
             {users.length > 0 &&
-              users.map((user: any) => {
+              users.map((userCard: any) => {
                 return (
-                  user._id !== userID && (
+                  userCard._id !== user._id && (
                     <UserCard
-                      key={user._id}
-                      user={user}
+                      key={userCard._id}
+                      user={userCard}
                       removeHandler={removeHandler}
-                      admin={userRole}
+                      // admin={userRole}
                       getLogInUserAllSubscriptionsAndObserver={
                         getLogInUserAllSubscriptionsAndObserver
                       }
@@ -133,6 +148,20 @@ export const GetAllUsers: React.FC = () => {
     </>
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  user: state.common.user
+})
+
+export default connect(mapStateToProps)(GetAllUsers);
+
+
+
+
+
+
+
+
 
 // / const createArrayUsersInfo = () => {
 //   let usersInfo: any = []

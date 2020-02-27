@@ -7,7 +7,7 @@ type UserAvatarProps = {
   avatarForFront: any
   handleChangeAvatar: any
   handleSubmit: any
-  userRole: string
+  userRole: any
   homePageStatus: any
 }
 
