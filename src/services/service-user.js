@@ -84,6 +84,11 @@ export default class Service {
     return response.data
   }
 
+  static logOutAllDevices = async (id, user) => {
+    const response = await axios.post(`http://localhost:8080/users/logOutAllDevices`, user)
+    return response.data
+  }
+
   static getListPetsByUserID = async id => {
     const response = await axios.get(
       `http://localhost:8080/users/withPets/${id}`

@@ -5,8 +5,17 @@ import ServiceAlbums from "../../services/service-album"
 import ServicePhotos from "../../services/service-photo"
 import { Link } from "react-router-dom"
 import PhotoModalWindow from "../../components/PhotoModalWindow/PhotoModalWindow"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
+import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 
-export const GetAlbumByID: React.FC = (props: any) => {
+type GetAlbumByIDProps = {  
+  user: User
+  dispatch: any
+  match:any
+}
+
+export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, match }) => {
   const [arrayPhotosChosenAlbum, setArrayPhotosChosenAlbum]: any = useState("")
   const [idUserOwnerPage, setIdUserOwnerPage]: any = useState("")
   const [load, setLoad]: any = useState("loading")
@@ -14,22 +23,24 @@ export const GetAlbumByID: React.FC = (props: any) => {
     false
   )
   const [currentUrlPhotoForLoop, setCurrentUrlPhotoForLoop]: any = useState("")
-  const idChosenAlbum = props.match.params.id
+  const idChosenAlbum = match.params.id
 
-  useEffect(() => {
-    getList()
-  }, [])
-
-  async function getList() {
+  const getList = useCallback(async () => {
     try {
       const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)
+      // album[0] because I used aggregate for mongoDb
       setArrayPhotosChosenAlbum(album[0].photos)
       setIdUserOwnerPage(album[0].ownerUser)
       setLoad("loaded")
+      console.log(user)
     } catch (e) {
       console.log(e)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    getList()    
+  }, [getList, user])
 
   const launchTogglePhotoModalWindow = (e: any) => {
     if (!statusPhotoModalWindow) setCurrentUrlPhotoForLoop(e.target.title)
@@ -45,13 +56,7 @@ export const GetAlbumByID: React.FC = (props: any) => {
   }
 
   const addChangeHandler = async (e: any) => {
-    const arrayFiles = e.target.files
-    // const fileNames = await ServicePhotos.setImgUser(arrayFiles)
-    // await ServicePhotos.addPhotoIntoAlbum(
-    //   idUserOwnerPage,
-    //   idChosenAlbum,
-    //   fileNames
-    // )
+    const arrayFiles = e.target.files    
     await ServicePhotos.addPhotosIntoFsAndAlbum(
       idUserOwnerPage,
       idChosenAlbum,
@@ -82,7 +87,8 @@ export const GetAlbumByID: React.FC = (props: any) => {
         )}
         {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
         <div className={GetAlbumByIDCSS.photos__container_drag_and_drop}></div>
-        {idUserOwnerPage === localStorage.getItem("userID") && (
+        {/* I need user for advance feature for user and loginUser and admin  */}
+        {idUserOwnerPage && (
           <label
             className={GetAlbumByIDCSS.photos__container_drag_and_drop__label}
             htmlFor="addFiles"
@@ -110,3 +116,9 @@ export const GetAlbumByID: React.FC = (props: any) => {
     </>
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  user: state.common.user
+})
+
+export default connect(mapStateToProps)(GetAlbumByID)

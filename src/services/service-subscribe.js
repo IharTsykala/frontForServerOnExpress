@@ -29,6 +29,7 @@ export default class ServiceSubscriptions {
   }
 
   static addSubscribe = async (idLogInUser, IdObserversUser) => {
+    console.log(idLogInUser, IdObserversUser)
     const subscribe = {
       requestSubscriberId: idLogInUser,
       responseSubscriberId: IdObserversUser

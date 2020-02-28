@@ -7,4 +7,5 @@ export interface User {
   email: String | ""
   phone: String | ""
   avatar: String | ""
+  subscriptions: String | ""
 }

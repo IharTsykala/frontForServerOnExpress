@@ -1,45 +1,38 @@
-import React, { useContext, useEffect } from "react"
+import React, { useEffect } from "react"
 import { NavLink } from "react-router-dom"
-// import { Context } from "../../Context"
 import { useHistory } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from 'react-redux'
 import { User } from '../../Redux/interfaces/user.interface'
 import Service from "../../services/service-user"
-import { userLogIn } from "../../Redux/store/user/user.actions"
+import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 
 type NavbarProps = {
   user: User,
   dispatch: any
 }
 
-const Navbar: React.FunctionComponent<NavbarProps> = ({user, dispatch}) => {
-  // const {
-  //   userLogin,
-  //   setUserLogin,
-  //   userID,
-  //   setUserID,
-  //   userAvatar,
-  //   setUserAvatar,
-  //   setUserRole
-  // } = useContext(Context)
-  const history = useHistory()   
-
+const Navbar: React.FunctionComponent<NavbarProps> = ({user, dispatch}) => {  
+  const history = useHistory()
+   
 
   useEffect(() => {
-    getUserForRefresh()    
+    (async () => {await getUserForRefresh()})()
+        
   }, [])
   
   const getUserForRefresh = async() => {
     if (!user._id && localStorage.getItem("token")) {
-      const userLog = await Service.getUserByToken() 
-      // console.log(user)     
-      dispatch(userLogIn(userLog))
-      // console.log(user)
+      const userLog = await Service.getUserByToken()      
+      dispatch(userLogIn(userLog)) 
+      // crutch)))
+      dispatch(userLogIn(userLog)) 
+      console.log(userLog)     
     }
   }  
 
-  const handlerLogOut = () => {
+  const handlerLogOut = async() => {
+    await Service.logOutAllDevices()
     localStorage.removeItem("token")
     dispatch(userLogIn( {
       _id:    '',
@@ -49,23 +42,15 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({user, dispatch}) => {
       lastName:   '',
       email:  '',    
       phone:  '',
-      avatar: ''
-  }))
-    // localStorage.removeItem("userID")
-    // localStorage.removeItem("userLogin")
-    // localStorage.removeItem("userAvatar")
-    // localStorage.removeItem("userRole")
-    // setUserLogin("")
-    // setUserID("")
-    // setUserAvatar("")
-    // setUserRole("")
+      avatar: '',
+      subscriptions: ''
+  }))    
   }
 
   return (
     <nav className="navbar_container">
       <div className="nav-wrapper purple darken-2 px1">
-       
-        
+               
         {user.login && (
           <>         
             <a href="/" className="brand-logo">

@@ -6,22 +6,25 @@ import {
   UserFormViewModes,
   UserFormViewButtons
 } from "../../shared/constants/user-from-view-mode.enum"
-import { Context } from "../../Context"
 import GetLogUpPageCSS from "./GetLogUpPage.module.css"
+import { connect } from "react-redux"
+import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
+import { User } from "../../Redux/interfaces/user.interface"
 
-export const GetLogUpPage: React.FC = () => {
-  const { setUserLogin, setUserID, setUserAvatar, setUserRole } = useContext(
-    Context
-  )
+type GetLogUpPageProps = {
+  user: User
+  dispatch: any
+}
+
+const GetLogUpPage: React.FC<GetLogUpPageProps> = ({user,
+  dispatch,  
+}) => {  
   const history = useHistory()
 
   const logUpHandler = async (id: number, user: any) => {
     const data = await Service.getTokenForRegistration(id, user)
     localStorage.setItem("token", data.token)
-    setUserLogin(user.login)
-    setUserID(data.user._id)
-    setUserAvatar(data.user.avatar)
-    setUserRole(data.user.role)
+    dispatch(userLogIn(data.user))    
     history.push(`/user/all`)
   }
 
@@ -38,3 +41,9 @@ export const GetLogUpPage: React.FC = () => {
     </>
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  user: state.common.user
+})
+
+export default connect(mapStateToProps)(GetLogUpPage)

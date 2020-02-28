@@ -1,15 +1,21 @@
-import React, { useState, useEffect, useCallback, createContext } from "react"
+import React, { useState, useEffect } from "react"
 import AlbumsBlockCSS from "./AlbumsBlock.module.css"
 import CreateList from "../CreateList/CreateList"
 import Service from "../../services/service-user"
 import ServiceAlbum from "../../services/service-album"
 import ServicePhoto from "../../services/service-photo"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
+import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 
 type AlbumsBlockProps = {
   idUserOwnerPage: any
+  user: User
+  dispatch: any
 }
 
-export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
+const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
+  user, dispatch,
   idUserOwnerPage
 }) => {
   const [albumsUserOwnerPage, setAlbumsUserOwnerPage]: any = useState("")
@@ -17,6 +23,8 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
 
   useEffect(() => {
     getList()
+    dispatch(userLogIn(user))
+    console.log(user)    
   }, [])
 
   async function getList() {
@@ -70,7 +78,7 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
       )}
 
       <div className={AlbumsBlockCSS.photos__container_drag_and_drop}></div>
-      {idUserOwnerPage === localStorage.getItem("userID") && (
+      {idUserOwnerPage === user._id && (
         <label
           className={AlbumsBlockCSS.photos__container_drag_and_drop__label}
           htmlFor="addFiles"
@@ -90,3 +98,9 @@ export const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
     </div>
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  user: state.common.user
+})
+
+export default connect(mapStateToProps)(AlbumsBlock)

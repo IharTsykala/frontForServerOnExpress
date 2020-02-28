@@ -1,46 +1,46 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect } from "react"
 import UserCardCSS from "./UserCard.module.css"
 import { useHistory } from "react-router-dom"
 import ServiceSubscriptions from "../../services/service-subscribe"
 import ServiceFriends from "../../services/service-friend"
-import { Context } from "../../Context"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
 
 type UserCardProps = {
-  user: any
-  removeHandler: any
-  // admin: string
+  userOwnerCard: any
+  removeHandler: any  
   getLogInUserAllSubscriptionsAndObserver: any
+  user: User  
 }
 
 const UserCard: React.FC<UserCardProps> = ({
-  user,
-  removeHandler,
-  // admin,
-  getLogInUserAllSubscriptionsAndObserver
+  userOwnerCard,
+  removeHandler,    
+  getLogInUserAllSubscriptionsAndObserver,
+  user
 }) => {
-  const history = useHistory()
-  const { userID } = useContext(Context)
+  const history = useHistory()  
 
   useEffect(() => {}, [user.subscriptions])
 
   const handlerClickSubscribe = async () => {
-    await ServiceSubscriptions.addSubscribe(userID, user._id)
+    await ServiceSubscriptions.addSubscribe(user._id, userOwnerCard._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handlerClickUnSubscribe = async () => {
-    await ServiceSubscriptions.deleteSubscribe(userID, user._id)
+    await ServiceSubscriptions.deleteSubscribe(user._id, userOwnerCard._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handlerClickAddFriend = async () => {
-    await ServiceSubscriptions.deleteSubscribeAfterAddFriend(user._id, userID)
-    await ServiceFriends.addFriend(userID, user._id)
+    await ServiceSubscriptions.deleteSubscribeAfterAddFriend(userOwnerCard._id, user._id)
+    await ServiceFriends.addFriend(user._id, userOwnerCard._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handlerClickRemoveFriend = async () => {
-    await ServiceFriends.removeFriend(userID, user._id)
+    await ServiceFriends.removeFriend(user._id, userOwnerCard._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
@@ -49,17 +49,17 @@ const UserCard: React.FC<UserCardProps> = ({
       {user.role === "admin" && (
         <i
           className={`material-icons ${UserCardCSS.container__all_users__card_user__delete}`}
-          onClick={() => removeHandler(user._id)}
+          onClick={() => removeHandler(userOwnerCard._id)}
         >
           delete
         </i>
       )}
-      {user.avatar ? (
+      {userOwnerCard.avatar ? (
         <img
-          src={`http://localhost:8080/images/users/${user._id}/${user.avatar}`}
+          src={`http://localhost:8080/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
           alt="avatar"
           onClick={() => {
-            history.push(`/user/${user._id}`)
+            history.push(`/user/${userOwnerCard._id}`)
           }}
         />
       ) : (
@@ -67,40 +67,40 @@ const UserCard: React.FC<UserCardProps> = ({
           src="http://localhost:8080/images/pattern-avatar.jpg"
           alt="avatar"
           onClick={() => {
-            history.push(`/user/${user._id}`)
+            history.push(`/user/${userOwnerCard._id}`)
           }}
         />
       )}
       <h5
         className={UserCardCSS.all_users__card_user__login}
         onClick={() => {
-          history.push(`/user/${user._id}`)
+          history.push(`/user/${userOwnerCard._id}`)
         }}
       >
-        {user.login}
+        {userOwnerCard.login}
       </h5>
       <p className={UserCardCSS.all_users__card_user__friends}>
         {" "}
-        {user.subscriptions || "it's not your friend"}
+        {userOwnerCard.subscriptions || "it's not your friend"}
       </p>
-      <p className={UserCardCSS.all_users__card_user__role}>{user.role}</p>
+      <p className={UserCardCSS.all_users__card_user__role}>{userOwnerCard.role}</p>
       <button
         className={`waves-effect waves-light btn ${UserCardCSS.all_users__card_user__button}`}
         onClick={
-          user.subscriptions === "subscriber"
+          userOwnerCard.subscriptions === "subscriber"
             ? () => handlerClickUnSubscribe()
-            : user.subscriptions === "observer"
+            : userOwnerCard.subscriptions === "observer"
             ? () => handlerClickAddFriend()
-            : user.subscriptions === "friend"
+            : userOwnerCard.subscriptions === "friend"
             ? () => handlerClickRemoveFriend()
             : () => handlerClickSubscribe()
         }
       >
-        {user.subscriptions === "subscriber" ? (
+        {userOwnerCard.subscriptions === "subscriber" ? (
           <p>UnSubscribe</p>
-        ) : user.subscriptions === "observer" ? (
+        ) : userOwnerCard.subscriptions === "observer" ? (
           <p>Add friend</p>
-        ) : user.subscriptions === "friend" ? (
+        ) : userOwnerCard.subscriptions === "friend" ? (
           <p>Remove friend</p>
         ) : (
           <p>Subscribe</p>
@@ -110,45 +110,9 @@ const UserCard: React.FC<UserCardProps> = ({
   )
 }
 
-export default UserCard
+const mapStateToProps = (state: any) => ({
+  user: state.common.user
+})
 
-// const [isSubscribe, setIsSubscribe] = useState(false)
-// const [isObservable, setIsObservable] = useState(false)
-// const [isFriend, setIsFriend] = useState(false)
-// const [isEmpty, setIsEmpty] = useState(true)
+export default connect(mapStateToProps)(UserCard)
 
-// const getSubscribeStatus = () => {
-//   console.log(isSubscribe, isObservable, isFriend)
-//   switch (user.subscribe) {
-//     case "subscriber":
-//       setIsSubscribe(true)
-//       break
-//     case "observer":
-//       setIsObservable(true)
-//       break
-//     case "friend":
-//       setIsFriend(true)
-//       break
-//     default:
-//   }
-//   console.log(isSubscribe, isObservable, isFriend)
-// }
-
-// const handlerClickSubscribeOrUnsubscribe = async(IdObserversUser:any) => {
-//   await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
-//   getLogInUserSubscribes()
-//   getLogInUserObservables()
-// }
-
-// const handlerClickAddFriendsOrRemove = async(IdObserversUser:any) => {
-//   await ServiceSubscriptions.addSubscribe(userID, IdObserversUser)
-//   getLogInUserSubscribes()
-//   getLogInUserObservables()
-// }
-
-// const turnOffThisState = () => {
-//   if (isSubscribe) setIsSubscribe(false)
-//   else if (isObservable) setIsObservable(false)
-//   else if (isFriend) setIsFriend(false)
-//   console.log(isSubscribe, isObservable, isFriend)
-// }
