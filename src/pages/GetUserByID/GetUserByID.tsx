@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useCallback } from "react"
 import Service from "../../services/service-user"
 // import { Context } from "../../Context"
 import { UserAvatar } from "../../components/UserAvatar/UserAvatar"
-import  AlbumsBlock  from "../../components/AlbumsBlock/AlbumsBlock"
+import AlbumsBlock from "../../components/AlbumsBlock/AlbumsBlock"
 import UserInformation from "../../components/UserInformation/UserInformation"
 import GetUserByIDCSS from "./GetUserByID.module.css"
 import UserNavigation from "../../components/UserNavigation/UserNavigation"
@@ -19,7 +19,12 @@ type GetUserByProps = {
   userOwnerPage: UserOwnerPage
 }
 
-const GetUserByID: React.FC<GetUserByProps> = ({ user, dispatch, match, userOwnerPage}) => {
+const GetUserByID: React.FC<GetUserByProps> = ({
+  user,
+  dispatch,
+  match,
+  userOwnerPage
+}) => {
   const [userOwnerPage2, setUserOwnerPage]: any = useState([])
   const [stateLoading, setStateLoading]: any = useState("loading")
   const [avatarForFront, setAvatarForFront]: any = useState("")
@@ -62,12 +67,11 @@ const GetUserByID: React.FC<GetUserByProps> = ({ user, dispatch, match, userOwne
       user.role
     )
     await Service.editUser(idUserOwnerPage, { avatar: imgName, password: "" })
-    if (idUserOwnerPage === user._id  && avatarForFront) {
+    if (idUserOwnerPage === user._id && avatarForFront) {
       const newUser = Object.assign({}, user, { avatar: imgName })
       console.log(newUser)
-    dispatch(userLogIn(newUser))
+      dispatch(userLogIn(newUser))
     }
-    
   }
 
   return (

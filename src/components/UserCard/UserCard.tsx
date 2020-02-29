@@ -8,18 +8,18 @@ import { User } from "../../Redux/interfaces/user.interface"
 
 type UserCardProps = {
   userOwnerCard: any
-  removeHandler: any  
+  removeHandler: any
   getLogInUserAllSubscriptionsAndObserver: any
-  user: User  
+  user: User
 }
 
 const UserCard: React.FC<UserCardProps> = ({
   userOwnerCard,
-  removeHandler,    
+  removeHandler,
   getLogInUserAllSubscriptionsAndObserver,
   user
 }) => {
-  const history = useHistory()  
+  const history = useHistory()
 
   useEffect(() => {}, [user.subscriptions])
 
@@ -34,7 +34,10 @@ const UserCard: React.FC<UserCardProps> = ({
   }
 
   const handlerClickAddFriend = async () => {
-    await ServiceSubscriptions.deleteSubscribeAfterAddFriend(userOwnerCard._id, user._id)
+    await ServiceSubscriptions.deleteSubscribeAfterAddFriend(
+      userOwnerCard._id,
+      user._id
+    )
     await ServiceFriends.addFriend(user._id, userOwnerCard._id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
@@ -83,7 +86,9 @@ const UserCard: React.FC<UserCardProps> = ({
         {" "}
         {userOwnerCard.subscriptions || "it's not your friend"}
       </p>
-      <p className={UserCardCSS.all_users__card_user__role}>{userOwnerCard.role}</p>
+      <p className={UserCardCSS.all_users__card_user__role}>
+        {userOwnerCard.role}
+      </p>
       <button
         className={`waves-effect waves-light btn ${UserCardCSS.all_users__card_user__button}`}
         onClick={
@@ -115,4 +120,3 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps)(UserCard)
-
