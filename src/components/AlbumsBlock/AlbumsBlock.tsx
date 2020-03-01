@@ -6,31 +6,29 @@ import ServiceAlbum from "../../services/service-album"
 import ServicePhoto from "../../services/service-photo"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
+import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 
 type AlbumsBlockProps = {
-  idUserOwnerPage: any
   user: User
-  dispatch: any
+  userOwnerThisPage: UserOwnerThisPageInterface
 }
 
 const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
-  user, dispatch,
-  idUserOwnerPage
+  user,
+  userOwnerThisPage
 }) => {
   const [albumsUserOwnerPage, setAlbumsUserOwnerPage]: any = useState("")
   const [stateLoading, setStateLoading]: any = useState("loading")
 
   useEffect(() => {
     getList()
-    dispatch(userLogIn(user))
-    console.log(user)    
+    console.log(userOwnerThisPage)
   }, [])
 
   async function getList() {
     try {
       const albums = await Service.getListAlbumsWithPhotosByUserID(
-        idUserOwnerPage
+        userOwnerThisPage._id
       )
       setAlbumsUserOwnerPage(albums)
       setStateLoading("loaded")
@@ -49,10 +47,10 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
 
   const addChangeHandler = async (e: any) => {
     const arrayFiles = e.target.files
-    const data = await ServiceAlbum.addAlbum(idUserOwnerPage)
+    const data = await ServiceAlbum.addAlbum(userOwnerThisPage._id)
     const idAlbum = data.album._id
     await ServicePhoto.addPhotosIntoFsAndAlbum(
-      idUserOwnerPage,
+      userOwnerThisPage._id,
       idAlbum,
       arrayFiles
     )
@@ -68,7 +66,6 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
             arr={albumsUserOwnerPage}
             removeHandler={removeHandler}
             editHandler={editHandler}
-            idUserOwnerPage={idUserOwnerPage}
             createListFunction={"CreateListAlbums"}
           />
         </>
@@ -78,7 +75,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
       )}
 
       <div className={AlbumsBlockCSS.photos__container_drag_and_drop}></div>
-      {idUserOwnerPage === user._id && (
+      {(userOwnerThisPage._id === user._id || user.role === "admin") && (
         <label
           className={AlbumsBlockCSS.photos__container_drag_and_drop__label}
           htmlFor="addFiles"
@@ -100,7 +97,8 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.common.user,
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(AlbumsBlock)

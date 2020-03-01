@@ -17,13 +17,13 @@ type GetLoginPageProps = {
 }
 
 const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
-  const history = useHistory() 
+  const history = useHistory()
 
   const logInHandler = async (id: any, user: any) => {
     try {
-      const data = await Service.getTokenForLogin(id, user)      
+      const data = await Service.getTokenForLogin(id, user)
       localStorage.setItem("token", data.token)
-      dispatch(userLogIn(data.user))      
+      dispatch(userLogIn(data.user))
       // if(data.user.role==='admin') history.push(`/admin/all`)
       // else
       history.push(`/user/all`)

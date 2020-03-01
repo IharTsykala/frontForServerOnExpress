@@ -96,15 +96,12 @@ export default class Service {
     return response.data
   }
 
-  static setImgUser = async (avatar, id, userRole) => {
+  static setImgUser = async (avatar, id) => {
     const formData = new FormData()
-    formData.append("user", avatar)
-    // if (userRole === "admin")
-    //   url = `http://localhost:8080/public/adminSafeFileIntoImages/${id}`
-    // else url = `http://localhost:8080/public/userSafeFileIntoImages`
+    formData.append("user", avatar)    
 
     const response = await axios.post(
-      `http://localhost:8080/public/userSafeFileIntoImages`,
+      `http://localhost:8080/public/userSafeFileIntoImages/${id}`,
       formData
     )
     return response.data.fileName

@@ -14,7 +14,7 @@ import {
   PrivateRouteForAdmins,
   defaultPrivateRouteForAdminsProps
 } from "./PrivateRoutes/PrivateRouteForAdmins"
-import { GetAlbumByID } from "./pages/GetAlbumByID/GetAlbumByID"
+import GetAlbumByID from "./pages/GetAlbumByID/GetAlbumByID"
 import NotFound from "./pages/NotFoundPage/NotFound"
 import { AdminAllUsers } from "./pages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformation/UserEditInformation"
@@ -27,11 +27,9 @@ import { composeWithDevTools } from "redux-devtools-extension"
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
 
 export const App: React.FC = () => {
-  
   return (
-    <Provider store={store}> 
-    <BrowserRouter>
-      
+    <Provider store={store}>
+      <BrowserRouter>
         <Navbar />
         <main className="main">
           <Switch>
@@ -77,9 +75,8 @@ export const App: React.FC = () => {
             />
             <Route path="*" component={NotFound} />
           </Switch>
-        </main>      
-      
-    </BrowserRouter>
+        </main>
+      </BrowserRouter>
     </Provider>
   )
 }

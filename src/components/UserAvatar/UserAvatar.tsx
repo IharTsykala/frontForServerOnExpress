@@ -1,24 +1,28 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Button from "@material-ui/core/Button"
 import UserAvatarCSS from "./UserAvatar.module.css"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
+import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 
 type UserAvatarProps = {
-  userOwnerPage: any
+  user: User
+  userOwnerThisPage: UserOwnerThisPageInterface
+  homePageStatus: any
   avatarForFront: any
   handleChangeAvatar: any
   handleSubmit: any
-  userRole: any
-  homePageStatus: any
 }
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({
-  userOwnerPage,
+const UserAvatar: React.FC<UserAvatarProps> = ({
+  user,
+  userOwnerThisPage,
+  homePageStatus,
   avatarForFront,
   handleChangeAvatar,
-  handleSubmit,
-  userRole,
-  homePageStatus
+  handleSubmit
 }) => {
+  useEffect(() => {}, [userOwnerThisPage])
   return (
     <form
       action="submit"
@@ -27,21 +31,23 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       {avatarForFront && (
         <img className="chelik" src={`${avatarForFront}`} alt="avatar" />
       )}
-      {!avatarForFront && userOwnerPage._id && userOwnerPage.avatar && (
+      {!avatarForFront && userOwnerThisPage._id && userOwnerThisPage.avatar && (
         <img
           className="chelik"
-          src={`http://localhost:8080/images/users/${userOwnerPage._id}/${userOwnerPage.avatar}`}
+          src={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
           alt="avatar"
         />
       )}
-      {!avatarForFront && userOwnerPage._id && !userOwnerPage.avatar && (
-        <img
-          className="chelik"
-          src={`http://localhost:8080/images/pattern-avatar.jpg`}
-          alt="avatar"
-        />
-      )}
-      {(userRole === "admin" || homePageStatus) && (
+      {!avatarForFront &&
+        userOwnerThisPage._id &&
+        !userOwnerThisPage.avatar && (
+          <img
+            className="chelik"
+            src={`http://localhost:8080/images/pattern-avatar.jpg`}
+            alt="avatar"
+          />
+        )}
+      {(user.role === "admin" || homePageStatus) && (
         <>
           <label
             htmlFor="avatarChange"
@@ -63,3 +69,10 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
     </form>
   )
 }
+
+const mapStateToProps = (state: any) => ({
+  user: state.common.user,
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+})
+
+export default connect(mapStateToProps)(UserAvatar)

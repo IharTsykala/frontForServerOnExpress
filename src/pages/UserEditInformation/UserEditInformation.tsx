@@ -27,7 +27,6 @@ export const UserEditInformation = (props: any) => {
 
   const submitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
-    // setUserLogin(user.login)
     history.push(`/user/${idUserOwnerPage}`)
   }
 
@@ -38,12 +37,9 @@ export const UserEditInformation = (props: any) => {
       </Link>
       <div>
         <FormDataUsers
-          userOwnerPage={userOwnerPage}
           submitHandler={submitHandler}
           namePage={UserFormViewModes.Edit}
           nameButton={UserFormViewButtons.Edit}
-          userRole={userRole}
-          homePageStatus={homePageStatus}
         />
       </div>
     </>

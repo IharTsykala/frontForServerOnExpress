@@ -1,4 +1,4 @@
-export interface UserOwnerPage {
+export interface UserOwnerThisPageInterface {
     _id: String | ""
     role: String | ""
     login: String | ""

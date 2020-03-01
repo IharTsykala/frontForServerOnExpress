@@ -5,28 +5,26 @@ import CardActions from "@material-ui/core/CardActions"
 import CardMedia from "@material-ui/core/CardMedia"
 import PhotoCardCSS from "./PhotoCard.module.css"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 
 type UserPhotoCard = {
-  name?: any
-  description?: any
+  userOwnerThisPage: UserOwnerThisPageInterface
   urlItem: any
   idItem: any
   removeHandler: any
   editHandler: any
-  idUserOwnerPage?: any
   idChosenAlbum?: any
   launchTogglePhotoModalWindow: any
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
-  name,
-  description,
   // idItem may be idCreateAlbum or idCreatePhoto
+  userOwnerThisPage,
   urlItem,
   idItem,
   removeHandler,
   editHandler,
-  idUserOwnerPage,
   idChosenAlbum,
   launchTogglePhotoModalWindow
 }) => {
@@ -36,7 +34,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
         {!idChosenAlbum && (
           <Link to={`${idItem}/album`}>
             <CardMedia
-              image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
+              image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
               title="Image title"
               className={PhotoCardCSS.photoAlbum__photoCard_photo}
             />
@@ -44,7 +42,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
         )}
         {idChosenAlbum && (
           <CardMedia
-            image={`http://localhost:8080/images/users/${idUserOwnerPage}/${urlItem}`}
+            image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
             title={urlItem}
             className={PhotoCardCSS.photoAlbum__photoCard_photo}
             onClick={e => launchTogglePhotoModalWindow(e)}
@@ -72,4 +70,8 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   )
 }
 
-export default PhotoCard
+const mapStateToProps = (state: any) => ({
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+})
+
+export default connect(mapStateToProps)(PhotoCard)

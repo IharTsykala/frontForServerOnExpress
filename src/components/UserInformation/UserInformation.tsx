@@ -1,12 +1,19 @@
 import React from "react"
 import UserInformationCSS from "./UserInformation.module.css"
 import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
+import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 
 type UserInformationProps = {
-  userOwnerPage: any
+  user: User
+  userOwnerThisPage: UserOwnerThisPageInterface
 }
 
-const UserInformation: React.FC<UserInformationProps> = ({ userOwnerPage }) => {
+const UserInformation: React.FC<UserInformationProps> = ({
+  user,
+  userOwnerThisPage
+}) => {
   return (
     <section className={UserInformationCSS.user_profile__user_information}>
       <div
@@ -15,48 +22,55 @@ const UserInformation: React.FC<UserInformationProps> = ({ userOwnerPage }) => {
         }
       >
         <h4>User Information</h4>
-        {userOwnerPage.login && (
+        {userOwnerThisPage.login && (
           <div>
             <p>Login:</p>
-            <p>{userOwnerPage.login}</p>
+            <p>{userOwnerThisPage.login}</p>
           </div>
         )}
-        {userOwnerPage.firstName && (
+        {userOwnerThisPage.firstName && (
           <div>
             <p>FirstName:</p>
-            <p>{userOwnerPage.firstName}</p>
+            <p>{userOwnerThisPage.firstName}</p>
           </div>
         )}
-        {userOwnerPage.lastName && (
+        {userOwnerThisPage.lastName && (
           <div>
             <p>LastName:</p>
-            <p>{userOwnerPage.lastName}</p>
+            <p>{userOwnerThisPage.lastName}</p>
           </div>
         )}
-        {userOwnerPage.email && (
+        {userOwnerThisPage.email && (
           <div>
             <p>Email:</p>
-            <p>{userOwnerPage.email}</p>
+            <p>{userOwnerThisPage.email}</p>
           </div>
         )}
-        {userOwnerPage.phone && (
+        {userOwnerThisPage.phone && (
           <div>
             <p>Phone:</p>
-            <p>{userOwnerPage.phone}</p>
+            <p>{userOwnerThisPage.phone}</p>
           </div>
         )}
       </div>
-      <div
-        className={
-          UserInformationCSS.user_profile__user_information__button_to_go_over_edit_user_information
-        }
-      >
-        <Link to={`${userOwnerPage._id}/edit`}>
-          <button>Edit user information</button>
-        </Link>
-      </div>
+      {(user.role === "admin" || user._id === userOwnerThisPage._id) && (
+        <div
+          className={
+            UserInformationCSS.user_profile__user_information__button_to_go_over_edit_user_information
+          }
+        >
+          <Link to={`${userOwnerThisPage._id}/edit`}>
+            <button>Edit user information</button>
+          </Link>
+        </div>
+      )}
     </section>
   )
 }
 
-export default UserInformation
+const mapStateToProps = (state: any) => ({
+  user: state.common.user,
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+})
+
+export default connect(mapStateToProps)(UserInformation)

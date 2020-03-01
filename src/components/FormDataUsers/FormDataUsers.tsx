@@ -5,38 +5,36 @@ import {
   UserFormViewModes,
   UserFormViewButtons
 } from "../../shared/constants/user-from-view-mode.enum"
-import FormDataUsersCSS from './FormDataUsers.module.css'
+import FormDataUsersCSS from "./FormDataUsers.module.css"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
+import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 
 type FormDataUsersProps = {
-  userOwnerPage?: any
+  user: User
+  userOwnerThisPage: UserOwnerThisPageInterface
   submitHandler: any
   namePage: UserFormViewModes
   nameButton: UserFormViewButtons
-  userRole?: string
-  homePageStatus?: any
 }
 
 const FormDataUsers: React.FC<FormDataUsersProps> = ({
-  userOwnerPage,
+  user,
+  userOwnerThisPage,
   submitHandler,
   namePage,
-  nameButton,
-  userRole,
-  homePageStatus
-}) => {  
+  nameButton
+}) => {
   return (
     <Formik
       initialValues={{
-        login: userOwnerPage ? userOwnerPage.login : "",
+        login: userOwnerThisPage ? userOwnerThisPage.login : "",
         password: "",
-        firstName: userOwnerPage ? userOwnerPage.firstName : "",
-        lastName: userOwnerPage ? userOwnerPage.lastName : "",
-        email: userOwnerPage ? userOwnerPage.email : "",
-        phone: userOwnerPage ? userOwnerPage.phone : "",
-        role: userOwnerPage ? userOwnerPage.role : "user"
-        // subscribe: [],
-        // subscribers: [],
-        // friends: []
+        firstName: userOwnerThisPage ? userOwnerThisPage.firstName : "",
+        lastName: userOwnerThisPage ? userOwnerThisPage.lastName : "",
+        email: userOwnerThisPage ? userOwnerThisPage.email : "",
+        phone: userOwnerThisPage ? userOwnerThisPage.phone : "",
+        role: userOwnerThisPage ? userOwnerThisPage.role : "user"
       }}
       validationSchema={Yup.object({
         login: Yup.string()
@@ -48,47 +46,54 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         // phone: Yup.string().phone<string>("Invalid email address")
       })}
       onSubmit={values => {
-        submitHandler(userOwnerPage ? userOwnerPage._id : undefined, values)
+        submitHandler(user ? user._id : undefined, values)
       }}
     >
-      <Form className={homePageStatus && FormDataUsersCSS.user_information__edit || "form-data-users"}>
-        <label htmlFor="login">Login
-        <Field className={FormDataUsersCSS.user_information__edit__label__input} id="login" name="login" type="text" />
+      <Form
+        className={FormDataUsersCSS.user_information__edit || "form-data-users"}
+      >
+        <label htmlFor="login">
+          Login
+          <Field
+            className={FormDataUsersCSS.user_information__edit__label__input}
+            id="login"
+            name="login"
+            type="text"
+          />
         </label>
-        {/* <Field id="login" name="login" type="text" /> */}
         <ErrorMessage name="login" />
-        <label htmlFor="password">Password
-        <Field name="password" type="text" />
+        <label htmlFor="password">
+          Password
+          <Field name="password" type="text" />
         </label>
-        {/* <Field name="password" type="text" /> */}
         <ErrorMessage name="role" />
         {(namePage === UserFormViewModes.Edit ||
           namePage === UserFormViewModes.SingUp) && (
           <>
-            <label htmlFor="firstName">First Name
-            <Field name="firstName" type="text" />
+            <label htmlFor="firstName">
+              First Name
+              <Field name="firstName" type="text" />
             </label>
-            {/* <Field name="firstName" type="text" /> */}
             <ErrorMessage name="firstName" />
-            <label htmlFor="lastName">Last Name
-            <Field name="lastName" type="text" />
+            <label htmlFor="lastName">
+              Last Name
+              <Field name="lastName" type="text" />
             </label>
-            {/* <Field name="lastName" type="text" /> */}
             <ErrorMessage name="lastName" />
-            <label htmlFor="email">Email Address
-            <Field name="email" type="email" />
+            <label htmlFor="email">
+              Email Address
+              <Field name="email" type="email" />
             </label>
-            {/* <Field name="email" type="email" /> */}
             <ErrorMessage name="email" />
-            <label htmlFor="phone">Phone
-            <Field name="phone" type="text" />
+            <label htmlFor="phone">
+              Phone
+              <Field name="phone" type="text" />
             </label>
-            {/* <Field name="phone" type="text" /> */}
             <ErrorMessage name="phone" />
-            {/* <label htmlFor="role">Role
-            <Field name="role" type="text" disabled />
-            </label> */}
-            {/* <Field name="role" type="text" disabled /> */}
+            <label htmlFor="role">
+              Role
+              <Field name="role" type="text" disabled />
+            </label>
             <ErrorMessage name="role" />
           </>
         )}
@@ -96,7 +101,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
           <button type="submit">{`${nameButton}`}</button>
         )}
         {namePage === UserFormViewModes.Edit &&
-          (userRole === "admin" || homePageStatus) && (
+          (user.role === "admin" || user._id === userOwnerThisPage._id) && (
             <button type="submit">{`${nameButton}`}</button>
           )}
       </Form>
@@ -104,4 +109,9 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
   )
 }
 
-export default FormDataUsers
+const mapStateToProps = (state: any) => ({
+  user: state.common.user,
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+})
+
+export default connect(mapStateToProps)(FormDataUsers)

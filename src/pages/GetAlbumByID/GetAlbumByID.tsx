@@ -7,17 +7,20 @@ import { Link } from "react-router-dom"
 import PhotoModalWindow from "../../components/PhotoModalWindow/PhotoModalWindow"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
+import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 
-type GetAlbumByIDProps = {  
+type GetAlbumByIDProps = {
   user: User
-  dispatch: any
-  match:any
+  userOwnerThisPage: UserOwnerThisPageInterface
+  match: any
 }
 
-export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, match }) => {
+const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
+  user,
+  userOwnerThisPage,
+  match
+}) => {
   const [arrayPhotosChosenAlbum, setArrayPhotosChosenAlbum]: any = useState("")
-  const [idUserOwnerPage, setIdUserOwnerPage]: any = useState("")
   const [load, setLoad]: any = useState("loading")
   const [statusPhotoModalWindow, setStatusPhotoModalWindow]: any = useState(
     false
@@ -30,16 +33,14 @@ export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, matc
       const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)
       // album[0] because I used aggregate for mongoDb
       setArrayPhotosChosenAlbum(album[0].photos)
-      setIdUserOwnerPage(album[0].ownerUser)
       setLoad("loaded")
-      console.log(user)
     } catch (e) {
       console.log(e)
     }
-  }, [])
+  }, [userOwnerThisPage])
 
   useEffect(() => {
-    getList()    
+    getList()
   }, [getList, user])
 
   const launchTogglePhotoModalWindow = (e: any) => {
@@ -56,9 +57,9 @@ export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, matc
   }
 
   const addChangeHandler = async (e: any) => {
-    const arrayFiles = e.target.files    
+    const arrayFiles = e.target.files
     await ServicePhotos.addPhotosIntoFsAndAlbum(
-      idUserOwnerPage,
+      userOwnerThisPage._id,
       idChosenAlbum,
       arrayFiles
     )
@@ -71,14 +72,13 @@ export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, matc
         {load === "loading" && <h1>Ожидайте ответа</h1>}
         {load === "loaded" && (
           <>
-            <Link to={`/user/${idUserOwnerPage}`}>
+            <Link to={`/user/${userOwnerThisPage._id}`}>
               <p>BACK TO ALBUM LIST</p>
             </Link>
             <CreateList
               arr={arrayPhotosChosenAlbum}
               removeHandler={removeHandler}
               editHandler={editHandler}
-              idUserOwnerPage={idUserOwnerPage}
               idChosenAlbum={idChosenAlbum}
               createListFunction={"CreateListPhotos"}
               launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
@@ -88,7 +88,7 @@ export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, matc
         {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
         <div className={GetAlbumByIDCSS.photos__container_drag_and_drop}></div>
         {/* I need user for advance feature for user and loginUser and admin  */}
-        {idUserOwnerPage && (
+        {(user.role === "admin" || user._id === userOwnerThisPage._id) && (
           <label
             className={GetAlbumByIDCSS.photos__container_drag_and_drop__label}
             htmlFor="addFiles"
@@ -118,7 +118,8 @@ export const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({ user, dispatch, matc
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.common.user,
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(GetAlbumByID)

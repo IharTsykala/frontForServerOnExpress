@@ -1,8 +1,8 @@
 import { combineReducers } from "redux"
 import { reducer as userReducer } from "./userLogin/userLogin.reducer"
-import { userOwnerPage } from "./userOwnerPage/userOwnerPage.reducer"
+import { userOwnerThisPageReducer } from "./userOwnerThisPage/userOwnerThisPage.reducer"
 
 export default combineReducers({
   common: userReducer,
-  userOwnerPage:  userOwnerPage
+  userOwnerThisPage:  userOwnerThisPageReducer
 })
