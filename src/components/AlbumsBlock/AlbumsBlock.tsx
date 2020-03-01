@@ -22,7 +22,6 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
 
   useEffect(() => {
     getList()
-    console.log(userOwnerThisPage)
   }, [])
 
   async function getList() {

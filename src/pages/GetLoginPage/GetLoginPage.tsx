@@ -25,7 +25,6 @@ const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
       localStorage.setItem("token", data.token)
       dispatch(userLogIn(data.user))
       // if(data.user.role==='admin') history.push(`/admin/all`)
-      // else
       history.push(`/user/all`)
     } catch (e) {
       console.log(e)

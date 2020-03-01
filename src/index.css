@@ -52,11 +52,6 @@ code {
   z-index: 10;
 }
 
-.nav-wrapper {
-  /* display: grid; */
-  /* grid-template-columns:  */
-}
-
 .main {
   margin-top: 64px;
 }
@@ -65,7 +60,6 @@ code {
   margin-left: 60%;
 }
 
-/* FormsDataUsers */
 .form-data-users {
   display: grid;
   justify-content: center;
@@ -75,7 +69,3 @@ code {
 .chelik {
   width: 200px;
 }
-
-/* .all_users__header_block__search_box__input input[type='text']:focus{
-  border-bottom: 3px solid rgb(65, 21, 65);  
-} */

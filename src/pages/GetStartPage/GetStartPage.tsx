@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import GetStartPageCSS from "./GetStartPage.module.css"
 
 export const GetStartPage: React.FC = () => {

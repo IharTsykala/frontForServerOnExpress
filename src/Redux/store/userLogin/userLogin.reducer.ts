@@ -4,13 +4,10 @@ import { User } from "../../interfaces/user.interface"
 
 export interface State {
   user: User
-  // user2: User
-
 }
 
 const initialState: State = {
-  user: {} as User,
-  // user2: {} as User
+  user: {} as User  
 }
 
 export const reducer = (state: State = initialState, action: Action<{}>) => {

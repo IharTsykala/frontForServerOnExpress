@@ -3,13 +3,11 @@ import { Action } from "../interfaces/action.interface"
 import { UserOwnerThisPageInterface } from "../../interfaces/userOwnerThisPage.interface"
 
 export interface State {
-  userOwnerThisPage: UserOwnerThisPageInterface
-  // user2: User
+  userOwnerThisPage: UserOwnerThisPageInterface  
 }
 
 const initialState: State = {
-  userOwnerThisPage: {} as UserOwnerThisPageInterface
-  // user2: {} as User
+  userOwnerThisPage: {} as UserOwnerThisPageInterface  
 }
 
 export const userOwnerThisPageReducer = (state: State = initialState, action: Action<{}>) => {

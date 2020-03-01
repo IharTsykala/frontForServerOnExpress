@@ -29,7 +29,6 @@ export const PrivateRouteForAdmins: React.FC<PrivateRouteForAdminsProps> = props
     redirectPath = props.authenticationPath
   }
   if (props.isAuthenticated() && !props.isAdmin()) {
-    console.log(props.isAdmin())
     redirectPath = props.restrictedAdminPath
   }
 

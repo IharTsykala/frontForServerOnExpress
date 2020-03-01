@@ -28,8 +28,7 @@ export default class ServiceSubscriptions {
     return response.data
   }
 
-  static addSubscribe = async (idLogInUser, IdObserversUser) => {
-    console.log(idLogInUser, IdObserversUser)
+  static addSubscribe = async (idLogInUser, IdObserversUser) => {    
     const subscribe = {
       requestSubscriberId: idLogInUser,
       responseSubscriberId: IdObserversUser
@@ -40,16 +39,18 @@ export default class ServiceSubscriptions {
     )
   }
 
-  static deleteSubscribe = async (idLogInUser, IdObserversUser) => {    
+  static deleteSubscribe = async (idLogInUser, IdObserversUser) => {
     await axios.delete(
       `http://localhost:8080/subscriptions/deleteSubscribe/?idLogInUser=${idLogInUser}&IdObserversUser=${IdObserversUser}`
     )
   }
 
-
-static deleteSubscribeAfterAddFriend = async (IdObserversUser,idLogInUser) => {  
-  await axios.delete(
-    `http://localhost:8080/subscriptions/deleteSubscribeAfterAddFriend/?IdObserversUser=${IdObserversUser}&idLogInUser=${idLogInUser}`
-  )
-}
+  static deleteSubscribeAfterAddFriend = async (
+    IdObserversUser,
+    idLogInUser
+  ) => {
+    await axios.delete(
+      `http://localhost:8080/subscriptions/deleteSubscribeAfterAddFriend/?IdObserversUser=${IdObserversUser}&idLogInUser=${idLogInUser}`
+    )
+  }
 }

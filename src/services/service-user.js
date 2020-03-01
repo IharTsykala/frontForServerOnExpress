@@ -85,7 +85,10 @@ export default class Service {
   }
 
   static logOutAllDevices = async (id, user) => {
-    const response = await axios.post(`http://localhost:8080/users/logOutAllDevices`, user)
+    const response = await axios.post(
+      `http://localhost:8080/users/logOutAllDevices`,
+      user
+    )
     return response.data
   }
 
@@ -98,7 +101,7 @@ export default class Service {
 
   static setImgUser = async (avatar, id) => {
     const formData = new FormData()
-    formData.append("user", avatar)    
+    formData.append("user", avatar)
 
     const response = await axios.post(
       `http://localhost:8080/public/userSafeFileIntoImages/${id}`,
@@ -145,8 +148,7 @@ export default class Service {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
-      )
-      console.log(response.data)
+      )      
       return response.data
     } catch (e) {
       console.log(e)

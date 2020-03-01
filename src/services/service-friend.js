@@ -17,8 +17,7 @@ export default class ServiceFriends {
   static getLogInUserAllFriends = async idLogInUser => {
     const response = await axios.get(
       `http://localhost:8080/friends/logInUserAllFriends/?id=${idLogInUser}`
-    )
-    // console.log(response.data)
+    )    
     return response.data
   }
 
@@ -33,17 +32,16 @@ export default class ServiceFriends {
     )
   }
 
- static removeFriend = async (idLogInUser, IdSecondUser) => {  
-  const response = await axios.delete(
-    `http://localhost:8080/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`    
-  )
- }
+  static removeFriend = async (idLogInUser, IdSecondUser) => {
+    const response = await axios.delete(
+      `http://localhost:8080/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`
+    )
+  }
 
- static getArrayFriendsByIdUser = async (idLogInUser) => {  
- const response = await axios.get(
-   `http://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`    
- )
- return response.data
-}
-
+  static getArrayFriendsByIdUser = async idLogInUser => {
+    const response = await axios.get(
+      `http://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`
+    )
+    return response.data
+  }
 }
