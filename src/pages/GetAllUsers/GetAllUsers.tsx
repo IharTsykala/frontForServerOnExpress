@@ -13,11 +13,9 @@ type GetAllUsersProps = {
   dispatch: any
 }
 
-const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({  
-  user
-}) => {
+const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ user }) => {
   const [users, setUsers]: any = useState([])
-  const [load, setLoad]: any = useState("loading")  
+  const [load, setLoad]: any = useState("loading")
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
   const [checked, setChecked]: any = useState(false)
@@ -81,7 +79,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
     if (!checked) {
       let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(
         user._id
-      )      
+      )
       setUsers(arrayFriendsByIdUser)
     } else {
       await getLogInUserAllSubscriptionsAndObserver()
@@ -99,7 +97,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
               handlerInputSearchBox={handlerInputSearchBox}
               valueSearchBox={valueSearchBox}
             />
-            <h2>Make friends</h2>            
+            <h2>Make friends</h2>
             <Checkbox
               checked={checked}
               onClick={() => handleClickFriendCheckBox()}
@@ -117,7 +115,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
                     <UserCard
                       key={userOwnerCard._id}
                       userOwnerCard={userOwnerCard}
-                      removeHandler={removeHandler}                      
+                      removeHandler={removeHandler}
                       getLogInUserAllSubscriptionsAndObserver={
                         getLogInUserAllSubscriptionsAndObserver
                       }

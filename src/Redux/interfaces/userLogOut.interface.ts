@@ -1,3 +1,1 @@
-export interface UserLogOut {
-    
-  }
+export interface UserLogOut {}

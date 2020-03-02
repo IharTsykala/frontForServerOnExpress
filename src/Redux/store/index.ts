@@ -4,5 +4,5 @@ import { userOwnerThisPageReducer } from "./userOwnerThisPage/userOwnerThisPage.
 
 export default combineReducers({
   common: userReducer,
-  userOwnerThisPage:  userOwnerThisPageReducer
+  userOwnerThisPage: userOwnerThisPageReducer
 })

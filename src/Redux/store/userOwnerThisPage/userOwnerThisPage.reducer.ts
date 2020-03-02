@@ -3,14 +3,17 @@ import { Action } from "../interfaces/action.interface"
 import { UserOwnerThisPageInterface } from "../../interfaces/userOwnerThisPage.interface"
 
 export interface State {
-  userOwnerThisPage: UserOwnerThisPageInterface  
+  userOwnerThisPage: UserOwnerThisPageInterface
 }
 
 const initialState: State = {
-  userOwnerThisPage: {} as UserOwnerThisPageInterface  
+  userOwnerThisPage: {} as UserOwnerThisPageInterface
 }
 
-export const userOwnerThisPageReducer = (state: State = initialState, action: Action<{}>) => {
+export const userOwnerThisPageReducer = (
+  state: State = initialState,
+  action: Action<{}>
+) => {
   switch (action.type) {
     case ActionTypes.USER_OWNER_THIS_PAGE:
       return {

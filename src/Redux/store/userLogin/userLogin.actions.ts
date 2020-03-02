@@ -14,14 +14,10 @@ export const userLogIn = (user: User): Action<User> => ({
 })
 
 export const userLogOutAction = (): Action<UserLogOut> => ({
-  type: ActionTypes.USER_LOGOUT,  
+  type: ActionTypes.USER_LOGOUT
 })
 
 export const userRefreshAction = (user: User): Action<User> => ({
   type: ActionTypes.USER_REFRESH,
   payload: user
 })
-
-
-
-
