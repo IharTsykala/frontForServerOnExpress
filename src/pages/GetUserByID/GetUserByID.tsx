@@ -10,6 +10,7 @@ import { User } from "../../Redux/interfaces/user.interface"
 import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
 import { userOwnerThisPageAction } from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
+import { LoadingState } from '../../shared/constants/user-from-view-mode.enum'
 
 type GetUserByProps = {
   user: User
@@ -24,20 +25,27 @@ const GetUserByID: React.FC<GetUserByProps> = ({
   match,
   userOwnerThisPage
 }) => {
-  const [stateLoading, setStateLoading]: any = useState("loading")
+  const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
   const [homePageStatus, setHomePageStatus]: any = useState(false)
   const idUserOwnerPage = match.params.id
+  console.log(stateLoading) 
 
   const render = useCallback(async () => {
     try {
+      // console.log(stateLoading)      
       const userOwnerThisPageById = await Service.getUserByID(idUserOwnerPage)
-      dispatch(userOwnerThisPageAction(userOwnerThisPageById))
-      setStateLoading("loaded")
+      if(userOwnerThisPageById){
+        dispatch(userOwnerThisPageAction(userOwnerThisPageById))
+      setStateLoading(LoadingState.loaded)
+      } else {
+        setStateLoading(LoadingState.notFound)
+      }            
       if (userOwnerThisPageById._id === user._id) setHomePageStatus(true)
     } catch (e) {
       console.log(e)
+      setStateLoading(LoadingState.error)
     }
   }, [])
 
@@ -71,8 +79,9 @@ const GetUserByID: React.FC<GetUserByProps> = ({
 
   return (
     <>
-      {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
-      {stateLoading === "loaded" && (
+      {stateLoading==='loading' && <h1>Ожидайте ответа</h1>}
+      {stateLoading==='loaded'&& 
+      (
         <div className={GetUserByIDCSS.main__user_profile__container}>
           <UserAvatar
             homePageStatus={homePageStatus}
@@ -83,11 +92,15 @@ const GetUserByID: React.FC<GetUserByProps> = ({
           <UserInformation />
           <UserNavigation />
           <AlbumsBlock />
-        </div>
+        </div>        
       )}
-      {stateLoading !== "loading" && stateLoading !== "loaded" && (
+      {stateLoading==='notFound' && (
+        <h1>not found</h1>
+      )}
+      {stateLoading==='error' && (
         <h1>ошибка</h1>
       )}
+      
     </>
   )
 }

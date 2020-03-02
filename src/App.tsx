@@ -20,7 +20,7 @@ import { AdminAllUsers } from "./pages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformation/UserEditInformation"
 import { Provider } from "react-redux"
 import rootReducer from "./Redux/store"
-import ReduxPage from "./Redux/ReduxPage"
+import DialogsPage from "./pages/DialogsPage/DialogsPage"
 import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 
@@ -33,7 +33,7 @@ export const App: React.FC = () => {
         <Navbar />
         <main className="main">
           <Switch>
-            <Route component={ReduxPage} path="/redux" exact />
+            <Route component={DialogsPage} path="/:id/dialogs" exact />
             <Route component={GetStartPage} path="/" exact />
             <Route component={GetLoginPage} path="/LogIn" exact />
             <Route component={GetLogUpPage} path="/SignUp" exact />

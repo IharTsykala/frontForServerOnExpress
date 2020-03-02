@@ -1,11 +1,13 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import Service from "../../services/service-user"
-import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
+import { userLogOutAction } from "../../Redux/store/userLogin/userLogin.actions"
+import { userRefreshAction } from "../../Redux/store/userLogin/userLogin.actions"
+import { LoadingState } from '../../shared/constants/user-from-view-mode.enum'
 
 type NavbarProps = {
   user: User
@@ -14,40 +16,52 @@ type NavbarProps = {
 
 const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
   const history = useHistory()
+  const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
 
   useEffect(() => {
     getUserForRefresh()
   }, [])
 
-  const getUserForRefresh = async () => {
-    if (!user._id && localStorage.getItem("token")) {
-      const userLog = await Service.getUserByToken()
-      dispatch(userLogIn(userLog))
-    }
+  const getUserForRefresh = async () => { 
+    try {
+      // console.log(stateLoading)  
+      if (!user._id && localStorage.getItem("token")) {
+        const userLog = await Service.getUserByToken()
+        if(userLog) {
+          dispatch(userRefreshAction(userLog))
+        setStateLoading(LoadingState.loaded) 
+        } else {
+          setStateLoading(LoadingState.notFound)
+        }       
+  }} catch(e) {
+    console.log(e)
+    setStateLoading(LoadingState.error)
+  }
   }
 
   const handlerLogOut = async () => {
-    await Service.logOutAllDevices()
+    try{
+      await Service.logOutAllDevices()
     localStorage.removeItem("token")
-    dispatch(
-      userLogIn({
-        _id: "",
-        role: "",
-        login: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        avatar: "",
-        subscriptions: ""
-      })
-    )
+    dispatch(userLogOutAction())
+    } catch(e) {
+      console.log(e)
+    }    
   }
 
   return (
-    <nav className="navbar_container">
+    <>
+    {stateLoading==='loading' && <h1>Ожидайте ответа</h1>}   
+     
+     <nav className="navbar_container">
       <div className="nav-wrapper purple darken-2 px1">
-        {user.login && (
+      {stateLoading==='notFound' && (
+        <p>not found</p>
+      )}
+
+        {stateLoading==='loaded' && user.login &&
+
+         (
           <>
             <a href="/" className="brand-logo">
               {`Hello, ${user.login}`}
@@ -74,9 +88,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
           </a>
         )}
         <ul className="right hide-on-med-and-down">
-          <>
+         
             <li>
-              <NavLink to={`/redux`}>Redux Page</NavLink>
+              <NavLink to={`/${user._id}/dialogs`}>My Dialogs</NavLink>
             </li>
             {user.login && (
               <>
@@ -106,12 +120,14 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
                   <NavLink to="/SignUp">Sign Up</NavLink>
                 </li>
               </>
-            )}
-          </>
+            )}          
         </ul>
       </div>
-    </nav>
-  )
+    </nav> 
+
+    {stateLoading==='error' && <h1>ошибка</h1>}  
+   </>
+  )  
 }
 
 const mapStateToProps = (state: any) => ({
