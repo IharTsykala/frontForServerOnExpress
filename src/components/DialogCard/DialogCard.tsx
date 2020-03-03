@@ -5,31 +5,27 @@ import openSocket from "socket.io-client"
 const socket = openSocket("http://localhost:8000/dialogs")
 
 type DialogCardProps = {
-    user: User
-    dispatch: any
+  user: User
+  dispatch: any
 }
 
-const DialogCard: React.FunctionComponent<DialogCardProps> = ()=> {
-    // socket.on("messageDialog", (message:any)=>addMessageState(message))
+const DialogCard: React.FunctionComponent<DialogCardProps> = () => {
+  // socket.on("messageDialog", (message:any)=>addMessageState(message))
 
-    useEffect(()=>{
-        
-    })
+  useEffect(() => {})
 
-    return (
-        <>
-           <li >
-               
-           </li> 
-        </>
-    )
+  return (
+    <>
+      <li></li>
+    </>
+  )
 }
 
 const mapStateToProps = (state: any) => ({
-    user: state.common.user
-  })
-  
-  export default connect(mapStateToProps)(DialogCard)
+  user: state.common.user
+})
+
+export default connect(mapStateToProps)(DialogCard)
 
 //   className={
 //     DialogsPageCSS.dialogs_page__rules_dialogs__list_dialogs__card

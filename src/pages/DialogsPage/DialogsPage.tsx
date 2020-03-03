@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 // import { subscribeToTimer } from "../../api"
 import DialogsPageCSS from "./DialogsPage.module.css"
-import DialogCard from '../../components/DialogCard/DialogCard'
+import DialogCard from "../../components/DialogCard/DialogCard"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import ServiceDialog from "../../services/service-dialog"
@@ -10,7 +10,6 @@ import openSocket from "socket.io-client"
 // import ServiceDialog from "../../services/service-dialog"
 // const dialogs = openSocket("http://localhost:8000")
 const socket = openSocket("http://localhost:8000/dialogs")
-
 
 type DialogsPageProps = {
   user: User
@@ -41,43 +40,41 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
     }
   }
 
-  const handlerClickButton = (e:any)=> {
+  const handlerClickButton = (e: any) => {
     sendDialog(e)
     sendMessage(e)
   }
 
-  async function sendDialog(e:any) {
+  async function sendDialog(e: any) {
     try {
-      e.preventDefault() 
+      e.preventDefault()
       const dialog = await ServiceDialog.addDialog({
-        dialogName: 'new dialog ',
-        members: [
-          '5e500d3ba29fb20a943a79fe', '5e540356630b3c0704e1f3ce'
-        ] 
+        dialogName: "new dialog ",
+        members: ["5e500d3ba29fb20a943a79fe", "5e540356630b3c0704e1f3ce"]
       })
       // console.log(dialog)
-    } catch(e) {
+    } catch (e) {
       console.log(e)
-    }       
+    }
   }
 
-  socket.on("messageDialog", (message:any)=>addMessageState(message))
+  socket.on("messageDialog", (message: any) => addMessageState(message))
 
-  const addMessageState = (message:any)=> {
+  const addMessageState = (message: any) => {
     const newListMessage = [...listMessage, message]
     setListMessage(newListMessage)
     console.log(newListMessage)
   }
 
-  function sendMessage(e:any) {
-    e.preventDefault()    
+  function sendMessage(e: any) {
+    e.preventDefault()
     socket.emit("messageDialog", {
-      room: 'Hello',
+      room: "Hello",
       authorLogin: user.login,
       authorId: user._id,
       message: valueInput
     })
-    setValueInput('')    
+    setValueInput("")
   }
 
   const handlerChangeInput = (e: any) => {
@@ -109,7 +106,7 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
             </ul>
             <button
               className={DialogsPageCSS.dialogs_page__add_dialogs_button}
-              onClick={(e) => handlerClickButton(e)}
+              onClick={e => handlerClickButton(e)}
             >
               Send Message
             </button>
@@ -118,10 +115,10 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
             className={DialogsPageCSS.dialogs_page__dialog_page__window_dialog}
           >
             <ul>
-            {listMessage.length > 0 &&
-                listMessage.map((message:any, index: any) => (
+              {listMessage.length > 0 &&
+                listMessage.map((message: any, index: any) => (
                   <div
-                    key={index}                   
+                    key={index}
                     // className={
                     //   DialogsPageCSS.dialogs_page__rules_dialogs__list_dialogs__card
                     // }
@@ -130,8 +127,12 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
                   </div>
                 ))}
             </ul>
-            
-           <input type="text" value={valueInput} onChange={(e)=>handlerChangeInput(e)} />
+
+            <input
+              type="text"
+              value={valueInput}
+              onChange={e => handlerChangeInput(e)}
+            />
           </section>
         </div>
       )}
