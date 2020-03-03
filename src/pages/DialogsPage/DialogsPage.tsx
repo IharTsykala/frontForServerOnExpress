@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react"
 // import { subscribeToTimer } from "../../api"
 import DialogsPageCSS from "./DialogsPage.module.css"
+import DialogCard from '../../components/DialogCard/DialogCard'
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import Service from "../../services/service-user"
+import ServiceDialog from "../../services/service-dialog"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
 import openSocket from "socket.io-client"
-const socket = openSocket("http://localhost:8000")
+// import ServiceDialog from "../../services/service-dialog"
+// const dialogs = openSocket("http://localhost:8000")
+const socket = openSocket("http://localhost:8000/dialogs")
+
 
 type DialogsPageProps = {
   user: User
@@ -16,7 +20,8 @@ type DialogsPageProps = {
 const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
   const [listDialogs, setListDialogs]: any = useState([])
   const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
-  const [timestamp, setTimestamp]: any = useState("no timestamp yet")
+  const [valueInput, setValueInput]: any = useState("")
+  const [listMessage, setListMessage]: any = useState([])
 
   useEffect(() => {
     getListDialogs()
@@ -24,8 +29,9 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
 
   async function getListDialogs() {
     try {
-      const listForRender = await Service.getAllUsers()
-      if (listForRender[0]) {
+      const listForRender = await ServiceDialog.getAllDialogs()
+      console.log(listForRender)
+      if (listForRender) {
         setStateLoading(LoadingState.loaded)
         setListDialogs(listForRender)
       }
@@ -35,9 +41,47 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
     }
   }
 
-  function subscribeToTimer(cb: any) {
-    socket.on("timer", (timestamp: any) => cb(null, timestamp))
-    socket.emit("subscribeToTimer", 1000)
+  const handlerClickButton = (e:any)=> {
+    sendDialog(e)
+    sendMessage(e)
+  }
+
+  async function sendDialog(e:any) {
+    try {
+      e.preventDefault() 
+      const dialog = await ServiceDialog.addDialog({
+        dialogName: 'new dialog ',
+        members: [
+          '5e500d3ba29fb20a943a79fe', '5e540356630b3c0704e1f3ce'
+        ] 
+      })
+      // console.log(dialog)
+    } catch(e) {
+      console.log(e)
+    }       
+  }
+
+  socket.on("messageDialog", (message:any)=>addMessageState(message))
+
+  const addMessageState = (message:any)=> {
+    const newListMessage = [...listMessage, message]
+    setListMessage(newListMessage)
+    console.log(newListMessage)
+  }
+
+  function sendMessage(e:any) {
+    e.preventDefault()    
+    socket.emit("messageDialog", {
+      room: 'Hello',
+      authorLogin: user.login,
+      authorId: user._id,
+      message: valueInput
+    })
+    setValueInput('')    
+  }
+
+  const handlerChangeInput = (e: any) => {
+    setValueInput(e.target.value)
   }
 
   return (
@@ -52,29 +96,42 @@ const DialogsPage: React.FunctionComponent<DialogsPageProps> = ({ user }) => {
               }
             >
               {listDialogs.length > 0 &&
-                listDialogs.map((dialogCard: any) => (
+                listDialogs.map((dialog: any) => (
                   <div
-                    key={dialogCard._id}
+                    key={dialog._id}
                     className={
                       DialogsPageCSS.dialogs_page__rules_dialogs__list_dialogs__card
                     }
                   >
-                    <li>{dialogCard.login} </li>{" "}
+                    <li>{dialog.dialogName} </li>{" "}
                   </div>
                 ))}
             </ul>
             <button
               className={DialogsPageCSS.dialogs_page__add_dialogs_button}
-              onClick={() => subscribeToTimer(subscribeToTimer)}
+              onClick={(e) => handlerClickButton(e)}
             >
-              add dialog
+              Send Message
             </button>
           </section>
           <section
             className={DialogsPageCSS.dialogs_page__dialog_page__window_dialog}
           >
-            Choose dialog
-            {timestamp}
+            <ul>
+            {listMessage.length > 0 &&
+                listMessage.map((message:any, index: any) => (
+                  <div
+                    key={index}                   
+                    // className={
+                    //   DialogsPageCSS.dialogs_page__rules_dialogs__list_dialogs__card
+                    // }
+                  >
+                    <li>{message} </li>
+                  </div>
+                ))}
+            </ul>
+            
+           <input type="text" value={valueInput} onChange={(e)=>handlerChangeInput(e)} />
           </section>
         </div>
       )}
