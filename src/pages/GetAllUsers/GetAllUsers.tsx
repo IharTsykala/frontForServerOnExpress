@@ -14,7 +14,10 @@ type GetAllUsersProps = {
   dispatch: any
 }
 
-const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ user,dispatch }) => {
+const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
+  user,
+  dispatch
+}) => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   const [valueSearchBox, setValueSearchBox]: any = useState("")

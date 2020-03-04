@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import DialogCardCSS from './DialogCard.module.css'
-import {currentDialogAction} from "../../Redux/store/currentDialog/currentDialog.actions"
+import DialogCardCSS from "./DialogCard.module.css"
+import { currentDialogAction } from "../../Redux/store/currentDialog/currentDialog.actions"
 
 type DialogCardProps = {
   user: User
@@ -11,12 +11,14 @@ type DialogCardProps = {
   thisUser?: any
 }
 
-const DialogCard: React.FunctionComponent<DialogCardProps> = ({ user,
-  dispatch, thisDialog, thisUser }) => { 
-
+const DialogCard: React.FunctionComponent<DialogCardProps> = ({
+  user,
+  dispatch,
+  thisDialog,
+  thisUser
+}) => {
   useEffect(() => {})
 
-  
   const handlerClickOnDialog = () => {
     dispatch(currentDialogAction(thisDialog))
   }
@@ -27,11 +29,17 @@ const DialogCard: React.FunctionComponent<DialogCardProps> = ({ user,
 
   return (
     <>
-      <li className={DialogCardCSS.dialogs_page__rules_dialogs__list_dialogs__card}
-      
-      onClick={(thisDialog && (()=>handlerClickOnDialog())) || (thisUser && (()=>handlerClickOnUser()))}
+      <li
+        className={
+          DialogCardCSS.dialogs_page__rules_dialogs__list_dialogs__card
+        }
+        onClick={
+          (thisDialog && (() => handlerClickOnDialog())) ||
+          (thisUser && (() => handlerClickOnUser()))
+        }
       >
-        {(thisDialog && `${thisDialog._id}`)||(thisUser && `${thisUser.login}`)}
+        {(thisDialog && `${thisDialog._id}`) ||
+          (thisUser && `${thisUser.login}`)}
       </li>
     </>
   )

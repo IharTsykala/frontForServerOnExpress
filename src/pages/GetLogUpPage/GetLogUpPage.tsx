@@ -16,15 +16,13 @@ type GetLogUpPageProps = {
   dispatch: any
 }
 
-const GetLogUpPage: React.FC<GetLogUpPageProps> = ({user,
-  dispatch,  
-}) => {  
+const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
   const history = useHistory()
 
   const logUpHandler = async (id: number, user: any) => {
     const data = await Service.getTokenForRegistration(id, user)
     localStorage.setItem("token", data.token)
-    dispatch(userLogIn(data.user))    
+    dispatch(userLogIn(data.user))
     history.push(`/user/all`)
   }
 
