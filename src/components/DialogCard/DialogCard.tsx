@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import openSocket from "socket.io-client"
-const socket = openSocket("http://localhost:8000/dialogs")
+import DialogCardCSS from './DialogCard.module.css'
+import {currentDialogAction} from "../../Redux/store/currentDialog/currentDialog.actions"
 
 type DialogCardProps = {
   user: User
   dispatch: any
+  thisDialog?: any
+  thisUser?: any
 }
 
-const DialogCard: React.FunctionComponent<DialogCardProps> = () => {
-  // socket.on("messageDialog", (message:any)=>addMessageState(message))
+const DialogCard: React.FunctionComponent<DialogCardProps> = ({ user,
+  dispatch, thisDialog, thisUser }) => { 
 
   useEffect(() => {})
 
+  
+  const handlerClickOnDialog = () => {
+    dispatch(currentDialogAction(thisDialog))
+  }
+
+  const handlerClickOnUser = () => {
+    // dispatch(getIdCurrentDialog())
+  }
+
   return (
     <>
-      <li></li>
+      <li className={DialogCardCSS.dialogs_page__rules_dialogs__list_dialogs__card}
+      
+      onClick={(thisDialog && (()=>handlerClickOnDialog())) || (thisUser && (()=>handlerClickOnUser()))}
+      >
+        {(thisDialog && `${thisDialog._id}`)||(thisUser && `${thisUser.login}`)}
+      </li>
     </>
   )
 }
@@ -26,7 +42,3 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps)(DialogCard)
-
-//   className={
-//     DialogsPageCSS.dialogs_page__rules_dialogs__list_dialogs__card
-//   }

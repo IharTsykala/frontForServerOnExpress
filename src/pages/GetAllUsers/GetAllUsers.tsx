@@ -7,13 +7,14 @@ import Checkbox from "@material-ui/core/Checkbox"
 import ServiceFriends from "../../services/service-friend"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
+import { AllUsersAction } from "../../Redux/store/allUsers/allUsers.actions"
 
 type GetAllUsersProps = {
   user: User
   dispatch: any
 }
 
-const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ user }) => {
+const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ user,dispatch }) => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
   const [valueSearchBox, setValueSearchBox]: any = useState("")
@@ -39,6 +40,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({ user }) => {
         user._id
       )
       setLoad("loaded")
+      dispatch(AllUsersAction(arrayLogInUsersAllSubscriptionsAndObserver))
       setUsers(arrayLogInUsersAllSubscriptionsAndObserver)
     }
   }

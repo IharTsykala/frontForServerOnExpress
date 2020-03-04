@@ -8,15 +8,16 @@
 
 .dialogs_page__rules_dialogs {
   display: grid;
-  grid-template-rows: 90% 10%;
-  background-color: thistle;
+  grid-template-rows: 90% 10%;  
+  background-color: rgb(248, 234, 248);
 }
 
 .dialogs_page__rules_dialogs__list_dialogs {
   display: grid;
   grid-template-rows: repeat(8, 1fr);
+  row-gap: 2px;
 }
-.dialogs_page__rules_dialogs__list_dialogs div {
+/* .dialogs_page__rules_dialogs__list_dialogs div {
   display: grid;
   width: 100%;
   height: 100%;
@@ -24,9 +25,9 @@
   justify-content: center;
   align-content: center;
   cursor: pointer;
-}
+} */
 
-.dialogs_page__dialog_page__window_dialog {
+/* .dialogs_page__dialog_page__window_dialog {
   display: grid;
   background-color: white;
   height: 905px;
@@ -39,4 +40,4 @@
 .dialogs_page__add_dialogs_button {
   display: grid;
   cursor: pointer;
-}
+} */

@@ -1,0 +1,14 @@
+.dialogs_page__dialog_page__window_dialog {
+    display: grid;
+    background-color: white;
+    height: 905px;
+    justify-content: center;
+    align-content: center;
+    color: #7a7a77;
+    border: 2px solid #7a7a77;
+  }
+  
+  .dialogs_page__add_dialogs_button {
+    display: grid;
+    cursor: pointer;
+  }
