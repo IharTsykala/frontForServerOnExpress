@@ -17,7 +17,7 @@ const DialogCard: React.FunctionComponent<DialogCardProps> = ({
   thisDialog,
   thisUser
 }) => {
-  useEffect(() => {})
+  useEffect(() => {console.log(thisDialog)})
 
   const handlerClickOnDialog = () => {
     dispatch(currentDialogAction(thisDialog))
@@ -38,7 +38,7 @@ const DialogCard: React.FunctionComponent<DialogCardProps> = ({
           (thisUser && (() => handlerClickOnUser()))
         }
       >
-        {(thisDialog && `${thisDialog._id}`) ||
+        {(thisDialog && `${thisDialog.members}`) ||
           (thisUser && `${thisUser.login}`)}
       </li>
     </>

@@ -25,17 +25,20 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 
   useEffect(() => {
     getListDialogs()
-  }, [])
+  }, [user])
 
   async function getListDialogs() {
     try {
-      const listForRender = await ServiceDialog.getAllDialogs()
-      console.log(listForRender)
-      console.log(allUsers)
+      // console.log(user)
+      if(user._id) {
+      const listForRender = await ServiceDialog.getAllDialogsById(user._id)
+      // console.log(listForRender)
+      // console.log(allUsers)
       if (listForRender) {
         setStateLoading(LoadingState.loaded)
         setListDialogs(listForRender)
       }
+    }
     } catch (e) {
       console.log(e)
       setStateLoading(LoadingState.loaded)

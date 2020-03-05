@@ -8,6 +8,7 @@ import ServiceFriends from "../../services/service-friend"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { AllUsersAction } from "../../Redux/store/allUsers/allUsers.actions"
+import  PaginationBlock  from "../../components/PaginationBlock/PaginationBlock"
 
 type GetAllUsersProps = {
   user: User
@@ -129,8 +130,9 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
                 )
               })}
           </ul>
+          <PaginationBlock/>
         </>
-      )}
+      )}      
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>
   )
