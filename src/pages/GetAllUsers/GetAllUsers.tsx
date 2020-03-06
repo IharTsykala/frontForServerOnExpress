@@ -34,7 +34,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   }, [user])
 
   useEffect(() => {
-    console.log(user)
+   
     render()
   }, [render])
 
@@ -130,7 +130,11 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
                 )
               })}
           </ul>
-          <PaginationBlock/>
+          <PaginationBlock 
+          checked={checked}
+          valueSearchBox={valueSearchBox}
+          setUsers={setUsers}
+          />
         </>
       )}      
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}

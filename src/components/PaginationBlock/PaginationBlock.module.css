@@ -5,11 +5,13 @@
     display: grid;
     grid-template-columns: 30% 70%;
     height: 10%;
+    background-color: white;
 }
 
 .All_Users__Pagination_Block__Select_block {
     display: grid;
     justify-content: center;
+    
 }
 
 .All_Users__Pagination_Block__Button_block {

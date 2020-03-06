@@ -154,4 +154,17 @@ export default class Service {
       console.log(e)
     }
   }
+
+  static getUserAfterPaginationAndSearchAndFilter = async (body) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
+        body
+      )      
+      // console.log(response.data)
+      return response.data
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
