@@ -5,10 +5,14 @@ import MenuItem from "@material-ui/core/MenuItem"
 import InputLabel from "@material-ui/core/InputLabel"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
+import { Pagination } from "../../Redux/interfaces/pagination.interface"
 import Service from "../../services/service-user"
+// import { setLimitUsersForRenderAction } from "../../Redux/store/pagination/pagination.actions"
+import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
 
 type PaginationBlockProps = {
   user: User
+  pagination: Pagination
   dispatch: any
   checked: boolean
   valueSearchBox: String | ""
@@ -17,13 +21,16 @@ type PaginationBlockProps = {
 
 const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   user,
+  pagination,
   dispatch,
   checked,
   valueSearchBox,
   setUsers
 }) => {
-  const [numberPage, setNumberPage] = useState(1)
-  const [limitRender, setLimitRender] = useState(0)
+  const limitRender = pagination.limitUsersForRender
+  const { numberPage } = pagination
+  // const [numberPage, setNumberPage] = useState(1)
+  // const [limitRender, setLimitRender] = useState(0)
 
   // useEffect(() => {
 
@@ -57,19 +64,37 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   }
 
   const handleChangeSelect = (limitRender: any) => {
-    setLimitRender(+limitRender)
+    // setLimitRender(+limitRender)
+    dispatch(
+      setValuesForPaginationAction({
+        numberPage,
+        limitUsersForRender: +limitRender
+      })
+    )
     getUserAfterPaginationAndSearchAndFilter(numberPage, +limitRender)
   }
 
   const handlerClickPrevPage = () => {
-    if (numberPage) {
-      setNumberPage(numberPage - 1)
+    if (numberPage > 1) {
+      // setNumberPage(numberPage - 1)
+      dispatch(
+        setValuesForPaginationAction({
+          numberPage: numberPage - 1,
+          limitUsersForRender: limitRender
+        })
+      )
       getUserAfterPaginationAndSearchAndFilter(numberPage - 1, limitRender)
     }
   }
 
   const handlerClickNextPage = () => {
-    setNumberPage(numberPage + 1)
+    // setNumberPage(numberPage + 1)
+    dispatch(
+      setValuesForPaginationAction({
+        numberPage: numberPage + 1,
+        limitUsersForRender: limitRender
+      })
+    )
     getUserAfterPaginationAndSearchAndFilter(numberPage + 1, limitRender)
   }
 
@@ -110,7 +135,8 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.common.user,
+  pagination: state.pagination.pagination
 })
 
 export default connect(mapStateToProps)(PaginationBlock)
