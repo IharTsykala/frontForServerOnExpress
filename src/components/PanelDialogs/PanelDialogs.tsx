@@ -11,7 +11,6 @@ type PanelDialogsProps = {
   user: User
   dispatch: any
   allUsers: []
-  // currentDialog: {} | undefined
 }
 
 const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
@@ -29,16 +28,14 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 
   async function getListDialogs() {
     try {
-      // console.log(user)
-      if(user._id) {
-      const listForRender = await ServiceDialog.getAllDialogsById(user._id)
-      // console.log(listForRender)
-      // console.log(allUsers)
-      if (listForRender) {
-        setStateLoading(LoadingState.loaded)
-        setListDialogs(listForRender)
+      if (user._id) {
+        const listForRender = await ServiceDialog.getAllDialogsById(user._id)
+
+        if (listForRender) {
+          setStateLoading(LoadingState.loaded)
+          setListDialogs(listForRender)
+        }
       }
-    }
     } catch (e) {
       console.log(e)
       setStateLoading(LoadingState.loaded)

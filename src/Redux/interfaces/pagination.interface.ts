@@ -1,4 +1,4 @@
 export interface Pagination {
-  numberPage: number
-  limitUsersForRender: number
+  numberPage: Number
+  limitUsersForRender: Number
 }

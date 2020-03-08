@@ -8,16 +8,23 @@ import ServiceFriends from "../../services/service-friend"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { AllUsersAction } from "../../Redux/store/allUsers/allUsers.actions"
-import  PaginationBlock  from "../../components/PaginationBlock/PaginationBlock"
+import PaginationBlock from "../../components/PaginationBlock/PaginationBlock"
+import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
+import { setInitialValueForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
+import { Pagination } from "../../Redux/interfaces/pagination.interface"
 
 type GetAllUsersProps = {
   user: User
   dispatch: any
+  pagination: Pagination
+  allUsers: []
 }
 
 const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   user,
-  dispatch
+  dispatch,
+  pagination,
+  allUsers
 }) => {
   const [users, setUsers]: any = useState([])
   const [load, setLoad]: any = useState("loading")
@@ -34,7 +41,6 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   }, [user])
 
   useEffect(() => {
-   
     render()
   }, [render])
 
@@ -52,6 +58,43 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   const handlerInputSearchBox = (e: any) => {
     clearTimeout(timerId)
     setValueSearchBox(e.target.value)
+  }
+
+  const getUserAfterPaginationAndSearchAndFilter = async (
+    numberPage: Number,
+    limitRender: Number
+  ) => {
+    if (limitRender) {
+      let body = {}
+      if (valueSearchBox.length > 2) {
+        body = Object.assign({}, body, {
+          idLogInUser: user._id,
+          valueSearchBox,
+          numberPage,
+          checked,
+          limitRender
+        })
+      } else
+        body = Object.assign({}, body, {
+          idLogInUser: user._id,
+          valueSearchBox: "",
+          numberPage,
+          checked,
+          limitRender
+        })
+      const listUsers = await Service.getUserAfterPaginationAndSearchAndFilter(
+        body
+      )
+      setUsers(listUsers)
+    } else {
+      setUsers(allUsers)
+      dispatch(
+        setValuesForPaginationAction({
+          numberPage: 1,
+          limitUsersForRender: limitRender
+        })
+      )
+    }
   }
 
   const getFlirtedArrayUsers = useCallback(async (valueSearchBox: any) => {
@@ -130,20 +173,24 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
                 )
               })}
           </ul>
-          <PaginationBlock 
-          checked={checked}
-          valueSearchBox={valueSearchBox}
-          setUsers={setUsers}
+          <PaginationBlock
+            checked={checked}
+            valueSearchBox={valueSearchBox}
+            getUserAfterPaginationAndSearchAndFilter={
+              getUserAfterPaginationAndSearchAndFilter
+            }
           />
         </>
-      )}      
+      )}
       {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.common.user,
+  pagination: state.pagination.pagination,
+  allUsers: state.allUsers.allUsers
 })
 
 export default connect(mapStateToProps)(GetAllUsers)
