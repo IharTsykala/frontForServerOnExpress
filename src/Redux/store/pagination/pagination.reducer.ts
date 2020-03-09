@@ -6,7 +6,7 @@ export interface State {
 }
 
 const initialState: State = {
-  pagination: { numberPage: 1, limitUsersForRender: 0}
+  pagination: { numberPage: 1, limitUsersForRender: 0 }
 }
 
 export const paginationReducer = (

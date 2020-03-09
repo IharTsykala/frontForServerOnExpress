@@ -5,7 +5,6 @@ import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import ServiceDialog from "../../services/service-dialog"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
-import { currentDialogAction } from "../../Redux/store/currentDialog/currentDialog.actions"
 
 type PanelDialogsProps = {
   user: User
