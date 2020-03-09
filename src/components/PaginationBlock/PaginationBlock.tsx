@@ -9,9 +9,10 @@ import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagin
 type PaginationBlockProps = {
   pagination: Pagination
   dispatch: any
-  checked: boolean
+  checked: Boolean
   valueSearchBox: String | ""
   getUserAfterPaginationAndSearchAndFilter: any
+  prevChecked: Boolean
 }
 
 const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
@@ -19,7 +20,8 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   dispatch,
   checked,
   valueSearchBox,
-  getUserAfterPaginationAndSearchAndFilter
+  getUserAfterPaginationAndSearchAndFilter,
+  prevChecked
 }) => {
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
@@ -31,6 +33,8 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
         limitUsersForRender: limitRender
       })
     )
+    if (numberPage !== 1 || prevChecked)
+      getUserAfterPaginationAndSearchAndFilter(1, limitRender)
   }, [checked, valueSearchBox.length > 2 && valueSearchBox])
 
   const handleChangeSelect = (limitRender: any) => {

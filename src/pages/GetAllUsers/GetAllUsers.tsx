@@ -31,6 +31,8 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   const [valueSearchBox, setValueSearchBox]: any = useState("")
   const [timerId, setTimerId]: any = useState(undefined)
   const [checked, setChecked]: any = useState(false)
+  // on some time
+  const [prevChecked, setPrevChecked]: any = useState(false)
 
   const render = useCallback(async () => {
     try {
@@ -62,32 +64,31 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
 
   const getUserAfterPaginationAndSearchAndFilter = async (
     numberPage: Number,
-    limitRender: Number
+    limitRender: Number,
+    checkbox?: Boolean
   ) => {
     if (limitRender) {
-      let body = {}
+      let body = {
+        idLogInUser: user._id,
+        valueSearchBox: "",
+        numberPage,
+        checked: checkbox || checked,
+        limitRender
+      }
       if (valueSearchBox.length > 2) {
         body = Object.assign({}, body, {
-          idLogInUser: user._id,
-          valueSearchBox,
-          numberPage,
-          checked,
-          limitRender
+          valueSearchBox
         })
-      } else
-        body = Object.assign({}, body, {
-          idLogInUser: user._id,
-          valueSearchBox: "",
-          numberPage,
-          checked,
-          limitRender
-        })
+      }
+      // console.log(body)
       const listUsers = await Service.getUserAfterPaginationAndSearchAndFilter(
         body
       )
       setUsers(listUsers)
     } else {
       setUsers(allUsers)
+      setPrevChecked(true)
+      setChecked(false)
       dispatch(
         setValuesForPaginationAction({
           numberPage: 1,
@@ -125,14 +126,22 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   }
 
   const handleClickFriendCheckBox = async () => {
-    if (!checked) {
+    if (!checked && pagination.limitUsersForRender) {
+      const arrayFriendsByIdUser = getUserAfterPaginationAndSearchAndFilter(
+        pagination.numberPage,
+        pagination.limitUsersForRender,
+        !checked
+      )
+      setUsers(arrayFriendsByIdUser)
+    } else if (!checked && !pagination.limitUsersForRender) {
       let arrayFriendsByIdUser = await ServiceFriends.getArrayFriendsByIdUser(
         user._id
       )
       setUsers(arrayFriendsByIdUser)
     } else {
-      await getLogInUserAllSubscriptionsAndObserver()
+      setUsers(allUsers)
     }
+    setPrevChecked(checked)
     setChecked(!checked)
   }
 
@@ -179,6 +188,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
             getUserAfterPaginationAndSearchAndFilter={
               getUserAfterPaginationAndSearchAndFilter
             }
+            prevChecked={prevChecked}
           />
         </>
       )}
