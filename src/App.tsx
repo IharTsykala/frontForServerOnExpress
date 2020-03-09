@@ -24,7 +24,7 @@ import DialogsPage from "./pages/DialogsPage/DialogsPage"
 import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()))
+const store = createStore(rootReducer, composeWithDevTools({trace: true, traceLimit: 25})(applyMiddleware()))
 
 export const App: React.FC = () => {
   return (

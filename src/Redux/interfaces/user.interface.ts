@@ -8,4 +8,5 @@ export interface User {
   phone: String | ""
   avatar: String | ""
   subscriptions: String | ""
+  countPage?: Number
 }

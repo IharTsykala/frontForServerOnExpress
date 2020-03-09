@@ -161,7 +161,7 @@ export default class Service {
         `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
         body
       )      
-      // console.log(response.data)
+      console.log(response)
       return response.data
     } catch (e) {
       console.log(e)

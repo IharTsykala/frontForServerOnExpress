@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect,  useState} from "react"
 import PaginationBlockCSS from "./PaginationBlock.module.css"
 import Select from "@material-ui/core/Select"
 import InputLabel from "@material-ui/core/InputLabel"
@@ -7,7 +7,7 @@ import { Pagination } from "../../Redux/interfaces/pagination.interface"
 import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
 
 type PaginationBlockProps = {
-  pagination: Pagination
+  pagination: Pagination  
   dispatch: any
   checked: Boolean
   valueSearchBox: String | ""
@@ -16,7 +16,7 @@ type PaginationBlockProps = {
 }
 
 const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
-  pagination,
+  pagination,  
   dispatch,
   checked,
   valueSearchBox,
@@ -25,29 +25,56 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
 }) => {
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
+  const [timerId, setTimerId]: any = useState(undefined)  
+  const [prevCountUsers, setPrevCountUsers]: any = useState(undefined) 
+  const [users, setUsers]: any = useState(undefined) 
 
-  useEffect(() => {
+  useEffect(() => {    
     dispatch(
       setValuesForPaginationAction({
         numberPage: 1,
         limitUsersForRender: limitRender
       })
-    )
-    if (numberPage !== 1 || prevChecked)
-      getUserAfterPaginationAndSearchAndFilter(1, limitRender)
+       )     
+    // call function after click checkbox or search. refund value
+    if (numberPage !== 1 || prevChecked || valueSearchBox.length > 2 || checked) {
+      clearTimeout(timerId)      
+      const clearInterval = setTimeout(async()=> {
+        const users = await getUserAfterPaginationAndSearchAndFilter(1, limitRender)
+        setUsers(users)
+      },500)  
+      setPrevCountUsers(undefined)     
+      setTimerId(clearInterval)    
+    }    
   }, [checked, valueSearchBox.length > 2 && valueSearchBox])
+  
 
-  const handleChangeSelect = (limitRender: any) => {
+  const handleChangeSelect = async (newLimitRender: any) => {    
     dispatch(
       setValuesForPaginationAction({
-        numberPage,
-        limitUsersForRender: +limitRender
+        numberPage: Math.ceil(+numberPage*(+limitRender)/+newLimitRender)||1,
+        limitUsersForRender: +newLimitRender
       })
-    )
-    getUserAfterPaginationAndSearchAndFilter(numberPage, +limitRender)
+    )    
+    let users = await getUserAfterPaginationAndSearchAndFilter(Math.ceil(+numberPage*(+limitRender)/+newLimitRender)||1, +newLimitRender)
+    setUsers(users)    
+    if(users[0]&&users[0].countUsers!==undefined)setPrevCountUsers(users[0].countUsers)
+    else {
+      if(prevCountUsers) {
+        dispatch(
+          setValuesForPaginationAction({
+            numberPage: Math.ceil(prevCountUsers/+newLimitRender)||1,
+            limitUsersForRender: +newLimitRender
+          })
+          
+        ) 
+        users = await getUserAfterPaginationAndSearchAndFilter(Math.ceil(prevCountUsers/+newLimitRender)||1, +newLimitRender) 
+        setUsers(users) 
+      }
+    }
   }
 
-  const handlerClickPrevPage = () => {
+  const handlerClickPrevPage = async () => {    
     if (numberPage > 1) {
       dispatch(
         setValuesForPaginationAction({
@@ -55,18 +82,20 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
           limitUsersForRender: limitRender
         })
       )
-      getUserAfterPaginationAndSearchAndFilter(+numberPage - 1, limitRender)
+     const users = await getUserAfterPaginationAndSearchAndFilter(+numberPage - 1, limitRender)
+     setUsers(users) 
     }
   }
 
-  const handlerClickNextPage = () => {
+  const handlerClickNextPage = async () => {
     dispatch(
       setValuesForPaginationAction({
         numberPage: +numberPage + 1,
         limitUsersForRender: limitRender
       })
     )
-    getUserAfterPaginationAndSearchAndFilter(+numberPage + 1, limitRender)
+    const users = await getUserAfterPaginationAndSearchAndFilter(+numberPage + 1, limitRender)
+    setUsers(users) 
   }
 
   return (
@@ -75,7 +104,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
         className={PaginationBlockCSS.All_Users__Pagination_Block__Select_block}
       >
         <InputLabel htmlFor="outlined-age-native-simple">
-          Amount Users
+          Amount of Users
         </InputLabel>
         <Select
           native
@@ -96,16 +125,16 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       <div
         className={PaginationBlockCSS.All_Users__Pagination_Block__Button_block}
       >
-        <button onClick={() => handlerClickPrevPage()}>prev</button>
+       {numberPage>1&&<button onClick={() => handlerClickPrevPage()}>prev</button>} 
         <div>{numberPage}</div>
-        <button onClick={() => handlerClickNextPage()}>next</button>
+       {users&&users[0]&&users[0].countPage!==undefined&& users[0].countPage>numberPage&&<button onClick={() => handlerClickNextPage()}>next</button> } 
       </div>
     </section>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
+  user: state.common.user,  
   pagination: state.pagination.pagination
 })
 
