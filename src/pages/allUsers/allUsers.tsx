@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react"
 import Service from "../../services/service-user"
 import UserCard from "../../components/UserCard/UserCard"
-import GetAllUsersCSS from "./GetAllUsers.module.css"
+import GetAllUsersCSS from "./allUsers.module.css"
 import Search from "../../components/Search/Search"
 import Checkbox from "@material-ui/core/Checkbox"
 import { connect } from "react-redux"

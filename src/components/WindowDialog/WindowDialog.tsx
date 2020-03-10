@@ -37,12 +37,14 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
     // console.log(listMessagesForCurrentDialog)
     // dispatch(listMessagesForCurrentDialogAction([]))
     if (currentDialog._id !== undefined) {
+      socket.emit('join', currentDialog)
+      socket.on("messageDialog", (message: any) => addMessageState(message))
       getMessagesFromBD()              
       setValueInput("")
     }
-    // return () => {
-    //   socket.on("messageDialog", () => socket.disconnected);
-    // };
+    return () => {
+      socket.disconnect();
+    };
     
   }, [currentDialog])
 

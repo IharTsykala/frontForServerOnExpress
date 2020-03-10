@@ -1,6 +1,7 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
+import allUsers from "./pages/allUsers/allUsers"
 import GetUserByID from "./pages/GetUserByID/GetUserByID"
 import GetLoginPage from "./pages/GetLoginPage/GetLoginPage"
 import GetLogUpPage from "./pages/GetLogUpPage/GetLogUpPage"
@@ -23,8 +24,14 @@ import rootReducer from "./Redux/store"
 import DialogsPage from "./pages/DialogsPage/DialogsPage"
 import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
+import createSagaMiddleware from 'redux-saga'
+import getUserOwnerThisPageForSaga from './Redux/store/userOwnerThisPage/userOwnerThisPage.sagas'
 
-const store = createStore(rootReducer, composeWithDevTools({trace: true, traceLimit: 25})(applyMiddleware()))
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, composeWithDevTools({trace: true, traceLimit: 25})(applyMiddleware(sagaMiddleware)))
+
+sagaMiddleware.run(getUserOwnerThisPageForSaga);
 
 export const App: React.FC = () => {
   return (
@@ -41,6 +48,12 @@ export const App: React.FC = () => {
               {...defaultPrivateRouteProps}
               component={GetAllUsers}
               path="/user/all"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={allUsers}
+              path="/user/allUsers"
               exact
             />
             <PrivateRoute

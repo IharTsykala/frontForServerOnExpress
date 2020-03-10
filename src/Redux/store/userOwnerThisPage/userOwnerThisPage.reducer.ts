@@ -19,7 +19,22 @@ export const userOwnerThisPageReducer = (
       return {
         ...state,
         userOwnerThisPage: action.payload
-      }
+      }       
+    default:
+      return state
+  }
+}
+
+export const userOwnerThisPageReducerForSagas = (
+  state: State = initialState,
+  action: Action<{}>
+) => {
+  switch (action.type) {    
+      case ActionTypes.SET_USER_OWNER_THIS_PAGE_FOR_SAGAS:
+        return {
+          ...state,
+          userOwnerThisPage: action.payload
+        }  
     default:
       return state
   }
