@@ -24,14 +24,19 @@ import rootReducer from "./Redux/store"
 import DialogsPage from "./pages/DialogsPage/DialogsPage"
 import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
-import createSagaMiddleware from 'redux-saga'
-import getUserOwnerThisPageForSaga from './Redux/store/userOwnerThisPage/userOwnerThisPage.sagas'
+import createSagaMiddleware from "redux-saga"
+import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(rootReducer, composeWithDevTools({trace: true, traceLimit: 25})(applyMiddleware(sagaMiddleware)))
+const store = createStore(
+  rootReducer,
+  composeWithDevTools({ trace: true, traceLimit: 25 })(
+    applyMiddleware(sagaMiddleware)
+  )
+)
 
-sagaMiddleware.run(getUserOwnerThisPageForSaga);
+sagaMiddleware.run(getUserOwnerThisPageForSaga)
 
 export const App: React.FC = () => {
   return (

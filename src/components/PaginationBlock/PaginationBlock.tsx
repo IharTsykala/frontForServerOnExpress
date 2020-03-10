@@ -69,7 +69,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       +newLimitRender
     )
     setUsers(users)
-    if (users&& users[0] && users[0].countUsers !== undefined)
+    if (users && users[0] && users[0].countUsers !== undefined)
       setPrevCountUsers(users[0].countUsers)
     else {
       if (prevCountUsers) {

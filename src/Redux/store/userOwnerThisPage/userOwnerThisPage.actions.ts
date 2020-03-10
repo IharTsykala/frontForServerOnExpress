@@ -2,9 +2,11 @@ import { Action } from "../interfaces/action.interface"
 import { UserOwnerThisPageInterface } from "../../interfaces/userOwnerThisPage.interface"
 export const ActionTypes = {
   USER_OWNER_THIS_PAGE: "[userOwnerThisPage] User owner this page",
-  GET_USER_OWNER_THIS_PAGE_FOR_SAGAS: '[getUserOwnerThisPageActionForSagas] get user owner this page for sagas',
-  SET_USER_OWNER_THIS_PAGE_FOR_SAGAS: '[setUserOwnerThisPageActionForSagas] set user owner this page for sagas',
-  GET_FAILURE: '[getFailure] get failure',
+  GET_USER_OWNER_THIS_PAGE_FOR_SAGAS:
+    "[getUserOwnerThisPageActionForSagas] get user owner this page for sagas",
+  SET_USER_OWNER_THIS_PAGE_FOR_SAGAS:
+    "[setUserOwnerThisPageActionForSagas] set user owner this page for sagas",
+  GET_FAILURE: "[getFailure] get failure"
 }
 
 export const userOwnerThisPageAction = (
@@ -30,5 +32,5 @@ export const setUserOwnerThisPageActionForSagas = (
 
 export const getFailureAction = (error?: any): Action<any> => ({
   type: ActionTypes.GET_FAILURE,
-  payload: error,
-});
+  payload: error
+})

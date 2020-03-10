@@ -1,5 +1,5 @@
 import { combineReducers } from "redux"
-import {userOwnerThisPageReducerForSagas} from "./userOwnerThisPage/userOwnerThisPage.reducer";
+import { userOwnerThisPageReducerForSagas } from "./userOwnerThisPage/userOwnerThisPage.reducer"
 import { reducer as userReducer } from "./userLogin/userLogin.reducer"
 import { userOwnerThisPageReducer } from "./userOwnerThisPage/userOwnerThisPage.reducer"
 import { allUserReducer } from "./allUsers/allUsers.reducer"

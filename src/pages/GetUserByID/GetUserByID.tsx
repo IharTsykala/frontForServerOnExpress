@@ -9,7 +9,10 @@ import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
-import { userOwnerThisPageAction, getUserOwnerThisPageActionForSagas } from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
+import {
+  userOwnerThisPageAction,
+  getUserOwnerThisPageActionForSagas
+} from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
 // import {userOwnerThisPageActionForSagas} from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
 
