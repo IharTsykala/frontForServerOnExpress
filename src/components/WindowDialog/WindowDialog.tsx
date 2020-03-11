@@ -2,15 +2,16 @@ import React, { useState, useEffect, useCallback } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { CurrentDialog } from "../../Redux/interfaces/currentDialog.interface"
-import {Message} from '../../Redux/interfaces/message.interface'
+import { Message } from "../../Redux/interfaces/message.interface"
 import openSocket from "socket.io-client"
 import WindowDialogCSS from "./WindowDialog.module.css"
 import ServiceMessage from "../../services/service-message"
 import { getAllMessagesCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
 import { getNewMessageInCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
 import { disconnect } from "cluster"
-const socket = openSocket("http://localhost:8000",{reconnection: true})
+const socket = openSocket("http://localhost:8000")
 // const socket = openSocket("http://localhost:8000/myDialogs")
+// {reconnection: true}
 
 type WindowDialogProps = {
   user: User
@@ -29,63 +30,62 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   const [valueInput, setValueInput]: any = useState("")
 
   const getMessagesFromBD = async () => {
-    const list = await ServiceMessage.getAllMessagesByIdDialog(currentDialog._id)
-    console.log('getMessagesFromBD')
-    dispatch(getAllMessagesCurrentDialogAction(list))  
+    const list = await ServiceMessage.getAllMessagesByIdDialog(
+      currentDialog._id
+    )
+    console.log("getMessagesFromBD")
+    dispatch(getAllMessagesCurrentDialogAction(list))
     setListMessage(list)
-
   }
   // socket.on("messageDialog2", (message: any) => addMessageState(message))
 
-  const connectSocket = async()=> {
-    if (currentDialog._id !== undefined) { 
+  const connectSocket = async () => {
+    if (currentDialog._id !== undefined) {
       socket.emit("join", currentDialog)
-      socket.on("messageDialog2", (message: any) => {addMessageState(message)
+      socket.on("messageDialog2", (message: any) => {
+        addMessageState(message)
         // console.log(listMessage)
       })
-     await getMessagesFromBD()   
-    //  socket.on("messageDialog2", (message: any) => addMessageState(message))           
-     setValueInput("")      
+      await getMessagesFromBD()
+      //  socket.on("messageDialog2", (message: any) => addMessageState(message))
+      setValueInput("")
+    }
   }
-}
 
   const render = useCallback(async () => {
-    try {     
-     await connectSocket()
+    try {
+      await connectSocket()
     } catch (e) {
       console.log(e)
     }
   }, [currentDialog])
-  
-  
 
-  useEffect(() => {  
-    console.log(1)   
-   render()
-    return () => {      
-      socket.emit('end') 
-    };
-    
+  useEffect(() => {
+    console.log(1)
+    render()
+    return () => {
+      socket.emit("end")
+    }
   }, [render])
 
-  function addMessageState (message: any) { 
-    console.log(message)  
-    dispatch(getNewMessageInCurrentDialogAction(message))  
-   
-    let newArr = [...listMessage, message]    
-    setListMessage(newArr)   
-  } 
-  
+  function addMessageState(message: any) {
+    console.log(message)
+    dispatch(getNewMessageInCurrentDialogAction(message))
+
+    let newArr = [...listMessage, message]
+    setListMessage(newArr)
+  }
+
   function sendMessage(e: any) {
     e.preventDefault()
     const message = {
-      idDialog: currentDialog._id,      
+      idDialog: currentDialog._id,
       authorLogin: user.login,
       authorId: user._id,
       message: valueInput
-    }  
-    socket.emit("messageDialog",message)    
-    //  console.log(listMessage)    
+    }
+    socket.emit("messageDialog", message)
+    //  console.log(listMessage)
     setValueInput("")
   }
 
@@ -100,7 +100,8 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   return (
     <div className={WindowDialogCSS.dialogs_page__dialog_page__window_dialog}>
       <ul>
-        {listMessage && listMessage.length > 0 &&
+        {listMessage &&
+          listMessage.length > 0 &&
           listMessage.map((message: any, index: any) => (
             <div key={index}>
               <li>{`${message.authorLogin}: ${message.message}`}</li>
@@ -133,7 +134,8 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
   currentDialog: state.currentDialog.currentDialog,
-  listMessagesForCurrentDialog: state.listMessagesForCurrentDialog.listMessagesForCurrentDialog
+  listMessagesForCurrentDialog:
+    state.listMessagesForCurrentDialog.listMessagesForCurrentDialog
 })
 
 export default connect(mapStateToProps)(WindowDialog)

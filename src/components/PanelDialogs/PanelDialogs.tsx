@@ -45,12 +45,15 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     setFlagModalWindow(!flagModalWindow)
   }
 
-  async function sendDialog(e: any) {
+  async function sendDialog(
+    userId: String,
+    thisUserId: String,
+    thisUserLogin: String
+  ) {
     try {
-      e.preventDefault()
       const dialog = await ServiceDialog.addDialog({
-        dialogName: "new dialog ",
-        members: ["5e500d3ba29fb20a943a79fe", "5e540356630b3c0704e1f3ce"]
+        dialogName: thisUserLogin,
+        members: [userId, thisUserId]
       })
       getListDialogs()
     } catch (e) {
@@ -76,14 +79,20 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
               (allUsers.length > 0 &&
                 flagModalWindow &&
                 allUsers.map((user: any) => (
-                  <DialogCard key={user._id} thisUser={user} />
+                  <DialogCard
+                    key={user._id}
+                    thisUser={user}
+                    sendDialog={sendDialog}
+                  />
                 )))}
           </ul>
+
           <button
             className={PanelDialogsCSS.dialogs_page__add_dialogs_button}
             onClick={() => handlerClickButton()}
           >
-            Add Dialog
+            {(!flagModalWindow && "Add Dialog") ||
+              (flagModalWindow && "Menu Dialogs")}
           </button>
         </section>
       )}

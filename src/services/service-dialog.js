@@ -15,7 +15,7 @@ export default class ServiceDialog {
   )
 
   static getAllDialogs = async () => {
-    try {      
+    try {
       const request = await axios.get("http://localhost:8080/dialogs/")
       return request.data
     } catch (e) {
@@ -23,8 +23,8 @@ export default class ServiceDialog {
     }
   }
 
-  static getAllDialogsById = async (id) => {
-    try {  
+  static getAllDialogsById = async id => {
+    try {
       // console.log(id)
       const request = await axios.get(`http://localhost:8080/dialogs/${id}`)
       return request.data
@@ -33,9 +33,12 @@ export default class ServiceDialog {
     }
   }
 
-  static addDialog = async (body) => {
-      console.log(body)
-    const response = await axios.post(`http://localhost:8080/dialogs/add`, body)
+  static addDialog = async body => {
+    console.log(body)
+    const response = await axios.post(
+      "http://localhost:8080/dialogs/addDialog",
+      body
+    )
     return response.data
   }
 }

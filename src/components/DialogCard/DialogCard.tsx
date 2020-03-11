@@ -9,22 +9,28 @@ type DialogCardProps = {
   dispatch: any
   thisDialog?: any
   thisUser?: any
+  sendDialog?: any
 }
 
 const DialogCard: React.FunctionComponent<DialogCardProps> = ({
   user,
   dispatch,
   thisDialog,
-  thisUser
+  thisUser,
+  sendDialog
 }) => {
-  useEffect(() => {console.log(thisDialog)})
+  useEffect(() => {
+    console.log(thisDialog)
+  })
 
   const handlerClickOnDialog = () => {
     dispatch(currentDialogAction(thisDialog))
+    // sendDialog(user._id, thisUser._id, thisUser.login)
   }
 
   const handlerClickOnUser = () => {
     // dispatch(getIdCurrentDialog())
+    sendDialog(user._id, thisUser._id, thisUser.login)
   }
 
   return (
