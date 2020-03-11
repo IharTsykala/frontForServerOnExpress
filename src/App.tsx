@@ -26,6 +26,7 @@ import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 import createSagaMiddleware from "redux-saga"
 import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
+import putInStoreNewMessageInCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -37,6 +38,7 @@ const store = createStore(
 )
 
 sagaMiddleware.run(getUserOwnerThisPageForSaga)
+sagaMiddleware.run(putInStoreNewMessageInCurrentDialogSaga)
 
 export const App: React.FC = () => {
   return (

@@ -9,7 +9,7 @@ import { userLogOutAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { userRefreshAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
 import openSocket from "socket.io-client"
-const socket = openSocket("http://localhost:8000")
+// const socket = openSocket("http://localhost:8000")
 
 type NavbarProps = {
   user: User

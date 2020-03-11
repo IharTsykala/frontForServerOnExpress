@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { CurrentDialog } from "../../Redux/interfaces/currentDialog.interface"
@@ -6,9 +6,11 @@ import {Message} from '../../Redux/interfaces/message.interface'
 import openSocket from "socket.io-client"
 import WindowDialogCSS from "./WindowDialog.module.css"
 import ServiceMessage from "../../services/service-message"
-import { listMessagesForCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
-// const socket = openSocket("http://localhost:8000")
-const socket = openSocket("http://localhost:8000/myDialogs")
+import { getAllMessagesCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
+import { getNewMessageInCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
+import { disconnect } from "cluster"
+const socket = openSocket("http://localhost:8000",{reconnection: true})
+// const socket = openSocket("http://localhost:8000/myDialogs")
 
 type WindowDialogProps = {
   user: User
@@ -28,31 +30,50 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
 
   const getMessagesFromBD = async () => {
     const list = await ServiceMessage.getAllMessagesByIdDialog(currentDialog._id)
+    console.log('getMessagesFromBD')
+    dispatch(getAllMessagesCurrentDialogAction(list))  
     setListMessage(list)
+
   }
+  // socket.on("messageDialog2", (message: any) => addMessageState(message))
 
-  socket.on("messageDialog", (message: any) => addMessageState(message))     
+  const connectSocket = async()=> {
+    if (currentDialog._id !== undefined) { 
+      socket.emit("join", currentDialog)
+      socket.on("messageDialog2", (message: any) => {addMessageState(message)
+        // console.log(listMessage)
+      })
+     await getMessagesFromBD()   
+    //  socket.on("messageDialog2", (message: any) => addMessageState(message))           
+     setValueInput("")      
+  }
+}
 
-  useEffect(() => { 
-    // console.log(listMessagesForCurrentDialog)
-    // dispatch(listMessagesForCurrentDialogAction([]))
-    if (currentDialog._id !== undefined) {
-      socket.emit('join', currentDialog)
-      socket.on("messageDialog", (message: any) => addMessageState(message))
-      getMessagesFromBD()              
-      setValueInput("")
+  const render = useCallback(async () => {
+    try {     
+     await connectSocket()
+    } catch (e) {
+      console.log(e)
     }
-    return () => {
-      socket.disconnect();
+  }, [currentDialog])
+  
+  
+
+  useEffect(() => {  
+    console.log(1)   
+   render()
+    return () => {      
+      socket.emit('end') 
     };
     
-  }, [currentDialog])
+  }, [render])
 
-  const addMessageState = (message: any) => {    
-    let newArr = [...listMessage, message]
-    // let newArr = [...listMessagesForCurrentDialog, message]       
-    setListMessage(newArr)    
-    // dispatch(listMessagesForCurrentDialogAction(newArr))
+  function addMessageState (message: any) { 
+    console.log(message)  
+    dispatch(getNewMessageInCurrentDialogAction(message))  
+   
+    let newArr = [...listMessage, message]    
+    setListMessage(newArr)   
   } 
   
   function sendMessage(e: any) {

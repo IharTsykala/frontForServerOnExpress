@@ -11,12 +11,18 @@ const initialState: State = {
 
 export const listMessagesForCurrentDialogReducer = (state: State = initialState, action: Action<[]>) => {
   switch (action.type) {
-    case ActionTypes.ALL_MESSAGE_FOR_CURRENT_DIALOG:
+    case ActionTypes.PUT_IN_STORE_ALL_MESSAGES_FOR_CURRENT_DIALOG:
       return {
         ...state,
         listMessagesForCurrentDialog: action.payload
+      }
+      case ActionTypes.PUT_IN_STORE_NEW_MESSAGE_FOR_CURRENT_DIALOG:
+      return {
+        ...state,
+        message: action.payload
       }  
     default:
       return state
   }
+
 }
