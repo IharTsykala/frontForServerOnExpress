@@ -124,8 +124,8 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
         <>
           <div className={GetAllUsersCSS.container__all_users__header}>
             <Search
-              handlerInputSearchBox={handlerInputSearchBox}
-              valueSearchBox={valueSearchBox}
+              // handlerInputSearchBox={handlerInputSearchBox}
+              // valueSearchBox={valueSearchBox}
             />
             <h2>Make friends</h2>
             <Checkbox

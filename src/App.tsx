@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
-import allUsers from "./pages/allUsers/allUsers"
+import AllUsersPage from "./pages/allUsersPage/allUsersPage"
 import GetUserByID from "./pages/GetUserByID/GetUserByID"
 import GetLoginPage from "./pages/GetLoginPage/GetLoginPage"
 import GetLogUpPage from "./pages/GetLogUpPage/GetLogUpPage"
@@ -26,7 +26,7 @@ import { createStore, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 import createSagaMiddleware from "redux-saga"
 import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
-import putInStoreNewMessageInCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
+import putInStoreNewMessageforCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -38,7 +38,7 @@ const store = createStore(
 )
 
 sagaMiddleware.run(getUserOwnerThisPageForSaga)
-sagaMiddleware.run(putInStoreNewMessageInCurrentDialogSaga)
+sagaMiddleware.run(putInStoreNewMessageforCurrentDialogSaga)
 
 export const App: React.FC = () => {
   return (
@@ -59,7 +59,7 @@ export const App: React.FC = () => {
             />
             <PrivateRoute
               {...defaultPrivateRouteProps}
-              component={allUsers}
+              component={AllUsersPage}
               path="/user/allUsers"
               exact
             />

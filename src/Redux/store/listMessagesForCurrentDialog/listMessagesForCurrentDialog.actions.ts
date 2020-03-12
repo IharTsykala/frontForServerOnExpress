@@ -3,11 +3,11 @@ import {Message} from "../../interfaces/message.interface"
 
 export const ActionTypes = {
   ALL_MESSAGE_FOR_CURRENT_DIALOG: "[listMessagesForCurrentDialog] list messages for current dialog",
-  GET_ALL_MESSAGES_FOR_CURRENT_DIALOG: "[ getAllMessagesCurrentDialogAction]  get all messages current dialog action",
-  PUT_IN_STORE_ALL_MESSAGES_FOR_CURRENT_DIALOG: "[putInStoreAllMessagesCurrentDialogAction] put in store all messages current dialog action",
+  GET_ALL_MESSAGES_FOR_CURRENT_DIALOG: "[ getAllMessagesCurrentDialogAction]  get all messages for current dialog action",
+  PUT_IN_STORE_ALL_MESSAGES_FOR_CURRENT_DIALOG: "[putInStoreAllMessagesCurrentDialogAction] put in store all messages for current dialog action",
 
-  GET_NEW_MESSAGE_FOR_CURRENT_DIALOG: "[getNewMessageInCurrentDialog] get new message in currentDialog" ,
-  PUT_IN_STORE_NEW_MESSAGE_FOR_CURRENT_DIALOG: "[getNewMessageInCurrentDialog] get new message in currentDialog",
+  GET_NEW_MESSAGE_FOR_CURRENT_DIALOG: "[getNewMessageForCurrentDialog] get new message for currentDialog" ,
+  PUT_IN_STORE_NEW_MESSAGE_FOR_CURRENT_DIALOG: "[putInStoreNewMessageForCurrentDialogAction] put in store new message for current dialog action",
   GET_FAILURE: "[getFailureAction] get failure action"
 }
 
@@ -26,14 +26,14 @@ export const putInStoreAllMessagesCurrentDialogAction = (allMessagesCurrentDialo
   payload: allMessagesCurrentDialogAction
 })
 
-export const getNewMessageInCurrentDialogAction = (newMessageInCurrentDialog: Message): Action<{}> => ({ 
+export const getNewMessageForCurrentDialogAction = (newMessageForCurrentDialog: Message): Action<{}> => ({ 
   type: ActionTypes.GET_NEW_MESSAGE_FOR_CURRENT_DIALOG,
-  payload: newMessageInCurrentDialog
+  payload: newMessageForCurrentDialog
 })
 
-export const putInStoreNewMessageInCurrentDialogAction = (newMessageInCurrentDialog: Message): Action<{}> => ({
+export const putInStoreNewMessageForCurrentDialogAction = (newMessageForCurrentDialog: Message): Action<{}> => ({
   type: ActionTypes.PUT_IN_STORE_NEW_MESSAGE_FOR_CURRENT_DIALOG,
-  payload: newMessageInCurrentDialog
+  payload: newMessageForCurrentDialog
 })
 
 export const getFailureAction = (error?: any): Action<any> => ({

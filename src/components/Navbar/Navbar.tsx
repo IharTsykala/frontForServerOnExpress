@@ -88,7 +88,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
           )}
           <ul className="right hide-on-med-and-down">
           <li>
-              <NavLink to={`/user/all`}>All Users</NavLink>
+              <NavLink to={`/user/allUsers`}>All Users</NavLink>
             </li>
             <li>
               <NavLink to={`/${user._id}/dialogs`}>My Dialogs</NavLink>

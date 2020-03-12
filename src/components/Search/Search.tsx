@@ -3,22 +3,20 @@ import InputBase from "@material-ui/core/InputBase"
 import SearchIcon from "@material-ui/icons/Search"
 import SearchCSS from "./Search.module.css"
 
-type handlerInputSearchBoxProps = {
-  handlerInputSearchBox: any
-  valueSearchBox: any
-}
 
-const Search: React.FC<handlerInputSearchBoxProps> = ({
-  handlerInputSearchBox,
-  valueSearchBox
-}) => {
+const Search: React.FC = () => {
+
+  const handlerInputSearchBox = (e: any) => {
+    // setValueSearchBox(e.target.value)
+  }
+
   return (
     <div className={SearchCSS.all_users__header_block__search_box}>
       <SearchIcon />
       <InputBase
         id="InputBase"
         className={SearchCSS.all_users__header_block__search_box__input}
-        value={valueSearchBox}
+        // value={valueSearchBox}
         onInput={e => handlerInputSearchBox(e)}
         placeholder="Search…"
       />
