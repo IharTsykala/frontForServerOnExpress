@@ -7,7 +7,7 @@ import WindowDialogCSS from "./WindowDialog.module.css"
 import ServiceMessage from "../../services/service-message"
 import { getAllMessagesCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
 import { getNewMessageForCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
-const socket = openSocket("http://localhost:8000", {reconnection: true})
+const socket = openSocket("http://localhost:8000", { reconnection: true })
 // const socket = openSocket("http://localhost:8000/myDialogs")
 
 type WindowDialogProps = {
@@ -26,46 +26,44 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   // const [listMessage, setListMessage]: any = useState([])
   const [valueInput, setValueInput]: any = useState("")
 
-  const getMessagesFromBD = useCallback( async () => {
+  const getMessagesFromBD = useCallback(async () => {
     const list = await ServiceMessage.getAllMessagesByIdDialog(
       currentDialog._id
-    )    
-    dispatch(getAllMessagesCurrentDialogAction(list))    
+    )
+    dispatch(getAllMessagesCurrentDialogAction(list))
     // setListMessage(list)
   }, [currentDialog._id, dispatch])
- 
-  const addMessageState = useCallback( (message: any) => {
-    try {      
-      // setListMessage((prevState:any)=>{
-      //   return [...prevState, message]
-      // })  
-      dispatch(getNewMessageForCurrentDialogAction(
-       message
-      ))    
-    } catch (e) {
-      console.log(e)
-    }
-  }, [dispatch])
+
+  const addMessageState = useCallback(
+    (message: any) => {
+      try {
+        // setListMessage((prevState:any)=>{
+        //   return [...prevState, message]
+        // })
+        dispatch(getNewMessageForCurrentDialogAction(message))
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    [dispatch]
+  )
 
   useEffect(() => {
     socket.on("reseaveMessageDialog", (message: any) => {
-      addMessageState(message)      
-    })     
+      addMessageState(message)
+    })
   }, [addMessageState])
 
-  const joinInRoom = useCallback(
-    async () => {
-      socket.emit("join", currentDialog)
-      await getMessagesFromBD()
-      setValueInput("")
-    },
-    [currentDialog, getMessagesFromBD]
-  )
+  const joinInRoom = useCallback(async () => {
+    socket.emit("join", currentDialog)
+    await getMessagesFromBD()
+    setValueInput("")
+  }, [currentDialog, getMessagesFromBD])
 
   useEffect(() => {
     if (currentDialog._id !== undefined) {
       joinInRoom()
-    }   
+    }
     return () => {
       socket.emit("end")
     }
@@ -79,7 +77,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       authorId: user._id,
       message: valueInput
     }
-    socket.emit("messageDialog", message)    
+    socket.emit("messageDialog", message)
     setValueInput("")
   }
 

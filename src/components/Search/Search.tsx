@@ -3,9 +3,7 @@ import InputBase from "@material-ui/core/InputBase"
 import SearchIcon from "@material-ui/icons/Search"
 import SearchCSS from "./Search.module.css"
 
-
 const Search: React.FC = () => {
-
   const handlerInputSearchBox = (e: any) => {
     // setValueSearchBox(e.target.value)
   }

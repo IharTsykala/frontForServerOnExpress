@@ -124,8 +124,8 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
         <>
           <div className={GetAllUsersCSS.container__all_users__header}>
             <Search
-              // handlerInputSearchBox={handlerInputSearchBox}
-              // valueSearchBox={valueSearchBox}
+            // handlerInputSearchBox={handlerInputSearchBox}
+            // valueSearchBox={valueSearchBox}
             />
             <h2>Make friends</h2>
             <Checkbox
@@ -138,7 +138,8 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
           </div>
 
           <ul className={GetAllUsersCSS.container__all_users__cards}>
-            {allUsers&&allUsers.length > 0 &&
+            {allUsers &&
+              allUsers.length > 0 &&
               users.map((userOwnerCard: any) => {
                 return (
                   userOwnerCard._id !== user._id && (

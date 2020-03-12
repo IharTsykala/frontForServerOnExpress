@@ -11,49 +11,44 @@ import PaginationBlock from "../../../components/PaginationBlock/PaginationBlock
 import { setValuesForPaginationAction } from "../../../Redux/store/pagination/pagination.actions"
 
 type MainAllUsersBlockProps = {
-    user: User
-    dispatch: any
-    allUsers: []
+  user: User
+  dispatch: any
+  allUsers: []
+}
+
+const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
+  user,
+  dispatch,
+  allUsers
+}) => {
+  const [load, setLoad]: any = useState("loading")
+
+  const render = useCallback(async () => {
+    try {
+      // Need will made saga
+      // await getLogInUserAllSubscriptionsAndObserver()
+      setLoad("loaded")
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+
+  useEffect(() => {
+    render()
+  }, [render, user])
+
+  const removeHandler = async (id: number) => {
+    setLoad("loading")
+    await Service.removeHandler(id)
+    // await getLogInUserAllSubscriptionsAndObserver()
   }
 
-const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = (
-    { 
-      user,
-    dispatch,
-    allUsers
-}
-) => {    
-    
-    const [load, setLoad]: any = useState("loading")    
-  
-    const render = useCallback(async () => {
-      try {
-        // Need will made saga
-        // await getLogInUserAllSubscriptionsAndObserver()
-        setLoad("loaded")
-      } catch (e) {
-        console.log(e)
-      }
-    }, [])
-  
-    useEffect(() => {
-      render()
-    }, [render, user])
-  
-  
-    const removeHandler = async (id: number) => {
-      setLoad("loading")
-      await Service.removeHandler(id)
-      // await getLogInUserAllSubscriptionsAndObserver()
-    }  
-    
-    const getLogInUserAllSubscriptionsAndObserver = () => {
+  const getLogInUserAllSubscriptionsAndObserver = () => {}
 
-    }
-
-    return (
-      <ul className={ MainAllUsersBlockPageCSS.container__all_users__cards}>
-      {allUsers&&allUsers.length > 0 &&
+  return (
+    <ul className={MainAllUsersBlockPageCSS.container__all_users__cards}>
+      {allUsers &&
+        allUsers.length > 0 &&
         allUsers.map((userOwnerCard: any) => {
           return (
             userOwnerCard._id !== user._id && (
@@ -69,7 +64,7 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = (
           )
         })}
     </ul>
-    )
+  )
 }
 
 const mapStateToProps = (state: any) => ({
