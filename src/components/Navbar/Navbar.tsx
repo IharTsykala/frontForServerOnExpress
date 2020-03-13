@@ -56,13 +56,13 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
     <>
       {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
 
-      <nav className="navbar_container">
-        <div className="nav-wrapper purple darken-2 px1">
+      <nav className={`${NavbarCSS.navbar_container} navbar_container`}>
+        {/* <div className={NavbarCSS.navbar__avatar}> */}
           {stateLoading === "notFound" && <p>not found</p>}
 
           {stateLoading === "loaded" && user.login && (
             <>
-              <a href="/" className="brand-logo">
+              <a href="/" className={`${NavbarCSS.navbar__avatar__brand_logo} brand-logo`}>
                 {`Hello, ${user.login}`}
               </a>
               {user.avatar && (
@@ -123,7 +123,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
               </>
             )}
           </ul>
-        </div>
+        {/* </div> */}
       </nav>
 
       {stateLoading === "error" && <h1>ошибка</h1>}

@@ -1,22 +1,16 @@
 .all_users__header_block__search_box {    
-    height: 30px;
-    width: 200px;
     display: grid;
-    grid-template-columns: 10% 90%;
-    justify-content: end;
-    position: absolute;
-    margin-left: 5%;
+    grid-template-columns: 10% 90%;    
 }
 
 .all_users__header_block__search_box svg {
-     margin-top: 30px;
+     margin-top: 10px;
     margin-left: 20px;  
     
 } 
 
 .all_users__header_block__search_box__input{
 padding-left: 30px;
-margin-top: 10px;
 border-bottom-width: 1px;
 }
 

@@ -1,7 +1,8 @@
 .container__all_users {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     height: 100%;
     display: grid;
-    grid-template-rows: 10% 80% 10%;
-       
+    grid-template-rows: 10% 1fr 10%;       
   }
+
+

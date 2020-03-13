@@ -5,24 +5,27 @@ import InputLabel from "@material-ui/core/InputLabel"
 import { connect } from "react-redux"
 import { Pagination } from "../../Redux/interfaces/pagination.interface"
 import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
+import Button from '@material-ui/core/Button';
 
 type PaginationBlockProps = {
   pagination: Pagination
-  dispatch: any
-  checked: Boolean
-  valueSearchBox: String | ""
-  getUserAfterPaginationAndSearchAndFilter: any
-  prevChecked: Boolean
+  // dispatch: any
+  // checked: Boolean
+  // valueSearchBox: String | ""
+  // getUserAfterPaginationAndSearchAndFilter: any
+  // prevChecked: Boolean
 }
 
-const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
+const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = (
+  // {
   pagination,
-  dispatch,
-  checked,
-  valueSearchBox,
-  getUserAfterPaginationAndSearchAndFilter,
-  prevChecked
-}) => {
+  // dispatch,
+  // checked,
+  // valueSearchBox,
+  // getUserAfterPaginationAndSearchAndFilter,
+  // prevChecked
+// }
+) => {
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
   const [timerId, setTimerId]: any = useState(undefined)
@@ -30,92 +33,94 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   const [users, setUsers]: any = useState(undefined)
 
   useEffect(() => {
-    dispatch(
-      setValuesForPaginationAction({
-        numberPage: 1,
-        limitUsersForRender: limitRender
-      })
-    )
+    // dispatch(
+    //   setValuesForPaginationAction({
+    //     numberPage: 1,
+    //     limitUsersForRender: limitRender
+    //   })
+    // )
     // call function after click checkbox or search. refund value
-    if (
-      numberPage !== 1 ||
-      prevChecked ||
-      valueSearchBox.length > 2 ||
-      checked
-    ) {
-      clearTimeout(timerId)
-      const clearInterval = setTimeout(async () => {
-        const users = await getUserAfterPaginationAndSearchAndFilter(
-          1,
-          limitRender
-        )
-        setUsers(users)
-      }, 500)
+    // if (
+    //   numberPage !== 1 ||
+    //   prevChecked ||
+    //   valueSearchBox.length > 2 ||
+    //   checked
+    // ) {
+    //   clearTimeout(timerId)
+    //   const clearInterval = setTimeout(async () => {
+    //     // const users = await getUserAfterPaginationAndSearchAndFilter(
+    //       1,
+    //       limitRender
+    //     )
+    //     setUsers(users)
+    //   }, 500)
       setPrevCountUsers(undefined)
       setTimerId(clearInterval)
-    }
-  }, [checked, valueSearchBox.length > 2 && valueSearchBox])
+    // }
+  }, [
+    // checked, valueSearchBox.length > 2 && valueSearchBox
+  ])
 
   const handleChangeSelect = async (newLimitRender: any) => {
-    dispatch(
-      setValuesForPaginationAction({
-        numberPage:
-          Math.ceil((+numberPage * +limitRender) / +newLimitRender) || 1,
-        limitUsersForRender: +newLimitRender
-      })
-    )
-    let users = await getUserAfterPaginationAndSearchAndFilter(
-      Math.ceil((+numberPage * +limitRender) / +newLimitRender) || 1,
-      +newLimitRender
-    )
-    setUsers(users)
-    if (users && users[0] && users[0].countUsers !== undefined)
-      setPrevCountUsers(users[0].countUsers)
-    else {
-      if (prevCountUsers) {
-        dispatch(
-          setValuesForPaginationAction({
-            numberPage: Math.ceil(prevCountUsers / +newLimitRender) || 1,
-            limitUsersForRender: +newLimitRender
-          })
-        )
-        users = await getUserAfterPaginationAndSearchAndFilter(
-          Math.ceil(prevCountUsers / +newLimitRender) || 1,
-          +newLimitRender
-        )
-        setUsers(users)
-      }
-    }
+    // dispatch(
+    //   setValuesForPaginationAction({
+    //     numberPage:
+    //       Math.ceil((+numberPage * +limitRender) / +newLimitRender) || 1,
+    //     limitUsersForRender: +newLimitRender
+    //   })
+    // )
+    // let users = await getUserAfterPaginationAndSearchAndFilter(
+    //   Math.ceil((+numberPage * +limitRender) / +newLimitRender) || 1,
+    //   +newLimitRender
+    // )
+    // setUsers(users)
+    // if (users && users[0] && users[0].countUsers !== undefined)
+    //   setPrevCountUsers(users[0].countUsers)
+    // else {
+    //   if (prevCountUsers) {
+    //     dispatch(
+    //       setValuesForPaginationAction({
+    //         numberPage: Math.ceil(prevCountUsers / +newLimitRender) || 1,
+    //         limitUsersForRender: +newLimitRender
+    //       })
+    //     )
+    //     users = await getUserAfterPaginationAndSearchAndFilter(
+    //       Math.ceil(prevCountUsers / +newLimitRender) || 1,
+    //       +newLimitRender
+    //     )
+    //     setUsers(users)
+    //   }
+    // }
   }
 
   const handlerClickPrevPage = async () => {
-    if (numberPage > 1) {
-      dispatch(
-        setValuesForPaginationAction({
-          numberPage: +numberPage - 1,
-          limitUsersForRender: limitRender
-        })
-      )
-      const users = await getUserAfterPaginationAndSearchAndFilter(
-        +numberPage - 1,
-        limitRender
-      )
-      setUsers(users)
-    }
+    // if (numberPage > 1) {
+    //   dispatch(
+    //     setValuesForPaginationAction({
+    //       numberPage: +numberPage - 1,
+    //       limitUsersForRender: limitRender
+    //     })
+    //   )
+    //   const users = await getUserAfterPaginationAndSearchAndFilter(
+    //     +numberPage - 1,
+    //     limitRender
+    //   )
+    //   setUsers(users)
+    // }
   }
 
   const handlerClickNextPage = async () => {
-    dispatch(
-      setValuesForPaginationAction({
-        numberPage: +numberPage + 1,
-        limitUsersForRender: limitRender
-      })
-    )
-    const users = await getUserAfterPaginationAndSearchAndFilter(
-      +numberPage + 1,
-      limitRender
-    )
-    setUsers(users)
+    // dispatch(
+    //   setValuesForPaginationAction({
+    //     numberPage: +numberPage + 1,
+    //     limitUsersForRender: limitRender
+    //   })
+    // )
+    // const users = await getUserAfterPaginationAndSearchAndFilter(
+    //   +numberPage + 1,
+    //   limitRender
+    // )
+    // setUsers(users)
   }
 
   return (
@@ -128,7 +133,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
         </InputLabel>
         <Select
           native
-          value={limitRender || 0}
+          // value={limitRender || 0}
           onChange={e => handleChangeSelect(e.target.value)}
           labelWidth={40}
           inputProps={{
@@ -145,15 +150,27 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       <div
         className={PaginationBlockCSS.All_Users__Pagination_Block__Button_block}
       >
-        {numberPage > 1 && (
-          <button onClick={() => handlerClickPrevPage()}>prev</button>
+        {
+        // numberPage > 1 &&
+         (
+          <Button variant="outlined" component="span">
+          Prev
+        </Button>
+          // <button onClick={() => handlerClickPrevPage()}>prev</button>
         )}
-        <div>{numberPage}</div>
-        {users &&
-          users[0] &&
-          users[0].countPage !== undefined &&
-          users[0].countPage > numberPage && (
-            <button onClick={() => handlerClickNextPage()}>next</button>
+        <div>
+          {/* {numberPage} */}
+          </div>
+        {
+        // users &&
+          // users[0] &&
+          // users[0].countPage !== undefined &&
+          // users[0].countPage > numberPage && 
+          (
+            <Button variant="outlined" component="span">
+          Next
+        </Button>
+            // <button onClick={() => handlerClickNextPage()}>next</button>
           )}
       </div>
     </section>

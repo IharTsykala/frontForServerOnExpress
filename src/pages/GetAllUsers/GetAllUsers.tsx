@@ -156,12 +156,12 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
               })}
           </ul>
           <PaginationBlock
-            checked={checked}
-            valueSearchBox={valueSearchBox}
-            getUserAfterPaginationAndSearchAndFilter={
-              getUserAfterPaginationAndSearchAndFilter
-            }
-            prevChecked={prevChecked}
+            // checked={checked}
+            // valueSearchBox={valueSearchBox}
+            // getUserAfterPaginationAndSearchAndFilter={
+            //   getUserAfterPaginationAndSearchAndFilter
+            // }
+            // prevChecked={prevChecked}
           />
         </>
       )}

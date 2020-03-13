@@ -27,6 +27,7 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import createSagaMiddleware from "redux-saga"
 import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
 import putInStoreNewMessageforCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
+import putInStoreAllUsersSaga from "./Redux/store/allUsers/AllUsers.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -39,12 +40,14 @@ const store = createStore(
 
 sagaMiddleware.run(getUserOwnerThisPageForSaga)
 sagaMiddleware.run(putInStoreNewMessageforCurrentDialogSaga)
+sagaMiddleware.run(putInStoreAllUsersSaga)
 
 export const App: React.FC = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Navbar />
+      <div className = 'wrapper'>
+      <Navbar />
         <main className="main">
           <Switch>
             <Route component={DialogsPage} path="/:id/dialogs" exact />
@@ -96,6 +99,7 @@ export const App: React.FC = () => {
             <Route path="*" component={NotFound} />
           </Switch>
         </main>
+      </div>      
       </BrowserRouter>
     </Provider>
   )

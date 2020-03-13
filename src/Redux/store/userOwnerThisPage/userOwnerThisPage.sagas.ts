@@ -14,6 +14,7 @@ function* setUserOwnerThisPage(actions: any) {
     yield put(getFailureAction(e))
   }
 }
+
 export default function* getUserOwnerThisPageForSaga() {
   yield takeEvery(
     ActionTypes.GET_USER_OWNER_THIS_PAGE_FOR_SAGAS,

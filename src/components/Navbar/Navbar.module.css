@@ -1,3 +1,14 @@
+.navbar_container {
+ height: 100%;
+ padding-top: 1%;
+ background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 12%, rgba(0,212,255,1) 100%);
+}
+
+/* .navbar__avatar__brand_logo {
+  font-size: 80px;
+} */
+
 .navbar__avatar {
   width: 96px;
   margin-left: 330px;

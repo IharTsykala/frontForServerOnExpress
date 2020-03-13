@@ -24,18 +24,33 @@ const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = (
     <div className={headerAllUsersPageCSS.container__all_users__header}>
       <Search />
       <h2>Make friends</h2>
-      <Checkbox
-        // checked={checked}
-        // onClick={() => handleClickFriendCheckBox()}
-        className={
-          headerAllUsersPageCSS.container__all_users__header__sort_checkbox
-        }
-      />
+      <div className={headerAllUsersPageCSS.container__all_users__header__checkboxBlock}>
+        <p>Filter</p>
+<Checkbox
+  // checked={checked}
+  // onClick={() => handleClickFriendCheckBox()}
+  className={
+    headerAllUsersPageCSS.container__all_users__header__sort_checkbox
+  }            
+/>
+</div>
     </div>
   )
 }
 
 export default HeaderAllUsersBlock
+
+{/* <Search />
+<h3>Make friends</h3>
+<div className={headerAllUsersPageCSS.container__all_users__header__checkboxBlock}>
+<Checkbox
+  // checked={checked}
+  // onClick={() => handleClickFriendCheckBox()}
+  className={
+    headerAllUsersPageCSS.container__all_users__header__sort_checkbox
+  }            
+/>
+</div> */} 
 
 // this need carry out in sagas// this need carry out in sagas// this need carry out in sagas
 // this need carry out in sagas// this need carry out in sagas// this need carry out in sagas
