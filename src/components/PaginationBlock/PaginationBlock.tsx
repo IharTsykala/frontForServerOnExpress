@@ -26,8 +26,8 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = (
   // prevChecked
 // }
 ) => {
-  const limitRender = pagination.limitUsersForRender
-  const { numberPage } = pagination
+  // const limitRender = pagination.limitUsersForRender
+  // const { numberPage } = pagination
   const [timerId, setTimerId]: any = useState(undefined)
   const [prevCountUsers, setPrevCountUsers]: any = useState(undefined)
   const [users, setUsers]: any = useState(undefined)

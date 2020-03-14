@@ -3,22 +3,22 @@ import headerAllUsersPageCSS from "./headerAllUsersPage.module.css"
 import Search from "../../../components/Search/Search"
 import Checkbox from "@material-ui/core/Checkbox"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { AllUsersAction } from "../../../Redux/store/allUsers/allUsers.actions"
+import { CheckBoxState } from "../../../Redux/interfaces/checkBoxState.interface"
+import { changeCheckBoxStateAction } from "../../../Redux/store/checkBoxState/checkBoxState.actions"
 
 type HeaderAllUsersBlockProps = {
-  // user: User
+  checkBoxState: CheckBoxState
   // dispatch: any
   // allUsers: []
   // getLogInUserAllSubscriptionsAndObserver:any
 }
 
-const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = () => {
-  // const handleClickFriendCheckBox = async () => {
-  //     // Need read dispatch action
-  //   setPrevChecked(checked)
-  //   setChecked(!checked)
-  // }
+const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = ({checkBoxState}) => {
+  const handleClickFriendCheckBox = async () => {
+      // Need read dispatch action
+    // setPrevChecked(checkBoxState)
+    changeCheckBoxStateAction(checkBoxState)
+  }
 
   return (
     <div className={headerAllUsersPageCSS.container__all_users__header}>
@@ -27,8 +27,8 @@ const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = (
       <div className={headerAllUsersPageCSS.container__all_users__header__checkboxBlock}>
         <p>Filter</p>
 <Checkbox
-  // checked={checked}
-  // onClick={() => handleClickFriendCheckBox()}
+  checked={checkBoxState}
+  onClick={() => handleClickFriendCheckBox()}
   className={
     headerAllUsersPageCSS.container__all_users__header__sort_checkbox
   }            
@@ -38,7 +38,13 @@ const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = (
   )
 }
 
-export default HeaderAllUsersBlock
+const mapStateToProps = (state: any) => ({
+  checkBoxState: state.checkBoxState.checkBoxState.checkBoxState
+})
+
+export default connect(mapStateToProps)(HeaderAllUsersBlock)
+
+// export default HeaderAllUsersBlock
 
 {/* <Search />
 <h3>Make friends</h3>

@@ -6,6 +6,8 @@ import { allUserReducer } from "./allUsers/allUsers.reducer"
 import { currentDialogReducer } from "./currentDialog/currentDialog.reducer"
 import { listMessagesForCurrentDialogReducer } from "./listMessagesForCurrentDialog/listMessagesForCurrentDialog.reducer"
 import { paginationReducer } from "./pagination/pagination.reducer"
+import { checkBoxStateReducer } from "./checkBoxState/checkBoxState.reducer"
+import { searchStringStateReducer} from "./searchStringState/searchStringState.reducer"
 
 export default combineReducers({
   common: userReducer,
@@ -14,5 +16,7 @@ export default combineReducers({
   allUsers: allUserReducer,
   currentDialog: currentDialogReducer,
   listMessagesForCurrentDialog: listMessagesForCurrentDialogReducer,
-  pagination: paginationReducer
+  pagination: paginationReducer,
+  checkBoxState: checkBoxStateReducer,
+  searchStringState: searchStringStateReducer
 })
