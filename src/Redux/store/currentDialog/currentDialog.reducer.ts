@@ -15,7 +15,7 @@ export const currentDialogReducer = (
   action: Action<{}>
 ) => {
   switch (action.type) {
-    case ActionTypes.ADD_CURRENT_DIALOG:
+    case ActionTypes.ADD_CURRENT_DIALOG:    
       return {
         ...state,
         currentDialog: action.payload

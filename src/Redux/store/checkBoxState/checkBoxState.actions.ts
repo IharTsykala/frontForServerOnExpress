@@ -7,15 +7,15 @@ export const ActionTypes = {
 }
 
 export const setCheckBoxStateAction = (
-  checkBoxState: CheckBoxState
-): Action<CheckBoxState> => ({
+  checkBoxState: boolean
+): Action<boolean> => ({
   type: ActionTypes.SET_CHECK_BOX_STATE,
   payload: checkBoxState
 })
 
 export const changeCheckBoxStateAction = (
-  checkBoxState: CheckBoxState
-): Action<CheckBoxState> => ({
+  // checkBoxState: boolean
+): Action<boolean> => ({
   type: ActionTypes.CHANGE_CHECK_BOX_STATE,
-  payload: checkBoxState
+  // payload: checkBoxState
 })

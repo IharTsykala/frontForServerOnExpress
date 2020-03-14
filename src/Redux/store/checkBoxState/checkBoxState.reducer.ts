@@ -1,19 +1,20 @@
 import { ActionTypes } from "./checkBoxState.actions"
 import { Action } from "../interfaces/action.interface"
-import { CheckBoxState } from "../../interfaces/checkBoxState.interface"
+// import { CheckBoxState } from "../../interfaces/checkBoxState.interface"
 
 export interface State {
-  checkBoxState:  CheckBoxState
+  checkBoxState:  boolean
 }
 
 const initialState: State = {
-  checkBoxState:{checkBoxState:  false} as CheckBoxState
+  checkBoxState:  true
 }
+
 
 export const checkBoxStateReducer = (
   state: State = initialState,
-  action: Action<any>
-) => {
+  action: Action<{}>
+) => {  
   switch (action.type) {
     case ActionTypes.SET_CHECK_BOX_STATE:
       return {
@@ -21,10 +22,11 @@ export const checkBoxStateReducer = (
         checkBoxState: action.payload
       }
     case ActionTypes.CHANGE_CHECK_BOX_STATE:
-      return {
-        ...state,
-        checkBoxState: !action.payload
-      }
+      console.log(1)     
+      // return {
+      //   ...state,        
+      //   checkBoxState: !state.checkBoxState
+      // }
     default:
       return state
   }

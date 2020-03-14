@@ -1,3 +1,3 @@
 export interface CheckBoxState {
-  checkBoxState: Boolean
+  checkBoxState: boolean
 }

@@ -5,48 +5,57 @@ import Checkbox from "@material-ui/core/Checkbox"
 import { connect } from "react-redux"
 import { CheckBoxState } from "../../../Redux/interfaces/checkBoxState.interface"
 import { changeCheckBoxStateAction } from "../../../Redux/store/checkBoxState/checkBoxState.actions"
+import { setCheckBoxStateAction } from "../../../Redux/store/checkBoxState/checkBoxState.actions"
 
 type HeaderAllUsersBlockProps = {
-  checkBoxState: CheckBoxState
+  checkBoxState: boolean
   // dispatch: any
   // allUsers: []
   // getLogInUserAllSubscriptionsAndObserver:any
 }
 
-const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = ({checkBoxState}) => {
+const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = ({
+  checkBoxState
+}) => {
   const handleClickFriendCheckBox = async () => {
-      // Need read dispatch action
+    // Need read dispatch action
     // setPrevChecked(checkBoxState)
-    changeCheckBoxStateAction(checkBoxState)
+    changeCheckBoxStateAction()
+    console.log(checkBoxState)
   }
 
   return (
     <div className={headerAllUsersPageCSS.container__all_users__header}>
       <Search />
       <h2>Make friends</h2>
-      <div className={headerAllUsersPageCSS.container__all_users__header__checkboxBlock}>
+      <div
+        className={
+          headerAllUsersPageCSS.container__all_users__header__checkboxBlock
+        }
+      >
         <p>Filter</p>
-<Checkbox
-  checked={checkBoxState}
-  onClick={() => handleClickFriendCheckBox()}
-  className={
-    headerAllUsersPageCSS.container__all_users__header__sort_checkbox
-  }            
-/>
-</div>
+        <Checkbox
+          checked={checkBoxState}
+          onClick={() => handleClickFriendCheckBox()}
+          className={
+            headerAllUsersPageCSS.container__all_users__header__sort_checkbox
+          }
+        />
+      </div>
     </div>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  checkBoxState: state.checkBoxState.checkBoxState.checkBoxState
+  checkBoxState: state.checkBoxState.checkBoxState
 })
 
 export default connect(mapStateToProps)(HeaderAllUsersBlock)
 
 // export default HeaderAllUsersBlock
 
-{/* <Search />
+{
+  /* <Search />
 <h3>Make friends</h3>
 <div className={headerAllUsersPageCSS.container__all_users__header__checkboxBlock}>
 <Checkbox
@@ -56,7 +65,8 @@ export default connect(mapStateToProps)(HeaderAllUsersBlock)
     headerAllUsersPageCSS.container__all_users__header__sort_checkbox
   }            
 />
-</div> */} 
+</div> */
+}
 
 // this need carry out in sagas// this need carry out in sagas// this need carry out in sagas
 // this need carry out in sagas// this need carry out in sagas// this need carry out in sagas
