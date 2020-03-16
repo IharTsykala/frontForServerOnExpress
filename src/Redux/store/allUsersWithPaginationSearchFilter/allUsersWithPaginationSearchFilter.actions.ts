@@ -3,33 +3,12 @@ import { User } from "../../interfaces/user.interface"
 import { BodyForPagination } from "../../interfaces/bodyForPagination.interface"
 
 export const ActionTypes = {
-  ALL_USERS: "[allUsers] all users",
-
-  GET_ALL_USERS_FOR_SAGAS: "[getAllUsersForSagas] get all users for sagas",
-  PUT_ALL_USERS_IN_STATE: "[putAllUsersInState] put all users in state",
-
   GET_ALL_USERS_WITH_PAGINATION_SEARCH_FILTER:
     "[getAllUsersWithPaginationSearchFilter] get all users with pagination search filter",
   SET_ALL_USERS_WITH_PAGINATION_SEARCH_FILTER:
     "[setAllUsersWithPaginationSearchFilter] set all users with pagination search filter",
-
   GET_FAILURE: "[getFailureAction] get failure action"
 }
-
-export const AllUsersAction = (allUsers: []): Action<[]> => ({
-  type: ActionTypes.ALL_USERS,
-  payload: allUsers
-})
-
-export const getAllUsersForSagasAction = (userId: String): Action<String> => ({
-  type: ActionTypes.GET_ALL_USERS_FOR_SAGAS,
-  payload: userId
-})
-
-export const putAllUsersInStateAction = (allUsers: [User]): Action<any> => ({
-  type: ActionTypes.PUT_ALL_USERS_IN_STATE,
-  payload: allUsers
-})
 
 export const getAllUsersWithPaginationSearchFilterAction = (
   bodyForPagination: BodyForPagination

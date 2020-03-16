@@ -1,11 +1,24 @@
-import React from "react"
+import React, { useState } from "react"
 import InputBase from "@material-ui/core/InputBase"
 import SearchIcon from "@material-ui/icons/Search"
 import SearchCSS from "./Search.module.css"
+import { connect } from "react-redux"
+import {
+  setInitialSearchStringStateAction,
+  setCurrentSearchStringState
+} from "../../Redux/store/searchStringState/searchStringState.actions"
 
-const Search: React.FC = () => {
+type SearchProps = {
+  dispatch: any
+}
+
+const Search: React.FunctionComponent<SearchProps> = ({ dispatch }) => {
+  const [stateValue, setStateValue] = useState("")
   const handlerInputSearchBox = (e: any) => {
-    // setValueSearchBox(e.target.value)
+    setStateValue(e.target.value)
+    if (e.target.value.length > 2)
+      dispatch(setCurrentSearchStringState(e.target.value))
+    else dispatch(setInitialSearchStringStateAction())
   }
 
   return (
@@ -14,7 +27,7 @@ const Search: React.FC = () => {
       <InputBase
         id="InputBase"
         className={SearchCSS.all_users__header_block__search_box__input}
-        // value={valueSearchBox}
+        value={stateValue}
         onInput={e => handlerInputSearchBox(e)}
         placeholder="Search…"
       />
@@ -22,6 +35,8 @@ const Search: React.FC = () => {
   )
 }
 
+const mapStateToProps = (state: any) => ({
+  searchStringState: state.searchStringState.searchStringState
+})
 
-
-export default Search
+export default connect(mapStateToProps)(Search)

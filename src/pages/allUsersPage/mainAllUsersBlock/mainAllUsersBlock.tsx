@@ -1,46 +1,32 @@
-import React, { useEffect, useState, useCallback } from "react"
+import React, { useEffect, useState } from "react"
 import Service from "../../../services/service-user"
 import UserCard from "../../../components/UserCard/UserCard"
 import MainAllUsersBlockPageCSS from "./mainAllUsersBlock.module.css"
-import Search from "../../../components/Search/Search"
-import Checkbox from "@material-ui/core/Checkbox"
 import { connect } from "react-redux"
 import { User } from "../../../Redux/interfaces/user.interface"
-import { AllUsersAction } from "../../../Redux/store/allUsers/allUsers.actions"
-import PaginationBlock from "../../../components/PaginationBlock/PaginationBlock"
-import { setValuesForPaginationAction } from "../../../Redux/store/pagination/pagination.actions"
-import { getAllUsersForSagasAction } from "../../../Redux/store/allUsers/allUsers.actions"
 
 type MainAllUsersBlockProps = {
-  user: User
-  dispatch: any
+  user: User 
   allUsers: []
 }
 
 const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
-  user,
-  dispatch,
+  user,  
   allUsers
 }) => {
   const [load, setLoad]: any = useState("loading")
 
-  const render = useCallback(async () => {
+  useEffect(() => {    
     try {      
-      if(user._id) {    
-        console.log(user._id)  
-      dispatch(getAllUsersForSagasAction(user._id))
+      if(allUsers) {       
       setLoad("loaded")
       } else {
-        dispatch(getAllUsersForSagasAction(''))
+        // This need make notFound
       }
     } catch (e) {
       console.log(e)
     }
-  }, [user._id, dispatch])
-
-  useEffect(() => {    
-    render()
-  }, [render, user])
+  }, [allUsers])  
 
   const removeHandler = async (id: number) => {
     setLoad("loading")

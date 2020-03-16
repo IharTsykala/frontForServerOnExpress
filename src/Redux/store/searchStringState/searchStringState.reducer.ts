@@ -17,9 +17,9 @@ export const searchStringStateReducer = (
     case ActionTypes.SET_INITIAL_SEARCH_STRING_STATE:
       return {
         ...state,
-        searchStringState: initialState
+        searchStringState: initialState.searchStringState
       }
-    case ActionTypes.CHANGE_SEARCH_STRING_STATE:
+    case ActionTypes.SET_CURRENT_SEARCH_STRING_STATE:
       return {
         ...state,
         searchStringState: action.payload

@@ -18,5 +18,6 @@ export default combineReducers({
   listMessagesForCurrentDialog: listMessagesForCurrentDialogReducer,
   pagination: paginationReducer,
   checkBoxState: checkBoxStateReducer,
-  searchStringState: searchStringStateReducer
+  searchStringState: searchStringStateReducer,
+  
 })

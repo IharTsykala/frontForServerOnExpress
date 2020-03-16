@@ -27,7 +27,7 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import createSagaMiddleware from "redux-saga"
 import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
 import putInStoreNewMessageforCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
-import putInStoreAllUsersSaga from "./Redux/store/allUsers/AllUsers.sagas"
+import putInStoreAllUsersSaga from "./Redux/store/allUsers/allUsers.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 

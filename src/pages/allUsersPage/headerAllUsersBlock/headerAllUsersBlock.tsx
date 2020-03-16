@@ -3,25 +3,23 @@ import headerAllUsersPageCSS from "./headerAllUsersPage.module.css"
 import Search from "../../../components/Search/Search"
 import Checkbox from "@material-ui/core/Checkbox"
 import { connect } from "react-redux"
-import { CheckBoxState } from "../../../Redux/interfaces/checkBoxState.interface"
-import { changeCheckBoxStateAction } from "../../../Redux/store/checkBoxState/checkBoxState.actions"
-import { setCheckBoxStateAction } from "../../../Redux/store/checkBoxState/checkBoxState.actions"
+import {
+  changeCheckBoxStateAction,
+  setPrevCheckBoxStateAction
+} from "../../../Redux/store/checkBoxState/checkBoxState.actions"
 
 type HeaderAllUsersBlockProps = {
   checkBoxState: boolean
-  // dispatch: any
-  // allUsers: []
-  // getLogInUserAllSubscriptionsAndObserver:any
+  dispatch: any
 }
 
 const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = ({
-  checkBoxState
+  checkBoxState,
+  dispatch
 }) => {
   const handleClickFriendCheckBox = async () => {
-    // Need read dispatch action
-    // setPrevChecked(checkBoxState)
-    changeCheckBoxStateAction()
-    console.log(checkBoxState)
+    dispatch(setPrevCheckBoxStateAction(checkBoxState))
+    dispatch(changeCheckBoxStateAction())
   }
 
   return (
@@ -51,38 +49,3 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps)(HeaderAllUsersBlock)
-
-// export default HeaderAllUsersBlock
-
-{
-  /* <Search />
-<h3>Make friends</h3>
-<div className={headerAllUsersPageCSS.container__all_users__header__checkboxBlock}>
-<Checkbox
-  // checked={checked}
-  // onClick={() => handleClickFriendCheckBox()}
-  className={
-    headerAllUsersPageCSS.container__all_users__header__sort_checkbox
-  }            
-/>
-</div> */
-}
-
-// this need carry out in sagas// this need carry out in sagas// this need carry out in sagas
-// this need carry out in sagas// this need carry out in sagas// this need carry out in sagas
-
-// it probably dont need
-
-// useEffect(() => {
-//   getFilteredArrayUsers(valueSearchBox)
-// }, [getFilteredArrayUsers, valueSearchBox])
-
-// const getFilteredArrayUsers = useCallback(async (valueSearchBox: any) => {
-//     try {
-//       if (valueSearchBox.length === 2) {
-//         await getLogInUserAllSubscriptionsAndObserver()
-//       }
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }, [getLogInUserAllSubscriptionsAndObserver])

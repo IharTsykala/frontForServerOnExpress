@@ -9,4 +9,5 @@ export interface User {
   avatar: String | ""
   subscriptions: String | ""
   countPage?: Number
+  countUsers?: Number
 }
