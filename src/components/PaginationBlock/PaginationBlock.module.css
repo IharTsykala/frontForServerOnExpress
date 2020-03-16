@@ -1,33 +1,47 @@
-.All_Users__Pagination_Block {    
-    display: grid;
-    grid-template-columns: 30% 70%;    
-    height: 100%;   
+.All_Users__Pagination_Block {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  height: 100%;
 
-    background: rgb(255,255,255);
-    background: -moz-linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(29,176,253,1) 100%, rgba(39,73,172,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(29,176,253,1) 100%, rgba(39,73,172,1) 100%);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 34%, rgba(29,176,253,1) 100%, rgba(39,73,172,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#2749ac",GradientType=1);
+  background: rgb(255, 255, 255);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 34%,
+    rgba(29, 176, 253, 1) 100%,
+    rgba(39, 73, 172, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 34%,
+    rgba(29, 176, 253, 1) 100%,
+    rgba(39, 73, 172, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 34%,
+    rgba(29, 176, 253, 1) 100%,
+    rgba(39, 73, 172, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#2749ac",GradientType=1);
 }
 
 .All_Users__Pagination_Block__Select_block {
-    display: grid;
-    justify-content: center;    
+  display: grid;
+  justify-content: center;
 }
 
 .All_Users__Pagination_Block__Button_block {
-    display: grid;
-    justify-items: center;
-    /* background-color: tomato; */
-    grid-template-columns: 40% 20% 40%;    
-} 
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 40% 20% 40%;
+}
 
 .All_Users__Pagination_Block__Button_block button {
-    width: 60%;
-    font-size: large;   
+  width: 60%;
+  font-size: large;
 }
 
 .All_Users__Pagination_Block__Button_block div {
-    align-self: center;
-    font-size: large;    
+  align-self: center;
+  font-size: large;
 }

@@ -1,10 +1,9 @@
 import React, { useEffect } from "react"
 import Button from "@material-ui/core/Button"
-// import UserAvatarCSS from "./UserAvatar.module.css"
 import { connect } from "react-redux"
 import { User } from "../../../Redux/interfaces/user.interface"
 import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
-import AvatarBlockCSS from './AvatarBlock.module.css'
+import AvatarBlockCSS from "./AvatarBlock.module.css"
 
 type UserAvatarProps = {
   user: User
@@ -50,31 +49,24 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
         )}
       {(user.role === "admin" || homePageStatus) && (
         <>
-         <Button
-              variant="outlined"
-              component="button"
-            //   onClick={(e:any) => handleSubmit(e)}
-            >
-          <label
-            htmlFor="avatarChange"
-            // className={AvatarBlockCSS.profile__change_avatar__form__label}
-          >
-            {" "}
-            Choose avatar
-            <input
-              id="avatarChange"
-              type="file"
-              onChange={e => handleChangeAvatar(e)}
-            />
-          </label>
-          </Button>          
+          <Button variant="outlined" component="button">
+            <label htmlFor="avatarChange">
+              {" "}
+              Choose avatar
+              <input
+                id="avatarChange"
+                type="file"
+                onChange={e => handleChangeAvatar(e)}
+              />
+            </label>
+          </Button>
           <Button
-              variant="outlined"
-              component="button"
-              onClick={(e:any) => handleSubmit(e)}
-            >
+            variant="outlined"
+            component="button"
+            onClick={(e: any) => handleSubmit(e)}
+          >
             <p> Change Avatar </p>
-            </Button>
+          </Button>
         </>
       )}
     </form>

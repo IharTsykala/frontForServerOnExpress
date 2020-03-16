@@ -4,7 +4,7 @@ import AvatarBlock from "./AvatarBlock/AvatarBlock"
 import InformationBlock from "./InformationBlock/InformationBlock"
 import NavigationBlock from "./NavigationBlock/NavigationBlock"
 import AlbumsBlock from "./AlbumsBlock/AlbumsBlock"
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box"
 
 import Service from "../../services/service-user"
 import { connect } from "react-redux"
@@ -16,7 +16,7 @@ import {
   getUserOwnerThisPageActionForSagas
 } from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
-import Container from '@material-ui/core/Container';
+import Container from "@material-ui/core/Container"
 
 type UserInformationPageProps = {
   user: User
@@ -25,23 +25,20 @@ type UserInformationPageProps = {
   userOwnerThisPage: UserOwnerThisPageInterface
 }
 
-  const UserInformationPage: React.FC<UserInformationPageProps> = ({
-    user,
-    dispatch,
-    match,
-    userOwnerThisPage
-  }) => {
-
-    const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
+const UserInformationPage: React.FC<UserInformationPageProps> = ({
+  user,
+  dispatch,
+  match,
+  userOwnerThisPage
+}) => {
+  const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
   const [avatarForFront, setAvatarForFront]: any = useState("")
   const [avatarForBack, setAvatarForBack]: any = useState("")
   const [homePageStatus, setHomePageStatus]: any = useState(false)
   const idUserOwnerPage = match.params.id
-  // console.log(stateLoading)
 
   const render = useCallback(async () => {
     try {
-      // console.log(stateLoading)
       const userOwnerThisPageById = await Service.getUserByID(idUserOwnerPage)
       if (userOwnerThisPageById) {
         dispatch(userOwnerThisPageAction(userOwnerThisPageById))
@@ -86,23 +83,48 @@ type UserInformationPageProps = {
   }
 
   return (
-    <div className={userInformationPageCSS.container__user_information_page}>      
-      <Box component='div' display="grid" p={1} m={1} bgcolor="background.paper" clone>        
-      <AvatarBlock
-            homePageStatus={homePageStatus}
-            avatarForFront={avatarForFront}
-            handleChangeAvatar={handleChangeAvatar}
-            handleSubmit={handleSubmit}
-          />
+    <div className={userInformationPageCSS.container__user_information_page}>
+      <Box
+        component="div"
+        display="grid"
+        p={1}
+        m={1}
+        bgcolor="background.paper"
+        clone
+      >
+        <AvatarBlock
+          homePageStatus={homePageStatus}
+          avatarForFront={avatarForFront}
+          handleChangeAvatar={handleChangeAvatar}
+          handleSubmit={handleSubmit}
+        />
       </Box>
-      <Box component="span" display="block" p={1} m={1} bgcolor="background.paper">
-      <InformationBlock/>
+      <Box
+        component="span"
+        display="block"
+        p={1}
+        m={1}
+        bgcolor="background.paper"
+      >
+        <InformationBlock />
       </Box>
-      <Box component="span" display="block" p={1} m={1} bgcolor="background.paper">
-      <NavigationBlock/>
+      <Box
+        component="span"
+        display="block"
+        p={1}
+        m={1}
+        bgcolor="background.paper"
+      >
+        <NavigationBlock />
       </Box>
-      <Box component="span" display="block" p={1} m={1} bgcolor="background.paper">
-      <AlbumsBlock/>
+      <Box
+        component="span"
+        display="block"
+        p={1}
+        m={1}
+        bgcolor="background.paper"
+      >
+        <AlbumsBlock />
       </Box>
     </div>
   )

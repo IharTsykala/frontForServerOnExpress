@@ -17,7 +17,7 @@ type PaginationBlockProps = {
   dispatch: any
   checked: Boolean
   prevChecked: Boolean
-  valueSearchBox: String | ""  
+  valueSearchBox: String | ""
 }
 
 const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
@@ -27,12 +27,12 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   dispatch,
   checked,
   prevChecked,
-  valueSearchBox  
+  valueSearchBox
 }) => {
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
   const [timerId, setTimerId]: any = useState(undefined)
-  
+
   const getUsersAfterPaginationAndSearchAndFilter = (
     numberPage: Number,
     limitRender: Number
@@ -44,10 +44,10 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       checked,
       limitRender
     }
-    if (limitRender) {      
-      dispatch(getAllUsersWithPaginationSearchFilterAction(body))      
-    } else {      
-      firstRender()      
+    if (limitRender) {
+      dispatch(getAllUsersWithPaginationSearchFilterAction(body))
+    } else {
+      firstRender()
       dispatch(
         setValuesForPaginationAction({
           numberPage: 1,
@@ -60,7 +60,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   const firstRender = useCallback(async () => {
     try {
       if (user._id) dispatch(getAllUsersForSagasAction(user._id))
-      else dispatch(getAllUsersForSagasAction(""))      
+      else dispatch(getAllUsersForSagasAction(""))
     } catch (e) {
       console.log(e)
     }
@@ -77,45 +77,37 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
         limitUsersForRender: limitRender
       })
     )
-    
     // call function after click checkbox or search
-    if (prevChecked!==undefined) {
+    if (prevChecked !== undefined) {
       console.log(1)
       clearTimeout(timerId)
       const clearInterval = setTimeout(async () => {
-        await getUsersAfterPaginationAndSearchAndFilter(
-          1,
-          limitRender
-        )        
-      }, 500)      
+        await getUsersAfterPaginationAndSearchAndFilter(1, limitRender)
+      }, 500)
       setTimerId(clearInterval)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked, valueSearchBox])
 
-  const handleChangeSelect = async (newLimitRender: any) => {    
+  const handleChangeSelect = async (newLimitRender: any) => {
     let page
     if (
       allUsers &&
       allUsers[0] &&
       allUsers[0].countUsers !== undefined &&
-      (+numberPage * +limitRender) > allUsers[0].countUsers)
-     {     
+      +numberPage * +limitRender > allUsers[0].countUsers
+    ) {
       page = Math.ceil(+allUsers[0].countUsers / +newLimitRender)
-    } else {      
+    } else {
       page = Math.ceil((+numberPage * +limitRender) / +newLimitRender)
     }
     dispatch(
       setValuesForPaginationAction({
-        numberPage:
-        page || 1,
+        numberPage: page || 1,
         limitUsersForRender: +newLimitRender
       })
-    )    
-     await getUsersAfterPaginationAndSearchAndFilter(
-      page || 1,
-      +newLimitRender
-    )    
+    )
+    await getUsersAfterPaginationAndSearchAndFilter(page || 1, +newLimitRender)
   }
 
   const handlerClickPrevPage = async () => {
@@ -129,7 +121,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       await getUsersAfterPaginationAndSearchAndFilter(
         +numberPage - 1,
         limitRender
-      )     
+      )
     }
   }
 
@@ -143,7 +135,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
     await getUsersAfterPaginationAndSearchAndFilter(
       +numberPage + 1,
       limitRender
-    )   
+    )
   }
 
   return (
@@ -154,10 +146,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
         <InputLabel htmlFor="outlined-age-native-simple">
           Amount of Users
         </InputLabel>
-        <Select
-          native
-          onChange={e => handleChangeSelect(e.target.value)}          
-        >
+        <Select native onChange={e => handleChangeSelect(e.target.value)}>
           <option value={0}>{"all users"}</option>
           <option value={2}>2</option>
           <option value={4}>4</option>

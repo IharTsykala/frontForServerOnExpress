@@ -1,38 +1,36 @@
 .profile__change_avatar__form {
-    display: grid;
-    grid-template-rows: 74% 10% 10%;
-    row-gap: 1%;
-    margin: 2%;
+  display: grid;
+  grid-template-rows: 74% 10% 10%;
+  row-gap: 1%;
+  margin: 2%;
 }
 
 .profile__change_avatar__form img {
-   max-width: 75%;
-   max-height: 75%;
-   display: grid;
-   align-self: center;
-   justify-self: center;
-   border: 1px solid slateblue;
-   border-radius: 5%;
-   box-shadow:  0 1px 4px rgba(0, 0, 0, .3),
-   -23px 0 20px -23px rgba(0, 0, 0, .8),
-   23px 0 20px -23px rgba(0, 0, 0, .8),
-   0 0 40px rgba(0, 0, 0, .1) inset;
+  max-width: 75%;
+  max-height: 75%;
+  display: grid;
+  align-self: center;
+  justify-self: center;
+  border: 1px solid slateblue;
+  border-radius: 5%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+    -23px 0 20px -23px rgba(0, 0, 0, 0.8), 23px 0 20px -23px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
 .profile__change_avatar__form button {
-    max-width: 70%;
-    width: 75%;
-    background-color: rgb(54, 54, 87);
-    display: grid;    
-    margin: 0 auto;
- }
-
- .profile__change_avatar__form button label {   
-   padding-top: 1.5%;   
-   
+  max-width: 70%;
+  width: 75%;
+  background-color: rgb(54, 54, 87);
+  display: grid;
+  margin: 0 auto;
 }
 
- .profile__change_avatar__form button p {
-     margin: 0;
-     color: rgb(158, 158, 158);    
- }
+.profile__change_avatar__form button label {
+  padding-top: 1.5%;
+}
+
+.profile__change_avatar__form button p {
+  margin: 0;
+  color: rgb(158, 158, 158);
+}

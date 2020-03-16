@@ -7,28 +7,28 @@ import { getAllUsersForSagasAction } from "../../../Redux/store/allUsers/allUser
 
 type MainAllUsersBlockProps = {
   user: User
-  dispatch: any 
+  dispatch: any
   allUsers: []
 }
 
 const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
-  user,  
+  user,
   dispatch,
   allUsers
 }) => {
   const [load, setLoad]: any = useState("loading")
 
-  useEffect(() => {    
-    try {      
-      if(allUsers) {       
-      setLoad("loaded")
+  useEffect(() => {
+    try {
+      if (allUsers) {
+        setLoad("loaded")
       } else {
         // This need make notFound
       }
     } catch (e) {
       console.log(e)
     }
-  }, [allUsers])  
+  }, [allUsers])
 
   const getLogInUserAllSubscriptionsAndObserver = () => {
     dispatch(getAllUsersForSagasAction(user._id))
@@ -36,26 +36,27 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
 
   return (
     <>
-    {load === "loading" && <h1>Ожидайте ответа</h1>}
-    {load === "loaded" && (
-    <ul className={MainAllUsersBlockPageCSS.container__all_users__cards}>
-      {allUsers &&
-        allUsers.length > 0 &&
-        allUsers.map((userOwnerCard: any) => {
-          return (
-            userOwnerCard._id !== user._id && (
-              <UserCard
-                key={userOwnerCard._id}
-                userOwnerCard={userOwnerCard}                
-                getLogInUserAllSubscriptionsAndObserver={
-                  getLogInUserAllSubscriptionsAndObserver
-                }
-              />
-            )
-          )
-        })}
-    </ul>)}
-    {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
+      {load === "loading" && <h1>Ожидайте ответа</h1>}
+      {load === "loaded" && (
+        <ul className={MainAllUsersBlockPageCSS.container__all_users__cards}>
+          {allUsers &&
+            allUsers.length > 0 &&
+            allUsers.map((userOwnerCard: any) => {
+              return (
+                userOwnerCard._id !== user._id && (
+                  <UserCard
+                    key={userOwnerCard._id}
+                    userOwnerCard={userOwnerCard}
+                    getLogInUserAllSubscriptionsAndObserver={
+                      getLogInUserAllSubscriptionsAndObserver
+                    }
+                  />
+                )
+              )
+            })}
+        </ul>
+      )}
+      {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
     </>
   )
 }

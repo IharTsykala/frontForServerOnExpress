@@ -9,7 +9,7 @@ const AllUsersPage: React.FunctionComponent = () => {
     <div className={allUsersPageCSS.container__all_users}>
       <HeaderAllUsersBlock />
       <MainAllUsersBlock />
-      <PaginationBlock/> 
+      <PaginationBlock />
     </div>
   )
 }

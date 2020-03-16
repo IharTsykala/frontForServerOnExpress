@@ -8,8 +8,6 @@ import Service from "../../services/service-user"
 import { userLogOutAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { userRefreshAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
-import openSocket from "socket.io-client"
-// const socket = openSocket("http://localhost:8000")
 
 type NavbarProps = {
   user: User
@@ -26,7 +24,6 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
 
   const getUserForRefresh = async () => {
     try {
-      // console.log(stateLoading)
       if (!user._id && localStorage.getItem("token")) {
         const userLog = await Service.getUserByToken()
         if (userLog) {
@@ -51,84 +48,84 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
       console.log(e)
     }
   }
-  // "/user/profile/:id"
+
   return (
     <>
       {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
 
       <nav className={`${NavbarCSS.navbar_container} navbar_container`}>
-        {/* <div className={NavbarCSS.navbar__avatar}> */}
-          {stateLoading === "notFound" && <p>not found</p>}
+        {stateLoading === "notFound" && <p>not found</p>}
 
-          {stateLoading === "loaded" && user.login && (
+        {stateLoading === "loaded" && user.login && (
+          <>
+            <a
+              href="/"
+              className={`${NavbarCSS.navbar__avatar__brand_logo} brand-logo`}
+            >
+              {`Hello, ${user.login}`}
+            </a>
+            {user.avatar && (
+              <img
+                className={NavbarCSS.navbar__avatar}
+                src={`http://localhost:8080/images/users/${user._id}/${user.avatar}`}
+                alt="avatar"
+              />
+            )}
+            {!user.avatar && (
+              <img
+                className={NavbarCSS.navbar__avatar}
+                src={`http://localhost:8080/images/pattern-avatar.jpg`}
+                alt="avatar"
+              />
+            )}
+          </>
+        )}
+        {!user.login && (
+          <a href="/" className="brand-logo">
+            {`Hello, Incognito`}
+          </a>
+        )}
+        <ul className="right hide-on-med-and-down">
+          <li>
+            <NavLink to={`/user/profile/${user._id}`}>UserProfile</NavLink>
+          </li>
+          <li>
+            <NavLink to={`/user/allUsers`}>All Users</NavLink>
+          </li>
+          <li>
+            <NavLink to={`/${user._id}/dialogs`}>My Dialogs</NavLink>
+          </li>
+          {user.login && (
             <>
-              <a href="/" className={`${NavbarCSS.navbar__avatar__brand_logo} brand-logo`}>
-                {`Hello, ${user.login}`}
-              </a>
-              {user.avatar && (
-                <img
-                  className={NavbarCSS.navbar__avatar}
-                  src={`http://localhost:8080/images/users/${user._id}/${user.avatar}`}
-                  alt="avatar"
-                />
+              {history.location.pathname === "/user/all" && (
+                <li>
+                  <NavLink to={`/user/${user._id}`}>Your Page</NavLink>
+                </li>
               )}
-              {!user.avatar && (
-                <img
-                  className={NavbarCSS.navbar__avatar}
-                  src={`http://localhost:8080/images/pattern-avatar.jpg`}
-                  alt="avatar"
-                />
+
+              {history.location.pathname !== "/user/all" && (
+                <li>
+                  <NavLink to="/user/all">All User</NavLink>
+                </li>
               )}
+
+              <li onClick={() => handlerLogOut()}>
+                <NavLink to="/">Log Out</NavLink>
+              </li>
             </>
           )}
           {!user.login && (
-            <a href="/" className="brand-logo">
-              {`Hello, Incognito`}
-            </a>
+            <>
+              <li>
+                <NavLink to="/LogIn">Log In</NavLink>
+              </li>
+              <li>
+                <NavLink to="/SignUp">Sign Up</NavLink>
+              </li>
+            </>
           )}
-          <ul className="right hide-on-med-and-down">
-          <li>
-              <NavLink to={`/user/profile/${user._id}`}>UserProfile</NavLink>
-          </li>
-          <li>
-              <NavLink to={`/user/allUsers`}>All Users</NavLink>
-            </li>
-            <li>
-              <NavLink to={`/${user._id}/dialogs`}>My Dialogs</NavLink>
-            </li>
-            {user.login && (
-              <>
-                {history.location.pathname === "/user/all" && (
-                  <li>
-                    <NavLink to={`/user/${user._id}`}>Your Page</NavLink>
-                  </li>
-                )}
-
-                {history.location.pathname !== "/user/all" && (
-                  <li>
-                    <NavLink to="/user/all">All User</NavLink>
-                  </li>
-                )}
-
-                <li onClick={() => handlerLogOut()}>
-                  <NavLink to="/">Log Out</NavLink>
-                </li>
-              </>
-            )}
-            {!user.login && (
-              <>
-                <li>
-                  <NavLink to="/LogIn">Log In</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/SignUp">Sign Up</NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-        {/* </div> */}
+        </ul>
       </nav>
-
       {stateLoading === "error" && <h1>ошибка</h1>}
     </>
   )

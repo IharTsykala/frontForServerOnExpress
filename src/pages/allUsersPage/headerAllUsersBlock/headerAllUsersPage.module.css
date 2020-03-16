@@ -1,27 +1,27 @@
-.container__all_users__header {    
-        display: grid;
-        grid-template-columns: 10% 80% 10% ;
-        font-size: 40px;        
-        background-color: white;        
-        align-content: center;
-        color: rgb(2,0,36);
+.container__all_users__header {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  font-size: 40px;
+  background-color: white;
+  align-content: center;
+  color: rgb(2, 0, 36);
 }
 
-.container__all_users__header h2 { 
-    margin: 0;
-    padding: 0;   
-    height: 100%;
-    text-align: center;
+.container__all_users__header h2 {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
 }
 
-.container__all_users__header__checkboxBlock{
-    display: grid;
-    justify-content: center;
+.container__all_users__header__checkboxBlock {
+  display: grid;
+  justify-content: center;
 }
 
 .container__all_users__header__checkboxBlock p {
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    height: 20px;    
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  height: 20px;
 }
