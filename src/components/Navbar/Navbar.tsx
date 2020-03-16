@@ -51,7 +51,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
       console.log(e)
     }
   }
-
+  // "/user/profile/:id"
   return (
     <>
       {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
@@ -87,6 +87,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
             </a>
           )}
           <ul className="right hide-on-med-and-down">
+          <li>
+              <NavLink to={`/user/profile/${user._id}`}>UserProfile</NavLink>
+          </li>
           <li>
               <NavLink to={`/user/allUsers`}>All Users</NavLink>
             </li>

@@ -4,12 +4,12 @@ import { Action } from "../interfaces/action.interface"
 
 export interface State {
   checkBoxState: boolean
-  prevCheckBoxState: boolean
+  prevCheckBoxState: boolean|undefined
 }
 
 const initialState: State = {
   checkBoxState: false,
-  prevCheckBoxState: true
+  prevCheckBoxState: undefined
 }
 
 export const checkBoxStateReducer = (

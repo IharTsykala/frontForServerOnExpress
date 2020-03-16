@@ -1,4 +1,4 @@
 export interface CheckBoxState {
   checkBoxState: boolean
-  prevCheckBoxState: boolean
+  prevCheckBoxState: boolean|undefined
 }

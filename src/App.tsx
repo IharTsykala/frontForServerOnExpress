@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
 import AllUsersPage from "./pages/allUsersPage/allUsersPage"
 import GetUserByID from "./pages/GetUserByID/GetUserByID"
+import UserInformationPage from "./pages/userInformationPage/userInformationPage"
 import GetLoginPage from "./pages/GetLoginPage/GetLoginPage"
 import GetLogUpPage from "./pages/GetLogUpPage/GetLogUpPage"
 import { GetStartPage } from "./pages/GetStartPage/GetStartPage"
@@ -71,7 +72,13 @@ export const App: React.FC = () => {
               component={GetUserByID}
               path="/user/:id"
               exact
-            />
+            /> 
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={UserInformationPage}
+              path="/user/profile/:id"
+              exact
+            />         
             <PrivateRoute
               {...defaultPrivateRouteProps}
               component={GetAlbumByID}

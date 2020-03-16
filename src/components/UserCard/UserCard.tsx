@@ -3,21 +3,22 @@ import UserCardCSS from "./UserCard.module.css"
 import { useHistory } from "react-router-dom"
 import ServiceSubscriptions from "../../services/service-subscribe"
 import ServiceFriends from "../../services/service-friend"
+import Service from "../../services/service-user"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 
 type UserCardProps = {
-  userOwnerCard: any
-  removeHandler: any
-  getLogInUserAllSubscriptionsAndObserver: any
   user: User
+  userOwnerCard: any  
+  getLogInUserAllSubscriptionsAndObserver: any
+  
 }
 
 const UserCard: React.FC<UserCardProps> = ({
-  userOwnerCard,
-  removeHandler,
-  getLogInUserAllSubscriptionsAndObserver,
-  user
+  user,
+  userOwnerCard,  
+  getLogInUserAllSubscriptionsAndObserver
+ 
 }) => {
   const history = useHistory()
 
@@ -44,6 +45,11 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const handlerClickRemoveFriend = async () => {
     await ServiceFriends.removeFriend(user._id, userOwnerCard._id)
+    await getLogInUserAllSubscriptionsAndObserver()
+  }
+
+  const removeHandler = async (id: number) => {    
+    await Service.removeHandler(id)
     await getLogInUserAllSubscriptionsAndObserver()
   }
 

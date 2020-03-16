@@ -146,7 +146,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
                     <UserCard
                       key={userOwnerCard._id}
                       userOwnerCard={userOwnerCard}
-                      removeHandler={removeHandler}
+                      // removeHandler={removeHandler}
                       getLogInUserAllSubscriptionsAndObserver={
                         getLogInUserAllSubscriptionsAndObserver
                       }

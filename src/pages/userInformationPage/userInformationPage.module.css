@@ -1,0 +1,9 @@
+.container__user_information_page {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: repeat(2, 1fr);
+    background: rgb(215,237,255);
+background: radial-gradient(circle, rgba(215,237,255,1) 0%, rgba(255,255,255,1) 43%, rgba(255,255,255,1) 100%);
+}

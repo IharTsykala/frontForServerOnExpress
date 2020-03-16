@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react"
-import Service from "../../../services/service-user"
 import UserCard from "../../../components/UserCard/UserCard"
 import MainAllUsersBlockPageCSS from "./mainAllUsersBlock.module.css"
 import { connect } from "react-redux"
 import { User } from "../../../Redux/interfaces/user.interface"
+import { getAllUsersForSagasAction } from "../../../Redux/store/allUsers/allUsers.actions"
 
 type MainAllUsersBlockProps = {
-  user: User 
+  user: User
+  dispatch: any 
   allUsers: []
 }
 
 const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
   user,  
+  dispatch,
   allUsers
 }) => {
   const [load, setLoad]: any = useState("loading")
@@ -28,13 +30,9 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
     }
   }, [allUsers])  
 
-  const removeHandler = async (id: number) => {
-    setLoad("loading")
-    await Service.removeHandler(id)
-    // await getLogInUserAllSubscriptionsAndObserver()
+  const getLogInUserAllSubscriptionsAndObserver = () => {
+    dispatch(getAllUsersForSagasAction(user._id))
   }
-
-  const getLogInUserAllSubscriptionsAndObserver = () => {}
 
   return (
     <>
@@ -48,8 +46,7 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
             userOwnerCard._id !== user._id && (
               <UserCard
                 key={userOwnerCard._id}
-                userOwnerCard={userOwnerCard}
-                removeHandler={removeHandler}
+                userOwnerCard={userOwnerCard}                
                 getLogInUserAllSubscriptionsAndObserver={
                   getLogInUserAllSubscriptionsAndObserver
                 }
