@@ -5,7 +5,6 @@ import InformationBlock from "./InformationBlock/InformationBlock"
 import NavigationBlock from "./NavigationBlock/NavigationBlock"
 import AlbumsBlock from "./AlbumsBlock/AlbumsBlock"
 import Box from "@material-ui/core/Box"
-
 import Service from "../../services/service-user"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
@@ -16,7 +15,7 @@ import {
   getUserOwnerThisPageActionForSagas
 } from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
-import Container from "@material-ui/core/Container"
+
 
 type UserInformationPageProps = {
   user: User
@@ -52,7 +51,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
       console.log(e)
       setStateLoading(LoadingState.error)
     }
-  }, [])
+  }, [dispatch, idUserOwnerPage, user._id])
 
   useEffect(() => {
     render()
@@ -89,8 +88,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         display="grid"
         p={1}
         m={1}
-        bgcolor="background.paper"
-        clone
+        bgcolor="background.paper"       
       >
         <AvatarBlock
           homePageStatus={homePageStatus}
