@@ -1,11 +1,16 @@
 .dialogs_page__dialog_page__window_dialog {
     display: grid;
     background-color: white;
-    height: 905px;
+    max-height: 100%;
+    min-width: 100%;
     justify-content: center;
     align-content: center;
     color: #7a7a77;
-    border: 2px solid #7a7a77;
+    grid-template-rows: 90% 10%;    
+  }
+
+  .dialogs_page__dialog_page__window_dialog__list_message {
+    width: 80vw;
   }
   
   .dialogs_page__add_dialogs_button {

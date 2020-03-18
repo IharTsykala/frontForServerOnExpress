@@ -19,6 +19,7 @@ const CreateList: React.FC<CreateListProps> = ({
   createListFunction,
   launchTogglePhotoModalWindow
 }) => {
+  
   return (
     <ul className={CreateListCSS.user_profile__create_list__container}>
       {arr.length > 0 &&
@@ -39,6 +40,7 @@ const CreateList: React.FC<CreateListProps> = ({
               editHandler={editHandler}
               idChosenAlbum={idChosenAlbum}
               launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
+              ownerUser={item.ownerUser}
             />
           </li>
         ))}

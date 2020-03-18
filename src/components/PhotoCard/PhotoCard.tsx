@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CardActions from "@material-ui/core/CardActions"
@@ -16,6 +16,7 @@ type UserPhotoCard = {
   editHandler: any
   idChosenAlbum?: any
   launchTogglePhotoModalWindow: any
+  ownerUser: any
 }
 
 const PhotoCard: React.FC<UserPhotoCard> = ({
@@ -26,15 +27,17 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   removeHandler,
   editHandler,
   idChosenAlbum,
-  launchTogglePhotoModalWindow
+  launchTogglePhotoModalWindow,
+  ownerUser
 }) => {
-  return (
-    // <li className={PhotoCardCSS.photoAlbum__photoCard_block}>
+  // console.log(ownerUser)
+   
+  return (    
     <Card className={PhotoCardCSS.photoAlbum__photoCard_block__card}>
       {!idChosenAlbum && (
-        <Link to={`${idItem}/album`}>
+        <Link to={`/user/${idItem}/album`}>
           <CardMedia
-            image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
+            image={`http://localhost:8080/images/users/${ownerUser}/${urlItem}`}
             title="Image title"
             className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           />
@@ -42,7 +45,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
       )}
       {idChosenAlbum && (
         <CardMedia
-          image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
+          image={`http://localhost:8080/images/users/${ownerUser}/${urlItem}`}
           title={urlItem}
           className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           onClick={e => launchTogglePhotoModalWindow(e)}

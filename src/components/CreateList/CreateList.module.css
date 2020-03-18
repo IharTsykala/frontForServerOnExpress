@@ -1,15 +1,18 @@
 .user_profile__create_list__container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
-  
+  /* grid-template-rows: repeat(1, 1fr);  */
   row-gap: 1%;
   column-gap: 1%;
   width: 98%;  
-  height: 94%; 
+  max-height: 94%; 
   margin: 1% auto;
-  overflow-y: scroll;  
+  overflow-y: auto;  
 }
 
 .user_profile__card_container {
   position: relative;  
+  height: 200px;
+  min-height: 100%;
 }
+

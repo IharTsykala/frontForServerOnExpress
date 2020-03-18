@@ -10,8 +10,20 @@ import PhotoLibraryOutlinedIcon from "@material-ui/icons/PhotoLibraryOutlined"
 import EmojiPeopleOutlinedIcon from "@material-ui/icons/EmojiPeopleOutlined"
 import GroupAddOutlinedIcon from "@material-ui/icons/GroupAddOutlined"
 import Divider from "@material-ui/core/Divider"
+import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { User } from "../../../Redux/interfaces/user.interface"
+import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
 
-function NavigationBlock() {
+type NavigationBlockProps = {
+  user: User
+  userOwnerThisPage: UserOwnerThisPageInterface
+}
+
+const NavigationBlock: React.FC<NavigationBlockProps> = ({
+  user,
+  userOwnerThisPage
+}) => {
   return (
     <List>
       <ListItem button>
@@ -41,7 +53,8 @@ function NavigationBlock() {
         <ListItemText primary="Subscribers" secondary="July 20, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
-      <ListItem button>
+      <Link to={`/user/${user._id}/allAlbums`}>
+      <ListItem button>      
         <ListItemAvatar>
           <Avatar>
             <FolderSharedOutlinedIcon />
@@ -49,6 +62,7 @@ function NavigationBlock() {
         </ListItemAvatar>
         <ListItemText primary="Albums" secondary="Jan 7, 2014" />
       </ListItem>
+      </Link>
       <Divider variant="inset" component="li" />
       <ListItem button>
         <ListItemAvatar>
@@ -62,4 +76,9 @@ function NavigationBlock() {
   )
 }
 
-export default NavigationBlock
+const mapStateToProps = (state: any) => ({
+  user: state.common.user,
+  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+})
+
+export default connect(mapStateToProps)(NavigationBlock)

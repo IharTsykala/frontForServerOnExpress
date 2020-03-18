@@ -30,14 +30,14 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
 
   const getList = useCallback(async () => {
     try {
-      const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)
+      const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)      
       // album[0] because I used aggregate for mongoDb
       setArrayPhotosChosenAlbum(album[0].photos)
       setLoad("loaded")
     } catch (e) {
       console.log(e)
     }
-  }, [userOwnerThisPage])
+  }, [idChosenAlbum])
 
   useEffect(() => {
     getList()
@@ -67,12 +67,12 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
   }
 
   return (
-    <>
-      <div className={GetAlbumByIDCSS.main__user_profile__albums_block}>
+    <>   
+      <div className={GetAlbumByIDCSS.main__user_profile__album_block}>
         {load === "loading" && <h1>Ожидайте ответа</h1>}
         {load === "loaded" && (
           <>
-            <Link to={`/user/${userOwnerThisPage._id}`}>
+            <Link to={`/user/profile/${userOwnerThisPage._id}`}>
               <p>BACK TO ALBUM LIST</p>
             </Link>
             <CreateList

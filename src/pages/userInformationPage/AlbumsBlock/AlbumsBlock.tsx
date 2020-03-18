@@ -77,7 +77,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
         onClick={(e: any) => handleSubmit(e)}
         className={AlbumsBlockCSS.albums_block__button}
       >
-        <p> ADD ALBUM</p>
+        <p>ADD ALBUM</p>
         <input
           className={AlbumsBlockCSS.label__input}
           type="file"

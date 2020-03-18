@@ -54,6 +54,7 @@ export default class ServiceAlbums {
 
   static getListPhotosByAlbumID = async id => {
     try {
+      // console.log(id)
       const response = await axios.get(
         `http://localhost:8080/albums/withPhotos/${id}`
       )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useCallback } from "react"
 import { NavLink } from "react-router-dom"
 import { useHistory } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
@@ -18,28 +18,30 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
   const history = useHistory()
   const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
 
+  const getUserForRefresh = useCallback(
+    async () => {
+      try {
+        if (!user._id && localStorage.getItem("token")) {
+          const userLog = await Service.getUserByToken()
+          if (userLog) {
+            dispatch(userRefreshAction(userLog))
+            setStateLoading(LoadingState.loaded)
+          } else {
+            setStateLoading(LoadingState.notFound)
+          }
+        }
+      } catch (e) {
+        console.log(e)
+        setStateLoading(LoadingState.error)
+      }
+    },[dispatch, user._id]
+  )
+
   useEffect(() => {
     getUserForRefresh()
-  }, [])
+  }, [getUserForRefresh])
 
-  const getUserForRefresh = async () => {
-    try {
-      if (!user._id && localStorage.getItem("token")) {
-        const userLog = await Service.getUserByToken()
-        if (userLog) {
-          dispatch(userRefreshAction(userLog))
-          setStateLoading(LoadingState.loaded)
-        } else {
-          setStateLoading(LoadingState.notFound)
-        }
-      }
-    } catch (e) {
-      console.log(e)
-      setStateLoading(LoadingState.error)
-    }
-  }
-
-  const handlerLogOut = async () => {
+ const handlerLogOut = async () => {
     try {
       await Service.logOutAllDevices()
       localStorage.removeItem("token")

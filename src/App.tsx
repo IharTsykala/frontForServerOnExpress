@@ -17,9 +17,10 @@ import {
   defaultPrivateRouteForAdminsProps
 } from "./PrivateRoutes/PrivateRouteForAdmins"
 import GetAlbumByID from "./pages/GetAlbumByID/GetAlbumByID"
+import AllAlbumsPage from "./pages/allAlbumsPage/allAlbumsPage"
 import NotFound from "./pages/NotFoundPage/NotFound"
 import { AdminAllUsers } from "./pages/AdminAllUser/AdminAllUser"
-import { UserEditInformation } from "./pages/UserEditInformation/UserEditInformation"
+import { UserEditInformation } from "./pages/UserEditInformationPage/UserEditInformationPage"
 import { Provider } from "react-redux"
 import rootReducer from "./Redux/store"
 import DialogsPage from "./pages/DialogsPage/DialogsPage"
@@ -78,11 +79,17 @@ export const App: React.FC = () => {
               component={UserInformationPage}
               path="/user/profile/:id"
               exact
-            />         
+            />     
             <PrivateRoute
               {...defaultPrivateRouteProps}
               component={GetAlbumByID}
               path="/user/:id/album"
+              exact
+            />    
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={AllAlbumsPage}
+              path="/user/:id/allAlbums"
               exact
             />
             <PrivateRoute

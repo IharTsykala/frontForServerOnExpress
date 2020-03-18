@@ -15,12 +15,12 @@ export const UserEditInformation = (props: any) => {
 
   const submitHandler = async (id: number, user: any) => {
     await Service.editUser(id, user)
-    history.push(`/user/${idUserOwnerPage}`)
+    history.push(`/user/profile/${idUserOwnerPage}`)
   }
 
   return (
     <>
-      <Link to={`/user/${idUserOwnerPage}`}>
+      <Link to={`/user/profile/${idUserOwnerPage}`}>
         <p>BACK TO USER INFORMATION</p>
       </Link>
       <div>

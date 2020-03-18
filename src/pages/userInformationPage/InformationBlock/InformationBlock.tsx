@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
+import { Link } from "react-router-dom"
 
 type InformationBlockProps = {
   user: User
@@ -64,6 +65,7 @@ const InformationBlock: React.FC<InformationBlockProps> = ({
             InformationBlockCSS.user_profile__user_information__block_button
           }
         >
+          <Link to={`/user/${userOwnerThisPage._id}/edit`}>
           <Button
             variant="outlined"
             component="button"
@@ -71,6 +73,7 @@ const InformationBlock: React.FC<InformationBlockProps> = ({
           >
             EDIT INFORMATION
           </Button>
+          </Link>          
           <Button
             variant="outlined"
             component="button"

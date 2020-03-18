@@ -8,10 +8,12 @@ button.albums_block__button {
   background-color: rgb(54, 54, 87);
   color: rgb(158, 158, 158);
   font-size: 20px;
-  display: grid;
+  display: grid;  
   justify-self: center;
+  align-self: center;
   position: relative;
   width: 50%;
+  height: 50%;
 }
 
 button.albums_block__button p {
