@@ -16,7 +16,6 @@ import {
 } from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
 
-
 type UserInformationPageProps = {
   user: User
   dispatch: any
@@ -88,7 +87,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         display="grid"
         p={1}
         m={1}
-        bgcolor="background.paper"       
+        bgcolor="background.paper"
       >
         <AvatarBlock
           homePageStatus={homePageStatus}

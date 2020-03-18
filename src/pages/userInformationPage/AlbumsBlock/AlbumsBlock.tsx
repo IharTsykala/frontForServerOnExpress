@@ -22,24 +22,21 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   const [albumsUserOwnerPage, setAlbumsUserOwnerPage]: any = useState("")
   const [stateLoading, setStateLoading]: any = useState("loading")
 
-  const getList =  useCallback(
-      async() => {
-        try {
-            const albums = await Service.getListAlbumsWithPhotosByUserID(
-              userOwnerThisPage._id
-            )
-            setAlbumsUserOwnerPage(albums)
-            setStateLoading("loaded")
-          } catch (e) {
-            console.log(e)
-          }
-      }, [userOwnerThisPage._id]
-  )
-  
+  const getList = useCallback(async () => {
+    try {
+      const albums = await Service.getListAlbumsWithPhotosByUserID(
+        userOwnerThisPage._id
+      )
+      setAlbumsUserOwnerPage(albums)
+      setStateLoading("loaded")
+    } catch (e) {
+      console.log(e)
+    }
+  }, [userOwnerThisPage._id])
+
   useEffect(() => {
     getList()
   }, [getList])
-
 
   const editHandler = async (id: number) => {}
 
@@ -61,41 +58,41 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
     getList()
   }
 
-  const handleSubmit = (e:any) => {}
+  const handleSubmit = (e: any) => {}
 
   return (
     <Box className={AlbumsBlockCSS.main__user_profile__albums_block}>
-    {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
-    {stateLoading === "loaded" && (      
-    // <Box className={AlbumsBlockCSS.photos__container_drag_and_drop} >    
-          <CreateList
-            arr={albumsUserOwnerPage}
-            removeHandler={removeHandler}
-            editHandler={editHandler}
-            createListFunction={"CreateListAlbums"}
-            // className={AlbumsBlockCSS.photos__container_drag_and_drop}
-          />
-          )}
-         
-        {/* <Box className={AlbumsBlockCSS.albums_block__block_button}> */}
-        <Button  variant="outlined"
-            component="button"
-            onClick={(e: any) => handleSubmit(e)}
-            className={AlbumsBlockCSS.albums_block__button}>
-               <p> ADD ALBUM</p>            
-          <input
-            className={AlbumsBlockCSS.label__input}            
-            type="file"
-            multiple
-            onChange={e => {
-              addChangeHandler(e)
-            }}
-          /> </Button>
-        {/* </Box > */}
-        {stateLoading !== "loading" && stateLoading !== "loaded" && (<h1>ошибка</h1>)}
-    </Box >
-    )}
-    
+      {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
+      {stateLoading === "loaded" && (       
+        <CreateList
+          arr={albumsUserOwnerPage}
+          removeHandler={removeHandler}
+          editHandler={editHandler}
+          createListFunction={"CreateListAlbums"}          
+        />
+      )}      
+      <Button
+        variant="outlined"
+        component="button"
+        onClick={(e: any) => handleSubmit(e)}
+        className={AlbumsBlockCSS.albums_block__button}
+      >
+        <p> ADD ALBUM</p>
+        <input
+          className={AlbumsBlockCSS.label__input}
+          type="file"
+          multiple
+          onChange={e => {
+            addChangeHandler(e)
+          }}
+        />{" "}
+      </Button>     
+      {stateLoading !== "loading" && stateLoading !== "loaded" && (
+        <h1>ошибка</h1>
+      )}
+    </Box>
+  )
+}
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
@@ -103,5 +100,3 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps)(AlbumsBlock)
-
-

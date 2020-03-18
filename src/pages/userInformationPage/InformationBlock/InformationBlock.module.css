@@ -1,36 +1,36 @@
 .user_profile__user_information {
-    /* background-color: slateblue; */
-    display: grid;
-    grid-template-rows: 20% 1fr;
-    color: rgb(54, 54, 87);
-    height: 100%;
+  /* background-color: slateblue; */
+  display: grid;
+  grid-template-rows: 20% 1fr;
+  color: rgb(54, 54, 87);
+  height: 100%;
 }
 
 .user_profile__user_information h4 {
-    text-align: center;
-  }
+  text-align: center;
+}
 
-.user_profile__user_information__block_information {   
-    display: grid;
-    grid-template-columns: 60% 40%;    
-  }
-  
-  .user_profile__user_information__block_information ul {
-    display: grid;
-    border-radius: 5%;
-    margin: 0 5%;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+.user_profile__user_information__block_information {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.user_profile__user_information__block_information ul {
+  display: grid;
+  border-radius: 5%;
+  margin: 0 5%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
     -23px 0 20px -23px rgba(0, 0, 0, 0.8), 23px 0 20px -23px rgba(0, 0, 0, 0.8),
     0 0 40px rgba(0, 0, 0, 0.1) inset;
-  }
-    
-  .user_profile__user_information__block_button button {
-    display: grid;
-    border-radius: 5%; 
-    height: 10%;
-    width: 60%;
-    margin: 2% auto;
-    background-color: rgb(54, 54, 87); 
-    color: rgb(158, 158, 158);   
-  } 
-  
+}
+
+.user_profile__user_information__block_button button {
+  display: grid;
+  border-radius: 5%;
+  height: 10%;
+  width: 60%;
+  margin: 2% auto;
+  background-color: rgb(54, 54, 87);
+  color: rgb(158, 158, 158);
+  position: relative;
+}

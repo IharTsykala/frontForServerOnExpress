@@ -50,22 +50,15 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
       {(user.role === "admin" || homePageStatus) && (
         <>
           <Button variant="outlined" component="button">
-            <label htmlFor="avatarChange">
-              {" "}
-              Choose avatar
-              <input
-                id="avatarChange"
-                type="file"
-                onChange={e => handleChangeAvatar(e)}
-              />
-            </label>
+            Choose avatar
+            <input type="file" onChange={e => handleChangeAvatar(e)} />
           </Button>
           <Button
             variant="outlined"
             component="button"
             onClick={(e: any) => handleSubmit(e)}
           >
-            <p> Change Avatar </p>
+            Change Avatar
           </Button>
         </>
       )}

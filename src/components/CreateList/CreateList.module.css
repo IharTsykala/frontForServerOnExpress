@@ -1,13 +1,15 @@
-/* .user_profile__card_container {
-  width: 200px;
-  height: 200px;
-} */
-
 .user_profile__create_list__container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  row-gap: 15px;
-  column-gap: 20px;
-  width: 95%;
-  margin: 15px auto;
+  grid-template-columns: repeat(4, 1fr); 
+  
+  row-gap: 1%;
+  column-gap: 1%;
+  width: 98%;  
+  height: 94%; 
+  margin: 1% auto;
+  overflow-y: scroll;  
+}
+
+.user_profile__card_container {
+  position: relative;  
 }

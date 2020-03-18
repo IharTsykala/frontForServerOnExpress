@@ -29,44 +29,44 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   launchTogglePhotoModalWindow
 }) => {
   return (
-    <>
-      <Card className={PhotoCardCSS.photoAlbum__photoCard}>
-        {!idChosenAlbum && (
-          <Link to={`${idItem}/album`}>
-            <CardMedia
-              image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
-              title="Image title"
-              className={PhotoCardCSS.photoAlbum__photoCard_photo}
-            />
-          </Link>
-        )}
-        {idChosenAlbum && (
+    // <li className={PhotoCardCSS.photoAlbum__photoCard_block}>
+    <Card className={PhotoCardCSS.photoAlbum__photoCard_block__card}>
+      {!idChosenAlbum && (
+        <Link to={`${idItem}/album`}>
           <CardMedia
             image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
-            title={urlItem}
-            className={PhotoCardCSS.photoAlbum__photoCard_photo}
-            onClick={e => launchTogglePhotoModalWindow(e)}
+            title="Image title"
+            className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           />
-        )}
+        </Link>
+      )}
+      {idChosenAlbum && (
+        <CardMedia
+          image={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${urlItem}`}
+          title={urlItem}
+          className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
+          onClick={e => launchTogglePhotoModalWindow(e)}
+        />
+      )}
 
-        <CardActions>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => editHandler(idItem)}
-          >
-            Edit
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => removeHandler(idItem)}
-          >
-            Remove
-          </Button>
-        </CardActions>
-      </Card>
-    </>
+      <CardActions  className={PhotoCardCSS.photoAlbum__photoCard_block__card__actions}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => editHandler(idItem)}
+        >
+          Edit
+        </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => removeHandler(idItem)}
+        >
+          Remove
+        </Button>
+      </CardActions>
+    </Card>
+    // </li>
   )
 }
 
