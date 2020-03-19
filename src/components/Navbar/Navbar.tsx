@@ -53,10 +53,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
 
   return (
     <>
-      {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
-
       <nav className={`${NavbarCSS.navbar_container} navbar_container`}>
-        {stateLoading === "notFound" && <p>not found</p>}
+      {/* {stateLoading === "loading" && <h1>Ожидайте ответа</h1>} */}
+        {/* {stateLoading === "notFound" && <p>not found</p>} */}
 
         {stateLoading === "loaded" && user.login && (
           <>
@@ -98,23 +97,13 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
             <NavLink to={`/${user._id}/dialogs`}>My Dialogs</NavLink>
           </li>
           {user.login && (
-            <>
-              {history.location.pathname === "/user/all" && (
-                <li>
-                  <NavLink to={`/user/${user._id}`}>Your Page</NavLink>
-                </li>
-              )}
-
-              {history.location.pathname !== "/user/all" && (
-                <li>
-                  <NavLink to="/user/all">All User</NavLink>
-                </li>
-              )}
+           
+              
 
               <li onClick={() => handlerLogOut()}>
                 <NavLink to="/">Log Out</NavLink>
               </li>
-            </>
+           
           )}
           {!user.login && (
             <>
@@ -138,3 +127,16 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps)(Navbar)
+
+
+// {history.location.pathname === "/user/all" && (
+//   <li>
+//     <NavLink to={`/user/${user._id}`}>Your Page</NavLink>
+//   </li>
+// )}
+
+// {history.location.pathname !== "/user/all" && (
+//   <li>
+//     <NavLink to="/user/all">All User</NavLink>
+//   </li>
+// )}

@@ -19,7 +19,6 @@ const CreateList: React.FC<CreateListProps> = ({
   createListFunction,
   launchTogglePhotoModalWindow
 }) => {
-  
   return (
     <ul className={CreateListCSS.user_profile__create_list__container}>
       {arr.length > 0 &&

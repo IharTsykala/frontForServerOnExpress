@@ -10,7 +10,7 @@ import { getNewMessageForCurrentDialogAction } from "../../Redux/store/listMessa
 // const socket = openSocket("http://localhost:8000/myDialogs")
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField"
 const socket = openSocket("http://localhost:8000", { reconnection: true })
 
 type WindowDialogProps = {
@@ -94,13 +94,17 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
 
   return (
     <Box
-    component="div"
-    display="grid"
-       className={WindowDialogCSS.dialogs_page__dialog_page__window_dialog}>
-     <Box
-    component="ul"
-    display="grid"
-       className={WindowDialogCSS.dialogs_page__dialog_page__window_dialog__list_message}>
+      component="div"
+      display="grid"
+      className={WindowDialogCSS.dialogs_page__dialog_page__window_dialog}
+    >
+      <Box
+        component="ul"
+        display="grid"
+        className={
+          WindowDialogCSS.dialogs_page__dialog_page__window_dialog__list_message
+        }
+      >
         {listMessagesForCurrentDialog &&
           listMessagesForCurrentDialog.length > 0 &&
           listMessagesForCurrentDialog.map((message: any, index: any) => (
@@ -110,33 +114,30 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
           ))}
       </Box>
       <Box
-    component="div"
-    display="grid"
+        component="div"
+        display="grid"
         className={
           WindowDialogCSS.dialogs_page__add_dialogs__block_button_input
         }
       >
-        <Button
-          className={WindowDialogCSS.dialogs_page__add_dialogs_button}
-          onClick={(e:any) => handlerClickButton(e)}
+        <TextField
+          id="outlined-full-width"
           variant="outlined"
-            component="button"
-          disabled={currentDialog._id === undefined && true}
-        >
-          {currentDialog._id === undefined ? "Chose Dialog" : "Send Message"}
-        </Button>
-        {/* <input
+          label="Input Message"
           className={WindowDialogCSS.dialogs_page__add_dialogs_input}
           type="text"
           value={valueInput}
           onChange={e => handlerChangeInput(e)}
-        /> */}
-        <TextField id="standard-basic" label="Input Message"
-        className={WindowDialogCSS.dialogs_page__add_dialogs_input}
-        type="text"
-        value={valueInput}
-        onChange={e => handlerChangeInput(e)}
         />
+        <Button
+          className={WindowDialogCSS.dialogs_page__add_dialogs_button}
+          onClick={(e: any) => handlerClickButton(e)}
+          variant="outlined"
+          component="button"
+          disabled={currentDialog._id === undefined && true}
+        >
+          {currentDialog._id === undefined ? "Chose Dialog" : "Send Message"}
+        </Button>
       </Box>
     </Box>
   )

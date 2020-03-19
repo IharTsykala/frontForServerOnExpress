@@ -1,19 +1,60 @@
 .dialogs_page__dialog_page__window_dialog {
-    display: grid;
-    background-color: white;
-    max-height: 100%;
-    min-width: 100%;
-    justify-content: center;
-    align-content: center;
-    color: #7a7a77;
-    grid-template-rows: 90% 10%;    
-  }
+  display: grid;  
+  max-height: 100%;
+  min-width: 100%;
+  justify-content: center;
+  align-content: center;
+  color: #7a7a77;
+  grid-template-rows: 90% 10%;
+}
 
-  .dialogs_page__dialog_page__window_dialog__list_message {
-    width: 80vw;
-  }
-  
-  .dialogs_page__add_dialogs_button {
-    display: grid;
-    cursor: pointer;
-  }
+.dialogs_page__dialog_page__window_dialog__list_message {
+  width: 80vw;
+}
+
+.dialogs_page__add_dialogs__block_button_input {
+  display: grid;
+  grid-template-columns: 70% 30%;
+ 
+}
+
+.dialogs_page__add_dialogs_input {
+  display: grid;
+  height: 50%%;
+  width: 70%;
+  align-self: center;
+  justify-self: center;
+}
+
+*:before,
+*:after {
+  display: none;
+  border-bottom: none;
+}
+
+input:not([type]),
+input[type="text"]:not(.browser-default),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea {
+  border-bottom: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.dialogs_page__add_dialogs_button {
+  max-width: 70%;
+  width: 75%;
+  max-height: 50%;
+  height: 75%;
+  background-color: rgb(54, 54, 87) !important;
+  display: grid;
+  align-self: center;
+  justify-self: center;
+  margin: 0 auto;
+  color: rgb(158, 158, 158) !important;
+  position: relative;
+}
+
+.dialogs_page__add_dialogs_button:hover {
+  opacity: 0.8 !important;
+}
