@@ -12,7 +12,7 @@ export interface PrivateRouteProps extends RouteProps {
 
 export const defaultPrivateRouteProps: PrivateRouteProps = {
   isAuthenticated: token,
-  authenticationPath: "/user/LogIn"
+  authenticationPath: "/LogIn"
 }
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = props => {

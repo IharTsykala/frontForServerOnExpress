@@ -34,3 +34,11 @@
   color: rgb(158, 158, 158);
   position: relative;
 }
+
+input[type="file"] {
+  opacity: 0;
+}
+
+input[type="submit"] {
+  opacity: 0;
+}

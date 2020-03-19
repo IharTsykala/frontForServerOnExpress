@@ -1,5 +1,5 @@
 export interface Message {
-    _id: String | ''
+    _id: string | ''
     message: String | ''     
     idDialog: String | ''
     authorLogin:String | ''     

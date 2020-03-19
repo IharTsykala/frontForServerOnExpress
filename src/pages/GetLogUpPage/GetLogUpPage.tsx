@@ -23,7 +23,7 @@ const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
     const data = await Service.getTokenForRegistration(id, user)
     localStorage.setItem("token", data.token)
     dispatch(userLogIn(data.user))
-    history.push(`/user/all`)
+    history.push(`/user/allUsers`)
   }
 
   return (

@@ -64,10 +64,10 @@ export default class Service {
   }
 
   static getUserByToken = async id => {
-    try {
+    try {      
       const request = await axios.get(
         `http://localhost:8080/users/getUserByToken/`
-      )
+      )      
       return request.data
     } catch (e) {
       console.log(e)

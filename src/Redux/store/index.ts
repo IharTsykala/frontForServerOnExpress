@@ -8,6 +8,7 @@ import { listMessagesForCurrentDialogReducer } from "./listMessagesForCurrentDia
 import { paginationReducer } from "./pagination/pagination.reducer"
 import { checkBoxStateReducer } from "./checkBoxState/checkBoxState.reducer"
 import { searchStringStateReducer} from "./searchStringState/searchStringState.reducer"
+import { loadingStateReducer} from "./loading/loading.reducer"
 
 export default combineReducers({
   common: userReducer,
@@ -19,5 +20,5 @@ export default combineReducers({
   pagination: paginationReducer,
   checkBoxState: checkBoxStateReducer,
   searchStringState: searchStringStateReducer,
-  
+  loadingState: loadingStateReducer
 })

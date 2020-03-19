@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
+import { Message } from "../../Redux/interfaces/message.interface"
 import { CurrentDialog } from "../../Redux/interfaces/currentDialog.interface"
 import openSocket from "socket.io-client"
 import WindowDialogCSS from "./WindowDialog.module.css"
@@ -11,13 +12,18 @@ import { getNewMessageForCurrentDialogAction } from "../../Redux/store/listMessa
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
 const socket = openSocket("http://localhost:8000", { reconnection: true })
 
 type WindowDialogProps = {
   user: User
   dispatch: any
   currentDialog: CurrentDialog
-  listMessagesForCurrentDialog: []
+  listMessagesForCurrentDialog: [Message]
 }
 
 const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
@@ -27,7 +33,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   listMessagesForCurrentDialog
 }) => {
   // const [listMessage, setListMessage]: any = useState([])
-  const [valueInput, setValueInput]: any = useState("")
+  const [valueInput, setValueInput] = useState("")
 
   const getMessagesFromBD = useCallback(async () => {
     const list = await ServiceMessage.getAllMessagesByIdDialog(
@@ -42,7 +48,8 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       try {
         // setListMessage((prevState:any)=>{
         //   return [...prevState, message]
-        // })
+        // })  
+        console.log(message)      
         dispatch(getNewMessageForCurrentDialogAction(message))
       } catch (e) {
         console.log(e)
@@ -52,7 +59,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   )
 
   useEffect(() => {
-    socket.on("reseaveMessageDialog", (message: any) => {
+    socket.on("receiveMessageDialog", (message: Message) => {
       addMessageState(message)
     })
   }, [addMessageState])
@@ -68,9 +75,16 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       joinInRoom()
     }
     return () => {
+      // socket.removeListeners('');
       socket.emit("end")
     }
   }, [currentDialog._id, joinInRoom])
+
+  useEffect(() => {   
+    return () => {
+      socket.removeAllListeners();
+          }
+  }, [])
 
   function sendMessage(e: any) {
     e.preventDefault()
@@ -107,10 +121,22 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       >
         {listMessagesForCurrentDialog &&
           listMessagesForCurrentDialog.length > 0 &&
-          listMessagesForCurrentDialog.map((message: any, index: any) => (
-            <div key={index}>
-              <li>{`${message.authorLogin}: ${message.message}`}</li>
-            </div>
+          listMessagesForCurrentDialog[0]._id !== undefined &&
+          listMessagesForCurrentDialog.map((message: Message) => (
+            <React.Fragment  key={message._id}>
+              <ListItem             
+            className={(message.authorId===user._id && WindowDialogCSS.dialogs_page__message__left_side) ||
+              WindowDialogCSS.dialogs_page__message__right_side
+            }
+            >
+            <ListItemAvatar>
+              <Avatar>
+                <ImageIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={`${message.authorLogin}`} secondary={`${message.message}`} />
+          </ListItem>              
+            </React.Fragment>
           ))}
       </Box>
       <Box

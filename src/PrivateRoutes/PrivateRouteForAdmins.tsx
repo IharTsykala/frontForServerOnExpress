@@ -18,7 +18,7 @@ export interface PrivateRouteForAdminsProps extends RouteProps {
 
 export const defaultPrivateRouteForAdminsProps: PrivateRouteForAdminsProps = {
   isAuthenticated: token,
-  authenticationPath: "/user/LogIn",
+  authenticationPath: "/LogIn",
   isAdmin: admin,
   restrictedAdminPath: "/user/All"
 }

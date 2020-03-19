@@ -55,29 +55,32 @@ type NumberBlockPaginationProps = {
     return (
         <div
         className={NumberBlockPaginationCSS.All_Users__Pagination_Block__Button_block}
-      >
-        {numberPage > 1 && (
+      >   
           <Button
             variant="outlined"
             component="span"
             onClick={() => handlerClickPrevPage()}
+            disabled={numberPage < 2 && true}
           >
             Prev
           </Button>
-        )}
+       
         <div>{numberPage}</div>
-        {allUsers &&
-          allUsers[0] &&
-          allUsers[0].countPage !== undefined &&
-          allUsers[0].countPage > numberPage && (
+        
             <Button
               variant="outlined"
               component="span"
               onClick={() => handlerClickNextPage()}
+              disabled={
+                (!limitRender && true) ||
+                (allUsers &&
+                allUsers[0] &&
+                allUsers[0].countPage !== undefined &&
+                allUsers[0].countPage === numberPage && true)}
             >
               Next
             </Button>
-          )}
+         
       </div>
     )
 }

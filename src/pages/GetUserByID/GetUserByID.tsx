@@ -87,14 +87,14 @@ const GetUserByID: React.FC<GetUserByProps> = ({
       {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
       {stateLoading === "loaded" && (
         <div className={GetUserByIDCSS.main__user_profile__container}>
-          <UserAvatar
+          {/* <UserAvatar
             homePageStatus={homePageStatus}
             avatarForFront={avatarForFront}
             handleChangeAvatar={handleChangeAvatar}
             handleSubmit={handleSubmit}
-          />
-          <UserInformation />
-          <UserNavigation />
+          /> */}
+          {/* <UserInformation /> */}
+          {/* <UserNavigation /> */}
           <AlbumsBlock />
         </div>
       )}

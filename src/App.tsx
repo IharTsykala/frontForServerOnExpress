@@ -1,8 +1,8 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
+// import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
 import AllUsersPage from "./pages/allUsersPage/allUsersPage"
-import GetUserByID from "./pages/GetUserByID/GetUserByID"
+// import GetUserByID from "./pages/GetUserByID/GetUserByID"
 import UserInformationPage from "./pages/userInformationPage/userInformationPage"
 import GetLoginPage from "./pages/GetLoginPage/GetLoginPage"
 import GetLogUpPage from "./pages/GetLogUpPage/GetLogUpPage"
@@ -30,6 +30,7 @@ import createSagaMiddleware from "redux-saga"
 import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
 import putInStoreNewMessageforCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
 import putInStoreAllUsersSaga from "./Redux/store/allUsers/allUsers.sagas"
+import userLoginSaga from "./Redux/store/userLogin/userLogin.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -43,6 +44,7 @@ const store = createStore(
 sagaMiddleware.run(getUserOwnerThisPageForSaga)
 sagaMiddleware.run(putInStoreNewMessageforCurrentDialogSaga)
 sagaMiddleware.run(putInStoreAllUsersSaga)
+sagaMiddleware.run(userLoginSaga)
 
 export const App: React.FC = () => {
   return (
@@ -52,14 +54,20 @@ export const App: React.FC = () => {
       <Navbar />
         <main className="main">
           <Switch>
-            <Route component={DialogsPage} path="/:id/dialogs" exact />
+            {/* <Route component={DialogsPage} path="/:id/dialogs" exact /> */}
             <Route component={GetStartPage} path="/" exact />
             <Route component={GetLoginPage} path="/LogIn" exact />
             <Route component={GetLogUpPage} path="/SignUp" exact />
-            <PrivateRoute
+            {/* <PrivateRoute
               {...defaultPrivateRouteProps}
               component={GetAllUsers}
               path="/user/all"
+              exact
+            /> */}
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={DialogsPage}
+              path="/:id/dialogs"
               exact
             />
             <PrivateRoute
@@ -68,12 +76,12 @@ export const App: React.FC = () => {
               path="/user/allUsers"
               exact
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               {...defaultPrivateRouteProps}
               component={GetUserByID}
               path="/user/:id"
               exact
-            /> 
+            />  */}
             <PrivateRoute
               {...defaultPrivateRouteProps}
               component={UserInformationPage}

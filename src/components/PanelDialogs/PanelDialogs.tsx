@@ -54,6 +54,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 
   const handlerClickButton = () => {
     setFlagModalWindow(!flagModalWindow)
+    if(flagModalWindow)dispatch(getAllUsersForSagasAction(user._id) )
   }
 
   async function sendDialog(

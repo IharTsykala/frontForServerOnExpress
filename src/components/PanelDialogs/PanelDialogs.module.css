@@ -5,7 +5,12 @@ background: -webkit-linear-gradient(90deg, rgba(39,73,172,1) 0%, rgba(255,255,25
 background: linear-gradient(90deg, rgba(39,73,172,1) 0%, rgba(255,255,255,1) 99%, rgba(29,86,253,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2749ac",endColorstr="#1d56fd",GradientType=1);
  display: grid;
- grid-template-rows: 90% 1fr;
+ grid-template-rows: 90% 1fr; 
+}
+
+.dialogs_page__rules_dialogs ul {
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 .dialogs_page__rules_dialogs button {
@@ -18,4 +23,5 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2749ac",endCo
     margin: 0 auto;
     color: rgb(119, 104, 104);
     position: relative;
+    align-self: center;
   }

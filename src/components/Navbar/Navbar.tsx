@@ -1,45 +1,33 @@
-import React, { useEffect, useState, useCallback } from "react"
+import React, { useEffect, useCallback } from "react"
 import { NavLink } from "react-router-dom"
-import { useHistory } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import Service from "../../services/service-user"
 import { userLogOutAction } from "../../Redux/store/userLogin/userLogin.actions"
-import { userRefreshAction } from "../../Redux/store/userLogin/userLogin.actions"
-import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
+import {getUserLoginForSagaAction} from "../../Redux/store/userLogin/userLogin.actions"
 
 type NavbarProps = {
   user: User
   dispatch: any
+  loadingState: String
 }
 
-const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
-  const history = useHistory()
-  const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
+const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch, loadingState }) => {  
 
-  const getUserForRefresh = useCallback(
-    async () => {
-      try {
-        if (!user._id && localStorage.getItem("token")) {
-          const userLog = await Service.getUserByToken()
-          if (userLog) {
-            dispatch(userRefreshAction(userLog))
-            setStateLoading(LoadingState.loaded)
-          } else {
-            setStateLoading(LoadingState.notFound)
-          }
-        }
-      } catch (e) {
-        console.log(e)
-        setStateLoading(LoadingState.error)
-      }
-    },[dispatch, user._id]
-  )
+  const getUserAfterLogInAndRefresh = useCallback(
+    async () => {    
+          if(localStorage.getItem("token")) {
+            console.log(1)                             
+            dispatch(getUserLoginForSagaAction())          
+          }     
+    },[dispatch]
+  )  
 
   useEffect(() => {
-    getUserForRefresh()
-  }, [getUserForRefresh])
+    getUserAfterLogInAndRefresh()
+  }, [getUserAfterLogInAndRefresh])
+
 
  const handlerLogOut = async () => {
     try {
@@ -52,13 +40,17 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
   }
 
   return (
-    <>
+    <>  
+   
       <nav className={`${NavbarCSS.navbar_container} navbar_container`}>
-      {/* {stateLoading === "loading" && <h1>Ожидайте ответа</h1>} */}
-        {/* {stateLoading === "notFound" && <p>not found</p>} */}
-
-        {stateLoading === "loaded" && user.login && (
-          <>
+      
+      {(loadingState === "loading" && <h1>Ожидайте ответа</h1>)||
+        (loadingState === "notFound" && <h1>not found</h1>)||
+        (loadingState === "loaded" && <>
+        {
+       
+         user.login && (
+          <>          
             <a
               href="/"
               className={`${NavbarCSS.navbar__avatar__brand_logo} brand-logo`}
@@ -97,13 +89,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
             <NavLink to={`/${user._id}/dialogs`}>My Dialogs</NavLink>
           </li>
           {user.login && (
-           
-              
-
-              <li onClick={() => handlerLogOut()}>
+               <li onClick={() => handlerLogOut()}>
                 <NavLink to="/">Log Out</NavLink>
-              </li>
-           
+              </li>           
           )}
           {!user.login && (
             <>
@@ -115,28 +103,15 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({ user, dispatch }) => {
               </li>
             </>
           )}
-        </ul>
+        </ul></>) ||   (loadingState === "error" && <h1>ошибка</h1>)}      
       </nav>
-      {stateLoading === "error" && <h1>ошибка</h1>}
     </>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.common.user,
+  loadingState: state.loadingState.loadingState
 })
 
 export default connect(mapStateToProps)(Navbar)
-
-
-// {history.location.pathname === "/user/all" && (
-//   <li>
-//     <NavLink to={`/user/${user._id}`}>Your Page</NavLink>
-//   </li>
-// )}
-
-// {history.location.pathname !== "/user/all" && (
-//   <li>
-//     <NavLink to="/user/all">All User</NavLink>
-//   </li>
-// )}
