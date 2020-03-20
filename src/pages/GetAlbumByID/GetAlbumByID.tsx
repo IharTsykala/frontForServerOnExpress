@@ -20,6 +20,7 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
   userOwnerThisPage,
   match
 }) => {
+  console.log(userOwnerThisPage)
   const [arrayPhotosChosenAlbum, setArrayPhotosChosenAlbum]: any = useState("")
   const [load, setLoad]: any = useState("loading")
   const [statusPhotoModalWindow, setStatusPhotoModalWindow]: any = useState(
@@ -119,7 +120,7 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(GetAlbumByID)

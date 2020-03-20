@@ -8,6 +8,7 @@ export const ActionTypes = {
   USER_REFRESH: "[user] User refresh",
   GET_USER_LOGIN_FOR_SAGA: "[user] Get user login for saga",
   SET_USER_LOGIN_IN_STORE: "[user] Set user login for saga",
+  GET_USER_FOR_LOGOUT: "[user] Get user logout for saga",  
   GET_FAILURE: "[getFailureAction] get failure action"
 }
 
@@ -32,6 +33,10 @@ export const getUserLoginForSagaAction = (): Action<any> => ({
 export const setUserLoginInStoreAction = (user: User): Action<User> => ({
   type: ActionTypes.SET_USER_LOGIN_IN_STORE,
   payload: user
+})
+
+export const getUserLogoutForSagaAction = (userId:string, user:User): Action<any> => ({
+  type: ActionTypes.GET_USER_FOR_LOGOUT
 })
 
 export const getFailureAction = (error?: any): Action<any> => ({

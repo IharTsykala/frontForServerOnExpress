@@ -46,7 +46,7 @@ export default class Service {
     }
   }
 
-  static removeHandler = async (id: any) => {
+  static removeHandler = async (id: string) => {
     try {
       return await axios.delete(`http://localhost:8080/users/delete/${id}`)
     } catch (e) {
@@ -84,7 +84,7 @@ export default class Service {
     return response.data
   }
 
-  static logOutAllDevices = async (id: any, user: {}) => {
+  static logOutAllDevices = async (id: string, user: {}) => {
     const response = await axios.post(
       `http://localhost:8080/users/logOutAllDevices`,
       user
@@ -99,7 +99,7 @@ export default class Service {
     return response.data
   }
 
-  static setImgUser = async (avatar: any, id: any) => {
+  static setImgUser = async (avatar: any, id: string) => {
     const formData = new FormData()
     formData.append("user", avatar)
 
@@ -133,7 +133,7 @@ export default class Service {
     }
   }
 
-  static getListAlbumsWithPhotosByUserID = async (id: any) => {
+  static getListAlbumsWithPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/AlbumsWithPhotos/${id}`
@@ -144,7 +144,7 @@ export default class Service {
     }
   }
 
-  static getUserWithSubscriptionsById = async (userLogin: any) => {
+  static getUserWithSubscriptionsById = async (userLogin: {}) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
@@ -155,7 +155,7 @@ export default class Service {
     }
   }
 
-  static getUserAfterPaginationAndSearchAndFilter = async (body: any) => {
+  static getUserAfterPaginationAndSearchAndFilter = async (body: {}) => {
     try {
       const response = await axios.post(
         `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,

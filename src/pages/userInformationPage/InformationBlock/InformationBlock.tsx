@@ -89,7 +89,7 @@ const InformationBlock: React.FC<InformationBlockProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(InformationBlock)

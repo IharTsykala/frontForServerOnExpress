@@ -5,16 +5,11 @@ import InformationBlock from "./InformationBlock/InformationBlock"
 import NavigationBlock from "./NavigationBlock/NavigationBlock"
 import AlbumsBlock from "./AlbumsBlock/AlbumsBlock"
 import Box from "@material-ui/core/Box"
-import Service from "../../services/service-user"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
-import {
-  userOwnerThisPageAction,
-  getUserOwnerThisPageActionForSagas
-} from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
-import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
+import { getUserOwnerThisPageActionForSagas} from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
+import { getAvatarAction } from "../../Redux/store/avatar/avatar.actions"
 
 type UserInformationPageProps = {
   user: User
@@ -29,27 +24,15 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
   match,
   userOwnerThisPage
 }) => {
-  const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
-  const [avatarForFront, setAvatarForFront]: any = useState("")
-  const [avatarForBack, setAvatarForBack]: any = useState("")
-  const [homePageStatus, setHomePageStatus]: any = useState(false)
+  
+  const [avatarForFront, setAvatarForFront] = useState("")
+  const [avatarForBack, setAvatarForBack] = useState("")
+  const [homePageStatus, setHomePageStatus] = useState(false)
   const idUserOwnerPage = match.params.id
 
-  const render = useCallback(async () => {
-    try {
-      const userOwnerThisPageById = await Service.getUserByID(idUserOwnerPage)
-      if (userOwnerThisPageById) {
-        dispatch(userOwnerThisPageAction(userOwnerThisPageById))
-        dispatch(getUserOwnerThisPageActionForSagas(idUserOwnerPage))
-        setStateLoading(LoadingState.loaded)
-      } else {
-        setStateLoading(LoadingState.notFound)
-      }
-      if (userOwnerThisPageById._id === user._id) setHomePageStatus(true)
-    } catch (e) {
-      console.log(e)
-      setStateLoading(LoadingState.error)
-    }
+  const render = useCallback(async () => { 
+     if(idUserOwnerPage) dispatch(getUserOwnerThisPageActionForSagas(idUserOwnerPage))    
+    if (idUserOwnerPage === user._id) setHomePageStatus(true)    
   }, [dispatch, idUserOwnerPage, user._id])
 
   useEffect(() => {
@@ -65,21 +48,8 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
   }
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    const imgName = await Service.setImgUser(
-      avatarForBack,
-      userOwnerThisPage._id
-    )
-    await Service.editUser(userOwnerThisPage._id, {
-      avatar: imgName,
-      password: ""
-    })
-    if (userOwnerThisPage._id === user._id && avatarForFront) {
-      const newUser = Object.assign({}, userOwnerThisPage, {
-        avatar: imgName
-      })
-      dispatch(userLogIn(newUser))
-    }
+    e.preventDefault()    
+      dispatch(getAvatarAction(avatarForBack, userOwnerThisPage, user, avatarForFront))    
   }
 
   return (
@@ -131,7 +101,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(UserInformationPage)

@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import DialogCardCSS from "./DialogCard.module.css"
-import { currentDialogAction } from "../../Redux/store/currentDialog/currentDialog.actions"
+import { currentDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
 
 type DialogCardProps = {
   user: User

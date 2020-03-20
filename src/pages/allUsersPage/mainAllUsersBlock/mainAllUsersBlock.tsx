@@ -45,7 +45,7 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
               return (
                 userOwnerCard._id !== user._id && (
                   <UserCard
-                    key={userOwnerCard._id}
+                    key={userOwnerCard._id||1}
                     userOwnerCard={userOwnerCard}
                     getLogInUserAllSubscriptionsAndObserver={
                       getLogInUserAllSubscriptionsAndObserver

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react"
 import PanelDialogsCSS from "./PanelDialogs.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
+import { Dialog } from "../../Redux/interfaces/dialog.interface"
 import ServiceDialog from "../../services/service-dialog"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
 import List from "@material-ui/core/List"
@@ -9,42 +10,40 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
-import { currentDialogAction } from "../../Redux/store/currentDialog/currentDialog.actions"
+import { currentDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
 import { getAllUsersForSagasAction } from "../../Redux/store/allUsers/allUsers.actions"
+import { getAllDialogsByUserIdAction } from "../../Redux/store/dialogs/dialogs.actions"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
-// import Divider from "@material-ui/core/Divider"
 
 type PanelDialogsProps = {
   user: User
   dispatch: any
   allUsers: [User]
+  currentDialog: Dialog,
+  listDialogs: [Dialog]
 }
 
 const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
   user,
   dispatch,
-  allUsers
-}) => {
-  const [listDialogs, setListDialogs]: any = useState([])
-  const [stateLoading, setStateLoading]: any = useState(LoadingState.loading)
-  const [flagModalWindow, setFlagModalWindow]: any = useState(false)
+  allUsers,
+  currentDialog,
+  listDialogs
+}) => {  
+  const [stateLoading, setStateLoading] = useState(LoadingState.loaded)
+  const [flagModalWindow, setFlagModalWindow] = useState(false)
 
   const getListDialogs = useCallback(async () => {
     try {
-      if (user._id) {
-        const listForRender = await ServiceDialog.getAllDialogsById(user._id)
-        console.log(listForRender)
-        if (listForRender) {
-          setStateLoading(LoadingState.loaded)
-          setListDialogs(listForRender)
-        }
+      if (user._id) {        
+        dispatch(getAllDialogsByUserIdAction(user._id))        
         if (allUsers[0]._id === undefined)
           dispatch(getAllUsersForSagasAction(user._id))
       }
     } catch (e) {
       console.log(e)
-      setStateLoading(LoadingState.loaded)
+      setStateLoading(LoadingState.error)
     }
   }, [allUsers, dispatch, user._id])
 
@@ -63,6 +62,10 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     thisUserLogin: String
   ) {
     try {
+      // dispatch(getAllDialogsByUserIdAction({
+      //   dialogName: thisUserLogin,
+      //   members: [userId, thisUserId]
+      // }))  
       await ServiceDialog.addDialog({
         dialogName: thisUserLogin,
         members: [userId, thisUserId]
@@ -88,6 +91,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
             }
           >
             {(listDialogs.length > 0 &&
+            listDialogs[0]._id &&
               !flagModalWindow &&
               listDialogs.map((dialog: any) => (
                 <ListItem
@@ -160,7 +164,8 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
   allUsers: state.allUsers.allUsers,
-  currentDialog: state.currentDialog.currentDialog
+  currentDialog: state.dialog.currentDialog,
+  listDialogs: state.dialog.allDialogs
 })
 
 export default connect(mapStateToProps)(PanelDialogs)

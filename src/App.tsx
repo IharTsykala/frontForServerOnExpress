@@ -31,6 +31,8 @@ import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwn
 import putInStoreNewMessageforCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
 import putInStoreAllUsersSaga from "./Redux/store/allUsers/allUsers.sagas"
 import userLoginSaga from "./Redux/store/userLogin/userLogin.sagas"
+import avatarSaga from "./Redux/store/avatar/avatar.sagas"
+import dialogSaga from "./Redux/store/dialogs/dialogs.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -45,6 +47,9 @@ sagaMiddleware.run(getUserOwnerThisPageForSaga)
 sagaMiddleware.run(putInStoreNewMessageforCurrentDialogSaga)
 sagaMiddleware.run(putInStoreAllUsersSaga)
 sagaMiddleware.run(userLoginSaga)
+sagaMiddleware.run(avatarSaga)
+sagaMiddleware.run(dialogSaga)
+
 
 export const App: React.FC = () => {
   return (

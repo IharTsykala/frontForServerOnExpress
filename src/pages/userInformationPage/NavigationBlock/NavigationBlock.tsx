@@ -79,7 +79,7 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(NavigationBlock)

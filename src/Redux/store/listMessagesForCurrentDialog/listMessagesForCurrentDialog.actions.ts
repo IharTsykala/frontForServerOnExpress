@@ -16,16 +16,11 @@ export const ActionTypes = {
   GET_FAILURE: "[getFailureAction] get failure action"
 }
 
-// export const listMessagesForCurrentDialogAction = (listMessagesForCurrentDialog: []): Action<[]> => ({
-//   type: ActionTypes.ALL_MESSAGE_FOR_CURRENT_DIALOG,
-//   payload: listMessagesForCurrentDialog
-// })
-
 export const getAllMessagesCurrentDialogAction = (
-  allMessagesCurrentDialogAction: [Message]
-): Action<any> => ({
+  currentDialogId: string
+): Action<string> => ({
   type: ActionTypes.GET_ALL_MESSAGES_FOR_CURRENT_DIALOG,
-  payload: allMessagesCurrentDialogAction
+  payload: currentDialogId
 })
 
 export const putInStoreAllMessagesCurrentDialogAction = (

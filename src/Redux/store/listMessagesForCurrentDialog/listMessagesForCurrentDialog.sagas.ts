@@ -1,4 +1,5 @@
 import { put, takeEvery } from "redux-saga/effects"
+import ServiceMessage from "../../../services/service-message"
 import {
   ActionTypes,
   putInStoreAllMessagesCurrentDialogAction,
@@ -8,8 +9,8 @@ import {
 
 function* putInStoreAllMessagesCurrentDialog(actions: any) {
   try {
-    console.log(actions.payload)
-    yield put(putInStoreAllMessagesCurrentDialogAction(actions.payload))
+    const list = yield ServiceMessage.getAllMessagesByIdDialog(actions.payload)
+    yield put(putInStoreAllMessagesCurrentDialogAction(list))
   } catch (e) {
     yield put(getFailureAction(e))
   }

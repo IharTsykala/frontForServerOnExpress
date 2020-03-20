@@ -3,7 +3,7 @@ import { userOwnerThisPageReducerForSagas } from "./userOwnerThisPage/userOwnerT
 import { reducer as userReducer } from "./userLogin/userLogin.reducer"
 import { userOwnerThisPageReducer } from "./userOwnerThisPage/userOwnerThisPage.reducer"
 import { allUserReducer } from "./allUsers/allUsers.reducer"
-import { currentDialogReducer } from "./currentDialog/currentDialog.reducer"
+import { dialogReducer } from "./dialogs/dialogs.reducer"
 import { listMessagesForCurrentDialogReducer } from "./listMessagesForCurrentDialog/listMessagesForCurrentDialog.reducer"
 import { paginationReducer } from "./pagination/pagination.reducer"
 import { checkBoxStateReducer } from "./checkBoxState/checkBoxState.reducer"
@@ -13,9 +13,9 @@ import { loadingStateReducer } from "./loading/loading.reducer"
 export default combineReducers({
   common: userReducer,
   userOwnerThisPage: userOwnerThisPageReducer,
-  userOwnerThisPageReducerForSagas: userOwnerThisPageReducerForSagas,
+  userOwnerThisPageForSagas: userOwnerThisPageReducerForSagas,
   allUsers: allUserReducer,
-  currentDialog: currentDialogReducer,
+  dialog: dialogReducer,
   listMessagesForCurrentDialog: listMessagesForCurrentDialogReducer,
   pagination: paginationReducer,
   checkBoxState: checkBoxStateReducer,

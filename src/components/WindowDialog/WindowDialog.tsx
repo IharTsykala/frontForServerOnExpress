@@ -2,10 +2,9 @@ import React, { useState, useEffect, useCallback } from "react"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { Message } from "../../Redux/interfaces/message.interface"
-import { CurrentDialog } from "../../Redux/interfaces/currentDialog.interface"
+import { Dialog } from "../../Redux/interfaces/dialog.interface"
 import openSocket from "socket.io-client"
 import WindowDialogCSS from "./WindowDialog.module.css"
-import ServiceMessage from "../../services/service-message"
 import { getAllMessagesCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
 import { getNewMessageForCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
 // const socket = openSocket("http://localhost:8000/myDialogs")
@@ -22,7 +21,7 @@ const socket = openSocket("http://localhost:8000", { reconnection: true })
 type WindowDialogProps = {
   user: User
   dispatch: any
-  currentDialog: CurrentDialog
+  currentDialog: Dialog
   listMessagesForCurrentDialog: [Message]
 }
 
@@ -35,12 +34,8 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   // const [listMessage, setListMessage]: any = useState([])
   const [valueInput, setValueInput] = useState("")
 
-  const getMessagesFromBD = useCallback(async () => {
-    const list = await ServiceMessage.getAllMessagesByIdDialog(
-      currentDialog._id
-    )
-    dispatch(getAllMessagesCurrentDialogAction(list))
-    // setListMessage(list)
+  const getMessagesFromBD = useCallback(async () => {    
+    dispatch(getAllMessagesCurrentDialogAction(currentDialog._id))    
   }, [currentDialog._id, dispatch])
 
   const addMessageState = useCallback(
@@ -48,8 +43,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       try {
         // setListMessage((prevState:any)=>{
         //   return [...prevState, message]
-        // })
-        console.log(message)
+        // })        
         dispatch(getNewMessageForCurrentDialogAction(message))
       } catch (e) {
         console.log(e)
@@ -74,8 +68,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
     if (currentDialog._id !== undefined) {
       joinInRoom()
     }
-    return () => {
-      // socket.removeListeners('');
+    return () => {      
       socket.emit("end")
     }
   }, [currentDialog._id, joinInRoom])
@@ -154,7 +147,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
         <TextField
           id="outlined-full-width"
           variant="outlined"
-          label="Input Message"s
+          label="Input Message"
           className={WindowDialogCSS.dialogs_page__add_dialogs_input}
           type="text"
           value={valueInput}
@@ -176,7 +169,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  currentDialog: state.currentDialog.currentDialog,
+  currentDialog: state.dialog.currentDialog,
   listMessagesForCurrentDialog:
     state.listMessagesForCurrentDialog.listMessagesForCurrentDialog
 })

@@ -18,24 +18,26 @@ type AlbumsBlockProps = {
 const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   user,
   userOwnerThisPage
-}) => {
-  const [albumsUserOwnerPage, setAlbumsUserOwnerPage]: any = useState("")
-  const [stateLoading, setStateLoading]: any = useState("loading")
+}) => {  
+  const [albumsUserOwnerPage, setAlbumsUserOwnerPage] = useState("")
+  const [stateLoading, setStateLoading] = useState("loading")
 
   const getList = useCallback(async () => {
-    try {
+    try {      
+      if(userOwnerThisPage._id) {
       const albums = await Service.getListAlbumsWithPhotosByUserID(
         userOwnerThisPage._id
       )
       setAlbumsUserOwnerPage(albums)
       setStateLoading("loaded")
+      }
     } catch (e) {
       console.log(e)
     }
   }, [userOwnerThisPage._id])
 
   useEffect(() => {
-    getList()
+    getList()    
   }, [getList])
 
   const editHandler = async (id: string) => {}
@@ -96,7 +98,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(AlbumsBlock)

@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import Service from "../../services/service-user"
-import { userLogOutAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { getUserLoginForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
+import { getUserLogoutForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
 
 type NavbarProps = {
   user: User
@@ -28,9 +27,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
   const handlerLogOut = async () => {
     try {
-      await Service.logOutAllDevices(user._id, user)
-      localStorage.removeItem("token")
-      dispatch(userLogOutAction())
+      dispatch(getUserLogoutForSagaAction(user._id, user))      
     } catch (e) {
       console.log(e)
     }
