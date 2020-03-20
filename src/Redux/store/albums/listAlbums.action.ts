@@ -5,7 +5,5 @@ export const ActionTypes = {
 }
 
 export const userLogIn = (user: User): Action<User> => ({
-  type: ActionTypes.GET_LIST_ALBUMS  
+  type: ActionTypes.GET_LIST_ALBUMS
 })
-
-

@@ -6,11 +6,11 @@ import { Pagination } from "../../Redux/interfaces/pagination.interface"
 import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
 import { getAllUsersForSagasAction } from "../../Redux/store/allUsers/allUsers.actions"
 import { getAllUsersWithPaginationSearchFilterAction } from "../../Redux/store/allUsersWithPaginationSearchFilter/allUsersWithPaginationSearchFilter.actions"
-import AmountPagination from './AmountPagination/AmountPagination'
-import NumberBlockPagination from './NumberBlockPagination/NumberBlockPagination'
+import AmountPagination from "./AmountPagination/AmountPagination"
+import NumberBlockPagination from "./NumberBlockPagination/NumberBlockPagination"
 
 type PaginationBlockProps = {
-  user: User  
+  user: User
   pagination: Pagination
   dispatch: any
   checked: Boolean
@@ -19,7 +19,7 @@ type PaginationBlockProps = {
 }
 
 const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
-  user,  
+  user,
   pagination,
   dispatch,
   checked,
@@ -61,7 +61,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
     } catch (e) {
       console.log(e)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberPage, limitRender, user])
 
   useEffect(() => {
@@ -73,7 +73,6 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
     )
     // call function after click checkbox or search
     if (prevChecked !== undefined) {
-      console.log(1)
       clearTimeout(timerId)
       const clearInterval = setTimeout(async () => {
         await getUsersAfterPaginationAndSearchAndFilter(1, limitRender)
@@ -84,17 +83,23 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   }, [checked, valueSearchBox])
 
   return (
-    <section className={PaginationBlockCSS.All_Users__Pagination_Block}>      
+    <section className={PaginationBlockCSS.All_Users__Pagination_Block}>
       <AmountPagination
-       getUsersAfterPaginationAndSearchAndFilter={getUsersAfterPaginationAndSearchAndFilter}
-       />
-       <NumberBlockPagination getUsersAfterPaginationAndSearchAndFilter={getUsersAfterPaginationAndSearchAndFilter}/>      
+        getUsersAfterPaginationAndSearchAndFilter={
+          getUsersAfterPaginationAndSearchAndFilter
+        }
+      />
+      <NumberBlockPagination
+        getUsersAfterPaginationAndSearchAndFilter={
+          getUsersAfterPaginationAndSearchAndFilter
+        }
+      />
     </section>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,  
+  user: state.common.user,
   pagination: state.pagination.pagination,
   checked: state.checkBoxState.checkBoxState,
   prevChecked: state.checkBoxState.prevCheckBoxState,

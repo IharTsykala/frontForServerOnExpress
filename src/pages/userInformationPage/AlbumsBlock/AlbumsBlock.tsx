@@ -38,9 +38,9 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
     getList()
   }, [getList])
 
-  const editHandler = async (id: number) => {}
+  const editHandler = async (id: string) => {}
 
-  const removeHandler = async (id: number) => {
+  const removeHandler = async (id: string) => {
     setStateLoading("loading")
     await ServiceAlbum.removeHandler(id)
     getList()
@@ -63,14 +63,14 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   return (
     <Box className={AlbumsBlockCSS.main__user_profile__albums_block}>
       {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
-      {stateLoading === "loaded" && (       
+      {stateLoading === "loaded" && (
         <CreateList
           arr={albumsUserOwnerPage}
           removeHandler={removeHandler}
           editHandler={editHandler}
-          createListFunction={"CreateListAlbums"}          
+          createListFunction={"CreateListAlbums"}
         />
-      )}      
+      )}
       <Button
         variant="outlined"
         component="button"
@@ -86,7 +86,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
             addChangeHandler(e)
           }}
         />{" "}
-      </Button>     
+      </Button>
       {stateLoading !== "loading" && stateLoading !== "loaded" && (
         <h1>ошибка</h1>
       )}

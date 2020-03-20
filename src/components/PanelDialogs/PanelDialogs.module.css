@@ -1,11 +1,26 @@
 .dialogs_page__rules_dialogs {
-background: rgb(39,73,172);
-background: -moz-linear-gradient(90deg, rgba(39,73,172,1) 0%, rgba(255,255,255,1) 99%, rgba(29,86,253,1) 100%);
-background: -webkit-linear-gradient(90deg, rgba(39,73,172,1) 0%, rgba(255,255,255,1) 99%, rgba(29,86,253,1) 100%);
-background: linear-gradient(90deg, rgba(39,73,172,1) 0%, rgba(255,255,255,1) 99%, rgba(29,86,253,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2749ac",endColorstr="#1d56fd",GradientType=1);
- display: grid;
- grid-template-rows: 90% 1fr; 
+  background: rgb(39, 73, 172);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(39, 73, 172, 1) 0%,
+    rgba(255, 255, 255, 1) 99%,
+    rgba(29, 86, 253, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(39, 73, 172, 1) 0%,
+    rgba(255, 255, 255, 1) 99%,
+    rgba(29, 86, 253, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(39, 73, 172, 1) 0%,
+    rgba(255, 255, 255, 1) 99%,
+    rgba(29, 86, 253, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2749ac",endColorstr="#1d56fd",GradientType=1);
+  display: grid;
+  grid-template-rows: 90% 1fr;
 }
 
 .dialogs_page__rules_dialogs ul {
@@ -14,14 +29,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2749ac",endCo
 }
 
 .dialogs_page__rules_dialogs button {
-    max-width: 70%;
-    width: 75%;
-    max-height: 70%;
-    height: 75%;
-    background-color: rgb(54, 54, 87);
-    display: grid;
-    margin: 0 auto;
-    color: rgb(119, 104, 104);
-    position: relative;
-    align-self: center;
-  }
+  max-width: 70%;
+  width: 75%;
+  max-height: 70%;
+  height: 75%;
+  background-color: rgb(54, 54, 87);
+  display: grid;
+  margin: 0 auto;
+  color: rgb(119, 104, 104);
+  position: relative;
+  align-self: center;
+}

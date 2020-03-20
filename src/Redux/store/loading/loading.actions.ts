@@ -9,4 +9,3 @@ export const setLoadingState = (loadingState: String): Action<String> => ({
   type: ActionTypes.SET_LOADING_STATE,
   payload: loadingState
 })
-

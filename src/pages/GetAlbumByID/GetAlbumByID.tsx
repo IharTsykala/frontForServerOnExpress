@@ -30,7 +30,7 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
 
   const getList = useCallback(async () => {
     try {
-      const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)      
+      const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)
       // album[0] because I used aggregate for mongoDb
       setArrayPhotosChosenAlbum(album[0].photos)
       setLoad("loaded")
@@ -48,9 +48,9 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
     setStatusPhotoModalWindow(!statusPhotoModalWindow)
   }
 
-  const editHandler = async (id: number) => {}
+  const editHandler = async (id: string) => {}
 
-  const removeHandler = async (id: number) => {
+  const removeHandler = async (id: string) => {
     setLoad("loading")
     await ServicePhotos.removeHandler(id)
     getList()
@@ -67,7 +67,7 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
   }
 
   return (
-    <>   
+    <>
       <div className={GetAlbumByIDCSS.main__user_profile__album_block}>
         {load === "loading" && <h1>Ожидайте ответа</h1>}
         {load === "loaded" && (

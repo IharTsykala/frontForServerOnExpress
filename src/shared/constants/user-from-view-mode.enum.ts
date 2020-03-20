@@ -11,8 +11,8 @@ export enum UserFormViewButtons {
 }
 
 export enum LoadingState {
-  loading = 'loading',
-  loaded = 'loaded',
-  notFound = 'notFound',
-  error = 'error'
+  loading = "loading",
+  loaded = "loaded",
+  notFound = "notFound",
+  error = "error"
 }

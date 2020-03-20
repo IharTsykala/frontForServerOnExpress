@@ -1,5 +1,0 @@
-.main__user_profile__container {
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-rows: 300px 1fr;
-}

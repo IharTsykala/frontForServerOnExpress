@@ -1,5 +1,4 @@
 import { Action } from "../interfaces/action.interface"
-import { CheckBoxState } from "../../interfaces/checkBoxState.interface"
 
 export const ActionTypes = {
   SET_CHECK_BOX_STATE: "[setCheckBoxState] set check box state",

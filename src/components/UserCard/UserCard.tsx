@@ -9,16 +9,14 @@ import { User } from "../../Redux/interfaces/user.interface"
 
 type UserCardProps = {
   user: User
-  userOwnerCard: any  
+  userOwnerCard: any
   getLogInUserAllSubscriptionsAndObserver: any
-  
 }
 
 const UserCard: React.FC<UserCardProps> = ({
   user,
-  userOwnerCard,  
+  userOwnerCard,
   getLogInUserAllSubscriptionsAndObserver
- 
 }) => {
   const history = useHistory()
 
@@ -48,7 +46,7 @@ const UserCard: React.FC<UserCardProps> = ({
     await getLogInUserAllSubscriptionsAndObserver()
   }
 
-  const removeHandler = async (id: number) => {    
+  const removeHandler = async (id: string) => {
     await Service.removeHandler(id)
     await getLogInUserAllSubscriptionsAndObserver()
   }

@@ -66,20 +66,20 @@ const InformationBlock: React.FC<InformationBlockProps> = ({
           }
         >
           <Link to={`/user/${userOwnerThisPage._id}/edit`}>
+            <Button
+              variant="outlined"
+              component="button"
+              onClick={(e: any) => handleSubmit(e)}
+            >
+              EDIT INFORMATION
+            </Button>
+          </Link>
           <Button
             variant="outlined"
             component="button"
             onClick={(e: any) => handleSubmit(e)}
           >
-            EDIT INFORMATION
-          </Button>
-          </Link>          
-          <Button
-            variant="outlined"
-            component="button"
-            onClick={(e: any) => handleSubmit(e)}
-          >
-            SOME BUTTON
+            DELETE PAGE
           </Button>
         </Box>
       </Box>

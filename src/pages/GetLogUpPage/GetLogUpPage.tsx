@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import Service from "../../services/service-user"
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../../components/FormDataUsers/FormDataUsers"
@@ -19,7 +19,7 @@ type GetLogUpPageProps = {
 const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
   const history = useHistory()
 
-  const logUpHandler = async (id: number, user: any) => {
+  const logUpHandler = async (id: string, user: User) => {
     const data = await Service.getTokenForRegistration(id, user)
     localStorage.setItem("token", data.token)
     dispatch(userLogIn(data.user))

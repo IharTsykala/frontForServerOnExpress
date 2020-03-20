@@ -1,5 +1,5 @@
 export interface CurrentDialog {
-  _id: String | ""
-  dialogName: String | ""
-  members: []
+  _id: string | ""
+  dialogName: string | ""
+  members: [string]
 }

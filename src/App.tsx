@@ -50,78 +50,78 @@ export const App: React.FC = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-      <div className = 'wrapper'>
-      <Navbar />
-        <main className="main">
-          <Switch>
-            {/* <Route component={DialogsPage} path="/:id/dialogs" exact /> */}
-            <Route component={GetStartPage} path="/" exact />
-            <Route component={GetLoginPage} path="/LogIn" exact />
-            <Route component={GetLogUpPage} path="/SignUp" exact />
-            {/* <PrivateRoute
+        <div className="wrapper">
+          <Navbar />
+          <main className="main">
+            <Switch>
+              {/* <Route component={DialogsPage} path="/:id/dialogs" exact /> */}
+              <Route component={GetStartPage} path="/" exact />
+              <Route component={GetLoginPage} path="/LogIn" exact />
+              <Route component={GetLogUpPage} path="/SignUp" exact />
+              {/* <PrivateRoute
               {...defaultPrivateRouteProps}
               component={GetAllUsers}
               path="/user/all"
               exact
             /> */}
-            <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={DialogsPage}
-              path="/:id/dialogs"
-              exact
-            />
-            <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={AllUsersPage}
-              path="/user/allUsers"
-              exact
-            />
-            {/* <PrivateRoute
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={DialogsPage}
+                path="/:id/dialogs"
+                exact
+              />
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={AllUsersPage}
+                path="/user/allUsers"
+                exact
+              />
+              {/* <PrivateRoute
               {...defaultPrivateRouteProps}
               component={GetUserByID}
               path="/user/:id"
               exact
             />  */}
-            <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={UserInformationPage}
-              path="/user/profile/:id"
-              exact
-            />     
-            <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={GetAlbumByID}
-              path="/user/:id/album"
-              exact
-            />    
-            <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={AllAlbumsPage}
-              path="/user/:id/allAlbums"
-              exact
-            />
-            <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={UserEditInformation}
-              path="/user/:id/edit"
-              exact
-            />
-            <PrivateRouteForAdmins
-              {...defaultPrivateRouteForAdminsProps}
-              component={AdminAllUsers}
-              path="/admin/all"
-              exact
-            />
-            <PrivateRouteForAdmins
-              {...defaultPrivateRouteForAdminsProps}
-              component={AdminAllUsers}
-              path="/admin/:id"
-              exact
-            />
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </main>
-      </div>      
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={UserInformationPage}
+                path="/user/profile/:id"
+                exact
+              />
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={GetAlbumByID}
+                path="/user/:id/album"
+                exact
+              />
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={AllAlbumsPage}
+                path="/user/:id/allAlbums"
+                exact
+              />
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={UserEditInformation}
+                path="/user/:id/edit"
+                exact
+              />
+              <PrivateRouteForAdmins
+                {...defaultPrivateRouteForAdminsProps}
+                component={AdminAllUsers}
+                path="/admin/all"
+                exact
+              />
+              <PrivateRouteForAdmins
+                {...defaultPrivateRouteForAdminsProps}
+                component={AdminAllUsers}
+                path="/admin/:id"
+                exact
+              />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </main>
+        </div>
       </BrowserRouter>
     </Provider>
   )

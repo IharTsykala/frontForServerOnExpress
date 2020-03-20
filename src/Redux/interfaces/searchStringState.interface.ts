@@ -1,3 +1,3 @@
 export interface SearchStringState {
-  searchStringState: ""|String
+  searchStringState: "" | String
 }

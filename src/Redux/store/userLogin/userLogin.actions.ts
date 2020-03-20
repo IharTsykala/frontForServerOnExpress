@@ -11,7 +11,7 @@ export const ActionTypes = {
   GET_FAILURE: "[getFailureAction] get failure action"
 }
 
-export const userLogIn = (user: User): Action<User> => ({
+export const userLogIn = (user: {}): Action<{}> => ({
   type: ActionTypes.USER_LOGIN,
   payload: user
 })
@@ -26,7 +26,7 @@ export const userRefreshAction = (user: User): Action<User> => ({
 })
 
 export const getUserLoginForSagaAction = (): Action<any> => ({
-  type: ActionTypes.GET_USER_LOGIN_FOR_SAGA 
+  type: ActionTypes.GET_USER_LOGIN_FOR_SAGA
 })
 
 export const setUserLoginInStoreAction = (user: User): Action<User> => ({
@@ -38,4 +38,3 @@ export const getFailureAction = (error?: any): Action<any> => ({
   type: ActionTypes.GET_FAILURE,
   payload: error
 })
-

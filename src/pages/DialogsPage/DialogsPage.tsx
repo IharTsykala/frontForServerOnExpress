@@ -6,18 +6,17 @@ import Box from "@material-ui/core/Box"
 
 const DialogsPage: React.FunctionComponent<any> = () => {
   return (
-    
-      <Box
-        component="div"
-        display="grid"
-        // p={1}
-        // m={1}
-        // bgcolor="background.paper"
-        className={DialogsPageCSS.dialogs_page}>         
-        <PanelDialogs />
-        <WindowDialog />
-      </Box>
-   
+    <Box
+      component="div"
+      display="grid"
+      // p={1}
+      // m={1}
+      // bgcolor="background.paper"
+      className={DialogsPageCSS.dialogs_page}
+    >
+      <PanelDialogs />
+      <WindowDialog />
+    </Box>
   )
 }
 

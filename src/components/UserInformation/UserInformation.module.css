@@ -2,7 +2,7 @@
   border: 1px solid black;
   display: grid;
   grid-template-rows: 60% 40%;
-  height: 300px;  
+  height: 300px;
 }
 
 .user_profile__user_information__block_information h4 {
@@ -11,7 +11,7 @@
 
 .user_profile__user_information__block_information div {
   display: grid;
-  grid-template-columns: 1fr 95%; 
+  grid-template-columns: 1fr 95%;
   margin: 0 5%;
 }
 
@@ -23,10 +23,12 @@
   display: grid;
   justify-self: end;
   height: 50px;
-  margin: 50px; 
+  margin: 50px;
 }
 
-.user_profile__user_information__button_to_go_over_edit_user_information a button {
-  border-radius: 35%; 
+.user_profile__user_information__button_to_go_over_edit_user_information
+  a
+  button {
+  border-radius: 35%;
   height: 100%;
 }

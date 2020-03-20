@@ -10,14 +10,42 @@
   );
 }
 
-/* .navbar__avatar__brand_logo {
-  font-size: 80px;
-} */
-
 .navbar__avatar {
   width: 96px;
   margin-left: 330px;
   max-height: 62px;
   margin-top: 1px;
+  border-radius: 25%;
   position: absolute;
+}
+
+@media (max-width: 1280px) {
+  .navbar__avatar {
+    display: none;
+  }
+  .navbar_container {
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 1024px) {
+  a.navbar__avatar__brand_logo,
+  a.brand-logo,
+  nav a[class="brand-logo"] {
+    display: none !important;
+  }
+
+  .navbar_container {
+    display: grid;
+    justify-content: center;
+    height: 100px;
+  }
+
+  nav ul[class="right hide-on-med-and-down"] {
+    display: block !important;
+    margin: auto auto;
+  }
 }

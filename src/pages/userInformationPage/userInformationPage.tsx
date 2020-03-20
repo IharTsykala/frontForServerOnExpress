@@ -75,7 +75,9 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
       password: ""
     })
     if (userOwnerThisPage._id === user._id && avatarForFront) {
-      const newUser = Object.assign({}, userOwnerThisPage, { avatar: imgName })
+      const newUser = Object.assign({}, userOwnerThisPage, {
+        avatar: imgName
+      })
       dispatch(userLogIn(newUser))
     }
   }
@@ -83,7 +85,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
   return (
     <div className={userInformationPageCSS.container__user_information_page}>
       <Box
-        component="div"
+        component="section"
         display="grid"
         p={1}
         m={1}
@@ -97,7 +99,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         />
       </Box>
       <Box
-        component="span"
+        component="section"
         display="block"
         p={1}
         m={1}
@@ -106,7 +108,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         <InformationBlock />
       </Box>
       <Box
-        component="span"
+        component="section"
         display="block"
         p={1}
         m={1}
@@ -115,7 +117,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         <NavigationBlock />
       </Box>
       <Box
-        component="span"
+        component="section"
         display="block"
         p={1}
         m={1}

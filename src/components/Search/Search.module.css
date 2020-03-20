@@ -1,25 +1,14 @@
-.all_users__header_block__search_box {    
-    display: grid;
-    grid-template-columns: 10% 90%;    
+.all_users__header_block__search_box {
+  display: grid;
+  grid-template-columns: 10% 90%;
 }
 
 .all_users__header_block__search_box svg {
-     margin-top: 10px;
-    margin-left: 20px;  
-    
-} 
-
-.all_users__header_block__search_box__input{
-padding-left: 30px;
-/* border-bottom-width: 1px; */
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
-input:not([type]),
-input[type="text"]:not(.browser-default),
-input[type="text"]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea {
-  border-bottom: none;
-  -webkit-box-shadow: none;
-  box-shadow: none
+.all_users__header_block__search_box__input {
+  padding-left: 30px;
+  /* border-bottom-width: 1px; */
 }
-

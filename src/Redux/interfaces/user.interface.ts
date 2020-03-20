@@ -1,13 +1,13 @@
 export interface User {
-  _id: String | ""
-  role: String | ""
-  login: String | ""
-  firstName: String | ""
-  lastName: String | ""
-  email: String | ""
-  phone: String | ""
-  avatar: String | ""
-  subscriptions: String | ""
-  countPage?: Number
-  countUsers?: Number
+  _id: string | ""
+  role: string | ""
+  login: string | ""
+  firstName: string | ""
+  lastName: string | ""
+  email: string | ""
+  phone: string | ""
+  avatar: string | ""
+  subscriptions: string | ""
+  countPage?: number
+  countUsers?: number
 }

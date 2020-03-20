@@ -21,12 +21,12 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
   dispatch,
   allUsers
 }) => {
-  const [users, setUsers]: any = useState([])
-  const [load, setLoad]: any = useState("loading")
-  const [valueSearchBox, setValueSearchBox]: any = useState("")
+  const [users, setUsers] = useState([])
+  const [load, setLoad] = useState("loading")
+  const [valueSearchBox, setValueSearchBox] = useState("")
   const [checked, setChecked]: any = useState(false)
   // on some time
-  const [prevChecked, setPrevChecked]: any = useState(false)
+  const [prevChecked, setPrevChecked] = useState(false)
 
   const render = useCallback(async () => {
     try {
@@ -111,7 +111,7 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
     getFilteredArrayUsers(valueSearchBox)
   }, [getFilteredArrayUsers, valueSearchBox])
 
-  const removeHandler = async (id: number) => {
+  const removeHandler = async (id: string) => {
     setLoad("loading")
     await Service.removeHandler(id)
     await getLogInUserAllSubscriptionsAndObserver()
@@ -156,12 +156,12 @@ const GetAllUsers: React.FunctionComponent<GetAllUsersProps> = ({
               })}
           </ul>
           <PaginationBlock
-            // checked={checked}
-            // valueSearchBox={valueSearchBox}
-            // getUserAfterPaginationAndSearchAndFilter={
-            //   getUserAfterPaginationAndSearchAndFilter
-            // }
-            // prevChecked={prevChecked}
+          // checked={checked}
+          // valueSearchBox={valueSearchBox}
+          // getUserAfterPaginationAndSearchAndFilter={
+          //   getUserAfterPaginationAndSearchAndFilter
+          // }
+          // prevChecked={prevChecked}
           />
         </>
       )}

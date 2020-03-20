@@ -2,19 +2,19 @@ const axios = require("axios")
 
 export default class ServicePhotos {
   static interceptor = axios.interceptors.request.use(
-    function(config) {
+    function(config: any) {
       const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
       return config
     },
-    function(error) {
+    function(error: string) {
       return Promise.reject(error)
     }
   )
 
-  static setImgUser = async avatar => {
+  static setImgUser = async (avatar: any) => {
     const formData = new FormData()
     for (let i = 0; i < avatar.length; i++) {
       formData.append("multipleUser", avatar[i])
@@ -26,7 +26,7 @@ export default class ServicePhotos {
     return response.data.fileNames
   }
 
-  static addPhoto = async (idUser, arrayUrl) => {
+  static addPhoto = async (idUser: string, arrayUrl: string) => {
     for (let i = 0; i < arrayUrl.length; i++) {
       const photo = {
         name: `${arrayUrl[i]}`,
@@ -41,7 +41,7 @@ export default class ServicePhotos {
     }
   }
 
-  static removeHandler = async id => {
+  static removeHandler = async (id: string) => {
     try {
       return await axios.delete(`http://localhost:8080/photos/delete/${id}`)
     } catch (e) {
@@ -49,8 +49,12 @@ export default class ServicePhotos {
     }
   }
 
-  static addPhotoIntoAlbum = async (idUser, idAlbum, arrayUrl) => {
-    let arrPhotoUrl = []
+  static addPhotoIntoAlbum = async (
+    idUser: string,
+    idAlbum: string,
+    arrayUrl: []
+  ) => {
+    let arrPhotoUrl: any = []
     for (let i = 0; i < arrayUrl.length; i++) {
       const photo = {
         name: `${arrayUrl[i]}`,
@@ -67,7 +71,11 @@ export default class ServicePhotos {
     return arrPhotoUrl
   }
 
-  static addPhotosIntoFsAndAlbum = async (idUser, idAlbum, arrayFiles) => {
+  static addPhotosIntoFsAndAlbum = async (
+    idUser: any,
+    idAlbum: string,
+    arrayFiles: any
+  ) => {
     const formData = new FormData()
     for (let i = 0; i < arrayFiles.length; i++) {
       formData.append("multipleUser", arrayFiles[i])

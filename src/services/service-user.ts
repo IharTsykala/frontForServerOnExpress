@@ -2,14 +2,14 @@ const axios = require("axios")
 
 export default class Service {
   static interceptor = axios.interceptors.request.use(
-    function(config) {
+    function(config: any) {
       const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
       return config
     },
-    function(error) {
+    function(error: string) {
       return Promise.reject(error)
     }
   )
@@ -23,7 +23,7 @@ export default class Service {
     }
   }
 
-  static getFilteredUsers = async valueSearchBox => {
+  static getFilteredUsers = async (valueSearchBox: string) => {
     try {
       const request = await axios.get(
         `http://localhost:8080/users/filter/${valueSearchBox}`
@@ -34,7 +34,7 @@ export default class Service {
     }
   }
 
-  static editUser = async (id, user) => {
+  static editUser = async (id: any, user: {}) => {
     try {
       const request = await axios.put(
         `http://localhost:8080/users/update/${id}`,
@@ -46,7 +46,7 @@ export default class Service {
     }
   }
 
-  static removeHandler = async id => {
+  static removeHandler = async (id: any) => {
     try {
       return await axios.delete(`http://localhost:8080/users/delete/${id}`)
     } catch (e) {
@@ -54,7 +54,7 @@ export default class Service {
     }
   }
 
-  static getUserByID = async id => {
+  static getUserByID = async (id: string) => {
     try {
       const request = await axios.get(`http://localhost:8080/users/${id}`)
       return request.data
@@ -63,28 +63,28 @@ export default class Service {
     }
   }
 
-  static getUserByToken = async id => {
-    try {      
+  static getUserByToken = async () => {
+    try {
       const request = await axios.get(
         `http://localhost:8080/users/getUserByToken/`
-      )      
+      )
       return request.data
     } catch (e) {
       console.log(e)
     }
   }
 
-  static getTokenForLogin = async (id, user) => {
+  static getTokenForLogin = async (id: string, user: {}) => {
     const response = await axios.post(`http://localhost:8080/users/login`, user)
     return response.data
   }
 
-  static getTokenForRegistration = async (id, user) => {
+  static getTokenForRegistration = async (id: string, user: {}) => {
     const response = await axios.post(`http://localhost:8080/users/add`, user)
     return response.data
   }
 
-  static logOutAllDevices = async (id, user) => {
+  static logOutAllDevices = async (id: any, user: {}) => {
     const response = await axios.post(
       `http://localhost:8080/users/logOutAllDevices`,
       user
@@ -92,14 +92,14 @@ export default class Service {
     return response.data
   }
 
-  static getListPetsByUserID = async id => {
+  static getListPetsByUserID = async (id: string) => {
     const response = await axios.get(
       `http://localhost:8080/users/withPets/${id}`
     )
     return response.data
   }
 
-  static setImgUser = async (avatar, id) => {
+  static setImgUser = async (avatar: any, id: any) => {
     const formData = new FormData()
     formData.append("user", avatar)
 
@@ -110,7 +110,7 @@ export default class Service {
     return response.data.fileName
   }
 
-  static getListAlbumsByUserID = async id => {
+  static getListAlbumsByUserID = async (id: string) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/withAlbums/${id}`
@@ -122,7 +122,7 @@ export default class Service {
     }
   }
 
-  static getListPhotosByUserID = async id => {
+  static getListPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/withPhotos/${id}`
@@ -133,7 +133,7 @@ export default class Service {
     }
   }
 
-  static getListAlbumsWithPhotosByUserID = async id => {
+  static getListAlbumsWithPhotosByUserID = async (id: any) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/AlbumsWithPhotos/${id}`
@@ -144,23 +144,23 @@ export default class Service {
     }
   }
 
-  static getUserWithSubscriptionsById = async userLogin => {
+  static getUserWithSubscriptionsById = async (userLogin: any) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
-      )      
+      )
       return response.data
     } catch (e) {
       console.log(e)
     }
   }
 
-  static getUserAfterPaginationAndSearchAndFilter = async (body) => {
+  static getUserAfterPaginationAndSearchAndFilter = async (body: any) => {
     try {
       const response = await axios.post(
         `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
         body
-      )      
+      )
       console.log(response)
       return response.data
     } catch (e) {

@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { User } from "../../../Redux/interfaces/user.interface"
 import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
+import NavigationBlockCSS from "./NavigationBlock.module.css"
 
 type NavigationBlockProps = {
   user: User
@@ -25,7 +26,7 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
   userOwnerThisPage
 }) => {
   return (
-    <List>
+    <List className={NavigationBlockCSS.user_information__navigation_block}>
       <ListItem button>
         <ListItemAvatar>
           <Avatar>
@@ -54,14 +55,14 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
       </ListItem>
       <Divider variant="inset" component="li" />
       <Link to={`/user/${user._id}/allAlbums`}>
-      <ListItem button>      
-        <ListItemAvatar>
-          <Avatar>
-            <FolderSharedOutlinedIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Albums" secondary="Jan 7, 2014" />
-      </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>
+              <FolderSharedOutlinedIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Albums" secondary="Jan 7, 2014" />
+        </ListItem>
       </Link>
       <Divider variant="inset" component="li" />
       <ListItem button>

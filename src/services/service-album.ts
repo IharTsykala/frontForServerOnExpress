@@ -2,14 +2,14 @@ const axios = require("axios")
 
 export default class ServiceAlbums {
   static interceptor = axios.interceptors.request.use(
-    function(config) {
+    function(config: any) {
       const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
       return config
     },
-    function(error) {
+    function(error: string) {
       return Promise.reject(error)
     }
   )
@@ -23,7 +23,7 @@ export default class ServiceAlbums {
     }
   }
 
-  static addAlbum = async id => {
+  static addAlbum = async (id: string) => {
     const album = {
       name: "new album",
       ownerUser: id
@@ -32,7 +32,7 @@ export default class ServiceAlbums {
     return response.data
   }
 
-  static editAlbum = async (id, user) => {
+  static editAlbum = async (id: string, user: string) => {
     try {
       const request = await axios.put(
         `http://localhost:8080/albums/update/${id}`,
@@ -44,7 +44,7 @@ export default class ServiceAlbums {
     }
   }
 
-  static removeHandler = async id => {
+  static removeHandler = async (id: string) => {
     try {
       return await axios.delete(`http://localhost:8080/albums/delete/${id}`)
     } catch (e) {
@@ -52,7 +52,7 @@ export default class ServiceAlbums {
     }
   }
 
-  static getListPhotosByAlbumID = async id => {
+  static getListPhotosByAlbumID = async (id: string) => {
     try {
       // console.log(id)
       const response = await axios.get(

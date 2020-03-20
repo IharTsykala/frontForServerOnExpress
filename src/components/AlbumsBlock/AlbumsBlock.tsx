@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import AlbumsBlockCSS from "./AlbumsBlock.module.css"
 import CreateList from "../CreateList/CreateList"
 import Service from "../../services/service-user"
@@ -20,11 +20,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   const [albumsUserOwnerPage, setAlbumsUserOwnerPage]: any = useState("")
   const [stateLoading, setStateLoading]: any = useState("loading")
 
-  useEffect(() => {
-    getList()
-  }, [])
-
-  async function getList() {
+  const getList = useCallback(async () => {
     try {
       const albums = await Service.getListAlbumsWithPhotosByUserID(
         userOwnerThisPage._id
@@ -34,11 +30,15 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
     } catch (e) {
       console.log(e)
     }
-  }
+  }, [userOwnerThisPage._id])
 
-  const editHandler = async (id: number) => {}
+  useEffect(() => {
+    getList()
+  }, [getList])
 
-  const removeHandler = async (id: number) => {
+  const editHandler = async (id: string) => {}
+
+  const removeHandler = async (id: string) => {
     setStateLoading("loading")
     await ServiceAlbum.removeHandler(id)
     getList()

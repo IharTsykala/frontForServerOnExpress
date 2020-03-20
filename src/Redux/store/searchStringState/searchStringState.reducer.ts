@@ -2,7 +2,7 @@ import { ActionTypes } from "./searchStringState.actions"
 import { Action } from "../interfaces/action.interface"
 
 export interface State {
-  searchStringState: ""|String
+  searchStringState: "" | String
 }
 
 const initialState: State = {

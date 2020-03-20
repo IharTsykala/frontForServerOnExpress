@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CardActions from "@material-ui/core/CardActions"
@@ -31,8 +31,8 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   ownerUser
 }) => {
   // console.log(ownerUser)
-   
-  return (    
+
+  return (
     <Card className={PhotoCardCSS.photoAlbum__photoCard_block__card}>
       {!idChosenAlbum && (
         <Link to={`/user/${idItem}/album`}>
@@ -52,7 +52,9 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
         />
       )}
 
-      <CardActions  className={PhotoCardCSS.photoAlbum__photoCard_block__card__actions}>
+      <CardActions
+        className={PhotoCardCSS.photoAlbum__photoCard_block__card__actions}
+      >
         <Button
           size="small"
           color="primary"

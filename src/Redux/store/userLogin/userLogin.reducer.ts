@@ -26,7 +26,7 @@ export const reducer = (state: State = initialState, action: Action<{}>) => {
         ...state,
         user: action.payload
       }
-      case ActionTypes.SET_USER_LOGIN_IN_STORE:
+    case ActionTypes.SET_USER_LOGIN_IN_STORE:
       return {
         ...state,
         user: action.payload
