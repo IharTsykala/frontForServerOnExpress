@@ -33,6 +33,7 @@ import putInStoreAllUsersSaga from "./Redux/store/allUsers/allUsers.sagas"
 import userLoginSaga from "./Redux/store/userLogin/userLogin.sagas"
 import avatarSaga from "./Redux/store/avatar/avatar.sagas"
 import dialogSaga from "./Redux/store/dialogs/dialogs.sagas"
+import albumsSaga from "./Redux/store/albums/albums.sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -49,7 +50,7 @@ sagaMiddleware.run(putInStoreAllUsersSaga)
 sagaMiddleware.run(userLoginSaga)
 sagaMiddleware.run(avatarSaga)
 sagaMiddleware.run(dialogSaga)
-
+sagaMiddleware.run(albumsSaga)
 
 export const App: React.FC = () => {
   return (

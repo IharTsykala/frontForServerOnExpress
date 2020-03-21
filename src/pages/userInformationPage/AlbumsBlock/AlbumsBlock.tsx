@@ -1,78 +1,67 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useEffect, useCallback } from "react"
 import AlbumsBlockCSS from "./AlbumsBlock.module.css"
 import CreateList from "../../../components/CreateList/CreateList"
-import Service from "../../../services/service-user"
-import ServiceAlbum from "../../../services/service-album"
-import ServicePhoto from "../../../services/service-photo"
 import { connect } from "react-redux"
 import { User } from "../../../Redux/interfaces/user.interface"
 import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
+import { Album } from "../../../Redux/interfaces/album.interface"
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
+import { getListAlbumsWithPhotosByUserIDAction } from "../../../Redux/store/albums/albums.action"
+import { removeAlbumAction } from "../../../Redux/store/albums/albums.action"
+import { addAlbumWithPhotosByUserIdAction } from "../../../Redux/store/albums/albums.action"
 
 type AlbumsBlockProps = {
   user: User
   userOwnerThisPage: UserOwnerThisPageInterface
+  albumsForUserOwnerPage: [Album]
+  dispatch: any
 }
 
 const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   user,
-  userOwnerThisPage
-}) => {  
-  const [albumsUserOwnerPage, setAlbumsUserOwnerPage] = useState("")
-  const [stateLoading, setStateLoading] = useState("loading")
-
-  const getList = useCallback(async () => {
-    try {      
-      if(userOwnerThisPage._id) {
-      const albums = await Service.getListAlbumsWithPhotosByUserID(
-        userOwnerThisPage._id
-      )
-      setAlbumsUserOwnerPage(albums)
-      setStateLoading("loaded")
-      }
-    } catch (e) {
-      console.log(e)
+  userOwnerThisPage,
+  albumsForUserOwnerPage,
+  dispatch
+}) => {
+  const getList = useCallback(() => {
+    if (userOwnerThisPage._id) {
+      dispatch(getListAlbumsWithPhotosByUserIDAction(userOwnerThisPage._id))
     }
-  }, [userOwnerThisPage._id])
+  }, [dispatch, userOwnerThisPage._id])
 
   useEffect(() => {
-    getList()    
+    getList()
   }, [getList])
 
-  const editHandler = async (id: string) => {}
+  const editHandler = (albumId: string) => {}
 
-  const removeHandler = async (id: string) => {
-    setStateLoading("loading")
-    await ServiceAlbum.removeHandler(id)
-    getList()
+  const removeHandler = (albumId: string) => {
+    dispatch(removeAlbumAction(albumId, userOwnerThisPage._id))
   }
 
-  const addChangeHandler = async (e: any) => {
+  const addChangeHandler = (e: any) => {
     const arrayFiles = e.target.files
-    const data = await ServiceAlbum.addAlbum(userOwnerThisPage._id)
-    const idAlbum = data.album._id
-    await ServicePhoto.addPhotosIntoFsAndAlbum(
-      userOwnerThisPage._id,
-      idAlbum,
-      arrayFiles
+    dispatch(
+      addAlbumWithPhotosByUserIdAction(userOwnerThisPage._id, arrayFiles)
     )
-    getList()
   }
 
   const handleSubmit = (e: any) => {}
 
   return (
     <Box className={AlbumsBlockCSS.main__user_profile__albums_block}>
-      {stateLoading === "loading" && <h1>Ожидайте ответа</h1>}
-      {stateLoading === "loaded" && (
-        <CreateList
-          arr={albumsUserOwnerPage}
-          removeHandler={removeHandler}
-          editHandler={editHandler}
-          createListFunction={"CreateListAlbums"}
-        />
-      )}
+      {/* {stateLoading === "loading" && <h1>Ожидайте ответа</h1>} */}
+      {// stateLoading === "loaded"   &&
+      albumsForUserOwnerPage.length &&
+        albumsForUserOwnerPage[0]._id !== undefined && (
+          <CreateList
+            arr={albumsForUserOwnerPage}
+            removeHandler={removeHandler}
+            editHandler={editHandler}
+            createListFunction={"CreateListAlbums"}
+          />
+        )}
       <Button
         variant="outlined"
         component="button"
@@ -89,16 +78,17 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
           }}
         />{" "}
       </Button>
-      {stateLoading !== "loading" && stateLoading !== "loaded" && (
+      {/* {stateLoading !== "loading" && stateLoading !== "loaded" && (
         <h1>ошибка</h1>
-      )}
+      )} */}
     </Box>
   )
 }
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage,
+  albumsForUserOwnerPage: state.albumsState.albumsForUserOwnerPage
 })
 
 export default connect(mapStateToProps)(AlbumsBlock)

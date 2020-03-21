@@ -3,7 +3,6 @@ import PanelDialogsCSS from "./PanelDialogs.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { Dialog } from "../../Redux/interfaces/dialog.interface"
-import ServiceDialog from "../../services/service-dialog"
 import { LoadingState } from "../../shared/constants/user-from-view-mode.enum"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
@@ -13,6 +12,7 @@ import Avatar from "@material-ui/core/Avatar"
 import { currentDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
 import { getAllUsersForSagasAction } from "../../Redux/store/allUsers/allUsers.actions"
 import { getAllDialogsByUserIdAction } from "../../Redux/store/dialogs/dialogs.actions"
+import { addDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 
@@ -20,7 +20,7 @@ type PanelDialogsProps = {
   user: User
   dispatch: any
   allUsers: [User]
-  currentDialog: Dialog,
+  currentDialog: Dialog
   listDialogs: [Dialog]
 }
 
@@ -30,21 +30,17 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
   allUsers,
   currentDialog,
   listDialogs
-}) => {  
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [stateLoading, setStateLoading] = useState(LoadingState.loaded)
   const [flagModalWindow, setFlagModalWindow] = useState(false)
 
-  const getListDialogs = useCallback(async () => {
-    try {
-      if (user._id) {        
-        dispatch(getAllDialogsByUserIdAction(user._id))        
+  const getListDialogs = useCallback(async () => {   
+      if (user._id) {
+        dispatch(getAllDialogsByUserIdAction(user._id))
         if (allUsers[0]._id === undefined)
           dispatch(getAllUsersForSagasAction(user._id))
-      }
-    } catch (e) {
-      console.log(e)
-      setStateLoading(LoadingState.error)
-    }
+      }   
   }, [allUsers, dispatch, user._id])
 
   useEffect(() => {
@@ -60,20 +56,12 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     userId: String,
     thisUserId: String,
     thisUserLogin: String
-  ) {
-    try {
-      // dispatch(getAllDialogsByUserIdAction({
-      //   dialogName: thisUserLogin,
-      //   members: [userId, thisUserId]
-      // }))  
-      await ServiceDialog.addDialog({
+  ) {    
+      dispatch(addDialogAction({
         dialogName: thisUserLogin,
         members: [userId, thisUserId]
-      })
-      getListDialogs()
-    } catch (e) {
-      console.log(e)
-    }
+      }))      
+      getListDialogs()    
   }
 
   return (
@@ -91,7 +79,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
             }
           >
             {(listDialogs.length > 0 &&
-            listDialogs[0]._id &&
+              listDialogs[0]._id &&
               !flagModalWindow &&
               listDialogs.map((dialog: any) => (
                 <ListItem

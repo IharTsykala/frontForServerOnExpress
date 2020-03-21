@@ -9,6 +9,7 @@ import { paginationReducer } from "./pagination/pagination.reducer"
 import { checkBoxStateReducer } from "./checkBoxState/checkBoxState.reducer"
 import { searchStringStateReducer } from "./searchStringState/searchStringState.reducer"
 import { loadingStateReducer } from "./loading/loading.reducer"
+import { albumsReducer } from "./albums/albums.reducer"
 
 export default combineReducers({
   common: userReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   pagination: paginationReducer,
   checkBoxState: checkBoxStateReducer,
   searchStringState: searchStringStateReducer,
-  loadingState: loadingStateReducer
+  loadingState: loadingStateReducer,
+  albumsState: albumsReducer
 })
