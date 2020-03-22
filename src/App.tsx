@@ -19,7 +19,7 @@ import {
 import GetAlbumByID from "./pages/GetAlbumByID/GetAlbumByID"
 import AllAlbumsPage from "./pages/allAlbumsPage/allAlbumsPage"
 import NotFound from "./pages/NotFoundPage/NotFound"
-import { AdminAllUsers } from "./pages/AdminAllUser/AdminAllUser"
+import { AdminAllUsers } from "./pages/AdminPages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformationPage/UserEditInformationPage"
 import { Provider } from "react-redux"
 import rootReducer from "./Redux/store"

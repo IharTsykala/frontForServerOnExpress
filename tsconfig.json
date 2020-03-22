@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src", "draft/UserNavigation", "draft/UserInformation", "draft/UserAvatar"
+    "src", "draft/GetAllUsers", "draft/UserNavigation", "draft/UserInformation", "draft/UserAvatar"
   ]
 }
