@@ -24,12 +24,12 @@ const UserCard: React.FC<UserCardProps> = ({
 
   const handlerClickSubscribe = async () => {
     await ServiceSubscriptions.addSubscribe(user._id, userOwnerCard._id)
-    await getLogInUserAllSubscriptionsAndObserver()
+    getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handlerClickUnSubscribe = async () => {
     await ServiceSubscriptions.deleteSubscribe(user._id, userOwnerCard._id)
-    await getLogInUserAllSubscriptionsAndObserver()
+    getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handlerClickAddFriend = async () => {
@@ -38,17 +38,17 @@ const UserCard: React.FC<UserCardProps> = ({
       user._id
     )
     await ServiceFriends.addFriend(user._id, userOwnerCard._id)
-    await getLogInUserAllSubscriptionsAndObserver()
+    getLogInUserAllSubscriptionsAndObserver()
   }
 
   const handlerClickRemoveFriend = async () => {
     await ServiceFriends.removeFriend(user._id, userOwnerCard._id)
-    await getLogInUserAllSubscriptionsAndObserver()
+    getLogInUserAllSubscriptionsAndObserver()
   }
 
   const removeHandler = async (id: string) => {
     await Service.removeHandler(id)
-    await getLogInUserAllSubscriptionsAndObserver()
+    getLogInUserAllSubscriptionsAndObserver()
   }
 
   return (

@@ -1,28 +1,33 @@
 import React, { useState, useEffect, useCallback } from "react"
 import GetAlbumByIDCSS from "./GetAlbumByID.module.css"
 import CreateList from "../../components/CreateList/CreateList"
-import ServiceAlbums from "../../services/service-album"
-import ServicePhotos from "../../services/service-photo"
 import { Link } from "react-router-dom"
 import PhotoModalWindow from "../../components/PhotoModalWindow/PhotoModalWindow"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
+import { Photo } from "../../Redux/interfaces/photo.interface"
+import { getListPhotosByAlbumIdAction } from "../../Redux/store/albums/albums.action"
+import { addPhotosInCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
+import { removePhotoFromCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
 
 type GetAlbumByIDProps = {
   user: User
   userOwnerThisPage: UserOwnerThisPageInterface
+  currentAlbum: [Photo]
+  loadingState: string
   match: any
+  dispatch: any
 }
 
 const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
   user,
   userOwnerThisPage,
-  match
+  currentAlbum,
+  loadingState,
+  match,
+  dispatch
 }) => {
-  console.log(userOwnerThisPage)
-  const [arrayPhotosChosenAlbum, setArrayPhotosChosenAlbum]: any = useState("")
-  const [load, setLoad]: any = useState("loading")
   const [statusPhotoModalWindow, setStatusPhotoModalWindow]: any = useState(
     false
   )
@@ -30,15 +35,8 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
   const idChosenAlbum = match.params.id
 
   const getList = useCallback(async () => {
-    try {
-      const album = await ServiceAlbums.getListPhotosByAlbumID(idChosenAlbum)
-      // album[0] because I used aggregate for mongoDb
-      setArrayPhotosChosenAlbum(album[0].photos)
-      setLoad("loaded")
-    } catch (e) {
-      console.log(e)
-    }
-  }, [idChosenAlbum])
+    dispatch(getListPhotosByAlbumIdAction(idChosenAlbum))
+  }, [dispatch, idChosenAlbum])
 
   useEffect(() => {
     getList()
@@ -51,33 +49,32 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
 
   const editHandler = async (id: string) => {}
 
-  const removeHandler = async (id: string) => {
-    setLoad("loading")
-    await ServicePhotos.removeHandler(id)
-    getList()
+  const removeHandler = async (photoId: string) => {
+    dispatch(removePhotoFromCurrentAlbumAction(photoId, idChosenAlbum))
   }
 
   const addChangeHandler = async (e: any) => {
     const arrayFiles = e.target.files
-    await ServicePhotos.addPhotosIntoFsAndAlbum(
-      userOwnerThisPage._id,
-      idChosenAlbum,
-      arrayFiles
+    dispatch(
+      addPhotosInCurrentAlbumAction(
+        userOwnerThisPage._id,
+        idChosenAlbum,
+        arrayFiles
+      )
     )
-    getList()
   }
 
   return (
     <>
       <div className={GetAlbumByIDCSS.main__user_profile__album_block}>
-        {load === "loading" && <h1>Ожидайте ответа</h1>}
-        {load === "loaded" && (
+        {loadingState === "loading" && <h1>Ожидайте ответа</h1>}
+        {loadingState === "loaded" && (
           <>
             <Link to={`/user/profile/${userOwnerThisPage._id}`}>
               <p>BACK TO ALBUM LIST</p>
             </Link>
             <CreateList
-              arr={arrayPhotosChosenAlbum}
+              arr={currentAlbum}
               removeHandler={removeHandler}
               editHandler={editHandler}
               idChosenAlbum={idChosenAlbum}
@@ -86,7 +83,7 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
             />
           </>
         )}
-        {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>}
+        {loadingState === "error" && <h1>ошибка</h1>}
         <div className={GetAlbumByIDCSS.photos__container_drag_and_drop}></div>
         {/* I need user for advance feature for user and loginUser and admin  */}
         {(user.role === "admin" || user._id === userOwnerThisPage._id) && (
@@ -109,7 +106,7 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
       </div>
       {statusPhotoModalWindow && (
         <PhotoModalWindow
-          arrayPhotosChosenAlbum={arrayPhotosChosenAlbum}
+          arrayPhotosChosenAlbum={currentAlbum}
           launchTogglePhotoModalWindow={launchTogglePhotoModalWindow}
           currentUrlPhotoForLoop={currentUrlPhotoForLoop}
         />
@@ -120,7 +117,9 @@ const GetAlbumByID: React.FC<GetAlbumByIDProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage,
+  currentAlbum: state.albumsState.currentAlbum,
+  loadingState: state.loadingState.loadingStatePhotosInCurrentAlbum
 })
 
 export default connect(mapStateToProps)(GetAlbumByID)

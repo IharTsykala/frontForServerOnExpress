@@ -1,14 +1,20 @@
 import { put, takeEvery } from "redux-saga/effects"
 import Service from "../../../services/service-user"
-import ServiceAlbum from "../../../services/service-album"
-import ServicePhoto from "../../../services/service-photo"
+import ServiceAlbums from "../../../services/service-album"
+import ServicePhotos from "../../../services/service-photo"
+import { LoadingState } from "../../../shared/constants/user-from-view-mode.enum"
+import { setLoadingStatePhotosInCurrentAlbumAction } from "../loading/loading.actions"
 
 import {
   ActionTypes,
   getListAlbumsWithPhotosByUserIDAction,
   setListAlbumsWithPhotosInStoreAction,
+  setListPhotosForCurrentAlbumAction,
+  getListPhotosByAlbumIdAction,
   getFailureAction
 } from "./albums.action"
+
+import { getUserOwnerThisPageActionForSagas } from "../userOwnerThisPage/userOwnerThisPage.actions"
 
 function* setListAlbumsWithPhotosInStore(actions: any) {
   try {
@@ -23,7 +29,7 @@ function* setListAlbumsWithPhotosInStore(actions: any) {
 
 function* removeAlbum(actions: any) {
   try {
-    yield ServiceAlbum.removeHandler(actions.payload.albumId)
+    yield ServiceAlbums.removeHandler(actions.payload.albumId)
     yield put(getListAlbumsWithPhotosByUserIDAction(actions.payload.userId))
   } catch (e) {
     yield put(getFailureAction(e))
@@ -32,14 +38,56 @@ function* removeAlbum(actions: any) {
 
 function* addAlbumByUserId(actions: any) {
   try {
-    const data = yield ServiceAlbum.addAlbum(actions.payload.userId)
-    const idAlbum = yield data.album._id
-    yield ServicePhoto.addPhotosIntoFsAndAlbum(
+    const data = yield ServiceAlbums.addAlbum(actions.payload.userId)
+    yield ServicePhotos.addPhotosIntoFsAndAlbum(
       actions.payload.userId,
-      idAlbum,
+      data.album._id,
       actions.payload.arrayPhotos
     )
     yield put(getListAlbumsWithPhotosByUserIDAction(actions.payload.userId))
+  } catch (e) {
+    yield put(getFailureAction(e))
+  }
+}
+
+function* setListPhotosForCurrentAlbum(actions: any) {
+  try {
+    yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.loading))
+    const arrayAlbums = yield ServiceAlbums.getListPhotosByAlbumID(
+      actions.payload
+    )
+    if (arrayAlbums.length) {
+      yield put(getUserOwnerThisPageActionForSagas(arrayAlbums[0].ownerUser))
+      yield put(setListPhotosForCurrentAlbumAction(arrayAlbums[0].photos))
+      yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.loaded))
+    } else {
+      yield put(
+        setLoadingStatePhotosInCurrentAlbumAction(LoadingState.notFound)
+      )
+    }
+  } catch (e) {
+    yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.error))
+    yield put(getFailureAction(e))
+  }
+}
+
+function* addPhotosInCurrentAlbum(actions: any) {
+  try {
+    yield ServicePhotos.addPhotosIntoFsAndAlbum(
+      actions.payload.userOwnerThisPageId,
+      actions.payload.albumId,
+      actions.payload.arrayPhotos
+    )
+    yield put(getListPhotosByAlbumIdAction(actions.payload.albumId))
+  } catch (e) {
+    yield put(getFailureAction(e))
+  }
+}
+
+function* removePhotoFromCurrentAlbum(actions: any) {
+  try {
+    yield ServicePhotos.removeHandler(actions.payload.photoId)
+    yield put(getListPhotosByAlbumIdAction(actions.payload.albumId))
   } catch (e) {
     yield put(getFailureAction(e))
   }
@@ -52,4 +100,16 @@ export default function* albumsSaga() {
   )
   yield takeEvery(ActionTypes.REMOVE_ALBUM, removeAlbum)
   yield takeEvery(ActionTypes.ADD_ALBUM, addAlbumByUserId)
+  yield takeEvery(
+    ActionTypes.GET_LIST_PHOTOS_BY_ALBUM_ID,
+    setListPhotosForCurrentAlbum
+  )
+  yield takeEvery(
+    ActionTypes.ADD_PHOTOS_IN_CURRENT_ALBUM,
+    addPhotosInCurrentAlbum
+  )
+  yield takeEvery(
+    ActionTypes.REMOVE_PHOTO_FROM_CURRENT_ALBUM,
+    removePhotoFromCurrentAlbum
+  )
 }

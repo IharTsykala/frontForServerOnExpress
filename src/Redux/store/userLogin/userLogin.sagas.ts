@@ -12,9 +12,9 @@ import {
 
   function* setUserLoginInStore() {
     try {       
-      yield put(setLoadingState(LoadingState.loading))      
-      const userLog = yield Service.getUserByToken()
-      if(userLog) {
+      yield put(setLoadingState(LoadingState.loading))       
+      const userLog = yield Service.getUserByToken()      
+      if(userLog._id) {
         yield put(setUserLoginInStoreAction(userLog))
         yield put(setLoadingState(LoadingState.loaded))
       } else {

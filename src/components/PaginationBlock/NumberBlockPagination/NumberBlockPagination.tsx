@@ -23,7 +23,7 @@ const NumberBlockPagination: React.FunctionComponent<NumberBlockPaginationProps>
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
 
-  const handlerClickPrevPage = async () => {
+  const handlerClickPrevPage = () => {
     if (numberPage > 1) {
       dispatch(
         setValuesForPaginationAction({
@@ -31,24 +31,18 @@ const NumberBlockPagination: React.FunctionComponent<NumberBlockPaginationProps>
           limitUsersForRender: limitRender
         })
       )
-      await getUsersAfterPaginationAndSearchAndFilter(
-        +numberPage - 1,
-        limitRender
-      )
+      getUsersAfterPaginationAndSearchAndFilter(+numberPage - 1, limitRender)
     }
   }
 
-  const handlerClickNextPage = async () => {
+  const handlerClickNextPage = () => {
     dispatch(
       setValuesForPaginationAction({
         numberPage: +numberPage + 1,
         limitUsersForRender: limitRender
       })
     )
-    await getUsersAfterPaginationAndSearchAndFilter(
-      +numberPage + 1,
-      limitRender
-    )
+    getUsersAfterPaginationAndSearchAndFilter(+numberPage + 1, limitRender)
   }
 
   return (

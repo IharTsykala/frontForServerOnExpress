@@ -56,11 +56,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   }
 
   useEffect(() => {
-    try {
-      getUsersAfterPaginationAndSearchAndFilter(numberPage, limitRender)
-    } catch (e) {
-      console.log(e)
-    }
+    getUsersAfterPaginationAndSearchAndFilter(numberPage, limitRender)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberPage, limitRender, user])
 
@@ -74,8 +70,8 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
     // call function after click checkbox or search
     if (prevChecked !== undefined) {
       clearTimeout(timerId)
-      const clearInterval = setTimeout(async () => {
-        await getUsersAfterPaginationAndSearchAndFilter(1, limitRender)
+      const clearInterval = setTimeout(() => {
+        getUsersAfterPaginationAndSearchAndFilter(1, limitRender)
       }, 500)
       setTimerId(clearInterval)
     }

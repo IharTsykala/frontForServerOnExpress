@@ -30,9 +30,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   launchTogglePhotoModalWindow,
   ownerUser
 }) => {
-  // console.log(ownerUser)
-
-  return (
+   return (
     <Card className={PhotoCardCSS.photoAlbum__photoCard_block__card}>
       {!idChosenAlbum && (
         <Link to={`/user/${idItem}/album`}>
@@ -70,8 +68,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
           Remove
         </Button>
       </CardActions>
-    </Card>
-    // </li>
+    </Card>    
   )
 }
 

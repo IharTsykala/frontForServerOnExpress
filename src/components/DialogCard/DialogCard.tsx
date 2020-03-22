@@ -25,11 +25,9 @@ const DialogCard: React.FunctionComponent<DialogCardProps> = ({
 
   const handlerClickOnDialog = () => {
     dispatch(currentDialogAction(thisDialog))
-    // sendDialog(user._id, thisUser._id, thisUser.login)
   }
 
   const handlerClickOnUser = () => {
-    // dispatch(getIdCurrentDialog())
     sendDialog(user._id, thisUser._id, thisUser.login)
   }
 

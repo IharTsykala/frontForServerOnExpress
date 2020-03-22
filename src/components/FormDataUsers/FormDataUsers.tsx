@@ -28,12 +28,12 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
   return (
     <Formik
       initialValues={{
-        login:  "",
+        login: "",
         password: "",
-        firstName:  "",
-        lastName:  "",
-        email:  "",
-        phone:  "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
         role: userOwnerThisPage ? userOwnerThisPage.role : "user"
       }}
       validationSchema={Yup.object({

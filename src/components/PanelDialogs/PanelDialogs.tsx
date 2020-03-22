@@ -35,12 +35,12 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
   const [stateLoading, setStateLoading] = useState(LoadingState.loaded)
   const [flagModalWindow, setFlagModalWindow] = useState(false)
 
-  const getListDialogs = useCallback(async () => {   
-      if (user._id) {
-        dispatch(getAllDialogsByUserIdAction(user._id))
-        if (allUsers[0]._id === undefined)
-          dispatch(getAllUsersForSagasAction(user._id))
-      }   
+  const getListDialogs = useCallback(async () => {
+    if (user._id) {
+      dispatch(getAllDialogsByUserIdAction(user._id))
+      if (allUsers[0]._id === undefined)
+        dispatch(getAllUsersForSagasAction(user._id))
+    }
   }, [allUsers, dispatch, user._id])
 
   useEffect(() => {
@@ -56,12 +56,14 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     userId: String,
     thisUserId: String,
     thisUserLogin: String
-  ) {    
-      dispatch(addDialogAction({
+  ) {
+    dispatch(
+      addDialogAction({
         dialogName: thisUserLogin,
         members: [userId, thisUserId]
-      }))      
-      getListDialogs()    
+      })
+    )
+    getListDialogs()
   }
 
   return (

@@ -23,7 +23,7 @@ const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
 
-  const handleChangeSelect = async (newLimitRender: any) => {
+  const handleChangeSelect = (newLimitRender: any) => {
     let page
     if (
       allUsers &&
@@ -41,7 +41,7 @@ const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
         limitUsersForRender: +newLimitRender
       })
     )
-    await getUsersAfterPaginationAndSearchAndFilter(page || 1, +newLimitRender)
+    getUsersAfterPaginationAndSearchAndFilter(page || 1, +newLimitRender)
   }
 
   return (

@@ -27,7 +27,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
   const handlerLogOut = async () => {
     try {
-      dispatch(getUserLogoutForSagaAction(user._id, user))      
+      dispatch(getUserLogoutForSagaAction(user._id, user))
     } catch (e) {
       console.log(e)
     }

@@ -16,3 +16,10 @@ export enum LoadingState {
   notFound = "notFound",
   error = "error"
 }
+
+// export enum LoadingStatePhotosInCurrentAlbum {
+//   loading = "loading",
+//   loaded = "loaded",
+//   notFound = "notFound",
+//   error = "error"
+// }

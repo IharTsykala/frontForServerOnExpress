@@ -25,7 +25,7 @@ const CreateList: React.FC<CreateListProps> = ({
         arr.map((item: any) => (
           <li
             className={CreateListCSS.user_profile__card_container}
-            key={item._id}
+            key={item._id || 1}
           >
             <PhotoCard
               urlItem={
