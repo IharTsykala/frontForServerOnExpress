@@ -13,11 +13,13 @@ import { Link } from "react-router-dom"
 type InformationBlockProps = {
   user: User
   userOwnerThisPage: UserOwnerThisPageInterface
+  homePageStatus: boolean
 }
 
 const InformationBlock: React.FC<InformationBlockProps> = ({
   user,
-  userOwnerThisPage
+  userOwnerThisPage,
+  homePageStatus
 }) => {
   const handleSubmit = (e: any) => {}
   return (
@@ -70,6 +72,7 @@ const InformationBlock: React.FC<InformationBlockProps> = ({
               variant="outlined"
               component="button"
               onClick={(e: any) => handleSubmit(e)}
+              disabled={!homePageStatus && true}
             >
               EDIT INFORMATION
             </Button>
@@ -78,6 +81,7 @@ const InformationBlock: React.FC<InformationBlockProps> = ({
             variant="outlined"
             component="button"
             onClick={(e: any) => handleSubmit(e)}
+            disabled={!homePageStatus && true}
           >
             DELETE PAGE
           </Button>

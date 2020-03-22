@@ -12,7 +12,10 @@ export const ActionTypes = {
     "[Album] Set list photos for current album",
   ADD_PHOTOS_IN_CURRENT_ALBUM: "[Album] add photos in current album",
   REMOVE_PHOTO_FROM_CURRENT_ALBUM: "[Album] remove photo from current album",
-  GET_FAILURE: "[getFailure] Get failure"
+  GET_LIST_PHOTOS_BY_USER_ID: "[Photo] get list photos by UserId",
+  SET_LIST_PHOTOS_FOR_USER:  "[Photo] set list photos For User",
+  GET_FAILURE: "[getFailure] Get failure",
+  
 }
 
 export const getListAlbumsWithPhotosByUserIDAction = (
@@ -74,6 +77,20 @@ export const removePhotoFromCurrentAlbumAction = (
 ): Action<{}> => ({
   type: ActionTypes.REMOVE_PHOTO_FROM_CURRENT_ALBUM,
   payload: { photoId, albumId }
+})
+
+export const getListPhotosByUserIdIdAction = (
+  userId: string
+): Action<string> => ({
+  type: ActionTypes.GET_LIST_PHOTOS_BY_USER_ID,
+  payload: userId
+})
+
+export const setListPhotosForUserAction = (
+  photos: [Photo]
+): Action<[Photo]> => ({
+  type: ActionTypes.SET_LIST_PHOTOS_FOR_USER,
+  payload: photos
 })
 
 export const getFailureAction = (error?: any): Action<any> => ({

@@ -3,10 +3,12 @@ import { Action } from "../interfaces/action.interface"
 import { User } from "../../interfaces/user.interface"
 export interface State {
   allUsers: [User]
+  allFriends: [User]
 }
 
 const initialState: State = {
-  allUsers: [{} as User]
+  allUsers: [{} as User],
+  allFriends: [{} as User]
 }
 
 export const allUserReducer = (
@@ -28,6 +30,11 @@ export const allUserReducer = (
       return {
         ...state,
         allUsers: action.payload
+      }
+    case ActionTypes.SET_ALL_FRIENDS_FOR_USER:
+      return {
+        ...state,
+        allFriends: action.payload
       }
     default:
       return state

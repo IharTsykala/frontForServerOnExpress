@@ -17,7 +17,9 @@ import {
   defaultPrivateRouteForAdminsProps
 } from "./PrivateRoutes/PrivateRouteForAdmins"
 import GetAlbumByID from "./pages/GetAlbumByID/GetAlbumByID"
+import PageFriends from "./pages/pageFriends/pageFriends"
 import AllAlbumsPage from "./pages/allAlbumsPage/allAlbumsPage"
+import AllPhotosPage from "./pages/allPhotosPage/allPhotosPage"
 import NotFound from "./pages/NotFoundPage/NotFound"
 import { AdminAllUsers } from "./pages/AdminPages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformationPage/UserEditInformationPage"
@@ -96,6 +98,12 @@ export const App: React.FC = () => {
               />
               <PrivateRoute
                 {...defaultPrivateRouteProps}
+                component={PageFriends}
+                path="/user/:id/friends"
+                exact
+              />
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
                 component={GetAlbumByID}
                 path="/user/:id/album"
                 exact
@@ -104,6 +112,12 @@ export const App: React.FC = () => {
                 {...defaultPrivateRouteProps}
                 component={AllAlbumsPage}
                 path="/user/:id/allAlbums"
+                exact
+              />
+              <PrivateRoute
+                {...defaultPrivateRouteProps}
+                component={AllPhotosPage}
+                path="/user/:id/allPhotos"
                 exact
               />
               <PrivateRoute

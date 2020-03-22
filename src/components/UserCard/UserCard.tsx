@@ -66,7 +66,7 @@ const UserCard: React.FC<UserCardProps> = ({
           src={`http://localhost:8080/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
           alt="avatar"
           onClick={() => {
-            history.push(`/user/${userOwnerCard._id}`)
+            history.push(`/user/profile/${userOwnerCard._id}`)
           }}
         />
       ) : (
@@ -74,14 +74,14 @@ const UserCard: React.FC<UserCardProps> = ({
           src="http://localhost:8080/images/pattern-avatar.jpg"
           alt="avatar"
           onClick={() => {
-            history.push(`/user/${userOwnerCard._id}`)
+            history.push(`/user/profile/${userOwnerCard._id}`)
           }}
         />
       )}
       <h5
         className={UserCardCSS.all_users__card_user__login}
         onClick={() => {
-          history.push(`/user/${userOwnerCard._id}`)
+          history.push(`/user/profile/${userOwnerCard._id}`)
         }}
       >
         {userOwnerCard.login}

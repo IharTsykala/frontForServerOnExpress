@@ -27,14 +27,16 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
 }) => {
   return (
     <List className={NavigationBlockCSS.user_information__navigation_block}>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <PeopleAltOutlinedIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Friends" secondary="Jan 9, 2014" />
-      </ListItem>
+      <Link to={`/user/${userOwnerThisPage._id}/friends`}>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>
+              <PeopleAltOutlinedIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Friends" secondary="Jan 9, 2014" />
+        </ListItem>
+      </Link>
       <Divider variant="inset" component="li" />
       <ListItem button>
         <ListItemAvatar>
@@ -54,7 +56,7 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
         <ListItemText primary="Subscribers" secondary="July 20, 2014" />
       </ListItem>
       <Divider variant="inset" component="li" />
-      <Link to={`/user/${user._id}/allAlbums`}>
+      <Link to={`/user/${userOwnerThisPage._id}/allAlbums`}>
         <ListItem button>
           <ListItemAvatar>
             <Avatar>
@@ -65,6 +67,7 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
         </ListItem>
       </Link>
       <Divider variant="inset" component="li" />
+      <Link to={`/user/${userOwnerThisPage._id}/allPhotos`}>
       <ListItem button>
         <ListItemAvatar>
           <Avatar>
@@ -73,6 +76,7 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
         </ListItemAvatar>
         <ListItemText primary="Photos" secondary="July 20, 2014" />
       </ListItem>
+      </Link>
     </List>
   )
 }

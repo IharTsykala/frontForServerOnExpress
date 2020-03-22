@@ -8,7 +8,7 @@ import AvatarBlockCSS from "./AvatarBlock.module.css"
 type UserAvatarProps = {
   user: User
   userOwnerThisPage: UserOwnerThisPageInterface
-  homePageStatus: any
+  homePageStatus: boolean
   avatarForFront: any
   handleChangeAvatar: any
   handleSubmit: any
@@ -47,9 +47,9 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
             alt="avatar"
           />
         )}
-      {(user.role === "admin" || homePageStatus) && (
+      {/* {(user.role === "admin" || homePageStatus) && ( */}
         <>
-          <Button variant="outlined" component="button">
+          <Button variant="outlined" component="button" disabled={!homePageStatus && true}>
             Choose avatar
             <input type="file" onChange={e => handleChangeAvatar(e)} />
           </Button>
@@ -57,11 +57,12 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
             variant="outlined"
             component="button"
             onClick={(e: any) => handleSubmit(e)}
+            disabled={!homePageStatus && true}
           >
             Change Avatar
           </Button>
         </>
-      )}
+      {/* )} */}
     </form>
   )
 }

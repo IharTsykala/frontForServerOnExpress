@@ -16,13 +16,15 @@ type AlbumsBlockProps = {
   userOwnerThisPage: UserOwnerThisPageInterface
   albumsForUserOwnerPage: [Album]
   dispatch: any
+  homePageStatus?: boolean
 }
 
 const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
   user,
   userOwnerThisPage,
   albumsForUserOwnerPage,
-  dispatch
+  dispatch,
+  homePageStatus
 }) => {
   const getList = useCallback(() => {
     if (userOwnerThisPage._id) {
@@ -67,6 +69,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
         component="button"
         onClick={(e: any) => handleSubmit(e)}
         className={AlbumsBlockCSS.albums_block__button}
+        disabled={homePageStatus !== undefined && !homePageStatus && true}
       >
         <p>ADD ALBUM</p>
         <input

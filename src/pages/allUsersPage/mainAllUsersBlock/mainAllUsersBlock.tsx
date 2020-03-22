@@ -18,19 +18,15 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
 }) => {
   const [load, setLoad]: any = useState("loading")
 
-  useEffect(() => {
-    try {
+  useEffect(() => {    
       if (allUsers) {
         setLoad("loaded")
       } else {
         // This need make notFound
       }
-    } catch (e) {
-      console.log(e)
-    }
-  }, [allUsers])
+    },[allUsers])
 
-  const getLogInUserAllSubscriptionsAndObserver = () => {
+    const getLogInUserAllSubscriptionsAndObserver = () => {
     dispatch(getAllUsersForSagasAction(user._id))
   }
 

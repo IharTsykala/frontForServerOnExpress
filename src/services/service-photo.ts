@@ -14,6 +14,14 @@ export default class ServicePhotos {
     }
   )
 
+  static getPhotosById = async (userId: string) => {
+    try {
+      return await axios.get(`http://localhost:8080/photos/${userId}`)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   static setImgUser = async (avatar: any) => {
     const formData = new FormData()
     for (let i = 0; i < avatar.length; i++) {

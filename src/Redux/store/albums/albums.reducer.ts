@@ -6,11 +6,13 @@ import { Photo } from "../../interfaces/photo.interface"
 export interface State {
   albumsForUserOwnerPage: [Album]
   currentAlbum: [Photo]
+  allPhotosForThisUser: [Photo]
 }
 
 const initialState: State = {
   albumsForUserOwnerPage: [{} as Album],
-  currentAlbum: [{} as Photo]
+  currentAlbum: [{} as Photo],
+  allPhotosForThisUser: [{} as Photo]
 }
 
 export const albumsReducer = (
@@ -27,6 +29,11 @@ export const albumsReducer = (
       return {
         ...state,
         currentAlbum: action.payload
+      }
+      case ActionTypes.SET_LIST_PHOTOS_FOR_USER:
+      return {
+        ...state,
+        allPhotosForThisUser: action.payload
       }
     default:
       return state

@@ -1,0 +1,19 @@
+.container__all_users__cards {
+  margin: 0;
+  max-height: 80vh;
+  /* border-top: 2px solid rgb(2, 0, 36);
+  border-bottom: 2px solid rgb(2, 0, 36); */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  row-gap: 1%;
+  padding-top: 1%;
+  background: rgb(215, 237, 255);
+  background: radial-gradient(
+    circle,
+    rgba(215, 237, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 43%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  overflow-y: auto;
+}

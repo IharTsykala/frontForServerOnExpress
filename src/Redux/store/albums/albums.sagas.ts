@@ -11,6 +11,7 @@ import {
   setListAlbumsWithPhotosInStoreAction,
   setListPhotosForCurrentAlbumAction,
   getListPhotosByAlbumIdAction,
+  setListPhotosForUserAction,
   getFailureAction
 } from "./albums.action"
 
@@ -93,6 +94,15 @@ function* removePhotoFromCurrentAlbum(actions: any) {
   }
 }
 
+function* setListPhotosForUser(actions: any) {
+  try {
+    const arrayPhotos = yield ServicePhotos.getPhotosById(actions.payload)
+    yield put(setListPhotosForUserAction(arrayPhotos.data))
+  } catch (e) {
+    yield put(getFailureAction(e))
+  }
+}
+
 export default function* albumsSaga() {
   yield takeEvery(
     ActionTypes.GET_LIST_ALBUMS_WITH_PHOTOS,
@@ -112,4 +122,5 @@ export default function* albumsSaga() {
     ActionTypes.REMOVE_PHOTO_FROM_CURRENT_ALBUM,
     removePhotoFromCurrentAlbum
   )
+  yield takeEvery(ActionTypes.GET_LIST_PHOTOS_BY_USER_ID, setListPhotosForUser)
 }

@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-# /draft
+/draft
 /.pnp
 .pnp.js
 

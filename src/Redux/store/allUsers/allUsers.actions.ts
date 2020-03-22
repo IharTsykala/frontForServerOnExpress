@@ -12,6 +12,10 @@ export const ActionTypes = {
     "[getAllUsersWithPaginationSearchFilter] get all users with pagination search filter",
   SET_ALL_USERS_WITH_PAGINATION_SEARCH_FILTER:
     "[setAllUsersWithPaginationSearchFilter] set all users with pagination search filter",
+  GET_ALL_FRIENDS_BY_USER_ID:
+    "[User] get all friends by userId",
+  SET_ALL_FRIENDS_FOR_USER:
+    "[User] set all friend for user",
 
   GET_FAILURE: "[getFailureAction] get failure action"
 }
@@ -43,6 +47,16 @@ export const setAllUsersWithPaginationSearchFilterAction = (
 ): Action<any> => ({
   type: ActionTypes.SET_ALL_USERS_WITH_PAGINATION_SEARCH_FILTER,
   payload: allUsers
+})
+
+export const getFriendsByUserIdAction = (userId: String): Action<String> => ({
+  type: ActionTypes.GET_ALL_FRIENDS_BY_USER_ID,
+  payload: userId
+})
+
+export const setFriendsForUserAction = (allFriends: [User]): Action<[User]> => ({
+  type: ActionTypes.SET_ALL_FRIENDS_FOR_USER,
+  payload: allFriends
 })
 
 export const getFailureAction = (error?: any): Action<any> => ({

@@ -75,7 +75,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         m={1}
         bgcolor="background.paper"
       >
-        <InformationBlock />
+        <InformationBlock homePageStatus={homePageStatus}/>
       </Box>
       <Box
         component="section"
@@ -93,7 +93,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         m={1}
         bgcolor="background.paper"
       >
-        <AlbumsBlock />
+        <AlbumsBlock homePageStatus={homePageStatus}/>
       </Box>
     </div>
   )
