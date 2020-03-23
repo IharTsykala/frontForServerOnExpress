@@ -8,6 +8,7 @@ import { getAllUsersForSagasAction } from "../../Redux/store/allUsers/allUsers.a
 import { getAllUsersWithPaginationSearchFilterAction } from "../../Redux/store/allUsersWithPaginationSearchFilter/allUsersWithPaginationSearchFilter.actions"
 import AmountPagination from "./AmountPagination/AmountPagination"
 import NumberBlockPagination from "./NumberBlockPagination/NumberBlockPagination"
+// import ServiceFriends from '../../services/service-friend'
 
 type PaginationBlockProps = {
   user: User
@@ -30,7 +31,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
   const { numberPage } = pagination
   const [timerId, setTimerId]: any = useState(undefined)
 
-  const getUsersAfterPaginationAndSearchAndFilter = (
+  const getUsersAfterPaginationAndSearchAndFilter = async (
     numberPage: Number,
     limitRender: Number
   ) => {
@@ -45,7 +46,8 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       dispatch(getAllUsersWithPaginationSearchFilterAction(body))
     } else {
       if (user._id) dispatch(getAllUsersForSagasAction(user._id))
-      else dispatch(getAllUsersForSagasAction(""))
+      // await ServiceFriends.getArrayFriendsByIdUser(user._id)
+      // else dispatch(getAllUsersForSagasAction(""))
       dispatch(
         setValuesForPaginationAction({
           numberPage: 1,

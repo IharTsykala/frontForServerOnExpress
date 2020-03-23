@@ -39,6 +39,7 @@ export default class ServiceFriends {
     const response = await axios.get(
       `http://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`
     )
+    // console.log(response.data)
     return response.data
   }
 }
