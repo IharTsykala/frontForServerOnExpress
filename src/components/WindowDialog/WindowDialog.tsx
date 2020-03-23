@@ -34,8 +34,8 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   // const [listMessage, setListMessage]: any = useState([])
   const [valueInput, setValueInput] = useState("")
 
-  const getMessagesFromBD = useCallback(async () => {    
-    dispatch(getAllMessagesCurrentDialogAction(currentDialog._id))    
+  const getMessagesFromBD = useCallback(async () => {
+    dispatch(getAllMessagesCurrentDialogAction(currentDialog._id))
   }, [currentDialog._id, dispatch])
 
   const addMessageState = useCallback(
@@ -43,7 +43,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       try {
         // setListMessage((prevState:any)=>{
         //   return [...prevState, message]
-        // })        
+        // })
         dispatch(getNewMessageForCurrentDialogAction(message))
       } catch (e) {
         console.log(e)
@@ -68,7 +68,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
     if (currentDialog._id !== undefined) {
       joinInRoom()
     }
-    return () => {      
+    return () => {
       socket.emit("end")
     }
   }, [currentDialog._id, joinInRoom])

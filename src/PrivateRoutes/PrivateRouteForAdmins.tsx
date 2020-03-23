@@ -8,7 +8,6 @@ const token = () => {
 const admin = () => {
   return localStorage.getItem("userRole") === "admin" ? true : false
 }
-
 export interface PrivateRouteForAdminsProps extends RouteProps {
   isAuthenticated: () => {}
   authenticationPath: string

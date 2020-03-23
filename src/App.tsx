@@ -1,8 +1,6 @@
 import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-// import GetAllUsers from "./pages/GetAllUsers/GetAllUsers"
 import AllUsersPage from "./pages/allUsersPage/allUsersPage"
-// import GetUserByID from "./pages/GetUserByID/GetUserByID"
 import UserInformationPage from "./pages/userInformationPage/userInformationPage"
 import GetLoginPage from "./pages/GetLoginPage/GetLoginPage"
 import GetLogUpPage from "./pages/GetLogUpPage/GetLogUpPage"
@@ -62,16 +60,9 @@ export const App: React.FC = () => {
           <Navbar />
           <main className="main">
             <Switch>
-              {/* <Route component={DialogsPage} path="/:id/dialogs" exact /> */}
               <Route component={GetStartPage} path="/" exact />
               <Route component={GetLoginPage} path="/LogIn" exact />
               <Route component={GetLogUpPage} path="/SignUp" exact />
-              {/* <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={GetAllUsers}
-              path="/user/all"
-              exact
-            /> */}
               <PrivateRoute
                 {...defaultPrivateRouteProps}
                 component={DialogsPage}
@@ -84,12 +75,6 @@ export const App: React.FC = () => {
                 path="/user/allUsers"
                 exact
               />
-              {/* <PrivateRoute
-              {...defaultPrivateRouteProps}
-              component={GetUserByID}
-              path="/user/:id"
-              exact
-            />  */}
               <PrivateRoute
                 {...defaultPrivateRouteProps}
                 component={UserInformationPage}
