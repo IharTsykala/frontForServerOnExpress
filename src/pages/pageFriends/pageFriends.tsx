@@ -19,11 +19,10 @@ const PageFriends: React.FunctionComponent<PageFriendsProps> = ({
   match
 }) => {
   const idUserOwnerPage = match.params.id
-  // console.log(allFriends)
   useEffect(() => {
     console.log(allFriends)
     dispatch(getFriendsByUserIdAction(idUserOwnerPage))
-  }, [idUserOwnerPage])
+  }, [allFriends, dispatch, idUserOwnerPage])
 
   const getLogInUserAllSubscriptionsAndObserver = () => {
     dispatch(getFriendsByUserIdAction(idUserOwnerPage))
