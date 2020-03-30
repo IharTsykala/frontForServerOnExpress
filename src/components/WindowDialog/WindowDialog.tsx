@@ -175,3 +175,11 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps)(WindowDialog)
+
+// var element = document.getElementById("yourDivID");
+// element.scrollTop = element.scrollHeight;
+
+// "preserveNullAndEmptyArrays": true
+
+  // white-space: pre-wrap;
+  //   word-break: break-word
