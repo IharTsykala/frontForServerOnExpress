@@ -182,4 +182,4 @@ export default connect(mapStateToProps)(WindowDialog)
 // "preserveNullAndEmptyArrays": true
 
   // white-space: pre-wrap;
-  //   word-break: break-word
+    // word-break: break-word
