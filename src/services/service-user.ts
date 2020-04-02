@@ -117,7 +117,7 @@ export default class Service {
     formData.append("user", avatar)
 
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/public/userSafeFileIntoImages/${id}`,
+      `https://strawberry-tart-41911.herokuapp.com/public/userSafeFileIntoImages/${id}`,
       formData
     )
     return response.data.fileName
@@ -126,7 +126,7 @@ export default class Service {
   static getListAlbumsByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/withAlbums/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/users/withAlbums/${id}`
       )
 
       return response.data
@@ -138,7 +138,7 @@ export default class Service {
   static getListPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/withPhotos/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/users/withPhotos/${id}`
       )
       return response.data
     } catch (e) {
@@ -149,7 +149,7 @@ export default class Service {
   static getListAlbumsWithPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/AlbumsWithPhotos/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/users/AlbumsWithPhotos/${id}`
       )
       return response.data
     } catch (e) {
@@ -160,7 +160,7 @@ export default class Service {
   static getUserWithSubscriptionsById = async (userLogin: {}) => {
     try {
       const response = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/getUserWithSubscriptionsById/${userLogin}`
+        `https://strawberry-tart-41911.herokuapp.com/users/getUserWithSubscriptionsById/${userLogin}`
       )
       return response.data
     } catch (e) {
@@ -171,7 +171,7 @@ export default class Service {
   static getUserAfterPaginationAndSearchAndFilter = async (body: {}) => {
     try {
       const response = await axios.post(
-        `http://strawberry-tart-41911.herokuapp.com/users/getUserAfterPaginationAndSearchAndFilter`,
+        `https://strawberry-tart-41911.herokuapp.com/users/getUserAfterPaginationAndSearchAndFilter`,
         body
       )
       console.log(response)
