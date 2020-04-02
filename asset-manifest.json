@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/frontForServerOnExpress/static/css/main.2a462cd1.chunk.css",
-    "main.js": "/frontForServerOnExpress/static/js/main.5b7768cf.chunk.js",
-    "main.js.map": "/frontForServerOnExpress/static/js/main.5b7768cf.chunk.js.map",
+    "main.js": "/frontForServerOnExpress/static/js/main.4ebd9da3.chunk.js",
+    "main.js.map": "/frontForServerOnExpress/static/js/main.4ebd9da3.chunk.js.map",
     "runtime-main.js": "/frontForServerOnExpress/static/js/runtime-main.d2201fcc.js",
     "runtime-main.js.map": "/frontForServerOnExpress/static/js/runtime-main.d2201fcc.js.map",
     "static/css/2.c2d4b67f.chunk.css": "/frontForServerOnExpress/static/css/2.c2d4b67f.chunk.css",
     "static/js/2.162433b0.chunk.js": "/frontForServerOnExpress/static/js/2.162433b0.chunk.js",
     "static/js/2.162433b0.chunk.js.map": "/frontForServerOnExpress/static/js/2.162433b0.chunk.js.map",
     "index.html": "/frontForServerOnExpress/index.html",
-    "precache-manifest.f0539c85554997c41dc0a57651d4ac11.js": "/frontForServerOnExpress/precache-manifest.f0539c85554997c41dc0a57651d4ac11.js",
+    "precache-manifest.3c00b7d6f6cbcf4b291731825cf56016.js": "/frontForServerOnExpress/precache-manifest.3c00b7d6f6cbcf4b291731825cf56016.js",
     "service-worker.js": "/frontForServerOnExpress/service-worker.js",
     "static/css/2.c2d4b67f.chunk.css.map": "/frontForServerOnExpress/static/css/2.c2d4b67f.chunk.css.map",
     "static/css/main.2a462cd1.chunk.css.map": "/frontForServerOnExpress/static/css/main.2a462cd1.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.c2d4b67f.chunk.css",
     "static/js/2.162433b0.chunk.js",
     "static/css/main.2a462cd1.chunk.css",
-    "static/js/main.5b7768cf.chunk.js"
+    "static/js/main.4ebd9da3.chunk.js"
   ]
 }
