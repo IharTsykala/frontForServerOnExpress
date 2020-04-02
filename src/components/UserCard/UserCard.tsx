@@ -63,7 +63,7 @@ const UserCard: React.FC<UserCardProps> = ({
       )}
       {userOwnerCard.avatar ? (
         <img
-          src={`http://strawberry-tart-41911.herokuapp.com/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
+          src={`https://strawberry-tart-41911.herokuapp.com/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
           alt="avatar"
           onClick={() => {
             history.push(`/user/profile/${userOwnerCard._id}`)
@@ -71,7 +71,7 @@ const UserCard: React.FC<UserCardProps> = ({
         />
       ) : (
         <img
-          src="http://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg"
+          src="https://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg"
           alt="avatar"
           onClick={() => {
             history.push(`/user/profile/${userOwnerCard._id}`)

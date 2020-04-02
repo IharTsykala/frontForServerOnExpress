@@ -94,8 +94,8 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
                       alt={`Avatar n°${dialog._id}`}
                       src={
                         (dialog.members.avatar &&
-                          `http://strawberry-tart-41911.herokuapp.com/images/users/${dialog.members._id}/${dialog.members.avatar}`) ||
-                        `http://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`
+                          `https://strawberry-tart-41911.herokuapp.com/images/users/${dialog.members._id}/${dialog.members.avatar}`) ||
+                        `https://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`
                       }
                     />
                   </ListItemAvatar>
@@ -121,8 +121,8 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
                         alt={`Avatar n°${secondUser._id}`}
                         src={
                           (secondUser.avatar &&
-                            `http://strawberry-tart-41911.herokuapp.com/images/users/${secondUser._id}/${secondUser.avatar}`) ||
-                          `http://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`
+                            `https://strawberry-tart-41911.herokuapp.com/images/users/${secondUser._id}/${secondUser.avatar}`) ||
+                          `https://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`
                         }
                       />
                     </ListItemAvatar>

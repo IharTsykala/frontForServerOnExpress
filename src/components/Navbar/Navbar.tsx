@@ -51,14 +51,14 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
                   {user.avatar && (
                     <img
                       className={NavbarCSS.navbar__avatar}
-                      src={`http://strawberry-tart-41911.herokuapp.com/images/users/${user._id}/${user.avatar}`}
+                      src={`https://strawberry-tart-41911.herokuapp.com/images/users/${user._id}/${user.avatar}`}
                       alt="avatar"
                     />
                   )}
                   {!user.avatar && (
                     <img
                       className={NavbarCSS.navbar__avatar}
-                      src={`http://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`}
+                      src={`https://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`}
                       alt="avatar"
                     />
                   )}

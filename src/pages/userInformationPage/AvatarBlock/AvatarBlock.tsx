@@ -34,7 +34,7 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
       {!avatarForFront && userOwnerThisPage._id && userOwnerThisPage.avatar && (
         <img
           className="chelik"
-          src={`http://strawberry-tart-41911.herokuapp.com/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
+          src={`https://strawberry-tart-41911.herokuapp.com/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
           alt="avatar"
         />
       )}
@@ -43,7 +43,7 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
         !userOwnerThisPage.avatar && (
           <img
             className="chelik"
-            src={`http://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`}
+            src={`https://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`}
             alt="avatar"
           />
         )}

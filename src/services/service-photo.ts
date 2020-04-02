@@ -75,7 +75,7 @@ export default class ServicePhotos {
         ownerAlbum: idAlbum
       }
       const response = await axios.post(
-        `http://strawberry-tart-41911.herokuapp.com/photos/addIntoAlbum`,
+        `https://strawberry-tart-41911.herokuapp.com/photos/addIntoAlbum`,
         photo
       )
       arrPhotoUrl = arrPhotoUrl.concat(response.data.photo.url)

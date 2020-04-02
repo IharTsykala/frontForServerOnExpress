@@ -7,7 +7,7 @@ import openSocket from "socket.io-client"
 import WindowDialogCSS from "./WindowDialog.module.css"
 import { getAllMessagesCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
 import { getNewMessageForCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
-// const socket = openSocket("http://localhost:8000/myDialogs")
+// const socket = openSocket("https://localhost:8000/myDialogs")
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import ImageIcon from "@material-ui/icons/Image"
-// const socket = openSocket("http://localhost:8000", { reconnection: true })
+// const socket = openSocket("https://localhost:8000", { reconnection: true })
 
 type WindowDialogProps = {
   user: User
