@@ -17,7 +17,7 @@ export default class ServiceMessage {
   static getAllMessagesByIdDialog = async (idDialog: string) => {
     try {
       const request = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/messages/${idDialog}`
+        `https://strawberry-tart-41911.herokuapp.com/messages/${idDialog}`
       )
       return request.data
     } catch (e) {

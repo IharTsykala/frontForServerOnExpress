@@ -16,7 +16,7 @@ export default class ServiceFriends {
 
   static getLogInUserAllFriends = async (idLogInUser: string) => {
     const response = await axios.get(
-      `http://strawberry-tart-41911.herokuapp.com/friends/logInUserAllFriends/?id=${idLogInUser}`
+      `https://strawberry-tart-41911.herokuapp.com/friends/logInUserAllFriends/?id=${idLogInUser}`
     )
     return response.data
   }
@@ -27,20 +27,20 @@ export default class ServiceFriends {
       responseFriendId: IdRequestUser
     }
     await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/friends/add`,
+      `https://strawberry-tart-41911.herokuapp.com/friends/add`,
       subscribe
     )
   }
 
   static removeFriend = async (idLogInUser: string, IdSecondUser: string) => {
     await axios.delete(
-      `http://strawberry-tart-41911.herokuapp.com/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`
+      `https://strawberry-tart-41911.herokuapp.com/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`
     )
   }
 
   static getArrayFriendsByIdUser = async (idLogInUser: string) => {
     const response = await axios.get(
-      `http://strawberry-tart-41911.herokuapp.com/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`
+      `https://strawberry-tart-41911.herokuapp.com/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`
     )
     // console.log(response.data)
     return response.data

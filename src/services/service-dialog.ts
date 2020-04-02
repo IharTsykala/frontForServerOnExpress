@@ -17,7 +17,7 @@ export default class ServiceDialog {
   static getAllDialogs = async () => {
     try {
       const request = await axios.get(
-        "http://strawberry-tart-41911.herokuapp.com/dialogs/"
+        "https://strawberry-tart-41911.herokuapp.com/dialogs/"
       )
       return request.data
     } catch (e) {
@@ -29,7 +29,7 @@ export default class ServiceDialog {
     try {
       // console.log(id)
       const request = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/dialogs/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/dialogs/${id}`
       )
       return request.data
     } catch (e) {
@@ -40,7 +40,7 @@ export default class ServiceDialog {
   static addDialog = async (body: {}) => {
     console.log(body)
     const response = await axios.post(
-      "http://strawberry-tart-41911.herokuapp.com/dialogs/addDialog",
+      "https://strawberry-tart-41911.herokuapp.com/dialogs/addDialog",
       body
     )
     return response.data

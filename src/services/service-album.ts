@@ -17,7 +17,7 @@ export default class ServiceAlbums {
   static getAllAlbums = async () => {
     try {
       const request = await axios.get(
-        "http://strawberry-tart-41911.herokuapp.com/Albums/"
+        "https://strawberry-tart-41911.herokuapp.com/Albums/"
       )
       return request.data
     } catch (e) {
@@ -31,7 +31,7 @@ export default class ServiceAlbums {
       ownerUser: id
     }
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/albums/add`,
+      `https://strawberry-tart-41911.herokuapp.com/albums/add`,
       album
     )
     return response.data
@@ -40,7 +40,7 @@ export default class ServiceAlbums {
   static editAlbum = async (id: string, user: string) => {
     try {
       const request = await axios.put(
-        `http://strawberry-tart-41911.herokuapp.com/albums/update/${id}`,
+        `https://strawberry-tart-41911.herokuapp.com/albums/update/${id}`,
         user
       )
       return request.data
@@ -52,7 +52,7 @@ export default class ServiceAlbums {
   static removeHandler = async (id: string) => {
     try {
       return await axios.delete(
-        `http://strawberry-tart-41911.herokuapp.com/albums/delete/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/albums/delete/${id}`
       )
     } catch (e) {
       console.log(e)
@@ -63,7 +63,7 @@ export default class ServiceAlbums {
     try {
       // console.log(id)
       const response = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/albums/withPhotos/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/albums/withPhotos/${id}`
       )
       return response.data
     } catch (e) {

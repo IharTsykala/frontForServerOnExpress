@@ -17,7 +17,7 @@ export default class ServicePhotos {
   static getPhotosById = async (userId: string) => {
     try {
       return await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/photos/${userId}`
+        `https://strawberry-tart-41911.herokuapp.com/photos/${userId}`
       )
     } catch (e) {
       console.log(e)
@@ -30,7 +30,7 @@ export default class ServicePhotos {
       formData.append("multipleUser", avatar[i])
     }
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/public/multipleUserSafeFileIntoImages`,
+      `https://strawberry-tart-41911.herokuapp.com/public/multipleUserSafeFileIntoImages`,
       formData
     )
     return response.data.fileNames
@@ -44,7 +44,7 @@ export default class ServicePhotos {
         ownerUser: idUser
       }
       const response = await axios.post(
-        `http://strawberry-tart-41911.herokuapp.com/photos/add`,
+        `https://strawberry-tart-41911.herokuapp.com/photos/add`,
         photo
       )
       console.log(response)
@@ -54,7 +54,7 @@ export default class ServicePhotos {
   static removeHandler = async (id: string) => {
     try {
       return await axios.delete(
-        `http://strawberry-tart-41911.herokuapp.com/photos/delete/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/photos/delete/${id}`
       )
     } catch (e) {
       console.log(e)
@@ -93,7 +93,7 @@ export default class ServicePhotos {
       formData.append("multipleUser", arrayFiles[i])
     }
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
+      `https://strawberry-tart-41911.herokuapp.com/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
       formData
     )
     return response.data.fileNames
