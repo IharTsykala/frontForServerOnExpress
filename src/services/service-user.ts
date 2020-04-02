@@ -18,7 +18,7 @@ export default class Service {
   static getAllUsers = async () => {
     try {
       const request = await axios.get(
-        "http://strawberry-tart-41911.herokuapp.com/users/"
+        "https://strawberry-tart-41911.herokuapp.com/users/"
       )
       return request.data
     } catch (e) {
@@ -29,7 +29,7 @@ export default class Service {
   static getFilteredUsers = async (valueSearchBox: string) => {
     try {
       const request = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/filter/${valueSearchBox}`
+        `https://strawberry-tart-41911.herokuapp.com/users/filter/${valueSearchBox}`
       )
       return request.data
     } catch (e) {
@@ -40,7 +40,7 @@ export default class Service {
   static editUser = async (id: any, user: {}) => {
     try {
       const request = await axios.put(
-        `http://strawberry-tart-41911.herokuapp.com/users/update/${id}`,
+        `https://strawberry-tart-41911.herokuapp.com/users/update/${id}`,
         user
       )
       return request.data
@@ -52,7 +52,7 @@ export default class Service {
   static removeHandler = async (id: string) => {
     try {
       return await axios.delete(
-        `http://strawberry-tart-41911.herokuapp.com/users/delete/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/users/delete/${id}`
       )
     } catch (e) {
       console.log(e)
@@ -62,7 +62,7 @@ export default class Service {
   static getUserByID = async (id: string) => {
     try {
       const request = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/${id}`
+        `https://strawberry-tart-41911.herokuapp.com/users/${id}`
       )
       return request.data
     } catch (e) {
@@ -73,7 +73,7 @@ export default class Service {
   static getUserByToken = async () => {
     try {
       const request = await axios.get(
-        `http://strawberry-tart-41911.herokuapp.com/users/getUserByToken/`
+        `https://strawberry-tart-41911.herokuapp.com/users/getUserByToken/`
       )
       return request.data
     } catch (e) {
@@ -83,7 +83,7 @@ export default class Service {
 
   static getTokenForLogin = async (id: string, user: {}) => {
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/users/login`,
+      `https://strawberry-tart-41911.herokuapp.com/users/login`,
       user
     )
     return response.data
@@ -91,7 +91,7 @@ export default class Service {
 
   static getTokenForRegistration = async (id: string, user: {}) => {
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/users/add`,
+      `https://strawberry-tart-41911.herokuapp.com/users/add`,
       user
     )
     return response.data
@@ -99,7 +99,7 @@ export default class Service {
 
   static logOutAllDevices = async (id: string, user: {}) => {
     const response = await axios.post(
-      `http://strawberry-tart-41911.herokuapp.com/users/logOutAllDevices`,
+      `https://strawberry-tart-41911.herokuapp.com/users/logOutAllDevices`,
       user
     )
     return response.data
@@ -107,7 +107,7 @@ export default class Service {
 
   static getListPetsByUserID = async (id: string) => {
     const response = await axios.get(
-      `http://strawberry-tart-41911.herokuapp.com/users/withPets/${id}`
+      `https://strawberry-tart-41911.herokuapp.com/users/withPets/${id}`
     )
     return response.data
   }
