@@ -16,14 +16,14 @@ export default class ServiceSubscriptions {
 
   static getStatusUsersSubscribeByID = async (idLogInUser: string) => {
     const response = await axios.get(
-      `http://localhost:8080/subscriptions/getStatusUsersSubscribeByID/${idLogInUser}`
+      `http://strawberry-tart-41911.herokuapp.com/subscriptions/getStatusUsersSubscribeByID/${idLogInUser}`
     )
     return response.data
   }
 
   static getAllObservables = async (idLogInUser: string) => {
     const response = await axios.get(
-      `http://localhost:8080/subscriptions/withObservables/${idLogInUser}`
+      `http://strawberry-tart-41911.herokuapp.com/subscriptions/withObservables/${idLogInUser}`
     )
     return response.data
   }
@@ -33,7 +33,10 @@ export default class ServiceSubscriptions {
       requestSubscriberId: idLogInUser,
       responseSubscriberId: IdObserversUser
     }
-    await axios.post(`http://localhost:8080/subscriptions/add`, subscribe)
+    await axios.post(
+      `http://strawberry-tart-41911.herokuapp.com/subscriptions/add`,
+      subscribe
+    )
   }
 
   static deleteSubscribe = async (
@@ -41,7 +44,7 @@ export default class ServiceSubscriptions {
     IdObserversUser: string
   ) => {
     await axios.delete(
-      `http://localhost:8080/subscriptions/deleteSubscribe/?idLogInUser=${idLogInUser}&IdObserversUser=${IdObserversUser}`
+      `http://strawberry-tart-41911.herokuapp.com/subscriptions/deleteSubscribe/?idLogInUser=${idLogInUser}&IdObserversUser=${IdObserversUser}`
     )
   }
 
@@ -50,7 +53,7 @@ export default class ServiceSubscriptions {
     idLogInUser: any
   ) => {
     await axios.delete(
-      `http://localhost:8080/subscriptions/deleteSubscribeAfterAddFriend/?IdObserversUser=${IdObserversUser}&idLogInUser=${idLogInUser}`
+      `http://strawberry-tart-41911.herokuapp.com/subscriptions/deleteSubscribeAfterAddFriend/?IdObserversUser=${IdObserversUser}&idLogInUser=${idLogInUser}`
     )
   }
 }

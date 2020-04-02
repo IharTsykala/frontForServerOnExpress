@@ -33,7 +33,7 @@ const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
               <img
                 onDragStart={handleOnDragStart}
                 key={item._id}
-                src={`http://localhost:8080/images/users/${item.ownerUser}/${item.url}`}
+                src={`http://strawberry-tart-41911.herokuapp.com/images/users/${item.ownerUser}/${item.url}`}
                 className={
                   PhotoModalWindowCSS.user_profile__chosen_album__photo_loop__img
                 }

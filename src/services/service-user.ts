@@ -1,3 +1,4 @@
+// import host from './service-hosting'
 const axios = require("axios")
 
 export default class Service {
@@ -16,7 +17,9 @@ export default class Service {
 
   static getAllUsers = async () => {
     try {
-      const request = await axios.get("http://localhost:8080/users/")
+      const request = await axios.get(
+        "http://strawberry-tart-41911.herokuapp.com/users/"
+      )
       return request.data
     } catch (e) {
       console.log(e)
@@ -26,7 +29,7 @@ export default class Service {
   static getFilteredUsers = async (valueSearchBox: string) => {
     try {
       const request = await axios.get(
-        `http://localhost:8080/users/filter/${valueSearchBox}`
+        `http://strawberry-tart-41911.herokuapp.com/users/filter/${valueSearchBox}`
       )
       return request.data
     } catch (e) {
@@ -37,7 +40,7 @@ export default class Service {
   static editUser = async (id: any, user: {}) => {
     try {
       const request = await axios.put(
-        `http://localhost:8080/users/update/${id}`,
+        `http://strawberry-tart-41911.herokuapp.com/users/update/${id}`,
         user
       )
       return request.data
@@ -48,7 +51,9 @@ export default class Service {
 
   static removeHandler = async (id: string) => {
     try {
-      return await axios.delete(`http://localhost:8080/users/delete/${id}`)
+      return await axios.delete(
+        `http://strawberry-tart-41911.herokuapp.com/users/delete/${id}`
+      )
     } catch (e) {
       console.log(e)
     }
@@ -56,7 +61,9 @@ export default class Service {
 
   static getUserByID = async (id: string) => {
     try {
-      const request = await axios.get(`http://localhost:8080/users/${id}`)
+      const request = await axios.get(
+        `http://strawberry-tart-41911.herokuapp.com/users/${id}`
+      )
       return request.data
     } catch (e) {
       console.log(e)
@@ -66,7 +73,7 @@ export default class Service {
   static getUserByToken = async () => {
     try {
       const request = await axios.get(
-        `http://localhost:8080/users/getUserByToken/`
+        `http://strawberry-tart-41911.herokuapp.com/users/getUserByToken/`
       )
       return request.data
     } catch (e) {
@@ -75,18 +82,24 @@ export default class Service {
   }
 
   static getTokenForLogin = async (id: string, user: {}) => {
-    const response = await axios.post(`http://localhost:8080/users/login`, user)
+    const response = await axios.post(
+      `http://strawberry-tart-41911.herokuapp.com/users/login`,
+      user
+    )
     return response.data
   }
 
   static getTokenForRegistration = async (id: string, user: {}) => {
-    const response = await axios.post(`http://localhost:8080/users/add`, user)
+    const response = await axios.post(
+      `http://strawberry-tart-41911.herokuapp.com/users/add`,
+      user
+    )
     return response.data
   }
 
   static logOutAllDevices = async (id: string, user: {}) => {
     const response = await axios.post(
-      `http://localhost:8080/users/logOutAllDevices`,
+      `http://strawberry-tart-41911.herokuapp.com/users/logOutAllDevices`,
       user
     )
     return response.data
@@ -94,7 +107,7 @@ export default class Service {
 
   static getListPetsByUserID = async (id: string) => {
     const response = await axios.get(
-      `http://localhost:8080/users/withPets/${id}`
+      `http://strawberry-tart-41911.herokuapp.com/users/withPets/${id}`
     )
     return response.data
   }
@@ -104,7 +117,7 @@ export default class Service {
     formData.append("user", avatar)
 
     const response = await axios.post(
-      `http://localhost:8080/public/userSafeFileIntoImages/${id}`,
+      `http://strawberry-tart-41911.herokuapp.com/public/userSafeFileIntoImages/${id}`,
       formData
     )
     return response.data.fileName
@@ -113,7 +126,7 @@ export default class Service {
   static getListAlbumsByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/users/withAlbums/${id}`
+        `http://strawberry-tart-41911.herokuapp.com/users/withAlbums/${id}`
       )
 
       return response.data
@@ -125,7 +138,7 @@ export default class Service {
   static getListPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/users/withPhotos/${id}`
+        `http://strawberry-tart-41911.herokuapp.com/users/withPhotos/${id}`
       )
       return response.data
     } catch (e) {
@@ -136,7 +149,7 @@ export default class Service {
   static getListAlbumsWithPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/users/AlbumsWithPhotos/${id}`
+        `http://strawberry-tart-41911.herokuapp.com/users/AlbumsWithPhotos/${id}`
       )
       return response.data
     } catch (e) {
@@ -147,7 +160,7 @@ export default class Service {
   static getUserWithSubscriptionsById = async (userLogin: {}) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
+        `http://strawberry-tart-41911.herokuapp.com/users/getUserWithSubscriptionsById/${userLogin}`
       )
       return response.data
     } catch (e) {
@@ -158,7 +171,7 @@ export default class Service {
   static getUserAfterPaginationAndSearchAndFilter = async (body: {}) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
+        `http://strawberry-tart-41911.herokuapp.com/users/getUserAfterPaginationAndSearchAndFilter`,
         body
       )
       console.log(response)

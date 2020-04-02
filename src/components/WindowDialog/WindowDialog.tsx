@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import ImageIcon from "@material-ui/icons/Image"
-const socket = openSocket("http://localhost:8000", { reconnection: true })
+// const socket = openSocket("http://localhost:8000", { reconnection: true })
 
 type WindowDialogProps = {
   user: User
@@ -53,13 +53,13 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   )
 
   useEffect(() => {
-    socket.on("receiveMessageDialog", (message: Message) => {
-      addMessageState(message)
-    })
+    // socket.on("receiveMessageDialog", (message: Message) => {
+    //   addMessageState(message)
+    // })
   }, [addMessageState])
 
   const joinInRoom = useCallback(async () => {
-    socket.emit("join", currentDialog)
+    // socket.emit("join", currentDialog)
     await getMessagesFromBD()
     setValueInput("")
   }, [currentDialog, getMessagesFromBD])
@@ -69,13 +69,13 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       joinInRoom()
     }
     return () => {
-      socket.emit("end")
+      // socket.emit("end")
     }
   }, [currentDialog._id, joinInRoom])
 
   useEffect(() => {
     return () => {
-      socket.removeAllListeners()
+      // socket.removeAllListeners()
     }
   }, [])
 
@@ -87,7 +87,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       authorId: user._id,
       message: valueInput
     }
-    socket.emit("messageDialog", message)
+    // socket.emit("messageDialog", message)
     setValueInput("")
   }
 
@@ -181,5 +181,5 @@ export default connect(mapStateToProps)(WindowDialog)
 
 // "preserveNullAndEmptyArrays": true
 
-  // white-space: pre-wrap;
-    // word-break: break-word
+// white-space: pre-wrap;
+// word-break: break-word

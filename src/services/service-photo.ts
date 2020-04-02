@@ -16,7 +16,9 @@ export default class ServicePhotos {
 
   static getPhotosById = async (userId: string) => {
     try {
-      return await axios.get(`http://localhost:8080/photos/${userId}`)
+      return await axios.get(
+        `http://strawberry-tart-41911.herokuapp.com/photos/${userId}`
+      )
     } catch (e) {
       console.log(e)
     }
@@ -28,7 +30,7 @@ export default class ServicePhotos {
       formData.append("multipleUser", avatar[i])
     }
     const response = await axios.post(
-      `http://localhost:8080/public/multipleUserSafeFileIntoImages`,
+      `http://strawberry-tart-41911.herokuapp.com/public/multipleUserSafeFileIntoImages`,
       formData
     )
     return response.data.fileNames
@@ -42,7 +44,7 @@ export default class ServicePhotos {
         ownerUser: idUser
       }
       const response = await axios.post(
-        `http://localhost:8080/photos/add`,
+        `http://strawberry-tart-41911.herokuapp.com/photos/add`,
         photo
       )
       console.log(response)
@@ -51,7 +53,9 @@ export default class ServicePhotos {
 
   static removeHandler = async (id: string) => {
     try {
-      return await axios.delete(`http://localhost:8080/photos/delete/${id}`)
+      return await axios.delete(
+        `http://strawberry-tart-41911.herokuapp.com/photos/delete/${id}`
+      )
     } catch (e) {
       console.log(e)
     }
@@ -71,7 +75,7 @@ export default class ServicePhotos {
         ownerAlbum: idAlbum
       }
       const response = await axios.post(
-        `http://localhost:8080/photos/addIntoAlbum`,
+        `http://strawberry-tart-41911.herokuapp.com/photos/addIntoAlbum`,
         photo
       )
       arrPhotoUrl = arrPhotoUrl.concat(response.data.photo.url)
@@ -89,7 +93,7 @@ export default class ServicePhotos {
       formData.append("multipleUser", arrayFiles[i])
     }
     const response = await axios.post(
-      `http://localhost:8080/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
+      `http://strawberry-tart-41911.herokuapp.com/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
       formData
     )
     return response.data.fileNames

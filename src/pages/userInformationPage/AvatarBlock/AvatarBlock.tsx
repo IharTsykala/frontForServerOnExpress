@@ -34,7 +34,7 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
       {!avatarForFront && userOwnerThisPage._id && userOwnerThisPage.avatar && (
         <img
           className="chelik"
-          src={`http://localhost:8080/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
+          src={`http://strawberry-tart-41911.herokuapp.com/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
           alt="avatar"
         />
       )}
@@ -43,25 +43,29 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
         !userOwnerThisPage.avatar && (
           <img
             className="chelik"
-            src={`http://localhost:8080/images/pattern-avatar.jpg`}
+            src={`http://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`}
             alt="avatar"
           />
         )}
       {/* {(user.role === "admin" || homePageStatus) && ( */}
-        <>
-          <Button variant="outlined" component="button" disabled={!homePageStatus && true}>
-            Choose avatar
-            <input type="file" onChange={e => handleChangeAvatar(e)} />
-          </Button>
-          <Button
-            variant="outlined"
-            component="button"
-            onClick={(e: any) => handleSubmit(e)}
-            disabled={!homePageStatus && true}
-          >
-            Change Avatar
-          </Button>
-        </>
+      <>
+        <Button
+          variant="outlined"
+          component="button"
+          disabled={!homePageStatus && true}
+        >
+          Choose avatar
+          <input type="file" onChange={e => handleChangeAvatar(e)} />
+        </Button>
+        <Button
+          variant="outlined"
+          component="button"
+          onClick={(e: any) => handleSubmit(e)}
+          disabled={!homePageStatus && true}
+        >
+          Change Avatar
+        </Button>
+      </>
       {/* )} */}
     </form>
   )

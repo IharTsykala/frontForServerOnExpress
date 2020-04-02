@@ -40,7 +40,7 @@ const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
   rootReducer,
   composeWithDevTools({ trace: true, traceLimit: 25 })(
-    applyMiddleware(sagaMiddleware)
+  applyMiddleware(sagaMiddleware)
   )
 )
 

@@ -30,12 +30,12 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
   launchTogglePhotoModalWindow,
   ownerUser
 }) => {
-   return (
+  return (
     <Card className={PhotoCardCSS.photoAlbum__photoCard_block__card}>
       {!idChosenAlbum && (
         <Link to={`/user/${idItem}/album`}>
           <CardMedia
-            image={`http://localhost:8080/images/users/${ownerUser}/${urlItem}`}
+            image={`http://strawberry-tart-41911.herokuapp.com/images/users/${ownerUser}/${urlItem}`}
             title="Image title"
             className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           />
@@ -43,7 +43,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
       )}
       {idChosenAlbum && (
         <CardMedia
-          image={`http://localhost:8080/images/users/${ownerUser}/${urlItem}`}
+          image={`http://strawberry-tart-41911.herokuapp.com/images/users/${ownerUser}/${urlItem}`}
           title={urlItem}
           className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           onClick={e => launchTogglePhotoModalWindow(e)}
@@ -68,7 +68,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
           Remove
         </Button>
       </CardActions>
-    </Card>    
+    </Card>
   )
 }
 
