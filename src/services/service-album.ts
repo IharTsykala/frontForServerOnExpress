@@ -1,24 +1,22 @@
-const axios = require("axios")
+const axios = require('axios')
 
 export default class ServiceAlbums {
   static interceptor = axios.interceptors.request.use(
-    function(config: any) {
-      const token = localStorage.getItem("token")
+    function (config: any) {
+      const token = localStorage.getItem('token')
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
       return config
     },
-    function(error: string) {
+    function (error: string) {
       return Promise.reject(error)
     }
   )
 
   static getAllAlbums = async () => {
     try {
-      const request = await axios.get(
-        "https://strawberry-tart-41911.herokuapp.com/Albums/"
-      )
+      const request = await axios.get('https://localhost:8080/Albums/')
       return request.data
     } catch (e) {
       console.log(e)
@@ -27,11 +25,11 @@ export default class ServiceAlbums {
 
   static addAlbum = async (id: string) => {
     const album = {
-      name: "new album",
-      ownerUser: id
+      name: 'new album',
+      ownerUser: id,
     }
     const response = await axios.post(
-      `https://strawberry-tart-41911.herokuapp.com/albums/add`,
+      `https://localhost:8080/albums/add`,
       album
     )
     return response.data
@@ -40,7 +38,7 @@ export default class ServiceAlbums {
   static editAlbum = async (id: string, user: string) => {
     try {
       const request = await axios.put(
-        `https://strawberry-tart-41911.herokuapp.com/albums/update/${id}`,
+        `https://localhost:8080/albums/update/${id}`,
         user
       )
       return request.data
@@ -51,9 +49,7 @@ export default class ServiceAlbums {
 
   static removeHandler = async (id: string) => {
     try {
-      return await axios.delete(
-        `https://strawberry-tart-41911.herokuapp.com/albums/delete/${id}`
-      )
+      return await axios.delete(`https://localhost:8080/albums/delete/${id}`)
     } catch (e) {
       console.log(e)
     }
@@ -63,7 +59,7 @@ export default class ServiceAlbums {
     try {
       // console.log(id)
       const response = await axios.get(
-        `https://strawberry-tart-41911.herokuapp.com/albums/withPhotos/${id}`
+        `https://localhost:8080/albums/withPhotos/${id}`
       )
       return response.data
     } catch (e) {

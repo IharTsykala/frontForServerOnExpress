@@ -1,18 +1,18 @@
-import React, { useEffect } from "react"
-import Button from "@material-ui/core/Button"
-import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
-import AvatarBlockCSS from "./AvatarBlock.module.css"
+import React, { useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
+import { User } from "../../../Redux/interfaces/user.interface";
+import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface";
+import AvatarBlockCSS from "./AvatarBlock.module.css";
 
 type UserAvatarProps = {
-  user: User
-  userOwnerThisPage: UserOwnerThisPageInterface
-  homePageStatus: boolean
-  avatarForFront: any
-  handleChangeAvatar: any
-  handleSubmit: any
-}
+  user: User;
+  userOwnerThisPage: UserOwnerThisPageInterface;
+  homePageStatus: boolean;
+  avatarForFront: any;
+  handleChangeAvatar: any;
+  handleSubmit: any;
+};
 
 const AvatarBlock: React.FC<UserAvatarProps> = ({
   user,
@@ -20,9 +20,9 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
   homePageStatus,
   avatarForFront,
   handleChangeAvatar,
-  handleSubmit
+  handleSubmit,
 }) => {
-  useEffect(() => {}, [userOwnerThisPage])
+  useEffect(() => {}, [userOwnerThisPage]);
   return (
     <form
       action="submit"
@@ -34,7 +34,7 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
       {!avatarForFront && userOwnerThisPage._id && userOwnerThisPage.avatar && (
         <img
           className="chelik"
-          src={`https://strawberry-tart-41911.herokuapp.com/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
+          src={`https://localhost:8080/images/users/${userOwnerThisPage._id}/${userOwnerThisPage.avatar}`}
           alt="avatar"
         />
       )}
@@ -43,7 +43,7 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
         !userOwnerThisPage.avatar && (
           <img
             className="chelik"
-            src={`https://strawberry-tart-41911.herokuapp.com/images/pattern-avatar.jpg`}
+            src={`https://localhost:8080/images/pattern-avatar.jpg`}
             alt="avatar"
           />
         )}
@@ -55,7 +55,7 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
           disabled={!homePageStatus && true}
         >
           Choose avatar
-          <input type="file" onChange={e => handleChangeAvatar(e)} />
+          <input type="file" onChange={(e) => handleChangeAvatar(e)} />
         </Button>
         <Button
           variant="outlined"
@@ -68,12 +68,12 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
       </>
       {/* )} */}
     </form>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
-})
+  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage,
+});
 
-export default connect(mapStateToProps)(AvatarBlock)
+export default connect(mapStateToProps)(AvatarBlock);

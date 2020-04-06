@@ -1,24 +1,24 @@
-import React from "react"
-import PhotoModalWindowCSS from "./PhotoModalWindow.module.css"
-import AliceCarousel from "react-alice-carousel"
-import "react-alice-carousel/lib/alice-carousel.css"
+import React from 'react';
+import PhotoModalWindowCSS from './PhotoModalWindow.module.css';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 
 type PhotoModalWindowProps = {
-  arrayPhotosChosenAlbum: any
-  launchTogglePhotoModalWindow: any
-  currentUrlPhotoForLoop: string
-}
+  arrayPhotosChosenAlbum: any;
+  launchTogglePhotoModalWindow: any;
+  currentUrlPhotoForLoop: string;
+};
 
 const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
   arrayPhotosChosenAlbum,
   launchTogglePhotoModalWindow,
-  currentUrlPhotoForLoop
+  currentUrlPhotoForLoop,
 }) => {
   const currentIndex = arrayPhotosChosenAlbum.findIndex(
     (photo: any) => photo.url === currentUrlPhotoForLoop
-  )
+  );
 
-  const handleOnDragStart = (e: any) => e.preventDefault()
+  const handleOnDragStart = (e: any) => e.preventDefault();
 
   return (
     <div className={PhotoModalWindowCSS.user_profile__chosen_album__photo_loop}>
@@ -33,7 +33,7 @@ const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
               <img
                 onDragStart={handleOnDragStart}
                 key={item._id}
-                src={`https://strawberry-tart-41911.herokuapp.com/images/users/${item.ownerUser}/${item.url}`}
+                src={`https://localhost:8080/images/users/${item.ownerUser}/${item.url}`}
                 className={
                   PhotoModalWindowCSS.user_profile__chosen_album__photo_loop__img
                 }
@@ -43,7 +43,7 @@ const PhotoModalWindow: React.FC<PhotoModalWindowProps> = ({
         </AliceCarousel>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PhotoModalWindow
+export default PhotoModalWindow;

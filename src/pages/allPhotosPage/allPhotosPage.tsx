@@ -12,7 +12,7 @@ import { getListPhotosByUserIdIdAction } from "../../Redux/store/albums/albums.a
 // import { removePhotoFromCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
 
 type AllPhotosPageProps = {
-  user: User
+  user: User  
   userOwnerThisPage: UserOwnerThisPageInterface
   currentAlbum: [Photo]
   allPhotosForThisUser: [Photo]
@@ -62,7 +62,7 @@ const AllPhotosPage: React.FC<AllPhotosPageProps> = ({
               key={item._id || 1}
             >
               <img
-                src={`https://strawberry-tart-41911.herokuapp.com/images/users/${thisUserId}/${item.url}`}
+                src={`https://localhost:8080/images/users/${thisUserId}/${item.url}`}
                 alt="userPhoto"
               />
             </li>
