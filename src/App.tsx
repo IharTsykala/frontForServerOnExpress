@@ -59,7 +59,7 @@ export const App: React.FC = () => (
         <Navbar />
         <main className="main">
           <Switch>
-            <Route component={GetStartPage} path="/" exact />
+            <Route component={GetStartPage} path="/frontForServerOnExpress" exact />
             <Route component={GetLoginPage} path="/LogIn" exact />
             <Route component={GetLogUpPage} path="/SignUp" exact />
             <PrivateRoute

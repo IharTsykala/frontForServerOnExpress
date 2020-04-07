@@ -1,55 +1,55 @@
-import React, { useEffect } from "react";
-import UserCardCSS from "./UserCard.module.css";
-import { useHistory } from "react-router-dom";
-import ServiceSubscriptions from "../../services/service-subscribe";
-import ServiceFriends from "../../services/service-friend";
-import Service from "../../services/service-user";
-import { connect } from "react-redux";
-import { User } from "../../Redux/interfaces/user.interface";
+import React, { useEffect } from "react"
+import UserCardCSS from "./UserCard.module.css"
+import { useHistory } from "react-router-dom"
+import ServiceSubscriptions from "../../services/service-subscribe"
+import ServiceFriends from "../../services/service-friend"
+import Service from "../../services/service-user"
+import { connect } from "react-redux"
+import { User } from "../../Redux/interfaces/user.interface"
 
 type UserCardProps = {
-  user: User;
-  userOwnerCard: any;
-  getLogInUserAllSubscriptionsAndObserver: any;
-};
+  user: User,
+  userOwnerCard: any,
+  getLogInUserAllSubscriptionsAndObserver: any,
+}
 
 const UserCard: React.FC<UserCardProps> = ({
   user,
   userOwnerCard,
   getLogInUserAllSubscriptionsAndObserver,
 }) => {
-  const history = useHistory();
+  const history = useHistory()
 
-  useEffect(() => {}, [user.subscriptions]);
+  useEffect(() => {}, [user.subscriptions])
 
   const handlerClickSubscribe = async () => {
-    await ServiceSubscriptions.addSubscribe(user._id, userOwnerCard._id);
-    getLogInUserAllSubscriptionsAndObserver();
-  };
+    await ServiceSubscriptions.addSubscribe(user._id, userOwnerCard._id)
+    getLogInUserAllSubscriptionsAndObserver()
+  }
 
   const handlerClickUnSubscribe = async () => {
-    await ServiceSubscriptions.deleteSubscribe(user._id, userOwnerCard._id);
-    getLogInUserAllSubscriptionsAndObserver();
-  };
+    await ServiceSubscriptions.deleteSubscribe(user._id, userOwnerCard._id)
+    getLogInUserAllSubscriptionsAndObserver()
+  }
 
   const handlerClickAddFriend = async () => {
     await ServiceSubscriptions.deleteSubscribeAfterAddFriend(
       userOwnerCard._id,
       user._id
-    );
-    await ServiceFriends.addFriend(user._id, userOwnerCard._id);
-    getLogInUserAllSubscriptionsAndObserver();
-  };
+    )
+    await ServiceFriends.addFriend(user._id, userOwnerCard._id)
+    getLogInUserAllSubscriptionsAndObserver()
+  }
 
   const handlerClickRemoveFriend = async () => {
-    await ServiceFriends.removeFriend(user._id, userOwnerCard._id);
-    getLogInUserAllSubscriptionsAndObserver();
-  };
+    await ServiceFriends.removeFriend(user._id, userOwnerCard._id)
+    getLogInUserAllSubscriptionsAndObserver()
+  }
 
   const removeHandler = async (id: string) => {
-    await Service.removeHandler(id);
-    getLogInUserAllSubscriptionsAndObserver();
-  };
+    await Service.removeHandler(id)
+    getLogInUserAllSubscriptionsAndObserver()
+  }
 
   return (
     <div className={UserCardCSS.container__all_users__card_user}>
@@ -66,7 +66,7 @@ const UserCard: React.FC<UserCardProps> = ({
           src={`https://localhost:8080/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
           alt="avatar"
           onClick={() => {
-            history.push(`/user/profile/${userOwnerCard._id}`);
+            history.push(`/user/profile/${userOwnerCard._id}`)
           }}
         />
       ) : (
@@ -74,14 +74,14 @@ const UserCard: React.FC<UserCardProps> = ({
           src="https://localhost:8080/images/pattern-avatar.jpg"
           alt="avatar"
           onClick={() => {
-            history.push(`/user/profile/${userOwnerCard._id}`);
+            history.push(`/user/profile/${userOwnerCard._id}`)
           }}
         />
       )}
       <h5
         className={UserCardCSS.all_users__card_user__login}
         onClick={() => {
-          history.push(`/user/profile/${userOwnerCard._id}`);
+          history.push(`/user/profile/${userOwnerCard._id}`)
         }}
       >
         {userOwnerCard.login}
@@ -116,11 +116,11 @@ const UserCard: React.FC<UserCardProps> = ({
         )}
       </button>
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state: any) => ({
   user: state.common.user,
-});
+})
 
-export default connect(mapStateToProps)(UserCard);
+export default connect(mapStateToProps)(UserCard)

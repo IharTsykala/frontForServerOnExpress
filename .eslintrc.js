@@ -3,7 +3,11 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ["react-app", "prettier", "plugin:react-redux/recommended"],
+  extends: [
+    "react-app",
+    "prettier",
+    "plugin:react-redux/recommended",
+  ],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
@@ -16,15 +20,20 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "prettier", "react-redux"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "prettier",
+    "react-redux",
+  ],
   rules: {
     "jsx-quotes": ["warn", "prefer-double"],
     "semi-style": ["warn", "last"],
     "no-plusplus": "off",
     "eol-last": "warn",
-    // "max-len": ["warn", 80, { ignoreUrls: true }],
+    "max-len": ["warn", 80, { ignoreUrls: true }],
     "no-tabs": "off",
-    // indent: ["warn", 2],
+    indent: ["warn", 2],
     "no-console": "off",
     // 'prettier/prettier': [
     //   'error',
@@ -44,4 +53,4 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "react-redux/prefer-separate-component-file": "off",
   },
-};
+}
