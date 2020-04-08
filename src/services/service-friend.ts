@@ -1,9 +1,9 @@
-const axios = require('axios')
+const axios = require("axios")
 
 export default class ServiceFriends {
   static interceptor = axios.interceptors.request.use(
     function (config: any) {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
@@ -16,7 +16,7 @@ export default class ServiceFriends {
 
   static getLogInUserAllFriends = async (idLogInUser: string) => {
     const response = await axios.get(
-      `https://localhost:8080/friends/logInUserAllFriends/?id=${idLogInUser}`
+      `http://localhost:8080/friends/logInUserAllFriends/?id=${idLogInUser}`
     )
     return response.data
   }
@@ -26,18 +26,18 @@ export default class ServiceFriends {
       requestFriendId: idLogInUser,
       responseFriendId: IdRequestUser,
     }
-    await axios.post(`https://localhost:8080/friends/add`, subscribe)
+    await axios.post(`http://localhost:8080/friends/add`, subscribe)
   }
 
   static removeFriend = async (idLogInUser: string, IdSecondUser: string) => {
     await axios.delete(
-      `https://localhost:8080/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`
+      `http://localhost:8080/friends/removeFriend/?idLogInUser=${idLogInUser}&IdSecondUser=${IdSecondUser}`
     )
   }
 
   static getArrayFriendsByIdUser = async (idLogInUser: string) => {
     const response = await axios.get(
-      `https://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`
+      `http://localhost:8080/friends/getArrayFriendsByIdUser/?idLogInUser=${idLogInUser}`
     )
     // console.log(response.data)
     return response.data

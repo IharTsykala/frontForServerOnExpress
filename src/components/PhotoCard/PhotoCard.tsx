@@ -35,7 +35,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
       {!idChosenAlbum && (
         <Link to={`/user/${idItem}/album`}>
           <CardMedia
-            image={`https://localhost:8080/images/users/${ownerUser}/${urlItem}`}
+            image={`http://localhost:8080/images/users/${ownerUser}/${urlItem}`}
             title="Image title"
             className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           />
@@ -43,7 +43,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
       )}
       {idChosenAlbum && (
         <CardMedia
-          image={`https://localhost:8080/images/users/${ownerUser}/${urlItem}`}
+          image={`http://localhost:8080/images/users/${ownerUser}/${urlItem}`}
           title={urlItem}
           className={PhotoCardCSS.photoAlbum__photoCard_block__card__photo}
           onClick={e => launchTogglePhotoModalWindow(e)}

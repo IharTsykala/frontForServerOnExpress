@@ -51,14 +51,14 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
                   {user.avatar && (
                     <img
                       className={NavbarCSS.navbar__avatar}
-                      src={`https://localhost:8080/images/users/${user._id}/${user.avatar}`}
+                      src={`http://localhost:8080/images/users/${user._id}/${user.avatar}`}
                       alt="avatar"
                     />
                   )}
                   {!user.avatar && (
                     <img
                       className={NavbarCSS.navbar__avatar}
-                      src={`https://localhost:8080/images/pattern-avatar.jpg`}
+                      src={`http://localhost:8080/images/pattern-avatar.jpg`}
                       alt="avatar"
                     />
                   )}

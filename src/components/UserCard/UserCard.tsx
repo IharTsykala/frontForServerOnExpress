@@ -63,7 +63,7 @@ const UserCard: React.FC<UserCardProps> = ({
       )}
       {userOwnerCard.avatar ? (
         <img
-          src={`https://localhost:8080/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
+          src={`http://localhost:8080/images/users/${userOwnerCard._id}/${userOwnerCard.avatar}`}
           alt="avatar"
           onClick={() => {
             history.push(`/user/profile/${userOwnerCard._id}`)

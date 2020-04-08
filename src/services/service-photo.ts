@@ -1,9 +1,9 @@
-const axios = require('axios')
+const axios = require("axios")
 
 export default class ServicePhotos {
   static interceptor = axios.interceptors.request.use(
     function (config: any) {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
@@ -16,7 +16,7 @@ export default class ServicePhotos {
 
   static getPhotosById = async (userId: string) => {
     try {
-      return await axios.get(`https://localhost:8080/photos/${userId}`)
+      return await axios.get(`http://localhost:8080/photos/${userId}`)
     } catch (e) {
       console.log(e)
     }
@@ -25,10 +25,10 @@ export default class ServicePhotos {
   static setImgUser = async (avatar: any) => {
     const formData = new FormData()
     for (let i = 0; i < avatar.length; i++) {
-      formData.append('multipleUser', avatar[i])
+      formData.append("multipleUser", avatar[i])
     }
     const response = await axios.post(
-      `https://localhost:8080/public/multipleUserSafeFileIntoImages`,
+      `http://localhost:8080/public/multipleUserSafeFileIntoImages`,
       formData
     )
     return response.data.fileNames
@@ -42,7 +42,7 @@ export default class ServicePhotos {
         ownerUser: idUser,
       }
       const response = await axios.post(
-        `https://localhost:8080/photos/add`,
+        `http://localhost:8080/photos/add`,
         photo
       )
       console.log(response)
@@ -51,7 +51,7 @@ export default class ServicePhotos {
 
   static removeHandler = async (id: string) => {
     try {
-      return await axios.delete(`https://localhost:8080/photos/delete/${id}`)
+      return await axios.delete(`http://localhost:8080/photos/delete/${id}`)
     } catch (e) {
       console.log(e)
     }
@@ -71,7 +71,7 @@ export default class ServicePhotos {
         ownerAlbum: idAlbum,
       }
       const response = await axios.post(
-        `https://localhost:8080/photos/addIntoAlbum`,
+        `http://localhost:8080/photos/addIntoAlbum`,
         photo
       )
       arrPhotoUrl = arrPhotoUrl.concat(response.data.photo.url)
@@ -86,10 +86,10 @@ export default class ServicePhotos {
   ) => {
     const formData = new FormData()
     for (let i = 0; i < arrayFiles.length; i++) {
-      formData.append('multipleUser', arrayFiles[i])
+      formData.append("multipleUser", arrayFiles[i])
     }
     const response = await axios.post(
-      `https://localhost:8080/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
+      `http://localhost:8080/public/multipleUserSafeFileIntoImages/?idUser=${idUser}&idAlbum=${idAlbum}`,
       formData
     )
     return response.data.fileNames

@@ -8,7 +8,7 @@ import {
   setUserLoginInStoreAction,
   userLogOutAction,
   getFailureAction
-} from "./userLogin.actions"
+} from "./user.actions"
 
 function* setUserLoginInStore() {
   try {

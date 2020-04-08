@@ -1,10 +1,10 @@
 // import host from './service-hosting'
-const axios = require('axios')
+const axios = require("axios")
 
 export default class Service {
   static interceptor = axios.interceptors.request.use(
     function (config: any) {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
@@ -17,7 +17,7 @@ export default class Service {
 
   static getAllUsers = async () => {
     try {
-      const request = await axios.get('https://localhost:8080/users/')
+      const request = await axios.get("https://localhost:8080/users/")
       return request.data
     } catch (e) {
       console.log(e)
@@ -27,7 +27,7 @@ export default class Service {
   static getFilteredUsers = async (valueSearchBox: string) => {
     try {
       const request = await axios.get(
-        `https://localhost:8080/users/filter/${valueSearchBox}`
+        `http://localhost:8080/users/filter/${valueSearchBox}`
       )
       return request.data
     } catch (e) {
@@ -38,7 +38,7 @@ export default class Service {
   static editUser = async (id: any, user: {}) => {
     try {
       const request = await axios.put(
-        `https://localhost:8080/users/update/${id}`,
+        `http://localhost:8080/users/update/${id}`,
         user
       )
       return request.data
@@ -49,7 +49,7 @@ export default class Service {
 
   static removeHandler = async (id: string) => {
     try {
-      return await axios.delete(`https://localhost:8080/users/delete/${id}`)
+      return await axios.delete(`http://localhost:8080/users/delete/${id}`)
     } catch (e) {
       console.log(e)
     }
@@ -57,7 +57,7 @@ export default class Service {
 
   static getUserByID = async (id: string) => {
     try {
-      const request = await axios.get(`https://localhost:8080/users/${id}`)
+      const request = await axios.get(`http://localhost:8080/users/${id}`)
       return request.data
     } catch (e) {
       console.log(e)
@@ -67,7 +67,7 @@ export default class Service {
   static getUserByToken = async () => {
     try {
       const request = await axios.get(
-        `https://localhost:8080/users/getUserByToken/`
+        `http://localhost:8080/users/getUserByToken/`
       )
       return request.data
     } catch (e) {
@@ -76,21 +76,18 @@ export default class Service {
   }
 
   static getTokenForLogin = async (id: string, user: {}) => {
-    const response = await axios.post(
-      `https://localhost:8080/users/login`,
-      user
-    )
+    const response = await axios.post(`http://localhost:8080/users/login`, user)
     return response.data
   }
 
   static getTokenForRegistration = async (id: string, user: {}) => {
-    const response = await axios.post(`https://localhost:8080/users/add`, user)
+    const response = await axios.post(`http://localhost:8080/users/add`, user)
     return response.data
   }
 
   static logOutAllDevices = async (id: string, user: {}) => {
     const response = await axios.post(
-      `https://localhost:8080/users/logOutAllDevices`,
+      `http://localhost:8080/users/logOutAllDevices`,
       user
     )
     return response.data
@@ -98,17 +95,17 @@ export default class Service {
 
   static getListPetsByUserID = async (id: string) => {
     const response = await axios.get(
-      `https://localhost:8080/users/withPets/${id}`
+      `http://localhost:8080/users/withPets/${id}`
     )
     return response.data
   }
 
   static setImgUser = async (avatar: any, id: string) => {
     const formData = new FormData()
-    formData.append('user', avatar)
+    formData.append("user", avatar)
 
     const response = await axios.post(
-      `https://localhost:8080/public/userSafeFileIntoImages/${id}`,
+      `http://localhost:8080/public/userSafeFileIntoImages/${id}`,
       formData
     )
     return response.data.fileName
@@ -117,7 +114,7 @@ export default class Service {
   static getListAlbumsByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `https://localhost:8080/users/withAlbums/${id}`
+        `http://localhost:8080/users/withAlbums/${id}`
       )
 
       return response.data
@@ -129,7 +126,7 @@ export default class Service {
   static getListPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `https://localhost:8080/users/withPhotos/${id}`
+        `http://localhost:8080/users/withPhotos/${id}`
       )
       return response.data
     } catch (e) {
@@ -140,7 +137,7 @@ export default class Service {
   static getListAlbumsWithPhotosByUserID = async (id: string) => {
     try {
       const response = await axios.get(
-        `https://localhost:8080/users/AlbumsWithPhotos/${id}`
+        `http://localhost:8080/users/AlbumsWithPhotos/${id}`
       )
       return response.data
     } catch (e) {
@@ -151,7 +148,7 @@ export default class Service {
   static getUserWithSubscriptionsById = async (userLogin: {}) => {
     try {
       const response = await axios.get(
-        `https://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
+        `http://localhost:8080/users/getUserWithSubscriptionsById/${userLogin}`
       )
       return response.data
     } catch (e) {
@@ -162,7 +159,7 @@ export default class Service {
   static getUserAfterPaginationAndSearchAndFilter = async (body: {}) => {
     try {
       const response = await axios.post(
-        `https://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
+        `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
         body
       )
       console.log(response)

@@ -1,9 +1,9 @@
-const axios = require('axios')
+const axios = require("axios")
 
 export default class ServiceMessage {
   static interceptor = axios.interceptors.request.use(
     function (config: any) {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
@@ -17,7 +17,7 @@ export default class ServiceMessage {
   static getAllMessagesByIdDialog = async (idDialog: string) => {
     try {
       const request = await axios.get(
-        `https://localhost:8080/messages/${idDialog}`
+        `http://localhost:8080/messages/${idDialog}`
       )
       return request.data
     } catch (e) {

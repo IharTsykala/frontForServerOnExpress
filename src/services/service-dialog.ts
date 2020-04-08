@@ -1,9 +1,9 @@
-const axios = require('axios')
+const axios = require("axios")
 
 export default class ServiceDialog {
   static interceptor = axios.interceptors.request.use(
     function (config: any) {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
@@ -16,7 +16,7 @@ export default class ServiceDialog {
 
   static getAllDialogs = async () => {
     try {
-      const request = await axios.get('https://localhost:8080/dialogs/')
+      const request = await axios.get("https://localhost:8080/dialogs/")
       return request.data
     } catch (e) {
       console.log(e)
@@ -26,7 +26,7 @@ export default class ServiceDialog {
   static getAllDialogsById = async (id: string) => {
     try {
       // console.log(id)
-      const request = await axios.get(`https://localhost:8080/dialogs/${id}`)
+      const request = await axios.get(`http://localhost:8080/dialogs/${id}`)
       return request.data
     } catch (e) {
       console.log(e)
@@ -36,7 +36,7 @@ export default class ServiceDialog {
   static addDialog = async (body: {}) => {
     console.log(body)
     const response = await axios.post(
-      'https://localhost:8080/dialogs/addDialog',
+      "https://localhost:8080/dialogs/addDialog",
       body
     )
     return response.data

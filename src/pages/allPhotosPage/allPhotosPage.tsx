@@ -62,7 +62,7 @@ const AllPhotosPage: React.FC<AllPhotosPageProps> = ({
               key={item._id || 1}
             >
               <img
-                src={`https://localhost:8080/images/users/${thisUserId}/${item.url}`}
+                src={`http://localhost:8080/images/users/${thisUserId}/${item.url}`}
                 alt="userPhoto"
               />
             </li>

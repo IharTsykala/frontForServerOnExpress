@@ -22,5 +22,6 @@ export default combineReducers({
   checkBoxState: checkBoxStateReducer,
   searchStringState: searchStringStateReducer,
   loadingState: loadingStateReducer,
-  albumsState: albumsReducer
+  albumsState: albumsReducer,
+  user: userReducer,
 })
