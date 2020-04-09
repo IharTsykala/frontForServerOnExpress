@@ -13,7 +13,23 @@ import {
   getFailureAction,
 } from "./user.actions"
 
-function* setUserLoginInStoreSaga() {
+function* setUserLoginInStoreSaga(actions: any) {
+  try {
+    yield put(setLoadingState(LoadingState.loading))
+    const data = yield Service.getTokenForLogin(actions.userId, actions.user)
+    if (data.user._id) {
+      yield put(setUserLoginInStore(data.user._id))
+      yield put(setLoadingState(LoadingState.loaded))
+    } else {
+      yield put(setLoadingState(LoadingState.notFound))
+    }
+  } catch (e) {
+    yield put(setLoadingState(LoadingState.error))
+    yield put(getFailureAction(e))
+  }
+}
+
+function* setUserRefreshSaga() {
   try {
     yield put(setLoadingState(LoadingState.loading))
     const userLog = yield Service.getUserByToken()
@@ -114,6 +130,7 @@ function* setUserLogoutInStoreSaga(actions: any) {
 
 export default function* userLoginSaga() {
   yield takeEvery(ActionTypes.GET_USER_LOGIN, setUserLoginInStoreSaga)
+  yield takeEvery(ActionTypes.GET_USER_REFRESH, setUserRefreshSaga)
   yield takeEvery(
     ActionTypes.GET_USER_OWNER_THIS_PAGE,
     setUserOwnerThisPageInStoreSaga

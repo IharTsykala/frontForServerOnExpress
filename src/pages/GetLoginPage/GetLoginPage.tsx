@@ -19,7 +19,7 @@ type GetLoginPageProps = {
 const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
   const history = useHistory()
 
-  const logInHandler = async (id: any, user: any) => {
+  const logInHandler = async (id: string, user: {}) => {
     try {
       const data = await Service.getTokenForLogin(id, user)
       localStorage.setItem("token", data.token)

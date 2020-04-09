@@ -30,9 +30,9 @@ export const ActionTypes = {
 
 //User Login
 
-export const getUserLogin = (user: {}): Action<{}> => ({
+export const getUserLogin = (userId: string, user: {}): Action<{}> => ({
   type: ActionTypes.GET_USER_LOGIN,
-  payload: user,
+  payload: { userId, user },
 })
 
 export const getUserRefresh = (): Action<{}> => ({
