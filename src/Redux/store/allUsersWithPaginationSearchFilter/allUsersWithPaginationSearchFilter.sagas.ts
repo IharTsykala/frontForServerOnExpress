@@ -3,7 +3,7 @@ import Service from "../../../services/service-user"
 import {
   ActionTypes,
   setAllUsersWithPaginationSearchFilterAction,
-  getFailureAction
+  getFailureAction,
 } from "./allUsersWithPaginationSearchFilter.actions"
 
 function* setAllUsersWithPaginationSearchFilter(actions: any) {
@@ -11,7 +11,6 @@ function* setAllUsersWithPaginationSearchFilter(actions: any) {
     const list = yield Service.getUserAfterPaginationAndSearchAndFilter(
       actions.payload
     )
-
     yield put(setAllUsersWithPaginationSearchFilterAction(list))
   } catch (e) {
     yield put(getFailureAction(e))

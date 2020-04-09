@@ -6,7 +6,7 @@ import {
   putAllUsersInStateAction,
   setAllUsersWithPaginationSearchFilterAction,
   setFriendsForUserAction,
-  getFailureAction
+  getFailureAction,
 } from "./allUsers.actions"
 
 function* putAllUsersInState(actions: any) {
@@ -34,7 +34,7 @@ function* setAllUsersWithPaginationSearchFilter(actions: any) {
 }
 
 function* setFriendsForUser(actions: any) {
-  try {   
+  try {
     const list = yield ServiceFriends.getArrayFriendsByIdUser(actions.payload)
     yield put(setFriendsForUserAction(list))
   } catch (e) {

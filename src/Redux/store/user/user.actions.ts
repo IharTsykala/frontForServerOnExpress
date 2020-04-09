@@ -21,6 +21,7 @@ export const ActionTypes = {
   SET_ALL_USERS_IN_STORE: "[user] get all user in store",
   REMOVE_ALL_USERS_FROM_STORE: "[user] remove all user in store from store",
 
+  LOG_OUT_USER_FOR_ALL_DEVICES: "[user] log out user for all devices",
   SET_INITIAL_STATE_FOR_USER_REDUCER:
     "[user] set initial state for userReducer",
 
@@ -57,13 +58,19 @@ export const setUserOwnerThisPageInStore = (user: User): Action<User> => ({
 
 // All users
 
-export const getAllUsers = (): Action<{}> => ({
+export const getAllUsers = (userId: string): Action<string> => ({
   type: ActionTypes.GET_ALL_USERS,
+  payload: userId,
 })
 
 export const getAllUsersAfterPagination = (parametersPagination: {}): Action<{}> => ({
   type: ActionTypes.GET_ALL_USERS_AFTER_PAGINATION,
   payload: parametersPagination,
+})
+
+export const getAllFriendsByUserId = (userId: string): Action<string> => ({
+  type: ActionTypes.GET_ALL_FRIENDS_BY_USER_ID,
+  payload: userId,
 })
 
 export const getAllSubscriptionsByUserId = (
@@ -81,6 +88,14 @@ export const getAllSubscribersByUserId = (userId: string): Action<string> => ({
 export const setAllUsersInStore = (arrayUsers: [User]): Action<[User]> => ({
   type: ActionTypes.SET_ALL_USERS_IN_STORE,
   payload: arrayUsers,
+})
+
+export const logOutUserForAllDevices = (
+  userId: string,
+  user: User
+): Action<any> => ({
+  type: ActionTypes.LOG_OUT_USER_FOR_ALL_DEVICES,
+  payload: { userId, user },
 })
 
 export const setInitialStateForUserReducer = (): Action<{}> => ({
