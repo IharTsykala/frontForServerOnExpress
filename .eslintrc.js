@@ -3,11 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    "react-app",
-    "prettier",
-    "plugin:react-redux/recommended",
-  ],
+  extends: ["react-app", "prettier", "plugin:react-redux/recommended"],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
@@ -20,28 +16,23 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: "module",
   },
-  plugins: [
-    "react",
-    "@typescript-eslint",
-    "prettier",
-    "react-redux",
-  ],
+  plugins: ["react", "@typescript-eslint", "prettier", "react-redux"],
   rules: {
     "jsx-quotes": ["warn", "prefer-double"],
     "semi-style": ["warn", "last"],
     "no-plusplus": "off",
     "eol-last": "warn",
-    "max-len": ["warn", 80, { ignoreUrls: true }],
+    "max-len": ["warn", 80, { ignoreUrls: true, ignoreStrings: true }],
     "no-tabs": "off",
     indent: ["warn", 2],
     "no-console": "off",
-    // 'prettier/prettier': [
-    //   'error',
-    //   {
-    //     singleQuote: true,
-    //     endOfLine: 'auto',
-    //   },
-    // ],
+    "prettier/prettier": [
+      "error",
+      {
+        doubleQuote: true,
+        endOfLine: "auto",
+      },
+    ],
     "import/prefer-default-export": "off",
     "import/no-named-as-default": "off",
     "import/extensions": "off",
