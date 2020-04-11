@@ -62,7 +62,7 @@ const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  allUsers: state.allUsers.allUsers,
+  allUsers: state.user.allUsers,
   pagination: state.pagination.pagination
 })
 

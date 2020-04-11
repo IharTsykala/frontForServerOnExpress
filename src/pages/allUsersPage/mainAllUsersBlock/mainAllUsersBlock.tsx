@@ -3,7 +3,7 @@ import UserCard from "../../../components/UserCard/UserCard"
 import MainAllUsersBlockPageCSS from "./mainAllUsersBlock.module.css"
 import { connect } from "react-redux"
 import { User } from "../../../Redux/interfaces/user.interface"
-import { getAllUsersForSagasAction } from "../../../Redux/store/allUsers/allUsers.actions"
+import { getAllUsers } from "../../../Redux/store/user/user.actions"
 
 type MainAllUsersBlockProps = {
   user: User
@@ -18,16 +18,16 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
 }) => {
   const [load, setLoad]: any = useState("loading")
 
-  useEffect(() => {    
-      if (allUsers) {
-        setLoad("loaded")
-      } else {
-        // This need make notFound
-      }
-    },[allUsers])
+  useEffect(() => {
+    if (allUsers) {
+      setLoad("loaded")
+    } else {
+      // This need make notFound
+    }
+  },[allUsers])
 
-    const getLogInUserAllSubscriptionsAndObserver = () => {
-    dispatch(getAllUsersForSagasAction(user._id))
+  const getLogInUserAllSubscriptionsAndObserver = () => {
+    dispatch(getAllUsers(user._id))
   }
 
   return (
@@ -58,8 +58,8 @@ const MainAllUsersBlock: React.FunctionComponent<MainAllUsersBlockProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  allUsers: state.allUsers.allUsers
+  user: state.user.user,
+  allUsers: state.user.allUsers
 })
 
 export default connect(mapStateToProps)(MainAllUsersBlock)

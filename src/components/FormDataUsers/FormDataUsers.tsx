@@ -102,16 +102,16 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         )}
         {namePage === UserFormViewModes.Edit &&
           (user.role === "admin" || user._id === userOwnerThisPage._id) && (
-            <button type="submit">{`${nameButton}`}</button>
-          )}
+          <button type="submit">{`${nameButton}`}</button>
+        )}
       </Form>
     </Formik>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  user: state.user.user,
+  userOwnerThisPage: state.user.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(FormDataUsers)

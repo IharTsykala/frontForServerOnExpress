@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
-import { getUserOwnerThisPageActionForSagas} from "../../Redux/store/userOwnerThisPage/userOwnerThisPage.actions"
+import { getUserOwnerThisPage} from "../../Redux/store/user/user.actions"
 import { getAvatarAction } from "../../Redux/store/avatar/avatar.actions"
 
 type UserInformationPageProps = {
@@ -24,15 +24,15 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
   match,
   userOwnerThisPage
 }) => {
-  
+
   const [avatarForFront, setAvatarForFront] = useState("")
   const [avatarForBack, setAvatarForBack] = useState("")
   const [homePageStatus, setHomePageStatus] = useState(false)
   const idUserOwnerPage = match.params.id
 
-  const render = useCallback(async () => { 
-     if(idUserOwnerPage) dispatch(getUserOwnerThisPageActionForSagas(idUserOwnerPage))    
-    if (idUserOwnerPage === user._id) setHomePageStatus(true)    
+  const render = useCallback(async () => {
+    if(idUserOwnerPage) dispatch(getUserOwnerThisPage(idUserOwnerPage))
+    if (idUserOwnerPage === user._id) setHomePageStatus(true)
   }, [dispatch, idUserOwnerPage, user._id])
 
   useEffect(() => {
@@ -48,8 +48,8 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
   }
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault()    
-      dispatch(getAvatarAction(avatarForBack, userOwnerThisPage, user, avatarForFront))    
+    e.preventDefault()
+    dispatch(getAvatarAction(avatarForBack, userOwnerThisPage, user, avatarForFront))
   }
 
   return (
@@ -100,8 +100,8 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
+  user: state.user.user,
+  userOwnerThisPage: state.user.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(UserInformationPage)

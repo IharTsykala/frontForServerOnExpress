@@ -72,8 +72,8 @@ const AvatarBlock: React.FC<UserAvatarProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage,
+  user: state.user.user,
+  userOwnerThisPage: state.user.userOwnerThisPage,
 })
 
 export default connect(mapStateToProps)(AvatarBlock)

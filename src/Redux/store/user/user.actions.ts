@@ -3,7 +3,8 @@ import { User } from "../../interfaces/user.interface"
 import { UserLogOut } from "../../interfaces/userLogOut.interface"
 
 export const ActionTypes = {
-  GET_USER_LOGIN: "[user] get ser login",
+  GET_USER_LOGIN: "[user] get user login",
+  GET_USER_SIGN_UP: "[user] get user signUp",
   GET_USER_REFRESH: "[user] get user refresh",
   SET_USER_LOGIN_IN_STORE: "[user] set user login in store",
   REMOVE_USER_FROM_STORE: "[user] remove user from store",
@@ -28,10 +29,15 @@ export const ActionTypes = {
   GET_FAILURE: "[getFailureAction] get failure action",
 }
 
-//User Login
+//User login or signUp
 
 export const getUserLogin = (userId: string, user: {}): Action<{}> => ({
   type: ActionTypes.GET_USER_LOGIN,
+  payload: { userId, user },
+})
+
+export const getUserSignUp = (userId: string, user: {}): Action<{}> => ({
+  type: ActionTypes.GET_USER_SIGN_UP,
   payload: { userId, user },
 })
 

@@ -1,5 +1,4 @@
-import React from "react"
-import Service from "../../services/service-user"
+import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../../components/FormDataUsers/FormDataUsers"
 import {
@@ -8,8 +7,8 @@ import {
 } from "../../shared/constants/user-from-view-mode.enum"
 import GetLoginPageCSS from "./GetLoginPage.module.css"
 import { connect } from "react-redux"
-import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 import { User } from "../../Redux/interfaces/user.interface"
+import {getUserLogin} from "../../Redux/store/user/user.actions"
 
 type GetLoginPageProps = {
   user: User
@@ -19,17 +18,12 @@ type GetLoginPageProps = {
 const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
   const history = useHistory()
 
-  const logInHandler = async (id: string, user: {}) => {
-    try {
-      const data = await Service.getTokenForLogin(id, user)
-      localStorage.setItem("token", data.token)
-      dispatch(userLogIn(data.user))
-      // if(data.user.role==='admin') history.push(`/admin/all`)
-      history.push(`/user/allUsers`)
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  useEffect(()=>{
+    if(user._id)history.push(`/user/allUsers`)
+  },[user])
+
+  const logInHandler = (id: string, user: {}) =>
+    dispatch(getUserLogin(id, user))
 
   return (
     <>
@@ -48,7 +42,7 @@ const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.user.user
 })
 
 export default connect(mapStateToProps)(GetLoginPage)

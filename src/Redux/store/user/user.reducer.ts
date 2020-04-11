@@ -13,7 +13,7 @@ const initialState: State = {
   allUsers: [{} as User],
 }
 
-export const userReducer2 = (state: State = initialState, action: Action<{}>) => {
+export const userReducer = (state: State = initialState, action: Action<{}>) => {
   switch (action.type) {
   case ActionTypes.SET_USER_LOGIN_IN_STORE:
     return {
@@ -31,10 +31,7 @@ export const userReducer2 = (state: State = initialState, action: Action<{}>) =>
       allUsers: action.payload
     }
   case ActionTypes.SET_INITIAL_STATE_FOR_USER_REDUCER:
-    return {
-      ...state,
-      initialState
-    }
+    return initialState
   default:
     return state
   }

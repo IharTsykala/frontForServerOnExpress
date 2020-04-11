@@ -16,9 +16,13 @@ import {
 function* setUserLoginInStoreSaga(actions: any) {
   try {
     yield put(setLoadingState(LoadingState.loading))
-    const data = yield Service.getTokenForLogin(actions.userId, actions.user)
+    const data = yield Service.getTokenForLogin(
+      actions.payload.userId,
+      actions.payload.user
+    )
     if (data.user._id) {
-      yield put(setUserLoginInStore(data.user._id))
+      yield localStorage.setItem("token", data.token)
+      yield put(setUserLoginInStore(data.user))
       yield put(setLoadingState(LoadingState.loaded))
     } else {
       yield put(setLoadingState(LoadingState.notFound))
@@ -29,7 +33,27 @@ function* setUserLoginInStoreSaga(actions: any) {
   }
 }
 
-function* setUserRefreshSaga() {
+function* setUserSignUpInStoreSaga(actions: any) {
+  try {
+    yield put(setLoadingState(LoadingState.loading))
+    const data = yield Service.getTokenForRegistration(
+      actions.payload.userId,
+      actions.payload.user
+    )
+    if (data.user._id) {
+      yield localStorage.setItem("token", data.token)
+      yield put(setUserLoginInStore(data.user))
+      yield put(setLoadingState(LoadingState.loaded))
+    } else {
+      yield put(setLoadingState(LoadingState.notFound))
+    }
+  } catch (e) {
+    yield put(setLoadingState(LoadingState.error))
+    yield put(getFailureAction(e))
+  }
+}
+
+function* setUserRefreshInStoreSaga() {
   try {
     yield put(setLoadingState(LoadingState.loading))
     const userLog = yield Service.getUserByToken()
@@ -81,21 +105,21 @@ function* setAllUsersSaga(actions: any) {
 
 function* setAllUsersAfterPaginationSaga(actions: any) {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    // yield put(setLoadingState(LoadingState.loading))
     let list
     if (actions.payload === "") list = []
     else
       list = yield Service.getUserAfterPaginationAndSearchAndFilter(
         actions.payload
       )
-    if (list.length) {
-      yield put(setAllUsersInStore(list))
-      yield put(setLoadingState(LoadingState.loaded))
-    } else {
-      yield put(setLoadingState(LoadingState.notFound))
-    }
+    // if (list.length) {
+    yield put(setAllUsersInStore(list))
+    // yield put(setLoadingState(LoadingState.loaded))
+    // } else {
+    // yield put(setLoadingState(LoadingState.notFound))
+    // }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    // yield put(setLoadingState(LoadingState.error))
     yield put(getFailureAction(e))
   }
 }
@@ -118,7 +142,7 @@ function* getAllFriendsByUserIdSaga(actions: any) {
   }
 }
 
-function* setUserLogoutInStoreSaga(actions: any) {
+function* setUserLogOutInStoreSaga(actions: any) {
   try {
     yield Service.logOutAllDevices(actions.userId, actions.user)
     yield put(setInitialStateForUserReducer())
@@ -128,16 +152,17 @@ function* setUserLogoutInStoreSaga(actions: any) {
   }
 }
 
-export default function* userLoginSaga() {
+export default function* userSaga() {
   yield takeEvery(ActionTypes.GET_USER_LOGIN, setUserLoginInStoreSaga)
-  yield takeEvery(ActionTypes.GET_USER_REFRESH, setUserRefreshSaga)
+  yield takeEvery(ActionTypes.GET_USER_SIGN_UP, setUserSignUpInStoreSaga)
+  yield takeEvery(ActionTypes.GET_USER_REFRESH, setUserRefreshInStoreSaga)
   yield takeEvery(
     ActionTypes.GET_USER_OWNER_THIS_PAGE,
     setUserOwnerThisPageInStoreSaga
   )
   yield takeEvery(
     ActionTypes.LOG_OUT_USER_FOR_ALL_DEVICES,
-    setUserLogoutInStoreSaga
+    setUserLogOutInStoreSaga
   )
   yield takeEvery(ActionTypes.GET_ALL_USERS, setAllUsersSaga)
   yield takeEvery(

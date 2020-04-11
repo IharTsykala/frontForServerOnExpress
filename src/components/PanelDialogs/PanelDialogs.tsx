@@ -10,7 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import { currentDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
-import { getAllUsersForSagasAction } from "../../Redux/store/allUsers/allUsers.actions"
+import { getAllUsers } from "../../Redux/store/user/user.actions"
 import { getAllDialogsByUserIdAction } from "../../Redux/store/dialogs/dialogs.actions"
 import { addDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
 import Button from "@material-ui/core/Button"
@@ -39,7 +39,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     if (user._id) {
       dispatch(getAllDialogsByUserIdAction(user._id))
       if (allUsers[0]._id === undefined)
-        dispatch(getAllUsersForSagasAction(user._id))
+        dispatch(getAllUsers(user._id))
     }
   }, [allUsers, dispatch, user._id])
 
@@ -49,7 +49,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 
   const handlerClickButton = () => {
     setFlagModalWindow(!flagModalWindow)
-    if (flagModalWindow) dispatch(getAllUsersForSagasAction(user._id))
+    if (flagModalWindow) dispatch(getAllUsers(user._id))
   }
 
   async function sendDialog(
@@ -152,8 +152,8 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  allUsers: state.allUsers.allUsers,
+  user: state.user.user,
+  allUsers: state.user.allUsers,
   currentDialog: state.dialog.currentDialog,
   listDialogs: state.dialog.allDialogs
 })

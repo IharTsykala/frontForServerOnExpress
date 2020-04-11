@@ -12,10 +12,10 @@ import {
   setListPhotosForCurrentAlbumAction,
   getListPhotosByAlbumIdAction,
   setListPhotosForUserAction,
-  getFailureAction
+  getFailureAction,
 } from "./albums.action"
 
-import { getUserOwnerThisPageActionForSagas } from "../userOwnerThisPage/userOwnerThisPage.actions"
+import { getUserOwnerThisPage } from "../user/user.actions"
 
 function* setListAlbumsWithPhotosInStore(actions: any) {
   try {
@@ -58,7 +58,7 @@ function* setListPhotosForCurrentAlbum(actions: any) {
       actions.payload
     )
     if (arrayAlbums.length) {
-      yield put(getUserOwnerThisPageActionForSagas(arrayAlbums[0].ownerUser))
+      yield put(getUserOwnerThisPage(arrayAlbums[0].ownerUser))
       yield put(setListPhotosForCurrentAlbumAction(arrayAlbums[0].photos))
       yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.loaded))
     } else {

@@ -55,7 +55,7 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
     <Box className={AlbumsBlockCSS.main__user_profile__albums_block}>
       {/* {stateLoading === "loading" && <h1>Ожидайте ответа</h1>} */}
       {// stateLoading === "loaded"   &&
-      albumsForUserOwnerPage.length &&
+        albumsForUserOwnerPage.length &&
         albumsForUserOwnerPage[0]._id !== undefined && (
           <CreateList
             arr={albumsForUserOwnerPage}
@@ -89,8 +89,8 @@ const AlbumsBlock: React.FC<AlbumsBlockProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage,
+  user: state.user.user,
+  userOwnerThisPage: state.user.userOwnerThisPage,
   albumsForUserOwnerPage: state.albumsState.albumsForUserOwnerPage
 })
 

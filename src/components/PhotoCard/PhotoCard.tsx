@@ -73,7 +73,7 @@ const PhotoCard: React.FC<UserPhotoCard> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  userOwnerThisPage: state.userOwnerThisPage.userOwnerThisPage
+  userOwnerThisPage: state.user.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(PhotoCard)

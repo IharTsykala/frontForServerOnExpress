@@ -6,7 +6,7 @@ import { connect } from "react-redux"
 import {
   changeCheckBoxStateAction,
   setPrevCheckBoxStateAction
-} from "../../../Redux/store/checkBoxState/checkBoxState.actions"
+} from "../../../Redux/store/pagination/pagination.actions"
 
 type HeaderAllUsersBlockProps = {
   checkBoxState: boolean
@@ -45,7 +45,7 @@ const HeaderAllUsersBlock: React.FunctionComponent<HeaderAllUsersBlockProps> = (
 }
 
 const mapStateToProps = (state: any) => ({
-  checkBoxState: state.checkBoxState.checkBoxState
+  checkBoxState: state.pagination.checkBox.checkBoxState
 })
 
 export default connect(mapStateToProps)(HeaderAllUsersBlock)

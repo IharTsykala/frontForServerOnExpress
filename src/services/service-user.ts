@@ -17,7 +17,7 @@ export default class Service {
 
   static getAllUsers = async () => {
     try {
-      const request = await axios.get("https://localhost:8080/users/")
+      const request = await axios.get("http://localhost:8080/users/")
       return request.data
     } catch (e) {
       console.log(e)
@@ -162,7 +162,6 @@ export default class Service {
         `http://localhost:8080/users/getUserAfterPaginationAndSearchAndFilter`,
         body
       )
-      console.log(response)
       return response.data
     } catch (e) {
       console.log(e)

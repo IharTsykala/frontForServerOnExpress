@@ -16,7 +16,7 @@ export default class ServiceAlbums {
 
   static getAllAlbums = async () => {
     try {
-      const request = await axios.get("https://localhost:8080/Albums/")
+      const request = await axios.get("http://localhost:8080/Albums/")
       return request.data
     } catch (e) {
       console.log(e)

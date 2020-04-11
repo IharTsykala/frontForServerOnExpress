@@ -4,19 +4,18 @@ import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
 import { Pagination } from "../../Redux/interfaces/pagination.interface"
 import { setValuesForPaginationAction } from "../../Redux/store/pagination/pagination.actions"
-import { getAllUsersForSagasAction } from "../../Redux/store/allUsers/allUsers.actions"
-import { getAllUsersWithPaginationSearchFilterAction } from "../../Redux/store/allUsersWithPaginationSearchFilter/allUsersWithPaginationSearchFilter.actions"
+import { getAllUsers } from "../../Redux/store/user/user.actions"
+import { getAllUsersAfterPagination } from "../../Redux/store/user/user.actions"
 import AmountPagination from "./AmountPagination/AmountPagination"
 import NumberBlockPagination from "./NumberBlockPagination/NumberBlockPagination"
-// import ServiceFriends from '../../services/service-friend'
 
 type PaginationBlockProps = {
   user: User
   pagination: Pagination
   dispatch: any
-  checked: Boolean
-  prevChecked: Boolean
-  valueSearchBox: String | ""
+  checked: boolean
+  prevChecked: boolean
+  valueSearchBox: string
 }
 
 const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
@@ -43,11 +42,9 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       limitRender
     }
     if (limitRender) {
-      dispatch(getAllUsersWithPaginationSearchFilterAction(body))
+      dispatch(getAllUsersAfterPagination(body))
     } else {
-      if (user._id) dispatch(getAllUsersForSagasAction(user._id))
-      // await ServiceFriends.getArrayFriendsByIdUser(user._id)
-      // else dispatch(getAllUsersForSagasAction(""))
+      if (user._id) dispatch(getAllUsers(user._id))
       dispatch(
         setValuesForPaginationAction({
           numberPage: 1,
@@ -70,7 +67,7 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
       })
     )
     // call function after click checkbox or search
-    if (prevChecked !== undefined) {
+    if (prevChecked !== undefined || valueSearchBox) {
       clearTimeout(timerId)
       const clearInterval = setTimeout(() => {
         getUsersAfterPaginationAndSearchAndFilter(1, limitRender)
@@ -97,11 +94,11 @@ const PaginationBlock: React.FunctionComponent<PaginationBlockProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
+  user: state.user.user,
   pagination: state.pagination.pagination,
-  checked: state.checkBoxState.checkBoxState,
-  prevChecked: state.checkBoxState.prevCheckBoxState,
-  valueSearchBox: state.searchStringState.searchStringState
+  checked: state.pagination.checkBox.checkBoxState,
+  prevChecked: state.pagination.checkBox.prevCheckBoxState,
+  valueSearchBox: state.pagination.searchString,
 })
 
 export default connect(mapStateToProps)(PaginationBlock)

@@ -3,7 +3,7 @@ import UserCard from "../../components/UserCard/UserCard"
 import PageFriendsCSS from "./pageFriends.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import { getFriendsByUserIdAction } from "../../Redux/store/allUsers/allUsers.actions"
+import { getAllFriendsByUserId } from "../../Redux/store/user/user.actions"
 
 type PageFriendsProps = {
   user: User
@@ -20,18 +20,18 @@ const PageFriends: React.FunctionComponent<PageFriendsProps> = ({
 }) => {
   const idUserOwnerPage = match.params.id
   useEffect(() => {
-    dispatch(getFriendsByUserIdAction(idUserOwnerPage))
+    dispatch(getAllFriendsByUserId(idUserOwnerPage))
   }, [dispatch, idUserOwnerPage])
 
   const getLogInUserAllSubscriptionsAndObserver = () => {
-    dispatch(getFriendsByUserIdAction(idUserOwnerPage))
+    dispatch(getAllFriendsByUserId(idUserOwnerPage))
   }
 
   return (
     <>
       {/* {load === "loading" && <h1>Ожидайте ответа</h1>}
       {load === "loaded" && */}
-      (
+
       <ul className={PageFriendsCSS.container__all_users__cards}>
         {allFriends &&
           allFriends.length > 0 &&
@@ -49,14 +49,14 @@ const PageFriends: React.FunctionComponent<PageFriendsProps> = ({
             )
           })}
       </ul>
-      ){/* {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>} */}
+      {/* {load !== "loading" && load !== "loaded" && <h1>ошибка</h1>} */}
     </>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  allFriends: state.allUsers.allFriends
+  user: state.user.user,
+  allFriends: state.user.allUsers
 })
 
 export default connect(mapStateToProps)(PageFriends)

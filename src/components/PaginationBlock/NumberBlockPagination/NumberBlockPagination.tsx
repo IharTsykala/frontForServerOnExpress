@@ -82,7 +82,7 @@ const NumberBlockPagination: React.FunctionComponent<NumberBlockPaginationProps>
 }
 
 const mapStateToProps = (state: any) => ({
-  allUsers: state.allUsers.allUsers,
+  allUsers: state.user.allUsers,
   pagination: state.pagination.pagination
 })
 

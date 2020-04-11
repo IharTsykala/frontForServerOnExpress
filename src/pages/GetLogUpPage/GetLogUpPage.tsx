@@ -1,5 +1,4 @@
-import React from "react"
-import Service from "../../services/service-user"
+import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../../components/FormDataUsers/FormDataUsers"
 import {
@@ -8,8 +7,8 @@ import {
 } from "../../shared/constants/user-from-view-mode.enum"
 import GetLogUpPageCSS from "./GetLogUpPage.module.css"
 import { connect } from "react-redux"
-import { userLogIn } from "../../Redux/store/userLogin/userLogin.actions"
 import { User } from "../../Redux/interfaces/user.interface"
+import {getUserSignUp} from "../../Redux/store/user/user.actions"
 
 type GetLogUpPageProps = {
   user: User
@@ -19,12 +18,12 @@ type GetLogUpPageProps = {
 const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
   const history = useHistory()
 
-  const logUpHandler = async (id: string, user: User) => {
-    const data = await Service.getTokenForRegistration(id, user)
-    localStorage.setItem("token", data.token)
-    dispatch(userLogIn(data.user))
-    history.push(`/user/allUsers`)
-  }
+  useEffect(()=>{
+    if(user._id) history.push(`/user/allUsers`)
+  },[user])
+
+  const logUpHandler = async (id: string, user: {}) =>
+    dispatch(getUserSignUp(id, user))
 
   return (
     <>
@@ -41,7 +40,7 @@ const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user
+  user: state.user.user
 })
 
 export default connect(mapStateToProps)(GetLogUpPage)

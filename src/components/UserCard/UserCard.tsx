@@ -71,7 +71,7 @@ const UserCard: React.FC<UserCardProps> = ({
         />
       ) : (
         <img
-          src="https://localhost:8080/images/pattern-avatar.jpg"
+          src="http://localhost:8080/images/pattern-avatar.jpg"
           alt="avatar"
           onClick={() => {
             history.push(`/user/profile/${userOwnerCard._id}`)
@@ -120,7 +120,7 @@ const UserCard: React.FC<UserCardProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
+  user: state.user.user,
 })
 
 export default connect(mapStateToProps)(UserCard)

@@ -39,7 +39,7 @@ module.exports = {
     "import/no-unresolved": "off",
     "react/jsx-filename-extension": [
       "warn",
-      { extensions: [".js", ".jsx", ".tsx"] },
+      { extensions: [".js", ".jsx", ".ts", ".tsx"] },
     ],
     "react/jsx-props-no-spreading": "off",
     "react-redux/prefer-separate-component-file": "off",

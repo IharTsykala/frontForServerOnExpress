@@ -68,22 +68,22 @@ const NavigationBlock: React.FC<NavigationBlockProps> = ({
       </Link>
       <Divider variant="inset" component="li" />
       <Link to={`/user/${userOwnerThisPage._id}/allPhotos`}>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <PhotoLibraryOutlinedIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="July 20, 2014" />
-      </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>
+              <PhotoLibraryOutlinedIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Photos" secondary="July 20, 2014" />
+        </ListItem>
       </Link>
     </List>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
-  userOwnerThisPage: state.userOwnerThisPageForSagas.userOwnerThisPage
+  user: state.user.user,
+  userOwnerThisPage: state.user.userOwnerThisPage
 })
 
 export default connect(mapStateToProps)(NavigationBlock)

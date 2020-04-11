@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/interfaces/user.interface"
-import { getUserLoginForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
-import { getUserLogoutForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
+// import { getUserLoginForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
+import { getUserRefresh } from "../../Redux/store/user/user.actions"
+import { logOutUserForAllDevices } from "../../Redux/store/user/user.actions"
 
 type NavbarProps = {
   user: User
@@ -17,21 +18,15 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
   dispatch,
   loadingState
 }) => {
-  const getUserAfterLogInAndRefresh = useCallback(async () => {
-    if (localStorage.getItem("token")) dispatch(getUserLoginForSagaAction())
+  const getUserAfterLogInAndRefresh = useCallback(() => {
+    if (localStorage.getItem("token")) dispatch(getUserRefresh())
   }, [dispatch])
 
   useEffect(() => {
     getUserAfterLogInAndRefresh()
   }, [getUserAfterLogInAndRefresh])
 
-  const handlerLogOut = async () => {
-    try {
-      dispatch(getUserLogoutForSagaAction(user._id, user))
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  const handlerLogOut = () => dispatch(logOutUserForAllDevices(user._id, user))
 
   return (
     <>
@@ -83,7 +78,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
                 </li>
                 {user.login && (
                   <li onClick={() => handlerLogOut()}>
-                    <NavLink to="/">Log Out</NavLink>
+                    <NavLink to="/frontForServerOnExpress">Log Out</NavLink>
                   </li>
                 )}
                 {!user.login && (
@@ -106,7 +101,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
+  user: state.user.user,
   loadingState: state.loadingState.loadingState
 })
 

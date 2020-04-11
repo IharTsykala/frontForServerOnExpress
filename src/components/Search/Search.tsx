@@ -5,11 +5,11 @@ import SearchCSS from "./Search.module.css"
 import { connect } from "react-redux"
 import {
   setInitialSearchStringStateAction,
-  setCurrentSearchStringState
-} from "../../Redux/store/searchStringState/searchStringState.actions"
+  setCurrentSearchStringState,
+} from "../../Redux/store/pagination/pagination.actions"
 
 type SearchProps = {
-  dispatch: any
+  dispatch: any,
 }
 
 const Search: React.FunctionComponent<SearchProps> = ({ dispatch }) => {
@@ -28,15 +28,15 @@ const Search: React.FunctionComponent<SearchProps> = ({ dispatch }) => {
         id="InputBase"
         className={SearchCSS.all_users__header_block__search_box__input}
         value={stateValue}
-        onInput={e => handlerInputSearchBox(e)}
+        onInput={(e) => handlerInputSearchBox(e)}
         placeholder="Search…"
       />
     </div>
   )
 }
 
-const mapStateToProps = (state: any) => ({
-  searchStringState: state.searchStringState.searchStringState
-})
+// const mapStateToProps = (state: any) => ({
+//   searchStringState: state.pagination.searchString,
+// })
 
-export default connect(mapStateToProps)(Search)
+export default connect()(Search)
