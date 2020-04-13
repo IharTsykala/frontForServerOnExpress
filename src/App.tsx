@@ -27,10 +27,6 @@ import { AdminAllUsers } from "./pages/AdminPages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformationPage/UserEditInformationPage"
 import rootReducer from "./Redux/store"
 import DialogsPage from "./pages/DialogsPage/DialogsPage"
-// import getUserOwnerThisPageForSaga from "./Redux/store/userOwnerThisPage/userOwnerThisPage.sagas"
-import putInStoreNewMessageforCurrentDialogSaga from "./Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.sagas"
-// import putInStoreAllUsersSaga from "./Redux/store/allUsers/allUsers.sagas"
-// import userLoginSaga from "./Redux/store/userLogin/userLogin.sagas"
 import avatarSaga from "./Redux/store/avatar/avatar.sagas"
 import dialogSaga from "./Redux/store/dialogs/dialogs.sagas"
 import albumsSaga from "./Redux/store/albums/albums.sagas"
@@ -45,10 +41,6 @@ const store = createStore(
   )
 )
 
-// sagaMiddleware.run(getUserOwnerThisPageForSaga)
-sagaMiddleware.run(putInStoreNewMessageforCurrentDialogSaga)
-// sagaMiddleware.run(putInStoreAllUsersSaga)
-// sagaMiddleware.run(userLoginSaga)
 sagaMiddleware.run(avatarSaga)
 sagaMiddleware.run(dialogSaga)
 sagaMiddleware.run(albumsSaga)

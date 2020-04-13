@@ -5,8 +5,8 @@ import { Message } from "../../Redux/interfaces/message.interface"
 import { Dialog } from "../../Redux/interfaces/dialog.interface"
 import openSocket from "socket.io-client"
 import WindowDialogCSS from "./WindowDialog.module.css"
-import { getAllMessagesCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
-import { getNewMessageForCurrentDialogAction } from "../../Redux/store/listMessagesForCurrentDialog/listMessagesForCurrentDialog.actions"
+import { getAllMessagesCurrentDialog } from "../../Redux/store/dialogs/dialogs.actions"
+import { setInStoreNewMessageForCurrentDialog } from "../../Redux/store/dialogs/dialogs.actions"
 // const socket = openSocket("https://localhost:8000/myDialogs")
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
@@ -22,20 +22,20 @@ type WindowDialogProps = {
   user: User
   dispatch: any
   currentDialog: Dialog
-  listMessagesForCurrentDialog: [Message]
+  messagesForCurrentDialog: [Message]
 }
 
 const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   user,
   dispatch,
   currentDialog,
-  listMessagesForCurrentDialog
+  messagesForCurrentDialog
 }) => {
   // const [listMessage, setListMessage]: any = useState([])
   const [valueInput, setValueInput] = useState("")
 
   const getMessagesFromBD = useCallback(async () => {
-    dispatch(getAllMessagesCurrentDialogAction(currentDialog._id))
+    dispatch(getAllMessagesCurrentDialog(currentDialog._id))
   }, [currentDialog._id, dispatch])
 
   const addMessageState = useCallback(
@@ -44,7 +44,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
         // setListMessage((prevState:any)=>{
         //   return [...prevState, message]
         // })
-        dispatch(getNewMessageForCurrentDialogAction(message))
+        dispatch(setInStoreNewMessageForCurrentDialog(message))
       } catch (e) {
         console.log(e)
       }
@@ -113,10 +113,10 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
           WindowDialogCSS.dialogs_page__dialog_page__window_dialog__list_message
         }
       >
-        {listMessagesForCurrentDialog &&
-          listMessagesForCurrentDialog.length > 0 &&
-          listMessagesForCurrentDialog[0]._id !== undefined &&
-          listMessagesForCurrentDialog.map((message: Message) => (
+        {messagesForCurrentDialog &&
+          messagesForCurrentDialog.length > 0 &&
+          messagesForCurrentDialog[0]._id !== undefined &&
+          messagesForCurrentDialog.map((message: Message) => (
             <React.Fragment key={message._id}>
               <ListItem
                 className={
@@ -171,8 +171,8 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
 const mapStateToProps = (state: any) => ({
   user: state.user.user,
   currentDialog: state.dialog.currentDialog,
-  listMessagesForCurrentDialog:
-    state.listMessagesForCurrentDialog.listMessagesForCurrentDialog
+  messagesForCurrentDialog:
+    state.dialog.messagesForCurrentDialog
 })
 
 export default connect(mapStateToProps)(WindowDialog)

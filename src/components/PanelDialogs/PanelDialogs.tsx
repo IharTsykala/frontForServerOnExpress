@@ -9,10 +9,10 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
-import { currentDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
+import { setCurrentDialogInStore } from "../../Redux/store/dialogs/dialogs.actions"
 import { getAllUsers } from "../../Redux/store/user/user.actions"
-import { getAllDialogsByUserIdAction } from "../../Redux/store/dialogs/dialogs.actions"
-import { addDialogAction } from "../../Redux/store/dialogs/dialogs.actions"
+import {getAllDialogsByUserId } from "../../Redux/store/dialogs/dialogs.actions"
+import { addNewDialog } from "../../Redux/store/dialogs/dialogs.actions"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 
@@ -37,7 +37,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
 
   const getListDialogs = useCallback(async () => {
     if (user._id) {
-      dispatch(getAllDialogsByUserIdAction(user._id))
+      dispatch(getAllDialogsByUserId(user._id))
       if (allUsers[0]._id === undefined)
         dispatch(getAllUsers(user._id))
     }
@@ -58,7 +58,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     thisUserLogin: String
   ) {
     dispatch(
-      addDialogAction({
+      addNewDialog({
         dialogName: thisUserLogin,
         members: [userId, thisUserId]
       })
@@ -87,7 +87,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
                 <ListItem
                   key={dialog._id}
                   button
-                  onClick={() => dispatch(currentDialogAction(dialog))}
+                  onClick={() => dispatch(setCurrentDialogInStore(dialog))}
                 >
                   <ListItemAvatar>
                     <Avatar
