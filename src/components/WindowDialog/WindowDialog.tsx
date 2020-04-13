@@ -16,7 +16,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import ImageIcon from "@material-ui/icons/Image"
-// const socket = openSocket("https://localhost:8000", { reconnection: true })
+const socket = openSocket("http://localhost:8000", { reconnection: true })
 
 type WindowDialogProps = {
   user: User
@@ -53,13 +53,13 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
   )
 
   useEffect(() => {
-    // socket.on("receiveMessageDialog", (message: Message) => {
-    //   addMessageState(message)
-    // })
+    socket.on("receiveMessageDialog", (message: Message) => {
+      addMessageState(message)
+    })
   }, [addMessageState])
 
   const joinInRoom = useCallback(async () => {
-    // socket.emit("join", currentDialog)
+    socket.emit("join", currentDialog)
     await getMessagesFromBD()
     setValueInput("")
   }, [currentDialog, getMessagesFromBD])
@@ -69,25 +69,26 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
       joinInRoom()
     }
     return () => {
-      // socket.emit("end")
+      socket.emit("end")
     }
   }, [currentDialog._id, joinInRoom])
 
   useEffect(() => {
     return () => {
-      // socket.removeAllListeners()
+      socket.removeAllListeners()
     }
   }, [])
 
   function sendMessage(e: any) {
-    e.preventDefault()
+    // e.preventDefault()
     const message = {
       idDialog: currentDialog._id,
       authorLogin: user.login,
       authorId: user._id,
       message: valueInput
     }
-    // socket.emit("messageDialog", message)
+    console.log(message)
+    socket.emit("messageDialog", message)
     setValueInput("")
   }
 
@@ -168,7 +169,7 @@ const WindowDialog: React.FunctionComponent<WindowDialogProps> = ({
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.common.user,
+  user: state.user.user,
   currentDialog: state.dialog.currentDialog,
   listMessagesForCurrentDialog:
     state.listMessagesForCurrentDialog.listMessagesForCurrentDialog
