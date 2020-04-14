@@ -30,9 +30,9 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
   return (
     <>
-      <nav className={`${NavbarCSS.navbar_container} navbar_container`}>
-        {(loadingState === "loading" && <h1>Ожидайте ответа</h1>) ||
-          (loadingState === "notFound" && <h1>not found</h1>) ||
+      <nav className={`${NavbarCSS.navbar_container}`}>
+        {(loadingState === "loading" && <p>Ожидайте ответа</p>) ||
+          (loadingState === "notFound" && <p>not found</p>) ||
           (loadingState === "loaded" && (
             <>
               {user.login && (

@@ -4,11 +4,13 @@ import { Action } from "../interfaces/action.interface"
 export interface State {
   loadingState: string
   loadingStatePhotosInCurrentAlbum: string
+  loadingStateForNavbar: string
 }
 
 const initialState: State = {
   loadingState: "loaded",
-  loadingStatePhotosInCurrentAlbum: "loaded"
+  loadingStatePhotosInCurrentAlbum: "loaded",
+  loadingStateForNavbar: "loaded"
 }
 
 export const loadingStateReducer = (
@@ -16,17 +18,22 @@ export const loadingStateReducer = (
   action: Action<String>
 ) => {
   switch (action.type) {
-    case ActionTypes.SET_LOADING_STATE:
-      return {
-        ...state,
-        loadingState: action.payload
-      }
-      case ActionTypes.SET_LOADING_STATE_PHOTOS_IN_ALBUM:
-      return {
-        ...state,
-        loadingStatePhotosInCurrentAlbum: action.payload
-      }
-    default:
-      return state
+  case ActionTypes.SET_LOADING_STATE:
+    return {
+      ...state,
+      loadingState: action.payload
+    }
+  case ActionTypes.SET_LOADING_STATE_PHOTOS_IN_ALBUM:
+    return {
+      ...state,
+      loadingStatePhotosInCurrentAlbum: action.payload
+    }
+  case ActionTypes.SET_LOADING_STATE_FOR_NAVBAR:
+    return {
+      ...state,
+      loadingStateForNavbar: action.payload
+    }
+  default:
+    return state
   }
 }

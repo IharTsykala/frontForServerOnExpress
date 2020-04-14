@@ -1,7 +1,6 @@
 import { put, takeEvery } from "redux-saga/effects"
 import Service from "../../../services/service-user"
 import { setUserLoginInStore } from "../user/user.actions"
-
 import { ActionTypes, getFailureAction } from "./avatar.actions"
 
 function* setAvatar(actions: any) {
@@ -21,7 +20,6 @@ function* setAvatar(actions: any) {
       const newUser = Object.assign({}, actions.payload.userOwnerThisPage, {
         avatar: imgName,
       })
-      console.log(newUser)
       yield put(setUserLoginInStore(newUser))
     }
   } catch (e) {

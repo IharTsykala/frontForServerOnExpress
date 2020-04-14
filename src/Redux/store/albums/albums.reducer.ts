@@ -17,25 +17,25 @@ const initialState: State = {
 
 export const albumsReducer = (
   state: State = initialState,
-  action: Action<[any]>
+  action: Action<[{}]>
 ) => {
   switch (action.type) {
-    case ActionTypes.SET_LIST_ALBUMS_WITH_PHOTOS:
-      return {
-        ...state,
-        albumsForUserOwnerPage: action.payload
-      }
-    case ActionTypes.SET_LIST_PHOTOS_FOR_CURRENT_ALBUM:
-      return {
-        ...state,
-        currentAlbum: action.payload
-      }
-      case ActionTypes.SET_LIST_PHOTOS_FOR_USER:
-      return {
-        ...state,
-        allPhotosForThisUser: action.payload
-      }
-    default:
-      return state
+  case ActionTypes.SET_LIST_ALBUMS_WITH_PHOTOS:
+    return {
+      ...state,
+      albumsForUserOwnerPage: action.payload
+    }
+  case ActionTypes.SET_LIST_PHOTOS_FOR_CURRENT_ALBUM:
+    return {
+      ...state,
+      currentAlbum: action.payload
+    }
+  case ActionTypes.SET_LIST_PHOTOS_FOR_USER:
+    return {
+      ...state,
+      allPhotosForThisUser: action.payload
+    }
+  default:
+    return state
   }
 }
