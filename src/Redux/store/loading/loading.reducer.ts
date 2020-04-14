@@ -1,5 +1,5 @@
 import { ActionTypes } from "./loading.actions"
-import { Action } from "../interfaces/action.interface"
+import { Action } from "../../actionsInterface/action.interface"
 
 export interface State {
   loadingState: string

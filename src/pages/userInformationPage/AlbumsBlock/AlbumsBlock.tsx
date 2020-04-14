@@ -2,9 +2,8 @@ import React, { useEffect, useCallback } from "react"
 import AlbumsBlockCSS from "./AlbumsBlock.module.css"
 import CreateList from "../../../components/CreateList/CreateList"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
-import { Album } from "../../../Redux/interfaces/album.interface"
+import { User } from "../../../Redux/entitiesInterface/user.interface"
+import { Album } from "../../../Redux/entitiesInterface/album.interface"
 import Box from "@material-ui/core/Box"
 import Button from "@material-ui/core/Button"
 import { getListAlbumsWithPhotosByUserIDAction } from "../../../Redux/store/albums/albums.action"
@@ -13,7 +12,7 @@ import { addAlbumWithPhotosByUserIdAction } from "../../../Redux/store/albums/al
 
 type AlbumsBlockProps = {
   user: User
-  userOwnerThisPage: UserOwnerThisPageInterface
+  userOwnerThisPage: User
   albumsForUserOwnerPage: [Album]
   dispatch: any
   homePageStatus?: boolean

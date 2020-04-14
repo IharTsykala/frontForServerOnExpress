@@ -1,6 +1,6 @@
-import { Action } from "../interfaces/action.interface"
-import { Dialog } from "../../interfaces/dialog.interface"
-import { Message } from "../../interfaces/message.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { Dialog } from "../../entitiesInterface/dialog.interface"
+import { Message } from "../../entitiesInterface/message.interface"
 
 export const ActionTypes = {
   // dialog

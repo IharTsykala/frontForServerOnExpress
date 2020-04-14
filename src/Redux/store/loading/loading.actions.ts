@@ -1,5 +1,5 @@
-import { Action } from "../interfaces/action.interface"
-// import { LoadingState } from "../../interfaces/loading.interfaces"
+import { Action } from "../../actionsInterface/action.interface"
+// import { LoadingState } from "../../entitiesInterface/loading.entitiesInterface"
 
 export const ActionTypes = {
   SET_LOADING_STATE: "[loading] set loading state",

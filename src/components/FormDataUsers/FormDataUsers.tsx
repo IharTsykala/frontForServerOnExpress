@@ -7,12 +7,11 @@ import {
 } from "../../shared/constants/user-from-view-mode.enum"
 import FormDataUsersCSS from "./FormDataUsers.module.css"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 
 type FormDataUsersProps = {
   user: User
-  userOwnerThisPage: UserOwnerThisPageInterface
+  userOwnerThisPage: User
   submitHandler: any
   namePage: UserFormViewModes
   nameButton: UserFormViewButtons

@@ -4,16 +4,15 @@ import CreateList from "../../components/CreateList/CreateList"
 import { Link } from "react-router-dom"
 import PhotoModalWindow from "../../components/PhotoModalWindow/PhotoModalWindow"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
-import { Photo } from "../../Redux/interfaces/photo.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
+import { Photo } from "../../Redux/entitiesInterface/photo.interface"
 import { getListPhotosByAlbumIdAction } from "../../Redux/store/albums/albums.action"
 import { addPhotosInCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
 import { removePhotoFromCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
 
 type GetAlbumByIDProps = {
   user: User
-  userOwnerThisPage: UserOwnerThisPageInterface
+  userOwnerThisPage: User
   currentAlbum: [Photo]
   loadingState: string
   match: any

@@ -1,19 +1,14 @@
 import React, { useEffect, useCallback } from "react"
 import AllPhotosPageCSS from "./allPhotosPage.module.css"
-// import CreateList from "../../components/CreateList/CreateList"
 import { Link } from "react-router-dom"
-// import PhotoModalWindow from "../../components/PhotoModalWindow/PhotoModalWindow"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
-import { Photo } from "../../Redux/interfaces/photo.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
+import { Photo } from "../../Redux/entitiesInterface/photo.interface"
 import { getListPhotosByUserIdIdAction } from "../../Redux/store/albums/albums.action"
-// import { addPhotosInCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
-// import { removePhotoFromCurrentAlbumAction } from "../../Redux/store/albums/albums.action"
 
 type AllPhotosPageProps = {
-  user: User  
-  userOwnerThisPage: UserOwnerThisPageInterface
+  user: User
+  userOwnerThisPage: User
   currentAlbum: [Photo]
   allPhotosForThisUser: [Photo]
   loadingState: string

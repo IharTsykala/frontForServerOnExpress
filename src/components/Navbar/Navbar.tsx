@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from "react"
 import { NavLink } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 // import { getUserLoginForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { getUserRefresh } from "../../Redux/store/user/user.actions"
 import { logOutUserForAllDevices } from "../../Redux/store/user/user.actions"
@@ -30,7 +30,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
   return (
     <>
-      <nav className={`${NavbarCSS.navbar_container}`}>
+      <nav className={NavbarCSS.navbar_container}>
         {(loadingState === "loading" && <p>Ожидайте ответа</p>) ||
           (loadingState === "notFound" && <p>not found</p>) ||
           (loadingState === "loaded" && (

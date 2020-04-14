@@ -1,5 +1,5 @@
-import { Action } from "../interfaces/action.interface"
-import { User } from "../../interfaces/user.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { User } from "../../entitiesInterface/user.interface"
 
 export const ActionTypes = {
   GET_AVATAR: "[avatar] Get avatar",

@@ -1,6 +1,5 @@
-import { Action } from "../interfaces/action.interface"
-import { User } from "../../interfaces/user.interface"
-import { UserLogOut } from "../../interfaces/userLogOut.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { User } from "../../entitiesInterface/user.interface"
 
 export const ActionTypes = {
   GET_USER_LOGIN: "[user] get user login",

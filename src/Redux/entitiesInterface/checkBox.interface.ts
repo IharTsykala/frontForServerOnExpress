@@ -1,4 +1,4 @@
-export interface CheckBoxState {
+export interface CheckBoxInterface {
   checkBoxState: boolean
   prevCheckBoxState: boolean | undefined
 }

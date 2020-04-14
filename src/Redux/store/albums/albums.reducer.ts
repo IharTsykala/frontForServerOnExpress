@@ -1,7 +1,7 @@
-import { Album } from "../../interfaces/album.interface"
+import { Album } from "../../entitiesInterface/album.interface"
 import { ActionTypes } from "./albums.action"
-import { Action } from "../interfaces/action.interface"
-import { Photo } from "../../interfaces/photo.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { Photo } from "../../entitiesInterface/photo.interface"
 
 export interface State {
   albumsForUserOwnerPage: [Album]

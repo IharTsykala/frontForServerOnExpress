@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import UserCard from "../../components/UserCard/UserCard"
 import PageFriendsCSS from "./pageFriends.module.css"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 import { getAllFriendsByUserId } from "../../Redux/store/user/user.actions"
 
 type PageFriendsProps = {

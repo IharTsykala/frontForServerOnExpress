@@ -1,6 +1,6 @@
-import { Action } from "../interfaces/action.interface"
-import { Pagination } from "../../interfaces/pagination.interface"
-// import { UserLogOut } from "../../interfaces/userLogOut.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { Pagination } from "../../entitiesInterface/pagination.interface"
+// import { UserLogOut } from "../../entitiesInterface/userLogOut.interface"
 
 export const ActionTypes = {
   // SearchString

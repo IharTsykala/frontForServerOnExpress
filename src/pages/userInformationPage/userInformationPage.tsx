@@ -6,8 +6,7 @@ import NavigationBlock from "./NavigationBlock/NavigationBlock"
 import AlbumsBlock from "./AlbumsBlock/AlbumsBlock"
 import Box from "@material-ui/core/Box"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 import { getUserOwnerThisPage} from "../../Redux/store/user/user.actions"
 import { getAvatarAction } from "../../Redux/store/avatar/avatar.actions"
 
@@ -15,7 +14,7 @@ type UserInformationPageProps = {
   user: User
   dispatch: any
   match: any
-  userOwnerThisPage: UserOwnerThisPageInterface
+  userOwnerThisPage: User
 }
 
 const UserInformationPage: React.FC<UserInformationPageProps> = ({

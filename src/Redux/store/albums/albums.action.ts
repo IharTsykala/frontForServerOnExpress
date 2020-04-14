@@ -1,6 +1,6 @@
-import { Action } from "../interfaces/action.interface"
-import { Album } from "../../interfaces/album.interface"
-import { Photo } from "../../interfaces/photo.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { Album } from "../../entitiesInterface/album.interface"
+import { Photo } from "../../entitiesInterface/photo.interface"
 
 export const ActionTypes = {
   GET_LIST_ALBUMS_WITH_PHOTOS: "[Album] Get list albums with photos by userId",

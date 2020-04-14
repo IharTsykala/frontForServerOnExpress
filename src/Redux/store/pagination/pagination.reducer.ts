@@ -1,11 +1,11 @@
 import { ActionTypes } from "./pagination.actions"
-import { Action } from "../interfaces/action.interface"
-import { Pagination } from "../../interfaces/pagination.interface"
-import { checkBoxInterface } from "../../interfaces/checkBox.interface"
+import { Action } from "../../actionsInterface/action.interface"
+import { Pagination } from "../../entitiesInterface/pagination.interface"
+import {CheckBoxInterface } from "../../entitiesInterface/checkBox.interface"
 
 export interface State {
   searchString: string
-  checkBox: checkBoxInterface
+  checkBox: CheckBoxInterface
   pagination: Pagination
 }
 
@@ -31,7 +31,6 @@ export const paginationReducer = (
       ...state,
       searchString: action.payload
     }
-
   //checkBox
   case ActionTypes.SET_CHECK_BOX_STATE:
     return {
@@ -48,28 +47,12 @@ export const paginationReducer = (
       ...state,
       checkBox: {...state.checkBox, prevCheckBoxState: action.payload}
     }
-
   //pagination
   case ActionTypes.PAGINATION_SET_VALUES:
     return {
       ...state,
       pagination: action.payload
     }
-  // case ActionTypes.PAGINATION_SET_NUMBER_PAGE:
-  //   return {
-  //     ...state,
-  //     pagination: action.payload
-  //   }
-  // case ActionTypes.PAGINATION_SET_LIMIT_USERS_FOR_RENDER:
-  //   return {
-  //     ...state,
-  //     pagination: action.payload
-  //   }
-  // case ActionTypes.PAGINATION_SET_INITIAL_VALUE:
-  //   return {
-  //     ...state,
-  //     pagination: initialState.pagination
-  //   }
   default:
     return state
   }

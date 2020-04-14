@@ -6,10 +6,10 @@ import CardMedia from "@material-ui/core/CardMedia"
 import PhotoCardCSS from "./PhotoCard.module.css"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { UserOwnerThisPageInterface } from "../../Redux/interfaces/userOwnerThisPage.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 
 type UserPhotoCard = {
-  userOwnerThisPage: UserOwnerThisPageInterface
+  userOwnerThisPage: User
   urlItem: any
   idItem: any
   removeHandler: any

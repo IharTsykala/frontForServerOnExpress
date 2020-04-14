@@ -1,13 +1,12 @@
 import React, { useEffect } from "react"
 import Button from "@material-ui/core/Button"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
+import { User } from "../../../Redux/entitiesInterface/user.interface"
 import AvatarBlockCSS from "./AvatarBlock.module.css"
 
 type UserAvatarProps = {
   user: User,
-  userOwnerThisPage: UserOwnerThisPageInterface,
+  userOwnerThisPage: User,
   homePageStatus: boolean,
   avatarForFront: any,
   handleChangeAvatar: any,

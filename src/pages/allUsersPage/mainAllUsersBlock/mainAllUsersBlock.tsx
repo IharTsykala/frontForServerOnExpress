@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import UserCard from "../../../components/UserCard/UserCard"
 import MainAllUsersBlockPageCSS from "./mainAllUsersBlock.module.css"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
+import { User } from "../../../Redux/entitiesInterface/user.interface"
 import { getAllUsers } from "../../../Redux/store/user/user.actions"
 
 type MainAllUsersBlockProps = {

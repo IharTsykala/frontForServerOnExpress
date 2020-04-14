@@ -2,8 +2,8 @@
 import React from "react"
 import NumberBlockPaginationCSS from "./NumberBlockPagination.module.css"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { Pagination } from "../../../Redux/interfaces/pagination.interface"
+import { User } from "../../../Redux/entitiesInterface/user.interface"
+import { Pagination } from "../../../Redux/entitiesInterface/pagination.interface"
 import { setValuesForPaginationAction } from "../../../Redux/store/pagination/pagination.actions"
 import Button from "@material-ui/core/Button"
 

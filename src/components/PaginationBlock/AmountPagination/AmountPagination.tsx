@@ -3,8 +3,8 @@ import AmountPaginationCSS from "./AmountPagination.module.css"
 import Select from "@material-ui/core/Select"
 import InputLabel from "@material-ui/core/InputLabel"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { Pagination } from "../../../Redux/interfaces/pagination.interface"
+import { User } from "../../../Redux/entitiesInterface/user.interface"
+import { Pagination } from "../../../Redux/entitiesInterface/pagination.interface"
 import { setValuesForPaginationAction } from "../../../Redux/store/pagination/pagination.actions"
 
 type AmountPaginationProps = {

@@ -12,13 +12,12 @@ import GroupAddOutlinedIcon from "@material-ui/icons/GroupAddOutlined"
 import Divider from "@material-ui/core/Divider"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { User } from "../../../Redux/interfaces/user.interface"
-import { UserOwnerThisPageInterface } from "../../../Redux/interfaces/userOwnerThisPage.interface"
+import { User } from "../../../Redux/entitiesInterface/user.interface"
 import NavigationBlockCSS from "./NavigationBlock.module.css"
 
 type NavigationBlockProps = {
   user: User
-  userOwnerThisPage: UserOwnerThisPageInterface
+  userOwnerThisPage: User
 }
 
 const NavigationBlock: React.FC<NavigationBlockProps> = ({

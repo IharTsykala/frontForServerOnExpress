@@ -1,7 +1,7 @@
-import { Dialog } from "../../interfaces/dialog.interface"
-import { Message } from "../../interfaces/message.interface"
+import { Dialog } from "../../entitiesInterface/dialog.interface"
+import { Message } from "../../entitiesInterface/message.interface"
 import { ActionTypes } from "./dialogs.actions"
-import { Action } from "../interfaces/action.interface"
+import { Action } from "../../actionsInterface/action.interface"
 
 export interface State {
   currentDialog: Dialog

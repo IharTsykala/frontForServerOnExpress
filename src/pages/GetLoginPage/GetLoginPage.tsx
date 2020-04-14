@@ -7,7 +7,7 @@ import {
 } from "../../shared/constants/user-from-view-mode.enum"
 import GetLoginPageCSS from "./GetLoginPage.module.css"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 import {getUserLogin} from "../../Redux/store/user/user.actions"
 
 type GetLoginPageProps = {

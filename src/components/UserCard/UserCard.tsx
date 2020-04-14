@@ -5,7 +5,7 @@ import ServiceSubscriptions from "../../services/service-subscribe"
 import ServiceFriends from "../../services/service-friend"
 import Service from "../../services/service-user"
 import { connect } from "react-redux"
-import { User } from "../../Redux/interfaces/user.interface"
+import { User } from "../../Redux/entitiesInterface/user.interface"
 
 type UserCardProps = {
   user: User,
