@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom"
 import NavbarCSS from "./Navbar.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
-// import { getUserLoginForSagaAction } from "../../Redux/store/userLogin/userLogin.actions"
 import { getUserRefresh } from "../../Redux/store/user/user.actions"
 import { logOutUserForAllDevices } from "../../Redux/store/user/user.actions"
 

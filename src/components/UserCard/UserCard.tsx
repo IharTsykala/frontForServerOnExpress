@@ -9,7 +9,7 @@ import { User } from "../../Redux/entitiesInterface/user.interface"
 
 type UserCardProps = {
   user: User,
-  userOwnerCard: any,
+  userOwnerCard: User,
   getLogInUserAllSubscriptionsAndObserver: any,
 }
 

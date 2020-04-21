@@ -7,30 +7,29 @@ import AlbumsBlock from "./AlbumsBlock/AlbumsBlock"
 import Box from "@material-ui/core/Box"
 import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
-import { getUserOwnerThisPage} from "../../Redux/store/user/user.actions"
+import { getUserOwnerThisPage } from "../../Redux/store/user/user.actions"
 import { getAvatarAction } from "../../Redux/store/avatar/avatar.actions"
 
 type UserInformationPageProps = {
-  user: User
-  dispatch: any
-  match: any
-  userOwnerThisPage: User
+  user: User,
+  dispatch: any,
+  match: any,
+  userOwnerThisPage: User,
 }
 
 const UserInformationPage: React.FC<UserInformationPageProps> = ({
   user,
   dispatch,
   match,
-  userOwnerThisPage
+  userOwnerThisPage,
 }) => {
-
   const [avatarForFront, setAvatarForFront] = useState("")
   const [avatarForBack, setAvatarForBack] = useState("")
   const [homePageStatus, setHomePageStatus] = useState(false)
   const idUserOwnerPage = match.params.id
 
   const render = useCallback(async () => {
-    if(idUserOwnerPage) dispatch(getUserOwnerThisPage(idUserOwnerPage))
+    if (idUserOwnerPage) dispatch(getUserOwnerThisPage(idUserOwnerPage))
     if (idUserOwnerPage === user._id) setHomePageStatus(true)
   }, [dispatch, idUserOwnerPage, user._id])
 
@@ -48,7 +47,9 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    dispatch(getAvatarAction(avatarForBack, userOwnerThisPage, user, avatarForFront))
+    dispatch(
+      getAvatarAction(avatarForBack, userOwnerThisPage, user, avatarForFront)
+    )
   }
 
   return (
@@ -74,7 +75,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         m={1}
         bgcolor="background.paper"
       >
-        <InformationBlock homePageStatus={homePageStatus}/>
+        <InformationBlock homePageStatus={homePageStatus} />
       </Box>
       <Box
         component="section"
@@ -92,7 +93,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
         m={1}
         bgcolor="background.paper"
       >
-        <AlbumsBlock homePageStatus={homePageStatus}/>
+        <AlbumsBlock homePageStatus={homePageStatus} />
       </Box>
     </div>
   )
@@ -100,7 +101,7 @@ const UserInformationPage: React.FC<UserInformationPageProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.user.user,
-  userOwnerThisPage: state.user.userOwnerThisPage
+  userOwnerThisPage: state.user.userOwnerThisPage,
 })
 
 export default connect(mapStateToProps)(UserInformationPage)
