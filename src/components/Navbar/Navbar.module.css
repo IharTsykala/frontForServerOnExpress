@@ -8,6 +8,7 @@
     rgba(9, 9, 121, 1) 12%,
     rgba(0, 212, 255, 1) 100%
   );
+  color: white;
 }
 
 .navbar__avatar {
