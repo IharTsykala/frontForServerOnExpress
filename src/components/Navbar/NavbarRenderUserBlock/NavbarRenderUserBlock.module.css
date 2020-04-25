@@ -1,0 +1,35 @@
+.navbar__user_block__container {
+  display: grid !important;
+  grid-template-columns: 1fr 10vw;
+  justify-items: center;
+  align-items: center;
+}
+
+.navbar__user_block__container h5 {
+  font-size: 2vw;
+}
+
+.navbar__user_block__avatar {
+  min-width: 5vw;
+  min-height: 5vw;
+  max-width: 5vw !important;
+  max-height: 5vw !important;
+}
+
+@media (max-width: 800px) {
+  .navbar__user_block__container {
+    grid-template-columns: 1fr;
+  }
+  .navbar__user_block__container h5 {
+    font-size: 2.5vw;
+  }
+  .navbar__user_block__avatar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 440px) {
+  .navbar__user_block__container h5 {
+    font-size: 4vw;
+  }
+}

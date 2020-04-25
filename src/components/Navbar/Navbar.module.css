@@ -1,6 +1,4 @@
 .navbar_container {
-  height: 100%;
-  padding-top: 1%;
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -9,4 +7,39 @@
     rgba(0, 212, 255, 1) 100%
   );
   color: white;
+  display: grid !important;
+  grid-template-columns: 30% 1fr;
+  gap: 20vw;
+}
+
+@media (max-width: 1280px) {
+  .navbar_container {
+    gap: 10vw;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar_container {
+    gap: 12vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .navbar_container {
+    gap: 10vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar_container {
+    gap: 5vw;
+  }
+}
+
+@media (max-width: 440px) {
+  .navbar_container {
+    gap: 0vw;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+  }
 }

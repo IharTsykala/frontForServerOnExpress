@@ -4,8 +4,9 @@ import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
 import { getUserRefresh } from "../../Redux/store/user/user.actions"
 import { logOutUserForAllDevices } from "../../Redux/store/user/user.actions"
-import NavbarRender from "./NavbarRender/NavbarRender"
+import NavbarRenderUserBlock from "./NavbarRenderUserBlock/NavbarRenderUserBlock"
 import { AppBar, Typography } from "@material-ui/core"
+import NavbarRenderNavigation from "./NavbarRenderNavigation/NavbarRenderNavigation"
 
 type NavbarProps = {
   user: User,
@@ -26,7 +27,10 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
     getUserAfterLogInAndRefresh()
   }, [getUserAfterLogInAndRefresh])
 
-  const handlerLogOut = () => dispatch(logOutUserForAllDevices(user._id, user))
+  const handlerLogOut = () => {
+    console.log(12)
+    dispatch(logOutUserForAllDevices(user._id, user))
+  }
 
   return (
     <AppBar position="static" className={NavbarCSS.navbar_container}>
@@ -36,12 +40,11 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
         (loadingState === "notFound" && (
           <Typography variant="h6">not found</Typography>
         )) ||
-        (loadingState === "loaded" && (
-          <NavbarRender
-            user={user}
-            loadingState={loadingState}
-            handlerLogOut={handlerLogOut}
-          />
+        (loadingState === "loaded" && user && (
+          <>
+            <NavbarRenderUserBlock user={user} />
+            <NavbarRenderNavigation user={user} handlerLogOut={handlerLogOut} />
+          </>
         )) ||
         (loadingState === "error" && (
           <Typography variant="h6">ошибка</Typography>

@@ -26,7 +26,7 @@ import NotFound from "./pages/NotFoundPage/NotFound"
 import { AdminAllUsers } from "./pages/AdminPages/AdminAllUser/AdminAllUser"
 import { UserEditInformation } from "./pages/UserEditInformationPage/UserEditInformationPage"
 import rootReducer from "./Redux"
-import ScopedCssBaseline from "@material-ui/core/ScopedCssBaseline"
+import AppCSS from "./App.module.css"
 import Box from "@material-ui/core/Box"
 import DialogsPage from "./pages/DialogsPage/DialogsPage"
 import avatarSaga from "./Redux/store/avatar/avatar.sagas"
@@ -51,83 +51,81 @@ sagaMiddleware.run(userSaga)
 export const App: React.FC = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <ScopedCssBaseline>
-        <Box component="div" className="wrapper">
-          <Navbar />
-          <Box component="main" className="main">
-            <Switch>
-              <Route
-                component={GetStartPage}
-                path="/social-network-client"
-                exact
-              />
-              <Route component={GetLoginPage} path="/LogIn" exact />
-              <Route component={GetLogUpPage} path="/SignUp" exact />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={DialogsPage}
-                path="/:id/dialogs"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={AllUsersPage}
-                path="/user/allUsers"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={UserInformationPage}
-                path="/user/profile/:id"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={PageFriends}
-                path="/user/:id/friends"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={GetAlbumByID}
-                path="/user/:id/album"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={AllAlbumsPage}
-                path="/user/:id/allAlbums"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={AllPhotosPage}
-                path="/user/:id/allPhotos"
-                exact
-              />
-              <PrivateRoute
-                {...defaultPrivateRouteProps}
-                component={UserEditInformation}
-                path="/user/:id/edit"
-                exact
-              />
-              <PrivateRouteForAdmins
-                {...defaultPrivateRouteForAdminsProps}
-                component={AdminAllUsers}
-                path="/admin/all"
-                exact
-              />
-              <PrivateRouteForAdmins
-                {...defaultPrivateRouteForAdminsProps}
-                component={AdminAllUsers}
-                path="/admin/:id"
-                exact
-              />
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </Box>
+      <Box component="div" className={AppCSS.wrapper}>
+        <Navbar />
+        <Box component="main" className="main">
+          <Switch>
+            <Route
+              component={GetStartPage}
+              path="/social-network-client"
+              exact
+            />
+            <Route component={GetLoginPage} path="/LogIn" exact />
+            <Route component={GetLogUpPage} path="/SignUp" exact />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={DialogsPage}
+              path="/:id/dialogs"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={AllUsersPage}
+              path="/user/allUsers"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={UserInformationPage}
+              path="/user/profile/:id"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={PageFriends}
+              path="/user/:id/friends"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={GetAlbumByID}
+              path="/user/:id/album"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={AllAlbumsPage}
+              path="/user/:id/allAlbums"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={AllPhotosPage}
+              path="/user/:id/allPhotos"
+              exact
+            />
+            <PrivateRoute
+              {...defaultPrivateRouteProps}
+              component={UserEditInformation}
+              path="/user/:id/edit"
+              exact
+            />
+            <PrivateRouteForAdmins
+              {...defaultPrivateRouteForAdminsProps}
+              component={AdminAllUsers}
+              path="/admin/all"
+              exact
+            />
+            <PrivateRouteForAdmins
+              {...defaultPrivateRouteForAdminsProps}
+              component={AdminAllUsers}
+              path="/admin/:id"
+              exact
+            />
+            <Route path="*" component={NotFound} />
+          </Switch>
         </Box>
-      </ScopedCssBaseline>
+      </Box>
     </BrowserRouter>
   </Provider>
 )
