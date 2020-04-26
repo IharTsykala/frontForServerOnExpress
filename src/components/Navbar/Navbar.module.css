@@ -12,6 +12,13 @@
   gap: 20vw;
 }
 
+.navbar_container_spinner,
+.navbar_container h6{
+  display: grid !important;
+  justify-self: center;
+  align-self: center;
+}
+
 @media (max-width: 1280px) {
   .navbar_container {
     gap: 10vw;

@@ -5,7 +5,7 @@ import { User } from "../../Redux/entitiesInterface/user.interface"
 import { getUserRefresh } from "../../Redux/store/user/user.actions"
 import { logOutUserForAllDevices } from "../../Redux/store/user/user.actions"
 import NavbarRenderUserBlock from "./NavbarRenderUserBlock/NavbarRenderUserBlock"
-import { AppBar, Typography } from "@material-ui/core"
+import { AppBar, Typography, CircularProgress } from "@material-ui/core"
 import NavbarRenderNavigation from "./NavbarRenderNavigation/NavbarRenderNavigation"
 
 type NavbarProps = {
@@ -25,21 +25,24 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
   useEffect(() => {
     getUserAfterLogInAndRefresh()
-    console.log(12)
   }, [getUserAfterLogInAndRefresh])
 
   const handlerLogOut = () => {
-    console.log(12)
     dispatch(logOutUserForAllDevices(user._id, user))
   }
 
   return (
     <AppBar position="static" className={NavbarCSS.navbar_container}>
       {(loadingState === "loading" && (
-        <Typography variant="h6">Ожидайте ответа</Typography>
+        <CircularProgress
+          color="inherit"
+          className={NavbarCSS.navbar_container_spinner}
+        />
       )) ||
         (loadingState === "notFound" && (
-          <Typography variant="h6">not found</Typography>
+          <Typography variant="h6">
+            Not found anything on your request!
+          </Typography>
         )) ||
         (loadingState === "loaded" && user && (
           <>
@@ -48,7 +51,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
           </>
         )) ||
         (loadingState === "error" && (
-          <Typography variant="h6">ошибка</Typography>
+          <Typography variant="h6">ERROR, try refresh page!</Typography>
         ))}
     </AppBar>
   )
