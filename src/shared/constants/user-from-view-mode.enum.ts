@@ -1,25 +1,32 @@
 export enum UserFormViewModes {
   LogIn = "Log In",
   Edit = "Edit",
-  SingUp = "Sing Up"
+  SingUp = "Sing Up",
 }
 
 export enum UserFormViewButtons {
   LogIn = "Log In",
   Edit = "Edit",
-  SingUp = "Sing Up"
+  SingUp = "Sing Up",
 }
 
 export enum LoadingState {
-  loading = "loading",
-  loaded = "loaded",
-  notFound = "notFound",
-  error = "error"
+  Loading = "loading",
+  Loaded = "loaded",
+  NotFound = "notFound",
+  Error = "error",
+}
+
+export enum LoadingStateForNavbar {
+  Loading = "loading",
+  Loaded = "loaded",
+  NotFound = "notFound",
+  Error = "error",
 }
 
 // export enum LoadingStatePhotosInCurrentAlbum {
-//   loading = "loading",
-//   loaded = "loaded",
-//   notFound = "notFound",
-//   error = "error"
+//   Loading = "loading",
+//   Loaded = "loaded",
+//   NotFound = "notFound",
+//   Error = "error",
 // }

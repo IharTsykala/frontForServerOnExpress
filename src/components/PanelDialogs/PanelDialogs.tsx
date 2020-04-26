@@ -11,17 +11,17 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import { setCurrentDialogInStore } from "../../Redux/store/dialogs/dialogs.actions"
 import { getAllUsers } from "../../Redux/store/user/user.actions"
-import {getAllDialogsByUserId } from "../../Redux/store/dialogs/dialogs.actions"
+import { getAllDialogsByUserId } from "../../Redux/store/dialogs/dialogs.actions"
 import { addNewDialog } from "../../Redux/store/dialogs/dialogs.actions"
 import Button from "@material-ui/core/Button"
 import Box from "@material-ui/core/Box"
 
 type PanelDialogsProps = {
-  user: User
-  dispatch: any
-  allUsers: [User]
-  currentDialog: Dialog
-  listDialogs: [Dialog]
+  user: User,
+  dispatch: any,
+  allUsers: [User],
+  currentDialog: Dialog,
+  listDialogs: [Dialog],
 }
 
 const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
@@ -29,17 +29,16 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
   dispatch,
   allUsers,
   currentDialog,
-  listDialogs
+  listDialogs,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [stateLoading, setStateLoading] = useState(LoadingState.loaded)
+  const [stateLoading, setStateLoading] = useState(LoadingState.Loaded)
   const [flagModalWindow, setFlagModalWindow] = useState(false)
 
   const getListDialogs = useCallback(async () => {
     if (user._id) {
       dispatch(getAllDialogsByUserId(user._id))
-      if (allUsers[0]._id === undefined)
-        dispatch(getAllUsers(user._id))
+      if (allUsers[0]._id === undefined) dispatch(getAllUsers(user._id))
     }
   }, [allUsers, dispatch, user._id])
 
@@ -60,7 +59,7 @@ const PanelDialogs: React.FunctionComponent<PanelDialogsProps> = ({
     dispatch(
       addNewDialog({
         dialogName: thisUserLogin,
-        members: [userId, thisUserId]
+        members: [userId, thisUserId],
       })
     )
     getListDialogs()
@@ -155,7 +154,7 @@ const mapStateToProps = (state: any) => ({
   user: state.user.user,
   allUsers: state.user.allUsers,
   currentDialog: state.dialog.currentDialog,
-  listDialogs: state.dialog.allDialogs
+  listDialogs: state.dialog.allDialogs,
 })
 
 export default connect(mapStateToProps)(PanelDialogs)

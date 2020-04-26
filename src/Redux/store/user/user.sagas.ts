@@ -2,7 +2,11 @@ import { call, put, takeEvery } from "redux-saga/effects"
 import Service from "../../../services/service-user"
 import ServiceFriends from "../../../services/service-friend"
 import { LoadingState } from "../../../shared/constants/user-from-view-mode.enum"
-import { setLoadingState } from "../loading/loading.actions"
+import { LoadingStateForNavbar } from "../../../shared/constants/user-from-view-mode.enum"
+import {
+  setLoadingState,
+  loadingStateForNavbar,
+} from "../loading/loading.actions"
 
 import {
   ActionTypes,
@@ -15,7 +19,7 @@ import {
 
 function* setUserLoginInStoreSaga(actions: any) {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    yield put(setLoadingState(LoadingState.Loading))
     const data = yield Service.getTokenForLogin(
       actions.payload.userId,
       actions.payload.user
@@ -23,19 +27,19 @@ function* setUserLoginInStoreSaga(actions: any) {
     if (data.user._id) {
       yield localStorage.setItem("token", data.token)
       yield put(setUserLoginInStore(data.user))
-      yield put(setLoadingState(LoadingState.loaded))
+      yield put(setLoadingState(LoadingState.Loaded))
     } else {
-      yield put(setLoadingState(LoadingState.notFound))
+      yield put(setLoadingState(LoadingState.NotFound))
     }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    yield put(setLoadingState(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }
 
 function* setUserSignUpInStoreSaga(actions: any) {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    yield put(setLoadingState(LoadingState.Loading))
     const data = yield Service.getTokenForRegistration(
       actions.payload.userId,
       actions.payload.user
@@ -43,69 +47,69 @@ function* setUserSignUpInStoreSaga(actions: any) {
     if (data.user._id) {
       yield localStorage.setItem("token", data.token)
       yield put(setUserLoginInStore(data.user))
-      yield put(setLoadingState(LoadingState.loaded))
+      yield put(setLoadingState(LoadingState.Loaded))
     } else {
-      yield put(setLoadingState(LoadingState.notFound))
+      yield put(setLoadingState(LoadingState.NotFound))
     }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    yield put(setLoadingState(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }
 
 function* setUserRefreshInStoreSaga() {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    yield put(loadingStateForNavbar(LoadingStateForNavbar.Loading))
     const userLog = yield Service.getUserByToken()
     if (userLog._id) {
       yield put(setUserLoginInStore(userLog))
-      yield put(setLoadingState(LoadingState.loaded))
+      yield put(loadingStateForNavbar(LoadingStateForNavbar.Loaded))
     } else {
-      yield put(setLoadingState(LoadingState.notFound))
+      yield put(loadingStateForNavbar(LoadingStateForNavbar.NotFound))
     }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    yield put(loadingStateForNavbar(LoadingStateForNavbar.Error))
     yield put(getFailureAction(e))
   }
 }
 
 function* setUserOwnerThisPageInStoreSaga(actions: any) {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    yield put(setLoadingState(LoadingState.Loading))
     const userOwnerThisPage = yield call(Service.getUserByID, actions.payload)
     if (userOwnerThisPage._id) {
       yield put(setUserOwnerThisPageInStore(userOwnerThisPage))
-      yield put(setLoadingState(LoadingState.loaded))
+      yield put(setLoadingState(LoadingState.Loaded))
     } else {
-      yield put(setLoadingState(LoadingState.notFound))
+      yield put(setLoadingState(LoadingState.NotFound))
     }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    yield put(setLoadingState(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }
 
 function* setAllUsersSaga(actions: any) {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    yield put(setLoadingState(LoadingState.Loading))
     let list
     if (actions.payload === "") list = []
     else list = yield Service.getUserWithSubscriptionsById(actions.payload)
     if (list.length) {
       yield put(setAllUsersInStore(list))
-      yield put(setLoadingState(LoadingState.loaded))
+      yield put(setLoadingState(LoadingState.Loaded))
     } else {
-      yield put(setLoadingState(LoadingState.notFound))
+      yield put(setLoadingState(LoadingState.NotFound))
     }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    yield put(setLoadingState(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }
 
 function* setAllUsersAfterPaginationSaga(actions: any) {
   try {
-    // yield put(setLoadingState(LoadingState.loading))
+    // yield put(setLoadingState(LoadingState.Loading))
     let list
     if (actions.payload === "") list = []
     else
@@ -114,30 +118,30 @@ function* setAllUsersAfterPaginationSaga(actions: any) {
       )
     // if (list.length) {
     yield put(setAllUsersInStore(list))
-    // yield put(setLoadingState(LoadingState.loaded))
+    // yield put(setLoadingState(LoadingState.Loaded))
     // } else {
-    // yield put(setLoadingState(LoadingState.notFound))
+    // yield put(setLoadingState(LoadingState.NotFound))
     // }
   } catch (e) {
-    // yield put(setLoadingState(LoadingState.error))
+    // yield put(setLoadingState(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }
 
 function* getAllFriendsByUserIdSaga(actions: any) {
   try {
-    yield put(setLoadingState(LoadingState.loading))
+    yield put(setLoadingState(LoadingState.Loading))
     let list
     if (actions.payload === "") list = []
     else list = yield ServiceFriends.getArrayFriendsByIdUser(actions.payload)
     if (list.length) {
       yield put(setAllUsersInStore(list))
-      yield put(setLoadingState(LoadingState.loaded))
+      yield put(setLoadingState(LoadingState.Loaded))
     } else {
-      yield put(setLoadingState(LoadingState.notFound))
+      yield put(setLoadingState(LoadingState.NotFound))
     }
   } catch (e) {
-    yield put(setLoadingState(LoadingState.error))
+    yield put(setLoadingState(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }

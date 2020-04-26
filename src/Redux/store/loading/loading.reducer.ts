@@ -10,7 +10,7 @@ export interface State {
 const initialState: State = {
   loadingState: "loaded",
   loadingStatePhotosInCurrentAlbum: "loaded",
-  loadingStateForNavbar: "loaded"
+  loadingStateForNavbar: "loaded",
 }
 
 export const loadingStateReducer = (
@@ -19,20 +19,11 @@ export const loadingStateReducer = (
 ) => {
   switch (action.type) {
   case ActionTypes.SET_LOADING_STATE:
-    return {
-      ...state,
-      loadingState: action.payload
-    }
+    return { ...state, loadingState: action.payload }
   case ActionTypes.SET_LOADING_STATE_PHOTOS_IN_ALBUM:
-    return {
-      ...state,
-      loadingStatePhotosInCurrentAlbum: action.payload
-    }
+    return { ...state, loadingStatePhotosInCurrentAlbum: action.payload }
   case ActionTypes.SET_LOADING_STATE_FOR_NAVBAR:
-    return {
-      ...state,
-      loadingStateForNavbar: action.payload
-    }
+    return { ...state, loadingStateForNavbar: action.payload }
   default:
     return state
   }

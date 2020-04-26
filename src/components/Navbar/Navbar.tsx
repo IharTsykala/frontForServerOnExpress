@@ -25,6 +25,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
   useEffect(() => {
     getUserAfterLogInAndRefresh()
+    console.log(12)
   }, [getUserAfterLogInAndRefresh])
 
   const handlerLogOut = () => {
@@ -55,7 +56,7 @@ const Navbar: React.FunctionComponent<NavbarProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.user.user,
-  loadingState: state.loadingState.loadingState,
+  loadingState: state.loadingState.loadingStateForNavbar,
 })
 
 export default connect(mapStateToProps)(Navbar)

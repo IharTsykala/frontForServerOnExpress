@@ -53,21 +53,21 @@ function* addAlbumByUserId(actions: any) {
 
 function* setListPhotosForCurrentAlbum(actions: any) {
   try {
-    yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.loading))
+    yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.Loading))
     const arrayAlbums = yield ServiceAlbums.getListPhotosByAlbumID(
       actions.payload
     )
     if (arrayAlbums.length) {
       yield put(getUserOwnerThisPage(arrayAlbums[0].ownerUser))
       yield put(setListPhotosForCurrentAlbumAction(arrayAlbums[0].photos))
-      yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.loaded))
+      yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.Loaded))
     } else {
       yield put(
-        setLoadingStatePhotosInCurrentAlbumAction(LoadingState.notFound)
+        setLoadingStatePhotosInCurrentAlbumAction(LoadingState.NotFound)
       )
     }
   } catch (e) {
-    yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.error))
+    yield put(setLoadingStatePhotosInCurrentAlbumAction(LoadingState.Error))
     yield put(getFailureAction(e))
   }
 }
