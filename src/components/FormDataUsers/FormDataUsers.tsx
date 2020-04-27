@@ -3,18 +3,20 @@ import { Formik, Field, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import {
   UserFormViewModes,
-  UserFormViewButtons
+  UserFormViewButtons,
 } from "../../shared/constants/user-from-view-mode.enum"
 import FormDataUsersCSS from "./FormDataUsers.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
+import { FormLabel } from "@material-ui/core"
+import { TextField } from "formik-material-ui"
 
 type FormDataUsersProps = {
-  user: User
-  userOwnerThisPage: User
-  submitHandler: any
-  namePage: UserFormViewModes
-  nameButton: UserFormViewButtons
+  user: User,
+  userOwnerThisPage: User,
+  submitHandler: any,
+  namePage: UserFormViewModes,
+  nameButton: UserFormViewButtons,
 }
 
 const FormDataUsers: React.FC<FormDataUsersProps> = ({
@@ -22,7 +24,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
   userOwnerThisPage,
   submitHandler,
   namePage,
-  nameButton
+  nameButton,
 }) => {
   return (
     <Formik
@@ -33,66 +35,68 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         lastName: "",
         email: "",
         phone: "",
-        role: userOwnerThisPage ? userOwnerThisPage.role : "user"
+        role: userOwnerThisPage ? userOwnerThisPage.role : "user",
       }}
       validationSchema={Yup.object({
         login: Yup.string()
           .max(15, "Must be 15 characters or less")
           .required("Required"),
-        firstName: Yup.string().max(15, "Must be 15 characters or less"),
-        lastName: Yup.string().max(20, "Must be 20 characters or less"),
-        email: Yup.string().email("Invalid email address")
+        firstName: Yup.string().max(10, "Must be 10 characters or less"),
+        lastName: Yup.string().max(10, "Must be 10 characters or less"),
+        email: Yup.string().email("Invalid email address"),
         // phone: Yup.string().phone<string>("Invalid email address")
       })}
-      onSubmit={values => {
+      onSubmit={(values: {}) => {
         submitHandler(user ? user._id : undefined, values)
       }}
     >
-      <Form
-        className={FormDataUsersCSS.user_information__edit || "form-data-users"}
-      >
-        <label htmlFor="login">
+      <Form className={FormDataUsersCSS.form_logIn_container}>
+        <FormLabel htmlFor="login">
           Login
           <Field
+            id="standard-basic"
+            label="Login"
+            // id="standard-required"
+            component={TextField}
             className={FormDataUsersCSS.user_information__edit__label__input}
-            id="login"
+            // id="login"
             name="login"
             type="text"
           />
-        </label>
+        </FormLabel>
         <ErrorMessage name="login" />
-        <label htmlFor="password">
+        <FormLabel htmlFor="password">
           Password
           <Field name="password" type="text" />
-        </label>
+        </FormLabel>
         <ErrorMessage name="role" />
         {(namePage === UserFormViewModes.Edit ||
           namePage === UserFormViewModes.SingUp) && (
           <>
-            <label htmlFor="firstName">
+            <FormLabel htmlFor="firstName">
               First Name
               <Field name="firstName" type="text" />
-            </label>
+            </FormLabel>
             <ErrorMessage name="firstName" />
-            <label htmlFor="lastName">
+            <FormLabel htmlFor="lastName">
               Last Name
               <Field name="lastName" type="text" />
-            </label>
+            </FormLabel>
             <ErrorMessage name="lastName" />
-            <label htmlFor="email">
+            <FormLabel htmlFor="email">
               Email Address
               <Field name="email" type="email" />
-            </label>
+            </FormLabel>
             <ErrorMessage name="email" />
-            <label htmlFor="phone">
+            <FormLabel htmlFor="phone">
               Phone
               <Field name="phone" type="text" />
-            </label>
+            </FormLabel>
             <ErrorMessage name="phone" />
-            <label htmlFor="role">
+            <FormLabel htmlFor="role">
               Role
               <Field name="role" type="text" disabled />
-            </label>
+            </FormLabel>
             <ErrorMessage name="role" />
           </>
         )}
@@ -110,7 +114,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
 
 const mapStateToProps = (state: any) => ({
   user: state.user.user,
-  userOwnerThisPage: state.user.userOwnerThisPage
+  userOwnerThisPage: state.user.userOwnerThisPage,
 })
 
 export default connect(mapStateToProps)(FormDataUsers)

@@ -34,11 +34,11 @@ body {
     }
 }
 
-.form-data-users {
-    display: grid;
-    justify-content: center;
-    margin-top: 10%;
-}
+/*.form-data-users {*/
+/*    display: grid;*/
+/*    justify-content: center;*/
+/*    margin-top: 10%;*/
+/*}*/
 
 input:not([type]),
 input[type="text"]:not(.browser-default),
