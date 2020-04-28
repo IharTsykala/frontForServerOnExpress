@@ -40,20 +40,20 @@ body {
 /*    margin-top: 10%;*/
 /*}*/
 
-input:not([type]),
-input[type="text"]:not(.browser-default),
-input[type="text"]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea {
-    border-bottom: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
+/*input:not([type]),*/
+/*input[type="text"]:not(.browser-default),*/
+/*input[type="text"]:not(.browser-default):focus:not([readonly]),*/
+/*textarea.materialize-textarea {*/
+/*    border-bottom: none;*/
+/*    -webkit-box-shadow: none;*/
+/*    box-shadow: none;*/
+/*}*/
 
-input[type="file"] {
-    opacity: 0;
-}
+/*input[type="file"] {*/
+/*    opacity: 0;*/
+/*}*/
 
-input[type="submit"] {
-    opacity: 0;
-}
+/*input[type="submit"] {*/
+/*    opacity: 0;*/
+/*}*/
 

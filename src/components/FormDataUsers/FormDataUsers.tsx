@@ -8,8 +8,19 @@ import {
 import FormDataUsersCSS from "./FormDataUsers.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
-import { FormLabel } from "@material-ui/core"
+import { FormLabel, createStyles, makeStyles, Theme } from "@material-ui/core"
 import { TextField } from "formik-material-ui"
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+        width: "25ch",
+      },
+    },
+  })
+)
 
 type FormDataUsersProps = {
   user: User,
@@ -26,6 +37,7 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
   namePage,
   nameButton,
 }) => {
+  const classes = useStyles()
   return (
     <Formik
       initialValues={{
@@ -38,9 +50,8 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         role: userOwnerThisPage ? userOwnerThisPage.role : "user",
       }}
       validationSchema={Yup.object({
-        login: Yup.string()
-          .max(15, "Must be 15 characters or less")
-          .required("Required"),
+        login: Yup.string().max(15, "Must be 15 characters or less"),
+        // .required("You need fill this field"),
         firstName: Yup.string().max(10, "Must be 10 characters or less"),
         lastName: Yup.string().max(10, "Must be 10 characters or less"),
         email: Yup.string().email("Invalid email address"),
@@ -50,25 +61,33 @@ const FormDataUsers: React.FC<FormDataUsersProps> = ({
         submitHandler(user ? user._id : undefined, values)
       }}
     >
-      <Form className={FormDataUsersCSS.form_logIn_container}>
-        <FormLabel htmlFor="login">
-          Login
-          <Field
-            id="standard-basic"
-            label="Login"
-            // id="standard-required"
-            component={TextField}
-            className={FormDataUsersCSS.user_information__edit__label__input}
-            // id="login"
-            name="login"
-            type="text"
-          />
-        </FormLabel>
+      <Form
+        className={`${FormDataUsersCSS.form_logIn_container} ${classes.root}`}
+      >
+        {/*<FormLabel htmlFor="login">*/}
+        {/*Login*/}
+        <Field
+          name="login"
+          required
+          label="Login"
+          id="standard-basic"
+          component={TextField}
+          className={FormDataUsersCSS.form_logIn__fields_container}
+        />
+        {/*</FormLabel>*/}
         <ErrorMessage name="login" />
-        <FormLabel htmlFor="password">
-          Password
-          <Field name="password" type="text" />
-        </FormLabel>
+        {/*<FormLabel htmlFor="password">*/}
+        {/*Password*/}
+        <Field
+          name="password"
+          id="standard-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          component={TextField}
+          className={FormDataUsersCSS.form_logIn__fields_container}
+        />
+        {/*</FormLabel>*/}
         <ErrorMessage name="role" />
         {(namePage === UserFormViewModes.Edit ||
           namePage === UserFormViewModes.SingUp) && (

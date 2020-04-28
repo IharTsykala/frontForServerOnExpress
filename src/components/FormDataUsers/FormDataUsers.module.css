@@ -1,5 +1,17 @@
 .form_logIn_container {
-    display: grid;
+    display: grid !important;
     justify-content: center;
     margin-top: 10%;
+}
+
+.form_logIn__fields_container {
+    border-bottom: 2px solid #7a7a77 !important;
+}
+
+.form_logIn__fields_container:hover {
+    border-bottom: 2px solid blue !important;
+}
+
+.form_logIn__fields_container label {
+    position: relative !important;
 }
