@@ -10,7 +10,6 @@ import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
 import { getUserLogin } from "../../Redux/store/user/user.actions"
 import { Typography } from "@material-ui/core"
-import FormDataUsersCSS from "../../components/FormDataUsers/FormDataUsers.module.css"
 
 type GetLoginPageProps = {
   user: User,
@@ -29,7 +28,7 @@ const GetLoginPage: React.FC<GetLoginPageProps> = ({ dispatch, user }) => {
 
   return (
     <>
-      <Typography variant="h6" className={GetLoginPageCSS.main__log_in__header}>
+      <Typography variant="h4" className={GetLoginPageCSS.main__log_in__header}>
         Welcome Back
       </Typography>
       {!user.login && (

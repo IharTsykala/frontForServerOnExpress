@@ -1,1 +1,5 @@
-
+.main__log_in__header {
+    display: grid !important;
+    justify-content: center;
+    margin-top: 8vw !important;
+}
