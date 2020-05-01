@@ -42,7 +42,7 @@ const store = createStore(
     applyMiddleware(sagaMiddleware)
   )
 )
-
+//hjh
 sagaMiddleware.run(avatarSaga)
 sagaMiddleware.run(dialogSaga)
 sagaMiddleware.run(albumsSaga)

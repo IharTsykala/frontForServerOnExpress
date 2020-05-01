@@ -8,17 +8,17 @@ import { Pagination } from "../../../Redux/entitiesInterface/pagination.interfac
 import { setValuesForPaginationAction } from "../../../Redux/store/pagination/pagination.actions"
 
 type AmountPaginationProps = {
-  allUsers: [User]
-  pagination: Pagination
-  dispatch: any
-  getUsersAfterPaginationAndSearchAndFilter: any
+  allUsers: [User],
+  pagination: Pagination,
+  dispatch: any,
+  getUsersAfterPaginationAndSearchAndFilter: any,
 }
 
 const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
   allUsers,
   pagination,
   dispatch,
-  getUsersAfterPaginationAndSearchAndFilter
+  getUsersAfterPaginationAndSearchAndFilter,
 }) => {
   const limitRender = pagination.limitUsersForRender
   const { numberPage } = pagination
@@ -38,7 +38,7 @@ const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
     dispatch(
       setValuesForPaginationAction({
         numberPage: page || 1,
-        limitUsersForRender: +newLimitRender
+        limitUsersForRender: +newLimitRender,
       })
     )
     getUsersAfterPaginationAndSearchAndFilter(page || 1, +newLimitRender)
@@ -51,7 +51,7 @@ const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
       <InputLabel htmlFor="outlined-age-native-simple">
         Amount of Users
       </InputLabel>
-      <Select native onChange={e => handleChangeSelect(e.target.value)}>
+      <Select native onChange={(e) => handleChangeSelect(e.target.value)}>
         <option value={0}>{"all users"}</option>
         <option value={2}>2</option>
         <option value={4}>4</option>
@@ -63,7 +63,7 @@ const AmountPagination: React.FunctionComponent<AmountPaginationProps> = ({
 
 const mapStateToProps = (state: any) => ({
   allUsers: state.user.allUsers,
-  pagination: state.pagination.pagination
+  pagination: state.pagination.pagination,
 })
 
 export default connect(mapStateToProps)(AmountPagination)
