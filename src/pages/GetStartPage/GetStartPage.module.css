@@ -1,6 +1,8 @@
-main h1.main__container__start_page__header {
-  display: grid;
-  justify-content: center;
-  margin-top: 35vh;
+.main__start_page__container {
+  margin-top: 25vh;
+}
+
+.main__container__start_page__header {
+  text-align: center;
   color: rgb(65, 21, 65);
 }
