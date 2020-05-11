@@ -1,6 +1,6 @@
 .main__sign_up__header {
-  display: grid;
+  display: flex;
   justify-content: center;
-  margin-top: 15vh;
+  margin-top: 10vh!important;
   color: rgb(65, 21, 65);
 }

@@ -1,5 +1,5 @@
 .main__log_in__header {
-    display: grid !important;
+    display: flex;
     justify-content: center;
     margin-top: 8vw !important;
 }

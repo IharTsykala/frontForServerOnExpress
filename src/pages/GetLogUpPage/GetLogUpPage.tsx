@@ -1,35 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import FormDataUsers from "../../components/FormDataUsers/FormDataUsers"
 import {
   UserFormViewModes,
-  UserFormViewButtons
+  UserFormViewButtons,
 } from "../../shared/constants/user-from-view-mode.enum"
 import GetLogUpPageCSS from "./GetLogUpPage.module.css"
 import { connect } from "react-redux"
 import { User } from "../../Redux/entitiesInterface/user.interface"
-import {getUserSignUp} from "../../Redux/store/user/user.actions"
+import { getUserSignUp } from "../../Redux/store/user/user.actions"
+import { Typography } from "@material-ui/core"
 
 type GetLogUpPageProps = {
-  user: User
-  dispatch: any
+  user: User,
+  dispatch: any,
 }
 
 const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
   const history = useHistory()
 
-  useEffect(()=>{
-    if(user._id) history.push(`/user/allUsers`)
-  },[user])
+  useEffect(() => {
+    if (user._id) history.push(`/user/allUsers`)
+  }, [history, user])
 
   const logUpHandler = async (id: string, user: {}) =>
     dispatch(getUserSignUp(id, user))
 
   return (
     <>
-      <h3 className={GetLogUpPageCSS.main__sign_up__header}>
+      <Typography
+        variant="h4"
+        className={GetLogUpPageCSS.main__sign_up__header}
+      >
         Make the best decision in your life
-      </h3>
+      </Typography>
       <FormDataUsers
         submitHandler={logUpHandler}
         namePage={UserFormViewModes.SingUp}
@@ -40,7 +44,7 @@ const GetLogUpPage: React.FC<GetLogUpPageProps> = ({ user, dispatch }) => {
 }
 
 const mapStateToProps = (state: any) => ({
-  user: state.user.user
+  user: state.user.user,
 })
 
 export default connect(mapStateToProps)(GetLogUpPage)
