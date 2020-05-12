@@ -1,7 +1,7 @@
 .form_logIn_container {
     display: grid !important;
     justify-content: center;
-    margin-top: 10%;
+    margin-top: 8vw;
 }
 
 .form_logIn__fields_container {
